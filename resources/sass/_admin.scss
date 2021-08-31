@@ -1,0 +1,231 @@
+.modal.show .modal-dialog {
+    @include sp {
+        width: 70% !important;
+        margin: auto !important;
+    }
+}
+
+.success-email {
+    .card {
+        background-color: white;
+    }
+    h2 {
+        font-size: 31px;
+        @include tablet {
+            font-size: 26px;
+        }
+        @include sp {
+            font-size: 28px;
+        }
+    }
+    .btn:not(:disabled):not(.disabled) {
+        padding: 0 !important;
+    }
+    .col-md-9.col-lg-12.text-center {
+        margin: 32px auto 0px auto;
+    }
+}
+
+td,
+th {
+    text-align: center;
+}
+
+//Transaction table
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+//Transaction table
+.eye-input {
+    position: relative;
+    svg {
+        color: chartreuse;
+        width: 22px;
+        height: 22px;
+        z-index: 2;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        right: 24px;
+    }
+}
+
+.h2-successmail {
+    @include desktop-extra {
+        font-size: 28px !important;
+    }
+    @include desktop {
+        font-size: 28px !important;
+    }
+    @include sp {
+        font-size: 23px !important;
+    }
+}
+
+.forgot-password {
+    float: inherit;
+    @include sp {
+        width: max-content;
+        float: inherit;
+    }
+}
+
+.h2-success {
+    @include desktop-extra {
+        font-size: 20px !important;
+    }
+    @include desktop {
+        font-size: 21px !important;
+    }
+    @include tablet {
+        font-size: 21px !important;
+    }
+    @include sp {
+        font-size: 18px !important;
+    }
+}
+
+.text-date {
+    float: right;
+    margin-top: 7px;
+    transform: translateX(27px);
+    @include sp {
+        float: right;
+        transform: translateX(-5px);
+    }
+}
+
+.input-search input {
+    float: left;
+    @include sp {
+        float: left;
+    }
+}
+
+.input-confirm {
+    @include desktop-extra {
+        font-size: 20px !important;
+    }
+    @include desktop {
+        font-size: 21px !important;
+    }
+    @include tablet {
+        float: left;
+    }
+    @include sp {
+        font-size: 18px !important;
+    }
+}
+
+.button-nhaphang {
+    @include sp {
+        transform: translate(-2%, -26%);
+    }
+    @include tablet {
+        transform: translate(-23%, -24%);
+    }
+    @include desktop {
+        transform: translate(-87%, -25%);
+    }
+    @include desktop-extra {
+        transform: translate(-174%, -19%);
+    }
+}
+
+.text-date-warehouse {
+    @include sp {
+        transform: translate(-23%, 17%);
+    }
+    @include tablet {
+        transform: translate(-8%, 17%);
+    }
+    @include desktop {
+        transform: translate(25%, 13%);
+    }
+    @include desktop-extra {
+        transform: translate(47%, 13%);
+    }
+}
+
+#file_img_banner1 {
+    display: none;
+}
+
+.img-drop-box {
+    width: 220px;
+    height: 150px;
+    border: 1px dashed #b9b9b9;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.text-donvi {
+    font-size: 17px;
+    @include sp {
+        transform: translate(36%, -25%);
+    }
+    @include tablet {
+        transform: translate(18%, 54%);
+    }
+    @include desktop {
+        transform: translate(8%, 51%);
+    }
+    @include desktop-extra {
+        transform: translate(31%, 51%);
+    }
+}
+
+.icon-close-white {
+    background-image: url("/images/icons/close-white.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 91%;
+    background-color: black;
+    padding: 0px;
+    position: absolute;
+    top: -2px;
+    right: -8px;
+    background-size: 8px;
+}
+
+.position-relative {
+    position: relative !important;
+    &>span {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 10px;
+    }
+    .c-avatar {
+        margin-top: 2px;
+    }
+}
+
+.img-thumbnail {
+    max-height: 100%;
+    display: none;
+    width: 220px;
+}
