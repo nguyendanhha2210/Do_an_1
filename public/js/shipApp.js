@@ -80714,6 +80714,18 @@ new vue__WEBPACK_IMPORTED_MODULE_8__.default({
   components: {
     LoginComponent: _components_Ship_User_LoginComponent__WEBPACK_IMPORTED_MODULE_6__.default,
     OrderComponent: _components_Ship_Order_OrderComponent_vue__WEBPACK_IMPORTED_MODULE_7__.default
+  },
+  created: function created() {
+    this.$validator.extend("number_phone", {
+      validate: function validate(value) {
+        return /(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(value);
+      }
+    });
+    this.$validator.extend("email_format", {
+      validate: function validate(value) {
+        return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(value);
+      }
+    });
   }
 });
 })();
