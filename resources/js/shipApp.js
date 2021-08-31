@@ -26,5 +26,17 @@ new Vue({
     components: {
         LoginComponent,
         OrderComponent,
+    },
+    created() {
+        this.$validator.extend("number_phone", {
+            validate: function(value) {
+                return /(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(value);
+            }
+        });
+        this.$validator.extend("email_format", {
+            validate: function(value) {
+                return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(value);
+            }
+        });
     }
 });
