@@ -119,7 +119,7 @@
 
                                             </li>
                                             <li class="w-icon active">
-                                                <a href="{{ URL::to('/product-detail/' . $key->id) }}`"><i
+                                                <a href="{{ URL::to('/product-detail/' . $key->id) }}"><i
                                                         class="fa fa-eye"></i></a>
                                             </li>
                                         </ul>
