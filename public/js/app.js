@@ -2907,7 +2907,7 @@ __webpack_require__.r(__webpack_exports__);
             cancelButtonText: "No, cancel"
           }).then(function (result) {
             if (result.value) {
-              axios__WEBPACK_IMPORTED_MODULE_1___default().post("checkout-cart", that.shipping).then(function (response) {
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-cart", that.shipping).then(function (response) {
                 _this.type = "success", _this.title = "Saved", _this.text = "", _this.confirm = "Yes", _this.cancle = "Cancle", _this.urlConfirm = "", _this.urlCancle = "", _this.modalShow = true; //gọi modal thêm thành công ra
               })["catch"](function (error) {
                 that.flashMessage.error({

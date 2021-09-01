@@ -160,7 +160,7 @@ export default {
             .then((result) => {
               if (result.value) {
                 axios
-                  .post(`checkout-cart`, that.shipping)
+                  .post(`/sale/checkout-cart`, that.shipping)
                   .then((response) => {
                     (this.type = "success"),
                       (this.title = "Saved"),

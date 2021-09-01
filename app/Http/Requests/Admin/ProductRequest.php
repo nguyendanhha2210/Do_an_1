@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2',
-            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            // 'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'type_id' => 'required|numeric',
             'weight_id' => 'required|numeric',
@@ -40,7 +40,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => '* Tên',
-            'images' => '* Hình ảnh',
+            // 'images' => '* Hình ảnh',
             'price' => '* Giá',
             'type_id' => '* Thể loại',
             'weight_id' => '* Khối lượng',
