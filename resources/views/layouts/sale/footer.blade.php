@@ -4,27 +4,27 @@
          <div class="logo-carousel owl-carousel">
              <div class="logo-item">
                  <div class="tablecell-inner">
-                     <img src="{{ 'frontend/images/logo-1.png' }}" alt="">
+                     <img src="{{ '/frontend/images/logo-1.png' }}" alt="">
                  </div>
              </div>
              <div class="logo-item">
                  <div class="tablecell-inner">
-                     <img src="{{ 'frontend/images/logo-2.png' }}" alt="">
+                     <img src="{{ '/frontend/images/logo-2.png' }}" alt="">
                  </div>
              </div>
              <div class="logo-item">
                  <div class="tablecell-inner">
-                     <img src="{{ 'frontend/images/logo-3.png' }}" alt="">
+                     <img src="{{ '/frontend/images/logo-3.png' }}" alt="">
                  </div>
              </div>
              <div class="logo-item">
                  <div class="tablecell-inner">
-                     <img src="{{ 'frontend/images/logo-4.png' }}" alt="">
+                     <img src="{{ '/frontend/images/logo-4.png' }}" alt="">
                  </div>
              </div>
              <div class="logo-item">
                  <div class="tablecell-inner">
-                     <img src="{{ 'frontend/images/logo-5.png' }}" alt="">
+                     <img src="{{ '/frontend/images/logo-5.png' }}" alt="">
                  </div>
              </div>
          </div>

@@ -89,28 +89,28 @@ class CheckoutController extends Controller
             }
         }
 
-        if ($flag_shipping && $flag_order) {
-            $id_customer = Auth::guard('sales')->id();
-            $user = User::where('id', $id_customer)->where('role_id', RoleStateType::SALER)->first();
+        // if ($flag_shipping && $flag_order) {
+        //     $id_customer = Auth::guard('sales')->id();
+        //     $user = User::where('id', $id_customer)->where('role_id', RoleStateType::SALER)->first();
 
-            $shippingData = [
-                'name' => $request->name,
-                'email' =>  $request->email,
-                'address' => $request->address,
-                'phone' => $request->phone,
-            ];
+        //     // $shippingData = [
+        //     //     'name' => $request->name,
+        //     //     'email' =>  $request->email,
+        //     //     'address' => $request->address,
+        //     //     'phone' => $request->phone,
+        //     // ];
 
-            $order = Session::get('cart');
-            // dd($order);
-            Mail::send('admin.users.mail.sendOrder', ['shippingData' => $order], function ($message) use ($user) {
-                $message->to($user->email);
-            });
+        //     // $order = Session::get('cart');
+        //     // // dd($order);
+        //     // Mail::send('admin.users.mail.sendOrder', ['shippingData' => $order], function ($message) use ($user) {
+        //     //     $message->to($user->email);
+        //     // });
 
 
-            // Mail::send('admin.users.mail.sendOrder', ['shippingData' => $shipping->id, 'order' => $order], function ($message) use ($user) {
-            //     $message->to($user->email);
-            // });
-        }
+        //     // Mail::send('admin.users.mail.sendOrder', ['shippingData' => $shipping->id, 'order' => $order], function ($message) use ($user) {
+        //     //     $message->to($user->email);
+        //     // });
+        // }
 
         Session::forget('coupon');
         Session::forget('cart');

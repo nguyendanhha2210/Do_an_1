@@ -5,7 +5,7 @@
                 <div class="ht-left">
                     <div class="mail-service">
                         <i class=" fa fa-envelope"></i>
-                        danhha@gmail.com
+                        danhha221020@gmail.com
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
@@ -23,9 +23,9 @@
 
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                            <option value='yt' data-image="{{ 'frontend/images/flag-1.jpg' }}" data-imagecss="flag yt"
+                            <option value='yt' data-image="{{ '/frontend/images/flag-1.jpg' }}" data-imagecss="flag yt"
                                 data-title="English">English</option>
-                            <option value='yu' data-image="{{ 'frontend/images/flag-2.jpg' }}" data-imagecss="flag yu"
+                            <option value='yu' data-image="{{ '/frontend/images/flag-2.jpg' }}" data-imagecss="flag yu"
                                 data-title="Bangladesh">German </option>
                         </select>
                     </div>
@@ -43,8 +43,8 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href="{{ URL::to('/trang-chu') }}">
-                                <img style="" src="{{ 'frontend/images/logoweb.png' }}" alt="">
+                            <a href="{{ URL::to('/') }}">
+                                <img src="{{ '/frontend/images/logoweb.png' }}" alt="">
                             </a>
                         </div>
                     </div>
