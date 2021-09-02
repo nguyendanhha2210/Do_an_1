@@ -72,9 +72,9 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
 
+
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
-
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>

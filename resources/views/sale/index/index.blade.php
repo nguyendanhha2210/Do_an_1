@@ -122,6 +122,16 @@
                                                 <a href="{{ URL::to('/product-detail/' . $key->id) }}"><i
                                                         class="fa fa-eye"></i></a>
                                             </li>
+                                            <li>
+                                                <div id="fb-root"></div>
+                                                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
+                                                                                                nonce="doXpCOZe"></script>
+                                                <div class="fb-share-button"
+                                                    data-href="{{url('/product-detail/'. $key->id)}}"
+                                                    data-layout="button" data-size="small"><a target="_blank"
+                                                        href="https://www.facebook.com/sharer/sharer.php?u={{url('/product-detail/'. $key->id)}}"
+                                                        class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="pi-text">
@@ -321,9 +331,9 @@
                                     </div>
                                 </div>
                                 <a href="{{ URL::to('/blog-1') }}">
-                                    <h4>{{$key->title}}</h4>
+                                    <h4>{{ $key->title }}</h4>
                                 </a>
-                                <p>{{$key->title}}</p>
+                                <p>{{ $key->title }}</p>
                             </div>
                         </div>
                     </div>
