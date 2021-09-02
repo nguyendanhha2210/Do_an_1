@@ -9,9 +9,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Type;
+use App\Models\UserCoupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+
 
 class CartController extends Controller
 {
@@ -181,68 +184,37 @@ class CartController extends Controller
         }
     }
 
-    //Ktra mã giảm
-    // public function checkCoupon(Request $request)
-    // {
-    //     date_default_timezone_set('Asia/Ho_Chi_Minh');
-    //     $data = $request->all();
-    //     $ma_coupon = $data['coupon'];
-    //     $couponRequest = Coupon::where('code', $ma_coupon)->where('status', StatusSale::UP)->where('time','>',0)->first();
-    //     if ($couponRequest) {
-    //         if ($couponRequest->end_date > Carbon::now() && $couponRequest->start_date < Carbon::now()){
-    //             $coupon_session = Session::get('coupon');
-    //             if ($coupon_session) {
-    //                 $cou[] = array(
-    //                     'coupon_code' => $couponRequest->code,
-    //                     'coupon_condition' => $couponRequest->condition,
-    //                     'coupon_number' => $couponRequest->number,
-    //                     'coupon_time' => $couponRequest->time,
-    //                 );
-    //                 Session::put('coupon', $cou);
-    //             } else {
-    //                 $cou[] = array(
-    //                     'coupon_code' => $couponRequest->code,
-    //                     'coupon_condition' => $couponRequest->condition,
-    //                     'coupon_number' => $couponRequest->number,
-    //                     'coupon_time' => $couponRequest->time,
-    //                 );
-    //                 Session::put('coupon', $cou);
-    //             }
-    //             Session::save();
-    //             return redirect()->back()->with('message', 'Áp dụng thành công');
-    //         } else {
-    //             return redirect()->back()->with('message', 'Phiếu giảm giá đã hết hạn !');
-    //         }
-    //     } else {
-    //         return redirect()->back()->with('message', 'Áp dụng thất bại');
-    //     }
-    // }
-
     public function checkCoupon(Request $request)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $data = $request->all();
         $ma_coupon = $data['coupon'];
-        $couponRequest = Coupon::where('code', $ma_coupon)->first();
+
+        $couponRequest = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())
+            ->with(['coupon'])
+            ->whereHas('coupon', function ($query) use ($ma_coupon) {
+                $query->where('code', $ma_coupon);
+            })->first();
+
         if ($couponRequest) {
-            if ($couponRequest->end_date > Carbon::now() && $couponRequest->start_date < Carbon::now()) {
-                if ($couponRequest->time > 0) {
-                    if ($couponRequest->status ==  StatusSale::UP) {
+            if ($couponRequest->coupon->end_date > Carbon::now() && $couponRequest->coupon->start_date < Carbon::now()) {
+                if ($couponRequest->coupon_time > 0) {
+                    if ($couponRequest->coupon->status ==  StatusSale::SENT) {
                         $coupon_session = Session::get('coupon');
                         if ($coupon_session) {
                             $cou[] = array(
-                                'coupon_code' => $couponRequest->code,
-                                'coupon_condition' => $couponRequest->condition,
-                                'coupon_number' => $couponRequest->number,
-                                'coupon_time' => $couponRequest->time,
+                                'coupon_code' => $couponRequest->coupon->code,
+                                'coupon_condition' => $couponRequest->coupon->condition,
+                                'coupon_number' => $couponRequest->coupon->number,
+                                'coupon_time' => $couponRequest->coupon_time,
                             );
                             Session::put('coupon', $cou);
                         } else {
                             $cou[] = array(
-                                'coupon_code' => $couponRequest->code,
-                                'coupon_condition' => $couponRequest->condition,
-                                'coupon_number' => $couponRequest->number,
-                                'coupon_time' => $couponRequest->time,
+                                'coupon_code' => $couponRequest->coupon->code,
+                                'coupon_condition' => $couponRequest->coupon->condition,
+                                'coupon_number' => $couponRequest->coupon->number,
+                                'coupon_time' => $couponRequest->coupon_time,
                             );
                             Session::put('coupon', $cou);
                         }
@@ -252,7 +224,7 @@ class CartController extends Controller
                         return redirect()->back()->with('message', 'Mã giảm giá bị vô hiệu hóa !');
                     }
                 } else {
-                    return redirect()->back()->with('message', 'Mã giảm giá đã hết hết !');
+                    return redirect()->back()->with('message', 'Mã giảm giá đã hết !');
                 }
             } else {
                 return redirect()->back()->with('message', 'Mã giảm giá đã hết hạn !');

@@ -3118,6 +3118,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8185,6 +8193,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ["warehouse"],
   mounted: function mounted() {},
   methods: {
+    changeInput: function changeInput() {
+      this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
     importAdd: function importAdd() {
       var that = this;
       var formData = new FormData();
@@ -79181,6 +79192,12 @@ var render = function() {
                                 staticStyle: { color: "#808080" }
                               })
                             ])
+                          : data.status == 3
+                          ? _c("a", { attrs: { href: "javascript:;" } }, [
+                              _c("b", { staticStyle: { color: "blue" } }, [
+                                _vm._v("Đã Gửi")
+                              ])
+                            ])
                           : _c("a", { attrs: { href: "javascript:;" } })
                       ])
                     ]),
@@ -79251,6 +79268,8 @@ var render = function() {
                                 ]
                               )
                             ])
+                          : data.status == 3
+                          ? _c("a")
                           : _vm._e(),
                         _vm._v(" "),
                         _c(
@@ -79268,23 +79287,6 @@ var render = function() {
                                   "\n                    Edit\n                  "
                                 )
                               ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteCoupon(data.id)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  Delete\n                "
                             )
                           ]
                         )

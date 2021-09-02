@@ -49,10 +49,9 @@
 </head>
 
 <body>
-    <div class="coupon">
-
+    <div class="coupon" style="text-align: center">
         <div class="container">
-            <h3>Mã khuyến mãi dành cho khách thường từ shop <a target="_blank"
+            <h3>Mã khuyến mãi dành cho khách hàng từ <a target="_blank"
                     href="https://fresh-mama.herokuapp.com/">FreshMama.com</a>
             </h3>
         </div>
@@ -75,10 +74,9 @@
                 khách thật nhiều sức khỏe và bình an trong cuộc sống. </p>
         </div>
         <div class="container">
-            <p class="code">Sử dụng Code sau: <span class="promo">{{ $coupon['code'] }}</span>với chỉ
-                {{ $coupon['time'] }} mã
-                giảm giá,nhanh tay kẻo hết.</p>
-            <p class="expire">Ngày bắt đầu : {{ $coupon['start_date'] }} / Ngày hết hạn :
+            <p class="code">Sử dụng mã code sau : <span class="promo">{{ $coupon['code'] }}</span> .
+                Chúc bạn có trải nhiệm tuyệt vời tại cửa hàng !</p>
+            <p class="expire">Start Day : {{ $coupon['start_date'] }} | End Day :
                 {{ $coupon['end_date'] }}</p>
         </div>
     </div>

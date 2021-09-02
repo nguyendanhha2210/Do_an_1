@@ -78,6 +78,11 @@
                       style="color: #808080"
                     ></span
                   ></a>
+
+                  <a href="javascript:;" v-else-if="data.status == 3">
+                    <b style="color: blue">Đã Gửi</b></a
+                  >
+
                   <a href="javascript:;" v-else></a>
                 </span>
               </td>
@@ -111,14 +116,17 @@
                       Send Customer
                     </button></a
                   >
+
+                  <a v-else-if="data.status == 3"> </a>
+
                   <a :href="`coupon/${data.id}/edit`">
                     <button class="btn btn-warning mr-1" type="button">
                       Edit
                     </button></a
                   >
-                  <button class="btn btn-danger" @click="deleteCoupon(data.id)">
+                  <!-- <button class="btn btn-danger" @click="deleteCoupon(data.id)">
                     Delete
-                  </button>
+                  </button> -->
                 </div>
               </td>
             </tr>

@@ -12,6 +12,7 @@ use App\Models\OrderDetail;
 use App\Models\Shipping;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\UserCoupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
@@ -49,10 +50,15 @@ class CheckoutController extends Controller
             }
         }
 
-        $couponList = Coupon::where('code', '=', $order_coupon)->first();
-        if ($couponList) {
-            $couponList->time -= 1;
-            $couponList->save();
+        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())
+            ->with(['coupon'])
+            ->whereHas('coupon', function ($query) use ($order_coupon) {
+                $query->where('code', $order_coupon);
+            })->first();
+
+        if ($couponUser) {
+            $couponUser->coupon_time -= 1;
+            $couponUser->save();
         }
 
         $shipping = new Shipping();

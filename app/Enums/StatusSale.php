@@ -13,5 +13,6 @@ final class StatusSale extends Enum
 {
     const UP = 0;
     const DOWN = 1;
-    const JUSTENTERD = 2;
+    const JUSTENTERD = 2;   //Vừa nhập
+    const SENT = 3;
 }

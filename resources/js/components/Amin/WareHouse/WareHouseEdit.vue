@@ -136,6 +136,9 @@ export default {
   props: ["warehouse"],
   mounted() {},
   methods: {
+    changeInput() {
+      this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
     importAdd: function () {
       let that = this;
       let formData = new FormData();

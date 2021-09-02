@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\CouponStatus;
 use App\Enums\OrderStatus;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
@@ -11,6 +12,7 @@ use App\Http\Requests\Admin\CouponRequest;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\UserCoupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -164,6 +166,7 @@ class CouponController extends Controller
 
     public function sendCustomer($id)
     {
+        //Lấy ra các khách hàng có tổng đơn lớn nhất sắp xếp giảm dần
         $abc = Order::select('customer_id', DB::raw('SUM(total_bill) as totalMoney'))
             ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
             ->whereHas('user', function ($query) {
@@ -174,45 +177,30 @@ class CouponController extends Controller
         $coupon = Coupon::where('id', $id)->first();
         $qualityCoupon = $coupon->time;
 
+        //Xét dk để chia số vẽ có trong cửa hàng cho số người lấy ở trên
         $dataId = [];
         foreach ($abc as $key => $normal) {
             for ($i = 0; $i < $qualityCoupon; $i++) {
                 if ($i == $key) {
-                    // $data['customer_id'][] = ["customer_id"=>$normal->customer_id,"totalMoney"=>$normal->totalMoney];
                     $dataId[] = $normal->customer_id;
                 }
             }
         }
 
-        $dataMail = User::whereIn('id',$dataId)->get()->pluck('email');
+        //Thêm cho mỗi người 1 vẽ
+        foreach ($dataId as $usc) {
+            $userCoupons = new UserCoupon();
+            $userCoupons->user_id = $usc;
+            $userCoupons->coupon_id = $coupon->id;
+            $userCoupons->coupon_name = $coupon->name;
+            $userCoupons->coupon_time = 1;
+            $userCoupons->save();
+        }
 
-
-
-        // $data['email'] = $dataMail;
-
-        // $data = [];
-        // foreach ($dataMail as $normal) {
-        //     $data['email'][] = $normal;
-        // }
-
-        // dd($data);
-        // $data['email'] = $dataMail;
-        // dd($data);
-
-
-        // $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
+        $dataMail = User::whereIn('id', $dataId)->pluck('email'); //dùng pluck lấy ra mảng
         $coupon = Coupon::where('id', $id)->first();
-
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-
         $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
-
-        // $data = [];
-        // foreach ($customer as $normal) {
-        //     $data['email'][] = $normal->email;
-        // }
-
-        // dd($data['email']);
 
         $coupon = array(
             'start_date' => $coupon->start_date,
@@ -223,13 +211,16 @@ class CouponController extends Controller
             'code' => $coupon->code
         );
 
-        // dd($dataMail->toArray());
-
         if ($dataMail && $coupon) {
             Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $dataMail) {
                 $message->to($dataMail->toArray())->subject($title_mail); //send this mail with subject
                 $message->from($dataMail->toArray(), $title_mail); //send from this mail
             });
+
+            //Update trạng thái thành đã gửi
+            $couponStatus = Coupon::where('id', $id)->first();
+            $couponStatus->status = StatusSale::SENT;
+            $couponStatus->save();
 
             return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
         } else {

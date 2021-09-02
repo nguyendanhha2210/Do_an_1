@@ -33,7 +33,7 @@ class ShopController extends Controller
                 if ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
                 }
-            })->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
+            })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                 ->whereHas('weight', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
