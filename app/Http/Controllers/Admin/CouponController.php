@@ -174,42 +174,45 @@ class CouponController extends Controller
         $coupon = Coupon::where('id', $id)->first();
         $qualityCoupon = $coupon->time;
 
-        $data = [];
+        $dataId = [];
         foreach ($abc as $key => $normal) {
             for ($i = 0; $i < $qualityCoupon; $i++) {
                 if ($i == $key) {
                     // $data['customer_id'][] = ["customer_id"=>$normal->customer_id,"totalMoney"=>$normal->totalMoney];
-                    $data['customer_id'][] = $normal->customer_id;
+                    $dataId[] = $normal->customer_id;
                 }
             }
         }
 
-        dd($data['customer_id']);
+        $dataMail = User::whereIn('id',$dataId)->get()->pluck('email');
 
 
 
+        // $data['email'] = $dataMail;
 
-        // $bac = [];
-        // for ($i = 0; $i < $qualityCoupon; $i++) {
-
+        // $data = [];
+        // foreach ($dataMail as $normal) {
+        //     $data['email'][] = $normal;
         // }
 
+        // dd($data);
+        // $data['email'] = $dataMail;
+        // dd($data);
 
 
-
-        // dd($query[0]['totalMoney']);
-
-        $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
+        // $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
         $coupon = Coupon::where('id', $id)->first();
 
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
 
         $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
 
-        $data = [];
-        foreach ($customer as $normal) {
-            $data['email'][] = $normal->email;
-        }
+        // $data = [];
+        // foreach ($customer as $normal) {
+        //     $data['email'][] = $normal->email;
+        // }
+
+        // dd($data['email']);
 
         $coupon = array(
             'start_date' => $coupon->start_date,
@@ -220,10 +223,12 @@ class CouponController extends Controller
             'code' => $coupon->code
         );
 
-        if ($data && $coupon) {
-            Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
-                $message->to($data['email'])->subject($title_mail); //send this mail with subject
-                $message->from($data['email'], $title_mail); //send from this mail
+        // dd($dataMail->toArray());
+
+        if ($dataMail && $coupon) {
+            Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $dataMail) {
+                $message->to($dataMail->toArray())->subject($title_mail); //send this mail with subject
+                $message->from($dataMail->toArray(), $title_mail); //send from this mail
             });
 
             return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
