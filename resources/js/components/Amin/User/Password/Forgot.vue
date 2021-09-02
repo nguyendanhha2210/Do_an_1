@@ -23,7 +23,7 @@
             type="text"
             class="form-control rounded-right"
             name="email_address"
-            v-validate="'required|email|max:255'"
+            v-validate="'required|email_format|max:255'"
             v-model="email_address"
             @input="changeInput()"
           />
@@ -98,7 +98,7 @@ export default {
       custom: {
         email_address: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !",
+          email_format: "* Email chưa hợp lệ !",
           max: "* Email chỉ gồm 255 kí tự !",
         },
       },

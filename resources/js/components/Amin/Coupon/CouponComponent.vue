@@ -102,7 +102,7 @@
               </td>
               <td>
                 <div class="td-action">
-                  <a v-if="data.status == 0">
+                  <a v-if="data.status == 0 && data.time > 0">
                     <button
                       class="btn btn-info mr-1"
                       type="button"

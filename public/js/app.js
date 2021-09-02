@@ -2870,7 +2870,7 @@ __webpack_require__.r(__webpack_exports__);
         email: {
           required: "* Emaill chưa nhập",
           max: "* Tối đa 255 kí tự",
-          email: "* Phải thuộc kiểu email"
+          email_format: "* Phải thuộc kiểu email"
         },
         address: {
           required: "* Địa chỉ chưa nhập"
@@ -5857,7 +5857,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       custom: {
         email: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !"
+          email_format: "* Email chưa hợp lệ !"
         },
         password: {
           required: "* Mật khẩu chưa được nhập !"
@@ -6247,7 +6247,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       custom: {
         email_address: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !",
+          email_format: "* Email chưa hợp lệ !",
           max: "* Email chỉ gồm 255 kí tự !"
         }
       }
@@ -6496,6 +6496,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6507,7 +6509,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         },
         email: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !"
+          email_format: "* Email chưa hợp lệ !"
         },
         password: {
           required: "* Mật khẩu chưa được điển !",
@@ -6689,6 +6691,11 @@ new vue__WEBPACK_IMPORTED_MODULE_25__.default({
     this.$validator.extend("email_format", {
       validate: function validate(value) {
         return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(value);
+      }
+    });
+    this.$validator.extend("image_format", {
+      validate: function validate(value) {
+        return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
       }
     });
   }
@@ -99863,8 +99870,8 @@ var render = function() {
                   {
                     name: "validate",
                     rawName: "v-validate",
-                    value: "required|email|max:255",
-                    expression: "'required|email|max:255'"
+                    value: "required|email_format|max:255",
+                    expression: "'required|email_format|max:255'"
                   },
                   {
                     name: "model",
@@ -103370,8 +103377,8 @@ var render = function() {
             {
               name: "validate",
               rawName: "v-validate",
-              value: "required|email",
-              expression: "'required|email'"
+              value: "required|email_format",
+              expression: "'required|email_format'"
             },
             {
               name: "model",
@@ -104033,8 +104040,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "required|email|max:255",
-                  expression: "'required|email|max:255'"
+                  value: "required|email_format|max:255",
+                  expression: "'required|email_format|max:255'"
                 },
                 {
                   name: "model",
@@ -104242,8 +104249,8 @@ var render = function() {
             {
               name: "validate",
               rawName: "v-validate",
-              value: "required|email",
-              expression: "'required|email'"
+              value: "required|email_format",
+              expression: "'required|email_format'"
             },
             {
               name: "model",

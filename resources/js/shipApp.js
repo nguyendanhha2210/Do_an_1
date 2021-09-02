@@ -38,5 +38,10 @@ new Vue({
                 return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(value);
             }
         });
+        this.$validator.extend("image_format", {
+            validate: function(value) {
+                return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
+            }
+        });
     }
 });

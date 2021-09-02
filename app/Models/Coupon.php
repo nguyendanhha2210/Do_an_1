@@ -12,4 +12,14 @@ class Coupon extends Model
     protected $fillable = [
         'id', 'name', 'time', 'condition', 'status', 'number', 'code', 'start_date', 'end_date'
     ];
+
+    public function userCoupons()
+    {
+        return $this->hasMany('App\Models\UserCoupon', 'coupon_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_coupons', 'user_id', 'coupon_id');
+    }
 }

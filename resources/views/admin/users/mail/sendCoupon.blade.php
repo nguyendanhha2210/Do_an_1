@@ -78,7 +78,7 @@
             <p class="code">Sử dụng Code sau: <span class="promo">{{ $coupon['code'] }}</span>với chỉ
                 {{ $coupon['time'] }} mã
                 giảm giá,nhanh tay kẻo hết.</p>
-            <p class="expire">Ngày bắt đầu : {{ $coupon['start_date'] }} / Ngày hết hạn code:
+            <p class="expire">Ngày bắt đầu : {{ $coupon['start_date'] }} / Ngày hết hạn :
                 {{ $coupon['end_date'] }}</p>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="color:white">Sign In Ship</h2>
+    <h2 style="color: white">Sign In Ship</h2>
     <form
       method="POST"
       ref="loginForm"
@@ -92,8 +92,8 @@
   display: block;
 }
 .is-danger {
-    color: red;
-    font-size: 17px;
+  color: red;
+  font-size: 17px;
 }
 </style>
 
@@ -126,13 +126,7 @@ export default {
       },
     };
   },
-  props: [
-    "formUrl",
-    "forgotPasswordUrl",
-    "message",
-    "oldEmail",
-    "oldPassword",
-  ],
+  props: ["formUrl", "forgotPasswordUrl", "message", "oldEmail", "oldPassword"],
   methods: {
     hidePassword() {
       this.passwordHidden = true;

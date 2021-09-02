@@ -19,7 +19,7 @@
         class="ggg"
         placeholder="Email address"
         name="email"
-        v-validate="'required|email'"
+        v-validate="'required|email_format'"
         v-model="loginIdValue"
         @input="changeInput()"
       />
@@ -105,7 +105,7 @@ export default {
       custom: {
         email: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !",
+          email_format: "* Email chưa hợp lệ !",
         },
         password: {
           required: "* Mật khẩu chưa được nhập !",

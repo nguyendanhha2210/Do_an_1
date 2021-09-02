@@ -1,11 +1,13 @@
 <template>
   <div>
     <h2>Register Now</h2>
-    <form method="POST"
+    <form
+      method="POST"
       ref="registerForm"
       :action="formUrl"
       @submit.prevent="register"
-      autocomplete="off">
+      autocomplete="off"
+    >
       <input type="hidden" :value="csrfToken" name="_token" />
       <input
         type="text"
@@ -25,7 +27,7 @@
         class="ggg"
         placeholder="E-MAIL"
         name="email"
-        v-validate="'required|email'"
+        v-validate="'required|email_format'"
         v-model="user.email"
         @input="changeInput()"
       />
@@ -168,7 +170,7 @@ export default {
         },
         email: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !",
+          email_format: "* Email chưa hợp lệ !",
         },
         password: {
           required: "* Mật khẩu chưa được điển !",
@@ -185,7 +187,7 @@ export default {
   },
   data() {
     return {
-     csrfToken: Laravel.csrfToken,
+      csrfToken: Laravel.csrfToken,
       user: {
         name: "",
         email: "",
@@ -207,7 +209,7 @@ export default {
       },
     };
   },
-  props: ["formLogin","formUrl"],
+  props: ["formLogin", "formUrl"],
   methods: {
     hidePassword() {
       this.passwordHidden = true;

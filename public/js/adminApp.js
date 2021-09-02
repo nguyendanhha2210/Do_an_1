@@ -4723,7 +4723,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           required: "* Mô tả chưa nhập"
         },
         images: {
-          required: "* Ảnh chưa nhập"
+          required: "* Ảnh chưa nhập",
+          image_format: "* Ảnh chưa đúng định dạng"
         },
         content: {
           required: "* Nội dung chưa nhập"
@@ -5479,7 +5480,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           required: "* Tên chưa nhập"
         },
         images: {
-          required: "* Ảnh chưa chọn"
+          required: "* Ảnh chưa chọn",
+          image_format: "* Ảnh chưa đúng định dạng"
         },
         price: {
           required: "* Giá chưa nhập"
@@ -6936,7 +6938,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       custom: {
         email: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !"
+          email_format: "* Email chưa hợp lệ !"
         },
         password: {
           required: "* Mật khẩu chưa được nhập !"
@@ -7326,7 +7328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       custom: {
         email_address: {
           required: "* Email chưa nhập !",
-          email: "* Email chưa hợp lệ !",
+          email_format: "* Email chưa hợp lệ !",
           max: "* Email chỉ gồm 255 kí tự !"
         }
       }
@@ -79229,7 +79231,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _c("div", { staticClass: "td-action" }, [
-                        data.status == 0
+                        data.status == 0 && data.time > 0
                           ? _c("a", [
                               _c(
                                 "button",
@@ -81192,8 +81194,8 @@ var render = function() {
                                       {
                                         name: "validate",
                                         rawName: "v-validate",
-                                        value: "required",
-                                        expression: "'required'"
+                                        value: "required|image_format",
+                                        expression: "'required|image_format'"
                                       }
                                     ],
                                     ref: "image",
@@ -81861,8 +81863,8 @@ var render = function() {
                                       {
                                         name: "validate",
                                         rawName: "v-validate",
-                                        value: "required",
-                                        expression: "'required'"
+                                        value: "required|image_format",
+                                        expression: "'required|image_format'"
                                       }
                                     ],
                                     ref: "image",
@@ -83824,8 +83826,8 @@ var render = function() {
             {
               name: "validate",
               rawName: "v-validate",
-              value: "required|email",
-              expression: "'required|email'"
+              value: "required|email_format",
+              expression: "'required|email_format'"
             },
             {
               name: "model",
@@ -84480,8 +84482,8 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: "required|email|max:255",
-                  expression: "'required|email|max:255'"
+                  value: "required|email_format|max:255",
+                  expression: "'required|email_format|max:255'"
                 },
                 {
                   name: "model",

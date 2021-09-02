@@ -106,7 +106,7 @@
                       <input
                         type="file"
                         id="file_img_banner1"
-                        v-validate="'required'"
+                        v-validate="'required|image_format'"
                         name="images"
                         ref="image"
                         v-on:change="attachImage"
@@ -448,6 +448,7 @@ export default {
         },
         images: {
           required: "* Ảnh chưa chọn",
+          image_format: "* Ảnh chưa đúng định dạng",
         },
         price: {
           required: "* Giá chưa nhập",

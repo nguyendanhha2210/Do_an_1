@@ -32,14 +32,17 @@ class PasswordController extends Controller
 
             $user = User::where('email', $request->email_address)->where('role_id', RoleStateType::MANAGERMENT)->first();
 
+            $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+            $title_mail = "Fressh Mama xác minh đăng nhập" . ' ' . $now;
+
             if ($user) {
                 $user->reset_password_token = $token;
                 $user->reset_password_token_expire =  $time;
                 $flag = $user->save();
 
                 if ($flag) {
-                    Mail::send('admin.users.mail.resetPassword', ['token' => $token, 'email' => $request->email_address], function ($message) use ($request) {
-                        $message->to($request->email_address);
+                    Mail::send('admin.users.mail.resetPassword', ['token' => $token, 'email' => $request->email_address], function ($message) use ($title_mail, $request) {
+                        $message->to($request->email_address)->subject($title_mail);
                     });
                     return redirect('admin/forgot-password-complete');
                 }

@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Order','customer_id','id');
     }
+
+    public function userCoupons()
+    {
+        return $this->hasMany('App\Models\UserCoupon', 'user_id', 'id');
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany('App\Models\Coupon', 'user_coupons', 'user_id', 'coupon_id');
+    }
 }

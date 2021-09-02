@@ -24,7 +24,7 @@
             type="text"
             name="email"
             placeholder="Email người nhận ..."
-            v-validate="'required|email|max:255'"
+            v-validate="'required|email_format|max:255'"
             @input="changeInput()"
             v-model="shipping.email"
           />
@@ -120,14 +120,14 @@ export default {
         email: {
           required: "* Emaill chưa nhập",
           max: "* Tối đa 255 kí tự",
-          email: "* Phải thuộc kiểu email",
+          email_format: "* Phải thuộc kiểu email",
         },
         address: {
           required: "* Địa chỉ chưa nhập",
         },
         phone: {
           required: "* Điện thoại chưa nhập",
-          number_phone:"* Điện thoại chưa hợp lệ",
+          number_phone: "* Điện thoại chưa hợp lệ",
         },
       },
     };

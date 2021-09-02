@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\OrderStatus;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CouponRequest;
 use App\Models\Coupon;
+use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
@@ -158,4 +161,58 @@ class CouponController extends Controller
             return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
         }
     }
+
+    // public function sendCustomer($id)
+    // {
+    //     // $query = Order::select(DB::raw('SUM(total_bill) as totalMoney'))->where('order_status', '=', OrderStatus::SUCCESS)->get();
+    //     $query = Order::where('order_status', '=', OrderStatus::SUCCESS)->get();
+    //     $coupon = Coupon::where('id', $id)->first();
+    //     $qualityCoupon = $coupon->time;
+
+    //     $data = [];
+    //     for ($i = 0; $i < $qualityCoupon; $i++) {
+    //         foreach ($query as $normal) {
+    //         dd($normal);
+    //     }
+    //     }
+
+    //     foreach ($query as $normal) {
+    //         dd($normal);
+    //     }
+
+
+    //     // dd($query[0]['totalMoney']);
+
+    //     $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
+    //     $coupon = Coupon::where('id', $id)->first();
+
+    //     $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+
+    //     $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
+
+    //     $data = [];
+    //     foreach ($customer as $normal) {
+    //         $data['email'][] = $normal->email;
+    //     }
+
+    //     $coupon = array(
+    //         'start_date' => $coupon->start_date,
+    //         'end_date' => $coupon->end_date,
+    //         'time' => $coupon->time,
+    //         'condition' => $coupon->condition,
+    //         'number' => $coupon->number,
+    //         'code' => $coupon->code
+    //     );
+
+    //     if ($data && $coupon) {
+    //         Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
+    //             $message->to($data['email'])->subject($title_mail); //send this mail with subject
+    //             $message->from($data['email'], $title_mail); //send from this mail
+    //         });
+
+    //         return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
+    //     } else {
+    //         return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
+    //     }
+    // }
 }
