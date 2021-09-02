@@ -11,14 +11,13 @@
                         <i class=" fa fa-phone"></i>
                         +65 11.188.888
                     </div>
-                    <div class="phone-service">
+                    <div class="share-service">
                         <div id="fb-root"></div>
-                        <div class="fb-share-button" data-href="https://fresh-mama.herokuapp.com/product-detail/10"
+                        <div class="fb-share-button" data-href="https://fresh-mama.herokuapp.com/"
                             data-layout="button" data-size="small"><a target="_blank"
-                                href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/product-detail/10"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/"
                                 class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                     </div>
-                    <div id="fb-root"></div>
 
                 </div>
                 <div class="ht-right">

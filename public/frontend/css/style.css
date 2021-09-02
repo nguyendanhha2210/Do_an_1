@@ -362,7 +362,20 @@ ol {
     padding-right: 20px;
 }
 
+.header-top .ht-left .share-service {
+    font-size: 16px;
+    color: #252525;
+    float: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 17px;
+}
+
 .header-top .ht-left .mail-service i {
+    margin-right: 5px;
+}
+
+.header-top .ht-left .share-service i {
     margin-right: 5px;
 }
 
@@ -4043,6 +4056,9 @@ ol {
         padding-right: 10px;
     }
     .header-top .ht-left .mail-service {
+        padding-right: 10px;
+    }
+    .header-top .ht-left .share-service {
         padding-right: 10px;
     }
     .header-top .ht-left .phone-service {
