@@ -19,7 +19,7 @@
         class="ggg"
         placeholder="Email address"
         name="email"
-      v-validate="'required|email_format'"
+        v-validate="'required|email_format'"
         v-model="loginIdValue"
         @input="changeInput()"
       />
