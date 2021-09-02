@@ -11,6 +11,15 @@
                         <i class=" fa fa-phone"></i>
                         +65 11.188.888
                     </div>
+                    <div class="phone-service">
+                        <div id="fb-root"></div>
+                        <div class="fb-share-button" data-href="https://fresh-mama.herokuapp.com/product-detail/10"
+                            data-layout="button" data-size="small"><a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/product-detail/10"
+                                class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                    </div>
+                    <div id="fb-root"></div>
+
                 </div>
                 <div class="ht-right">
                     @if (Auth::guard('sales')->id())
@@ -23,10 +32,10 @@
 
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                            <option value='yt' data-image="{{ '/frontend/images/flag-1.jpg' }}" data-imagecss="flag yt"
-                                data-title="English">English</option>
-                            <option value='yu' data-image="{{ '/frontend/images/flag-2.jpg' }}" data-imagecss="flag yu"
-                                data-title="Bangladesh">German </option>
+                            <option value='yt' data-image="{{ '/frontend/images/flag-1.jpg' }}"
+                                data-imagecss="flag yt" data-title="English">English</option>
+                            <option value='yu' data-image="{{ '/frontend/images/flag-2.jpg' }}"
+                                data-imagecss="flag yu" data-title="Bangladesh">German </option>
                         </select>
                     </div>
                     <div class="top-social">
@@ -54,7 +63,7 @@
                             <div class="input-group">
                                 <input type="text" placeholder="What do you need?">
                                 <button type="button"><i class="ti-search"></i></button>
-                                
+
                                 {{-- <div class="col-sm-5">
                                     <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
                                         {{csrf_field()}}

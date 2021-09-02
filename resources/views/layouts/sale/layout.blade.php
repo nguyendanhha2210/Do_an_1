@@ -65,9 +65,11 @@
     <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" nonce="giodsXR5"></script>
+
 
     <!-- Messenger Plugin chat Code -->
-    <div id="fb-root"></div>
+    {{-- <div id="fb-root"></div>
 
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
@@ -93,7 +95,7 @@
             js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> --}}
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -164,6 +166,7 @@
             $('#search_ajax').fadeOut();
         });
     </script> --}}
+    
 </body>
 
 </html>

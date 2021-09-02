@@ -22,9 +22,13 @@ import DescriptionProduct from './components/Sale/Shop/choose-product/Descriptio
 import WeightProduct from './components/Sale/Shop/choose-product/WeightProduct.vue'
 import CheckoutCart from './components/Sale/Shop/checkout-cart/CheckoutCart.vue'
 import ManagerOrder from './components/Sale/Shop/order/ManageOrder.vue'
+
 import PostComponent from './components/Sale/Post/PostComponent.vue'
 import PostDetail from './components/Sale/Post/PostDetail.vue'
+import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
+
+
 
 Vue.component('paginate', Paginate)
 Vue.use(VueCardCarousel)
@@ -58,6 +62,7 @@ new Vue({
         ManagerOrder,
         PostComponent,
         PostDetail,
+        ContactComponent,
         ProfileComponent,
     },
     created() {
