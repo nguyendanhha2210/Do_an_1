@@ -17,13 +17,30 @@ use Illuminate\Support\Facades\Hash;
 
 class CouponController extends Controller
 {
+    public function updateCouponStatus(Request $request, $id)
+    {
+        try {
+            $query = Coupon::findOrFail($id);
+            if ($request->status == StatusSale::DOWN) {
+                $query->status = StatusSale::UP;
+            } else {
+                $query->status = StatusSale::DOWN;
+            }
+            $query->save();
+            return response()->json($query, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
     public function index(Request $request)
     {
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         } else {
+            $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
             $breadcrumbs = ['Coupon List'];
-            return view('admin.coupons.index', ['breadcrumbs' => $breadcrumbs]);
+            return view('admin.coupons.index', ['breadcrumbs' => $breadcrumbs, 'today' => $today]);
         }
     }
 
@@ -41,7 +58,7 @@ class CouponController extends Controller
                 }
             })->orderBy('created_at', 'desc')->paginate($paginate);
 
-            return response()->json($coupons, StatusCode::OK);
+            return response()->json(["coupons" => $coupons], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
@@ -108,32 +125,6 @@ class CouponController extends Controller
 
     public function sendCustomer($id)
     {
-        // $message = '';
-        // $token = bin2hex(random_bytes(64));
-        // $time = Carbon::now()->addDays(LimitTimeForgot::TIMEFORGOT);
-
-        // $user = User::where('email', $request->email_address)->where('role_id', RoleStateType::MANAGERMENT)->first();
-
-        // if ($user) {
-        //     $user->reset_password_token = $token;
-        //     $user->reset_password_token_expire =  $time;
-        //     $flag = $user->save();
-
-        //     if ($flag) {
-        //         Mail::send('admin.users.mail.resetPassword', ['token' => $token, 'email' => $request->email_address], function ($message) use ($request) {
-        //             $message->to($request->email_address);
-        //         });
-        //         return redirect('admin/forgot-password-complete');
-        //     }
-        // } else {
-        //     $message = 'Email does not exist.';
-        // }
-
-        // return view('admin.users.password.forgot', [
-        //     'message' => $message,
-        //     'old_email' => $request->email_address
-        // ]);
-
         $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
 
         $coupon = Coupon::where('id', $id)->first();

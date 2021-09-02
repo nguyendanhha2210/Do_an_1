@@ -23,11 +23,15 @@
           <thead>
             <tr>
               <th>STT</th>
-              <th>name</th>
-              <th>time</th>
-              <th>condition</th>
-              <th>number</th>
-              <th>code</th>
+              <th>Name</th>
+              <th>Quality</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Decrease</th>
+              <th>Code</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Limit</th>
               <th style="width: 20%">Action</th>
             </tr>
           </thead>
@@ -37,11 +41,47 @@
               <td>
                 {{ data.name }}
               </td>
-              <td>
+              <td v-if="data.time > 0">
                 {{ data.time }}
+              </td>
+              <td v-else>
+                <b style="color: red">Hết !</b>
               </td>
               <td v-if="data.condition == 1">Giảm %</td>
               <td v-else>Giảm $</td>
+
+              <td>
+                <span class="text-ellipsis">
+                  <a
+                    href="javascript:;"
+                    v-if="
+                      data.status == 0 &&
+                      data.end_date > todayDate &&
+                      data.time > 0
+                    "
+                    @click="activeStatus(data)"
+                    ><span class="fa-thumb-styling fa fa-thumbs-up"></span
+                  ></a>
+                  <a
+                    href="javascript:;"
+                    v-else-if="
+                      data.status == 1 &&
+                      data.end_date > todayDate &&
+                      data.time > 0
+                    "
+                    @click="activeStatus(data)"
+                    ><span class="fa-thumb-styling fa fa-thumbs-down"></span
+                  ></a>
+                  <a href="javascript:;" v-else-if="data.time < 1"
+                    ><span
+                      class="fa fa-thumbs-down"
+                      style="color: #808080"
+                    ></span
+                  ></a>
+                  <a href="javascript:;" v-else></a>
+                </span>
+              </td>
+
               <td>
                 {{ data.number }}
               </td>
@@ -49,9 +89,25 @@
                 {{ data.code }}
               </td>
               <td>
+                {{ data.start_date }}
+              </td>
+              <td>
+                {{ data.end_date }}
+              </td>
+              <td v-if="data.end_date < todayDate">
+                <b style="color: red">Hết Hạn</b>
+              </td>
+              <td v-else>
+                <b style="color: green">Còn Hạn</b>
+              </td>
+              <td>
                 <div class="td-action">
-                  <a :href="`coupon/${data.id}/send-customer`">
-                    <button class="btn btn-info mr-1" type="button">
+                  <a v-if="data.status == 0">
+                    <button
+                      class="btn btn-info mr-1"
+                      type="button"
+                      @click="sendCustomer(data.id)"
+                    >
                       Send Customer
                     </button></a
                   >
@@ -133,6 +189,7 @@ export default {
         number: "",
         code: "",
       },
+      todayDate: this.today,
       errorBackEnd: {}, //Lỗi bên backend laravel
       page: 1,
       paginate: 5,
@@ -161,13 +218,74 @@ export default {
       this.fetchData();
     },
   },
-  props: ["formAdd"],
+  props: ["formAdd", "today"],
   mounted() {},
   components: {
     Modal,
     Loader,
   },
   methods: {
+    sendCustomer(id) {
+      let that = this;
+      this.$swal({
+        title: "Do you want to send ？",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .get(`coupon/${id}/send-customer`)
+            .then((response) => {
+              this.$swal({
+                title: "Send Successfully!",
+                icon: "success",
+                confirmButtonText: "OK!",
+              }).then(function (confirm) {});
+              that.fetchData();
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Send Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
+    },
+
+    activeStatus(data) {
+      let that = this;
+      let formData = new FormData();
+      formData.append("status", data.status);
+      // formData.append("_method", "put");
+      axios
+        .post(`update-coupon-status/${data.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          this.$swal({
+            title: "Update Status successfully!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(function (confirm) {
+            that.fetchData();
+          });
+        })
+        .catch((err) => {
+          that.flashMessage.error({
+            message: "Update Status Failure!",
+            icon: "/backend/icon/error.svg",
+            blockClass: "text-centet",
+          });
+        });
+    },
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
@@ -181,7 +299,7 @@ export default {
             that.search
         )
         .then(function (response) {
-          that.coupons = response.data; //show data ra
+          that.coupons = response.data.coupons; //show data ra
           that.flagShowLoader = false;
         })
         .catch((err) => {

@@ -49,12 +49,15 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     //Coupon //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/coupon', [App\Http\Controllers\Admin\CouponController::class, 'index'])->name('admin.coupon.list'); //gọi form list
     Route::get('/get-coupon', [App\Http\Controllers\Admin\CouponController::class, 'getData'])->name('admin.coupon.getData'); //trả dữ liệu ra form list
+    Route::post('/update-coupon-status/{id}', [App\Http\Controllers\Admin\CouponController::class, 'updateCouponStatus'])->name('admin.product.updateCouponStatus');
     Route::get('/coupon/add',  [App\Http\Controllers\Admin\CouponController::class, 'create'])->name('admin.coupon.create'); //thêm
     Route::post('/coupon/coupon-add',  [App\Http\Controllers\Admin\CouponController::class, 'store'])->name('admin.coupon.store'); //thêm
     Route::get('/coupon/{id}/edit', [App\Http\Controllers\Admin\CouponController::class, 'edit'])->name('admin.coupon.edit'); //gọi trang edit
     Route::post('/coupon/{id}/coupon-update', [App\Http\Controllers\Admin\CouponController::class, 'update'])->name('admin.coupon.update'); //trả dữ liệu ra form list
     Route::get('/coupon/{id}/delete', [App\Http\Controllers\Admin\CouponController::class, 'destroy'])->name('admin.coupon.delete'); //Xóa
     Route::get('/coupon/{id}/send-customer', [App\Http\Controllers\Admin\CouponController::class, 'sendCustomer'])->name('admin.coupon.sendCustomer'); //gửi mã cho khách hàng
+
+
 
     //Weight //view kiểu datatable //edit gọi ra trang thứ 2  //add trang thứ 2
     Route::get('/weight', [App\Http\Controllers\Admin\WeightController::class, 'index'])->name('admin.weight.list'); //gọi form list

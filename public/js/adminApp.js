@@ -3062,6 +3062,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3077,6 +3133,7 @@ __webpack_require__.r(__webpack_exports__);
         number: "",
         code: ""
       },
+      todayDate: this.today,
       errorBackEnd: {},
       //Lỗi bên backend laravel
       page: 1,
@@ -3106,18 +3163,77 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     }
   },
-  props: ["formAdd"],
+  props: ["formAdd", "today"],
   mounted: function mounted() {},
   components: {
     Modal: _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     Loader: _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   methods: {
+    sendCustomer: function sendCustomer(id) {
+      var _this = this;
+
+      var that = this;
+      this.$swal({
+        title: "Do you want to send ？",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!"
+      }).then(function (result) {
+        if (result.value) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default().get("coupon/".concat(id, "/send-customer")).then(function (response) {
+            _this.$swal({
+              title: "Send Successfully!",
+              icon: "success",
+              confirmButtonText: "OK!"
+            }).then(function (confirm) {});
+
+            that.fetchData();
+          })["catch"](function (error) {
+            that.flashMessage.error({
+              message: "Send Failure!",
+              icon: "/backend/icon/error.svg",
+              blockClass: "text-centet"
+            });
+          });
+        }
+      });
+    },
+    activeStatus: function activeStatus(data) {
+      var _this2 = this;
+
+      var that = this;
+      var formData = new FormData();
+      formData.append("status", data.status); // formData.append("_method", "put");
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("update-coupon-status/".concat(data.id), formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(function (res) {
+        _this2.$swal({
+          title: "Update Status successfully!",
+          icon: "success",
+          confirmButtonText: "OK"
+        }).then(function (confirm) {
+          that.fetchData();
+        });
+      })["catch"](function (err) {
+        that.flashMessage.error({
+          message: "Update Status Failure!",
+          icon: "/backend/icon/error.svg",
+          blockClass: "text-centet"
+        });
+      });
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-coupon?page=" + that.page + "&paginate=" + that.paginate + "&search=" + that.search).then(function (response) {
-        that.coupons = response.data; //show data ra
+        that.coupons = response.data.coupons; //show data ra
 
         that.flagShowLoader = false;
       })["catch"](function (err) {
@@ -3152,7 +3268,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     deleteCoupon: function deleteCoupon(id) {
-      var _this = this;
+      var _this3 = this;
 
       var that = this;
       this.$swal({
@@ -3166,7 +3282,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios__WEBPACK_IMPORTED_MODULE_2___default().get("coupon/".concat(id, "/delete")).then(function (response) {
-            _this.$swal({
+            _this3.$swal({
               title: "Delete successfully!",
               icon: "success",
               confirmButtonText: "OK!"
@@ -3407,6 +3523,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editCoupon: function editCoupon() {
+      console.log(this.nameStartDate);
       var that = this;
       var formData = new FormData();
       formData.append("name", this.nameName);
@@ -78995,17 +79112,76 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(data.time) +
-                          "\n            "
-                      )
-                    ]),
+                    data.time > 0
+                      ? _c("td", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(data.time) +
+                              "\n            "
+                          )
+                        ])
+                      : _c("td", [
+                          _c("b", { staticStyle: { color: "red" } }, [
+                            _vm._v("Hết !")
+                          ])
+                        ]),
                     _vm._v(" "),
                     data.condition == 1
                       ? _c("td", [_vm._v("Giảm %")])
                       : _c("td", [_vm._v("Giảm $")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "text-ellipsis" }, [
+                        data.status == 0 &&
+                        data.end_date > _vm.todayDate &&
+                        data.time > 0
+                          ? _c(
+                              "a",
+                              {
+                                attrs: { href: "javascript:;" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.activeStatus(data)
+                                  }
+                                }
+                              },
+                              [
+                                _c("span", {
+                                  staticClass:
+                                    "fa-thumb-styling fa fa-thumbs-up"
+                                })
+                              ]
+                            )
+                          : data.status == 1 &&
+                            data.end_date > _vm.todayDate &&
+                            data.time > 0
+                          ? _c(
+                              "a",
+                              {
+                                attrs: { href: "javascript:;" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.activeStatus(data)
+                                  }
+                                }
+                              },
+                              [
+                                _c("span", {
+                                  staticClass:
+                                    "fa-thumb-styling fa fa-thumbs-down"
+                                })
+                              ]
+                            )
+                          : data.time < 1
+                          ? _c("a", { attrs: { href: "javascript:;" } }, [
+                              _c("span", {
+                                staticClass: "fa fa-thumbs-down",
+                                staticStyle: { color: "#808080" }
+                              })
+                            ])
+                          : _c("a", { attrs: { href: "javascript:;" } })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
@@ -79024,29 +79200,56 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(data.start_date) +
+                          "\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(data.end_date) +
+                          "\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    data.end_date < _vm.todayDate
+                      ? _c("td", [
+                          _c("b", { staticStyle: { color: "red" } }, [
+                            _vm._v("Hết Hạn")
+                          ])
+                        ])
+                      : _c("td", [
+                          _c("b", { staticStyle: { color: "green" } }, [
+                            _vm._v("Còn Hạn")
+                          ])
+                        ]),
+                    _vm._v(" "),
+                    _c("td", [
                       _c("div", { staticClass: "td-action" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "coupon/" + data.id + "/send-customer"
-                            }
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-info mr-1",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    Send Customer\n                  "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
+                        data.status == 0
+                          ? _c("a", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info mr-1",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sendCustomer(data.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Send Customer\n                  "
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "a",
@@ -79158,15 +79361,23 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("STT")]),
         _vm._v(" "),
-        _c("th", [_vm._v("name")]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("time")]),
+        _c("th", [_vm._v("Quality")]),
         _vm._v(" "),
-        _c("th", [_vm._v("condition")]),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
-        _c("th", [_vm._v("number")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("code")]),
+        _c("th", [_vm._v("Decrease")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Code")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Start Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("End Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Limit")]),
         _vm._v(" "),
         _c("th", { staticStyle: { width: "20%" } }, [_vm._v("Action")])
       ])

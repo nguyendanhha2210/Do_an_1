@@ -201,6 +201,7 @@ export default {
   },
   methods: {
     editCoupon: function () {
+      console.log(this.nameStartDate);
       let that = this;
       let formData = new FormData();
       formData.append("name", this.nameName);

@@ -49,7 +49,6 @@
 </head>
 
 <body>
-
     <div class="coupon">
 
         <div class="container">
@@ -61,7 +60,7 @@
 
             <h2 class="note"><b><i>
                         @if ($coupon['condition'] == 1)
-                            Giảm {{ $coupon['coupon_number'] }}%
+                            Giảm {{ $coupon['number'] }}%
                         @else
                             Giảm {{ number_format($coupon['number'], 0, ',', '.') }}vnđ
                         @endif
@@ -82,9 +81,7 @@
             <p class="expire">Ngày bắt đầu : {{ $coupon['start_date'] }} / Ngày hết hạn code:
                 {{ $coupon['end_date'] }}</p>
         </div>
-
     </div>
-
 </body>
 
 </html>

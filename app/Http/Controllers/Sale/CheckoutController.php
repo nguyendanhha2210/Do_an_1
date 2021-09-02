@@ -49,11 +49,11 @@ class CheckoutController extends Controller
             }
         }
 
-        // $couponList = Coupon::where('code','=',$order_coupon)->get();
-        // if($couponList) {
-        //     $couponList->time = $couponList->order_time - 1;
-        //     $couponList->save();
-        // }       
+        $couponList = Coupon::where('code', '=', $order_coupon)->first();
+        if ($couponList) {
+            $couponList->time -= 1;
+            $couponList->save();
+        }
 
         $shipping = new Shipping();
         $shipping->name = $request->name;
