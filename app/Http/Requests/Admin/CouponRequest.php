@@ -30,7 +30,9 @@ class CouponRequest extends FormRequest
             'time' => 'required',
             'condition' => 'required',
             'number' => 'required',
-            'code' => 'required'
+            'code' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ];
     }
 
@@ -39,9 +41,11 @@ class CouponRequest extends FormRequest
         return [
             'name' => '* Tên mã giảm',
             'time' => '* Thời gian giảm',
-            'condition' => '*Điều kiện giảm',
-            'number' => '*Số giảm',
-            'code' => '*Mã giảm'
+            'condition' => '* Điều kiện giảm',
+            'number' => '* Số giảm',
+            'code' => '* Mã giảm',
+            'start_date' => '* Ngày bắt đầu',
+            'end_date' => '* Ngày kết thúc',
         ];
     }
 

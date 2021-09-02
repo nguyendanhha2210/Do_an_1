@@ -18,7 +18,6 @@
         </div>
       </div>
 
-
       <div class="table-responsive">
         <table class="table table-striped b-t b-light text-center">
           <thead>
@@ -41,9 +40,8 @@
               <td>
                 {{ data.time }}
               </td>
-              <td>
-                {{ data.condition }}
-              </td>
+              <td v-if="data.condition == 1">Giảm %</td>
+              <td v-else>Giảm $</td>
               <td>
                 {{ data.number }}
               </td>
@@ -52,6 +50,11 @@
               </td>
               <td>
                 <div class="td-action">
+                  <a :href="`coupon/${data.id}/send-customer`">
+                    <button class="btn btn-info mr-1" type="button">
+                      Send Customer
+                    </button></a
+                  >
                   <a :href="`coupon/${data.id}/edit`">
                     <button class="btn btn-warning mr-1" type="button">
                       Edit

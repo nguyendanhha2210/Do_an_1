@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateCouponsTable extends Migration
-{
-    /**
+{/**
      * Run the migrations.
      *
      * @return void
@@ -18,8 +17,11 @@ class CreateCouponsTable extends Migration
             $table->string('name');
             $table->integer('time');
             $table->integer('condition');
+            $table->integer('status');
             $table->integer('number');
             $table->string('code');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
             $table->softDeletes();
         });

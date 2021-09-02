@@ -34,7 +34,6 @@ import ProductImage from './components/Amin/Product/ProductImage.vue'
 import CategoryPostAdd from './components/Amin/CategoryPost/CategoryAdd.vue'
 import CategoryPostComponent from './components/Amin/CategoryPost/CategoryComponent.vue'
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
-
 import PostComponent from './components/Amin/Post/PostComponent.vue'
 
 import CommentComponent from './components/Amin/Comment/CommentComponent.vue'
@@ -90,6 +89,11 @@ new Vue({
         this.$validator.extend("email_format", {
             validate: function(value) {
                 return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(value);
+            }
+        });
+        this.$validator.extend("image_format", {
+            validate: function(value) {
+                return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
             }
         });
     }

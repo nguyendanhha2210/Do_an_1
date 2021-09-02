@@ -41,13 +41,17 @@
                 </div>
                 <label for="exampleInputEmail1">New Condition</label>
 
-                <input
-                  type="text"
+                <select
+                  v-model="nameCondition"
+                  @input="changeInput()"
                   name="nameCondition"
                   class="form-control"
-                  v-validate="'required'"
-                  v-model="nameCondition"
-                />
+                >
+                  <option value="">Select Coupon Condition</option>
+                  <option value="1">Giảm %</option>
+                  <option value="2">Giảm $</option>
+                </select>
+
                 <div style="color: red" role="alert">
                   {{ errors.first("nameCondition") }}
                   <!-- Lỗi validate bên vuejs-->
@@ -90,6 +94,38 @@
                   {{ errorBackEnd.code[0] }}
                   <!-- Lỗi validate bên backend laravel-->
                 </div>
+
+                <label for="exampleInputEmail1">Start Time </label>
+                <date-picker
+                  v-model="nameStartDate"
+                  type="datetime"
+                  class="w100 mr-4"
+                  name="nameStartDate"
+                ></date-picker>
+
+                <div style="color: red" role="alert">
+                  {{ errors.first("nameStartDate") }}
+                </div>
+                <div style="color: red" v-if="errorBackEnd.end_date">
+                  {{ errorBackEnd.end_date[0] }}
+                  <!-- Lỗi validate bên backend laravel-->
+                </div>
+
+                <label for="exampleInputEmail1">End Time </label>
+                <date-picker
+                  v-model="nameEndDate"
+                  type="datetime"
+                  class="w100 mr-4"
+                  name="nameEndDate"
+                ></date-picker>
+
+                <div style="color: red" role="alert">
+                  {{ errors.first("nameEndDate") }}
+                </div>
+                <div style="color: red" v-if="errorBackEnd.end_date">
+                  {{ errorBackEnd.end_date[0] }}
+                  <!-- Lỗi validate bên backend laravel-->
+                </div>
               </div>
               <button type="submit" class="btn btn-info">Save</button>
             </form>
@@ -101,6 +137,9 @@
 </template>
 
 <script>
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import "vue2-datepicker/locale/zh-cn";
 import Vue from "vue";
 import axios from "axios";
 export default {
@@ -122,6 +161,12 @@ export default {
         code: {
           required: "* code chưa nhập",
         },
+        start_date: {
+          required: "* Ngày bắt đầu chưa nhập",
+        },
+        end_date: {
+          required: "* Ngày kết thúc  chưa nhập",
+        },
       },
     };
     this.$validator.localize("en", messError);
@@ -129,16 +174,31 @@ export default {
   data() {
     return {
       csrfToken: Laravel.csrfToken,
+      coupon: {
+        name: "",
+        time: "",
+        condition: "",
+        number: "",
+        code: "",
+        start_date: "",
+        end_date: "",
+      },
+
       nameName: this.coupon.name,
       nameTime: this.coupon.time,
       nameCondition: this.coupon.condition,
       nameNumber: this.coupon.number,
       nameCode: this.coupon.code,
+      nameStartDate: this.coupon.start_date,
+      nameEndDate: this.coupon.end_date,
       errorBackEnd: {}, //Lỗi bên backend laravel
     };
   },
   props: ["coupon"],
   mounted() {},
+  components: {
+    DatePicker,
+  },
   methods: {
     editCoupon: function () {
       let that = this;
@@ -148,6 +208,8 @@ export default {
       formData.append("condition", this.nameCondition);
       formData.append("number", this.nameNumber);
       formData.append("code", this.nameCode);
+      formData.append("start_date", this.nameStartDate);
+      formData.append("end_date", this.nameEndDate);
       this.$validator.validateAll().then((valid) => {
         if (valid) {
           axios

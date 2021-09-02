@@ -44,14 +44,17 @@
                 </div>
                 <label for="exampleInputEmail1">Coupon Condition </label>
 
-                <input
-                  type="text"
+                <select
+                  v-model="data.condition"
+                  @input="changeInput()"
                   name="condition"
                   class="form-control"
-                  v-validate="'required'"
-                  @input="changeInput()"
-                  v-model="data.condition"
-                />
+                >
+                  <option value="">Select Coupon Condition</option>
+                  <option value="1">Giảm %</option>
+                  <option value="2">Giảm $</option>
+                </select>
+
                 <div style="color: red" role="alert">
                   {{ errors.first("condition") }}
                   <!-- Lỗi validate bên vuejs-->
@@ -78,8 +81,8 @@
                   {{ errorBackEnd.number[0] }}
                   <!-- Lỗi validate bên backend laravel-->
                 </div>
-                <label for="exampleInputEmail1">Coupon Code </label>
 
+                <label for="exampleInputEmail1">Coupon Code </label>
                 <input
                   type="text"
                   name="code"
@@ -94,6 +97,36 @@
                 </div>
                 <div style="color: red" v-if="errorBackEnd.code">
                   {{ errorBackEnd.code[0] }}
+                  <!-- Lỗi validate bên backend laravel-->
+                </div>
+
+                <label for="exampleInputEmail1">Start Time </label>
+                <date-picker
+                  v-model="data.start_date"
+                  type="datetime"
+                  class="w100 mr-4"
+                ></date-picker>
+
+                <div style="color: red" role="alert">
+                  {{ errors.first("start_date") }}
+                </div>
+                <div style="color: red" v-if="errorBackEnd.end_date">
+                  {{ errorBackEnd.end_date[0] }}
+                  <!-- Lỗi validate bên backend laravel-->
+                </div>
+
+                <label for="exampleInputEmail1">End Time </label>
+                <date-picker
+                  v-model="data.end_date"
+                  type="datetime"
+                  class="w100 mr-4"
+                ></date-picker>
+
+                <div style="color: red" role="alert">
+                  {{ errors.first("end_date") }}
+                </div>
+                <div style="color: red" v-if="errorBackEnd.end_date">
+                  {{ errorBackEnd.end_date[0] }}
                   <!-- Lỗi validate bên backend laravel-->
                 </div>
               </div>
@@ -117,6 +150,9 @@
   </div>
 </template>
 <script>
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import "vue2-datepicker/locale/zh-cn";
 import Modal from "../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
@@ -129,6 +165,8 @@ export default {
         condition: "",
         number: "",
         code: "",
+        start_date: "",
+        end_date: "",
       },
       errorBackEnd: {}, //Lỗi bên backend laravel
       //Modal
@@ -161,6 +199,12 @@ export default {
         code: {
           required: "* code chưa nhập",
         },
+        start_date: {
+          required: "* Ngày bắt đầu chưa nhập",
+        },
+        end_date: {
+          required: "* Ngày kết thúc  chưa nhập",
+        },
       },
     };
     this.$validator.localize("en", messError);
@@ -168,6 +212,7 @@ export default {
   mounted() {},
   components: {
     Modal,
+    DatePicker,
   },
   methods: {
     changeInput() {
@@ -194,6 +239,8 @@ export default {
               this.data.condition = "";
               this.data.number = "";
               this.data.code = "";
+              this.data.start_date = "";
+              this.data.end_date = "";
             })
             .catch((err) => {
               switch (err.response.status) {
