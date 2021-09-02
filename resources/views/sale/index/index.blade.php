@@ -308,7 +308,10 @@
                 @foreach ($post as $key)
                     <div class="col-lg-4 col-md-6">
                         <div class="single-latest-blog">
-                            <img style="height: 260px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
+                            <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
+                                <img style="height: 260px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
+                            </a>
+
                             <div class="latest-text">
                                 <div class="tag-list">
                                     <div class="tag-item">
@@ -320,7 +323,8 @@
                                         5
                                     </div>
                                 </div>
-                                <a href="{{ URL::to('/blog-1') }}">
+
+                                <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
                                     <h4>{{ $key->title }}</h4>
                                 </a>
                                 <p>{{ $key->title }}</p>
