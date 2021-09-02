@@ -126,64 +126,10 @@ class CouponController extends Controller
         $coupon->delete();
     }
 
-    public function sendCustomer($id)
-    {
-        $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
-
-        $coupon = Coupon::where('id', $id)->first();
-
-        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-
-        $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
-
-        $data = [];
-        foreach ($customer as $normal) {
-            $data['email'][] = $normal->email;
-        }
-
-        $coupon = array(
-            'start_date' => $coupon->start_date,
-            'end_date' => $coupon->end_date,
-            'time' => $coupon->time,
-            'condition' => $coupon->condition,
-            'number' => $coupon->number,
-            'code' => $coupon->code
-        );
-
-        if ($data && $coupon) {
-            Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
-                $message->to($data['email'])->subject($title_mail); //send this mail with subject
-                $message->from($data['email'], $title_mail); //send from this mail
-            });
-
-            return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
-        } else {
-            return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
-        }
-    }
-
     // public function sendCustomer($id)
     // {
-    //     // $query = Order::select(DB::raw('SUM(total_bill) as totalMoney'))->where('order_status', '=', OrderStatus::SUCCESS)->get();
-    //     $query = Order::where('order_status', '=', OrderStatus::SUCCESS)->get();
-    //     $coupon = Coupon::where('id', $id)->first();
-    //     $qualityCoupon = $coupon->time;
-
-    //     $data = [];
-    //     for ($i = 0; $i < $qualityCoupon; $i++) {
-    //         foreach ($query as $normal) {
-    //         dd($normal);
-    //     }
-    //     }
-
-    //     foreach ($query as $normal) {
-    //         dd($normal);
-    //     }
-
-
-    //     // dd($query[0]['totalMoney']);
-
     //     $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
+
     //     $coupon = Coupon::where('id', $id)->first();
 
     //     $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
@@ -215,4 +161,74 @@ class CouponController extends Controller
     //         return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
     //     }
     // }
+
+    public function sendCustomer($id)
+    {
+        $abc = Order::select('customer_id', DB::raw('SUM(total_bill) as totalMoney'))
+            ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
+            ->whereHas('user', function ($query) {
+                $query->where('role_id', RoleStateType::SALER);
+            })->groupBy('orders.customer_id')->orderBy('totalMoney', 'desc')
+            ->get();
+
+        $coupon = Coupon::where('id', $id)->first();
+        $qualityCoupon = $coupon->time;
+
+        $data = [];
+        foreach ($abc as $key => $normal) {
+            for ($i = 0; $i < $qualityCoupon; $i++) {
+                if ($i == $key) {
+                    // $data['customer_id'][] = ["customer_id"=>$normal->customer_id,"totalMoney"=>$normal->totalMoney];
+                    $data['customer_id'][] = $normal->customer_id;
+                }
+            }
+        }
+
+        dd($data['customer_id']);
+
+
+
+
+        // $bac = [];
+        // for ($i = 0; $i < $qualityCoupon; $i++) {
+
+        // }
+
+
+
+
+        // dd($query[0]['totalMoney']);
+
+        $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
+        $coupon = Coupon::where('id', $id)->first();
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+
+        $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
+
+        $data = [];
+        foreach ($customer as $normal) {
+            $data['email'][] = $normal->email;
+        }
+
+        $coupon = array(
+            'start_date' => $coupon->start_date,
+            'end_date' => $coupon->end_date,
+            'time' => $coupon->time,
+            'condition' => $coupon->condition,
+            'number' => $coupon->number,
+            'code' => $coupon->code
+        );
+
+        if ($data && $coupon) {
+            Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
+                $message->to($data['email'])->subject($title_mail); //send this mail with subject
+                $message->from($data['email'], $title_mail); //send from this mail
+            });
+
+            return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
+        } else {
+            return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
+        }
+    }
 }
