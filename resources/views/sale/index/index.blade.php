@@ -127,9 +127,9 @@
                                                 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
                                                                                                 nonce="doXpCOZe"></script>
                                                 <div class="fb-share-button"
-                                                    data-href="{{url('/product-detail/'. $key->id)}}"
+                                                    data-href="https://fresh-mama.herokuapp.com/product-detail/{{$key->id}}"
                                                     data-layout="button" data-size="small"><a target="_blank"
-                                                        href="https://www.facebook.com/sharer/sharer.php?u={{url('/product-detail/'. $key->id)}}"
+                                                        href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/product-detail/{{$key->id}}"
                                                         class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                                             </li>
                                         </ul>
