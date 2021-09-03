@@ -4292,9 +4292,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -101630,15 +101627,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "leave-comment" }, [
                     _c("h4", [_vm._v("Leave A Comment")]),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass: "fb-comment-embed",
-                      attrs: {
-                        "data-href": "https://fresh-mama.herokuapp.com/",
-                        "data-width": "560",
-                        "data-include-parent": "false"
-                      }
-                    }),
                     _vm._v(" "),
                     _c(
                       "form",
