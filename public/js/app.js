@@ -101639,7 +101639,9 @@ var render = function() {
                     _c("div", {
                       staticClass: "fb-comments",
                       attrs: {
-                        "data-href": "product-detail/" + _vm.decrip[0].id,
+                        "data-href":
+                          "https://fresh-mama.herokuapp.com/product-detail/" +
+                          _vm.decrip[0].id,
                         "data-width": "",
                         "data-numposts": "5"
                       }

@@ -132,7 +132,7 @@
 
                 <div
                   class="fb-comments"
-                  :data-href="`product-detail/${decrip[0].id}`"
+                  :data-href="`https://fresh-mama.herokuapp.com/product-detail/${decrip[0].id}`"
                   data-width=""
                   data-numposts="5"
                 ></div>
