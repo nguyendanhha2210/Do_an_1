@@ -101637,13 +101637,11 @@ var render = function() {
                     _c("h4", [_vm._v("Leave A Comment")]),
                     _vm._v(" "),
                     _c("div", {
-                      staticClass: "fb-comments",
+                      staticClass: "fb-comment-embed",
                       attrs: {
-                        "data-href":
-                          "https://fresh-mama.herokuapp.com/product-detail/" +
-                          _vm.decrip[0].id,
-                        "data-width": "",
-                        "data-numposts": "5"
+                        "data-href": "https://fresh-mama.herokuapp.com/",
+                        "data-width": "560",
+                        "data-include-parent": "false"
                       }
                     }),
                     _vm._v(" "),

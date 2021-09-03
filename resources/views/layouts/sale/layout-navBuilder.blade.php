@@ -26,6 +26,16 @@
     {{-- Buộc phải thêm khi dùng Vue JS --}}
     {{-- <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" /> --}}
     {{-- <script src="{{ asset('js/app.js') }}" type="text/javascript" defer></script> --}}
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=146969617613231";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, "script", "facebook-jssdk"));
+    </script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
@@ -71,10 +81,12 @@
     <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-
+    <div id="fb-root"></div>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=146969617613231&autoLogAppEvents=1" nonce="GyIVgkXh"></script>
 
   <!-- Messenger Plugin chat Code -->
-  <div id="fb-root"></div>
+  {{-- <div id="fb-root"></div> --}}
 
   <!-- Your Plugin chat code -->
   <div id="fb-customer-chat" class="fb-customerchat">

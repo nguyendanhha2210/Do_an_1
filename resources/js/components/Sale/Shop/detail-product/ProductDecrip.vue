@@ -131,10 +131,10 @@
                 <h4>Leave A Comment</h4>
 
                 <div
-                  class="fb-comments"
-                  :data-href="`https://fresh-mama.herokuapp.com/product-detail/${decrip[0].id}`"
-                  data-width=""
-                  data-numposts="5"
+                  class="fb-comment-embed"
+                  data-href="https://fresh-mama.herokuapp.com/"
+                  data-width="560"
+                  data-include-parent="false"
                 ></div>
 
                 <form @submit.prevent="addComment()" class="comment-form">
