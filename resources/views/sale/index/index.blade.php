@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img style="height:330px;" src="{{ 'frontend/images/3.jpg' }}" alt="">
+                        <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/3.jpg' }}" alt="">
                         <div class="inner-text">
                             <h4>Mơ Dẻo</h4>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img style="height:330px;" src="{{ 'frontend/images/4.jpg' }}" alt="">
+                        <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/4.jpg' }}" alt="">
                         <div class="inner-text">
                             <h4>Dâu Tây</h4>
                         </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img style="height:330px;" src="{{ 'frontend/images/5.jpg' }}" alt="">
+                        <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/5.jpg' }}" alt="">
                         <div class="inner-text">
                             <h4>Nho Khô</h4>
                         </div>
@@ -144,7 +144,7 @@
     <!-- Women Banner Section End -->
 
     <!-- Deal Of The Week Section Begin-->
-    <section class="deal-of-week set-bg spad" data-setbg="{{ 'frontend/images/15.jpg' }}">
+    <section class="deal-of-week set-bg spad " data-setbg="{{ 'frontend/images/15.jpg' }}">
         <div class="container">
             <div class="col-lg-6 text-center">
                 <div class="section-title">
@@ -339,7 +339,7 @@
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="{{ 'frontend/images/icon-1.png' }}" alt="">
+                                <img class="lazy" data-src="{{ 'frontend/images/icon-1.png' }}" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Free Shipping</h6>
@@ -350,7 +350,7 @@
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="{{ 'frontend/images/icon-2.png' }}" alt="">
+                                <img class="lazy" data-src="{{ 'frontend/images/icon-2.png' }}" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Delivery On Time</h6>
@@ -361,7 +361,7 @@
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="{{ 'frontend/images/icon-3.png' }}" alt="">
+                                <img class="lazy" data-src="{{ 'frontend/images/icon-3.png' }}" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Secure Payment</h6>
