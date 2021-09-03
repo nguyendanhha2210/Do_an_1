@@ -82,9 +82,7 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <div id="fb-root"></div>
-    <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=146969617613231&autoLogAppEvents=1" nonce="GyIVgkXh"></script>
-
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=146969617613231&autoLogAppEvents=1" nonce="tdXogwGS"></script>
   <!-- Messenger Plugin chat Code -->
   {{-- <div id="fb-root"></div> --}}
 
