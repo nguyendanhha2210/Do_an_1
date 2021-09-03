@@ -51,7 +51,7 @@ class CheckoutController extends Controller
             }
         }
 
-        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())
+        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())->where('coupon_time', '>', 0)
             ->with(['coupon'])
             ->whereHas('coupon', function ($query) use ($order_coupon) {
                 $query->where('code', $order_coupon);
@@ -121,24 +121,24 @@ class CheckoutController extends Controller
         //     $fee = '25k';
         //   }
 
-        //   $shipping_array = array(
-        //     'fee' =>  $fee,
-        //     'customer_name' => $customer->customer_name,
-        //     'shipping_name' => $data['shipping_name'],
-        //     'shipping_email' => $data['shipping_email'],
-        //     'shipping_phone' => $data['shipping_phone'],
-        //     'shipping_address' => $data['shipping_address'],
-        //     'shipping_notes' => $data['shipping_notes'],
-        //     'shipping_method' => $data['shipping_method']
 
-        //   );
+        $shipping_array = array(
+            // 'fee' =>  $fee,
+            'customer_name' => $customer->name,
+            'shipping_name' => $request->name,
+            'shipping_email' => $request->email,
+            'shipping_phone' => $request->phone,
+            'shipping_address' => $request->address,
+        );
+
         //lay ma giam gia, lay coupon code
         $ordercode_mail = array(
             'coupon_code' => $order_coupon,
             'order_code' => $checkout_code,
+            'totalBill' => $totalBill,
         );
 
-        Mail::send('pages.mail.mail_order',  ['cart_array' => $cart_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail); //send this mail with subject
             $message->from($data['email'], $title_mail); //send from this mail
         });

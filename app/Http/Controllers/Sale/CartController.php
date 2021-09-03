@@ -230,7 +230,7 @@ class CartController extends Controller
                 return redirect()->back()->with('message', 'Mã giảm giá đã hết hạn !');
             }
         } else {
-            return redirect()->back()->with('message', 'Mã giảm giá không đúng !');
+            return redirect()->back()->with('message', 'Mã giảm giá không đúng hoặc bạn chưa đăng nhập !');
         }
     }
 }
