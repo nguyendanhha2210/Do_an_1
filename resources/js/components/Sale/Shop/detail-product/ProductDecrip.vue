@@ -129,6 +129,14 @@
 
               <div class="leave-comment">
                 <h4>Leave A Comment</h4>
+
+                <div
+                  class="fb-comments"
+                  :data-href="`product-detail/${decrip[0].id}`"
+                  data-width=""
+                  data-numposts="5"
+                ></div>
+
                 <form @submit.prevent="addComment()" class="comment-form">
                   <div class="row">
                     <div class="col-lg-12">

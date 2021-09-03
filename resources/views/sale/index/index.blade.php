@@ -294,8 +294,6 @@
     </div>
     <!-- Instagram Section End -->
 
-    <div class="fb-comments" data-href="https://fresh-mama.herokuapp.com/" data-width="" data-numposts="5"></div>
-
     <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">
         <div class="container">
