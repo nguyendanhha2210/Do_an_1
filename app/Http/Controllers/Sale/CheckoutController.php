@@ -13,6 +13,7 @@ use App\Models\Shipping;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\UserCoupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
@@ -95,28 +96,52 @@ class CheckoutController extends Controller
             }
         }
 
-        // if ($flag_shipping && $flag_order) {
-        //     $id_customer = Auth::guard('sales')->id();
-        //     $user = User::where('id', $id_customer)->where('role_id', RoleStateType::SALER)->first();
 
-        //     // $shippingData = [
-        //     //     'name' => $request->name,
-        //     //     'email' =>  $request->email,
-        //     //     'address' => $request->address,
-        //     //     'phone' => $request->phone,
-        //     // ];
+        //send mail confirm
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_mail = "Đơn hàng xác nhận ngày" . ' ' . $now;
 
-        //     // $order = Session::get('cart');
-        //     // // dd($order);
-        //     // Mail::send('admin.users.mail.sendOrder', ['shippingData' => $order], function ($message) use ($user) {
-        //     //     $message->to($user->email);
-        //     // });
+        $customer = User::find(Auth::guard('sales')->id());
 
+        $data['email'][] = $customer->email;
+        //lay gio hang
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart_mail) {
+                $cart_array[] = array(
+                    'product_name' => $cart_mail['product_name'],
+                    'product_price' => $cart_mail['product_price'],
+                    'product_qty' => $cart_mail['product_qty']
+                );
+            }
+        }
+        //lay shipping
+        //   if(Session::get('fee')==true){
+        //     $fee = Session::get('fee').'k';
+        //   }else{
+        //     $fee = '25k';
+        //   }
 
-        //     // Mail::send('admin.users.mail.sendOrder', ['shippingData' => $shipping->id, 'order' => $order], function ($message) use ($user) {
-        //     //     $message->to($user->email);
-        //     // });
-        // }
+        //   $shipping_array = array(
+        //     'fee' =>  $fee,
+        //     'customer_name' => $customer->customer_name,
+        //     'shipping_name' => $data['shipping_name'],
+        //     'shipping_email' => $data['shipping_email'],
+        //     'shipping_phone' => $data['shipping_phone'],
+        //     'shipping_address' => $data['shipping_address'],
+        //     'shipping_notes' => $data['shipping_notes'],
+        //     'shipping_method' => $data['shipping_method']
+
+        //   );
+        //lay ma giam gia, lay coupon code
+        $ordercode_mail = array(
+            'coupon_code' => $order_coupon,
+            'order_code' => $checkout_code,
+        );
+
+        Mail::send('pages.mail.mail_order',  ['cart_array' => $cart_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+            $message->to($data['email'])->subject($title_mail); //send this mail with subject
+            $message->from($data['email'], $title_mail); //send from this mail
+        });
 
         Session::forget('coupon');
         Session::forget('cart');
