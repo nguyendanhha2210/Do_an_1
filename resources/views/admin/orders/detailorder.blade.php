@@ -269,7 +269,7 @@
             </div>
         </div>
     </div>
-    <br><br>
+    <br>
 
     <div class="table-agile-info">
         <div class="panel panel-default">

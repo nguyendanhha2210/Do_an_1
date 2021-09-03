@@ -32,7 +32,7 @@
                     <h4 style="color: #000;text-transform: uppercase;">Thông tin đơn hàng : </h4>
                     <p>Mã đơn hàng : <strong
                             style="text-transform: uppercase;color:#fff">{{ $code['order_code'] }}</strong></p>
-                    <p>Mã khuyến mãi áp dụng : <strong
+                    <p>Mã khuyến mã : <strong
                             style="text-transform: uppercase;color:#fff">{{ $code['coupon_code'] }}</strong></p>
                     <p>Phí ship hàng :
                         {{-- <strong
@@ -52,7 +52,7 @@
                         @endif
                     </p>
 
-                    <p>Họ và tên người gửi :
+                    <p>Tên Khách Hàng :
                         @if ($shipping_array['shipping_name'] == '')
                             <span style="color:#fff">không có</span>
                         @else
@@ -128,7 +128,7 @@
                                     {{ number_format($total, 0, ',', '.') }} VNĐ</td>
                             </tr>
                             <tr>
-                                <td colspan="4" align="right">Tổng tiền thanh toán :
+                                <td colspan="4" align="right">Thanh toán :
                                     {{ number_format($code['totalBill'], 0, ',', '.') }} VNĐ</td>
                             </tr>
                         </tbody>
@@ -137,7 +137,7 @@
                 </div>
 
                 <p style="color:#fff;text-align:center">Mọi chi tiết xin liên hệ : <a target="_blank"
-                        href="https://fresh-mama.herokuapp.com/">FreshMama</a></p>
+                        href="https://fresh-mama.herokuapp.com/">FreshMama.com</a></p>
                 <p style="color:red;text-align:center"><b>Xin Chân Thành Cảm Ơn !</b></p>
             </div>
         </div>

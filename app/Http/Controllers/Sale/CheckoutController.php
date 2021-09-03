@@ -99,7 +99,7 @@ class CheckoutController extends Controller
 
         //send mail confirm
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-        $title_mail = "Đơn hàng xác nhận ngày" . ' ' . $now;
+        $title_mail = "Đơn đặt hàng ngày " . ' ' . $now;
 
         $customer = User::find(Auth::guard('sales')->id());
 
