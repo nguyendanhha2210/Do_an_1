@@ -76,7 +76,10 @@
         var inputVal = "";
         if (usd) {
             inputVal = usd.value;
+        } else{
+
         }
+        
         paypal.Button.render({
 
             // Configure environment
