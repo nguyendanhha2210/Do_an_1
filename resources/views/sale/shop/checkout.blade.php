@@ -67,23 +67,15 @@
                                             </li>
                                         @endif
                                     @endforeach
-                                    <div class="col-md-12">
-												@php 
-													$vnd_to_usd = $totalAfter/23083;
-												@endphp
-												<div id="paypal-button"></div>
-												<input type="hidden" id="vnd_to_usd" value="{{round($vnd_to_usd,2)}}">
-											</div>	
-                                    </li>
                                     @endif
                                     @endif
                                 </ul>
                                 <ul>
-                                    {{-- @php
-                                        $vnd_to_usd = $total_coupon / 23083;
+                                    @php
+                                        $vnd_to_usd = $totalAfter / 23083;
                                     @endphp
                                     <div id="paypal-button"></div>
-                                    <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}"> --}}
+                                    <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}">
                                 </ul>
                             </div>
                         </div>

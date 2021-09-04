@@ -90,21 +90,6 @@
                             </li>
                             <li class="cart-icon">
                                 <a href="#">
-                                    <i class="icon_heart_alt"></i>
-                                    <span>!</span>
-                                </a>
-                                <div class="cart-hover">
-                                    <div class="filter-widget">
-                                        <h5 style="text-align: center;color:red;font-weight: bold;">Sản phẩm yêu thích</h5>
-                                        <div id="row_wishlist" class="row">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </li>
-
-                            <li class="cart-icon">
-                                <a href="#">
                                     <i class="icon_bag_alt"></i>
                                     <?php
                                     $cart = Session::get('cart');
