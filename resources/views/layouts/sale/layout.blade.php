@@ -72,16 +72,8 @@
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script>
-        var usd = document.getElementById("vnd_to_usd");
-        var inputVal = "";
-        if (usd) {
-            inputVal = usd.value;
-        } else{
-
-        }
-        
+        var usd = document.getElementById("vnd_to_usd").value;
         paypal.Button.render({
-
             // Configure environment
             env: 'sandbox',
 
@@ -105,7 +97,7 @@
                 return actions.payment.create({
                     transactions: [{
                         amount: {
-                            total: `${inputVal}`,
+                            total: `${usd}`,
                             currency: 'USD'
                         }
                     }]
