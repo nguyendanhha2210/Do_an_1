@@ -116,7 +116,6 @@
                                                 <a class="btn btn-default add-to-cart"
                                                     data-id_product="{{ $key->id }}" name="add-to-cart"><i
                                                         class="fa fa-shopping-basket"></i></a>
-
                                             </li>
                                             <li class="w-icon active">
                                                 <a href="{{ URL::to('/product-detail/' . $key->id) }}"><i
