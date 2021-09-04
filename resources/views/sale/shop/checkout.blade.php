@@ -31,6 +31,9 @@
                                             <span><i
                                                     style="font-size: 17px;color:green;">{{ number_format($total, 0, ',', '.') }}đ</i></span>
                                         </li>
+                                        @php
+                                            $totalAfter = 0;    
+                                        @endphp
                                         @if (Session::get('coupon'))
                                             <li class="fw-normal">
                                                 @foreach (Session::get('coupon') as $key => $cou)
@@ -44,27 +47,44 @@
                                             </li>
                                             <li class="fw-normal" style="font-size: 18px;color:red;">
                                                 Tổng đã giảm :
-                                                <span>{{ number_format($total - $total_coupon, 0, ',', '.') }} đ</span>
+                                                @php
+                                                    $totalAfter = $total - $total_coupon;   
+                                                @endphp
+                                                <span>{{ number_format($totalAfter , 0, ',', '.') }} đ</span>
                                             </li>
                                         @elseif($cou['coupon_condition'] == 2)
                                             Mã Giảm :
                                             <span>{{ number_format($cou['coupon_number'], 0, ',', '.') }}đ</span>
                                             @php
-                                                $total_coupon = $total - $cou['coupon_number'];
+                                                $totalAfter  = $total - $cou['coupon_number'];
                                             @endphp
-
 
                                             <li class="fw-normal"><i style="font-size: 18px;color:red;">Tổng đã giảm
                                                     :</i>
                                                 <span><i
-                                                        style="font-size: 18px;color:red;">{{ number_format($total_coupon, 0, ',', '.') }}đ</i>
+                                                        style="font-size: 18px;color:red;">{{ number_format($totalAfter , 0, ',', '.') }}đ</i>
                                                 </span>
                                             </li>
                                         @endif
                                     @endforeach
+                                    <div class="col-md-12">
+												@php 
+
+													$vnd_to_usd = $totalAfter/23083;
+												@endphp
+												<div id="paypal-button"></div>
+												<input type="hidden" id="vnd_to_usd" value="{{round($vnd_to_usd,2)}}">
+											</div>	
                                     </li>
                                     @endif
                                     @endif
+                                </ul>
+                                <ul>
+                                    {{-- @php
+                                        $vnd_to_usd = $total_coupon / 23083;
+                                    @endphp
+                                    <div id="paypal-button"></div>
+                                    <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}"> --}}
                                 </ul>
                             </div>
                         </div>

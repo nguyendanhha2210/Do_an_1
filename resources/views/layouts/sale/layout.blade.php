@@ -65,37 +65,84 @@
     <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
-        nonce="giodsXR5"></script>
+    {{-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
+        nonce="giodsXR5"></script> --}}
 
+    {{-- Paypal --}}
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <script>
+        var usd = document.getElementById("vnd_to_usd").value;
+        paypal.Button.render({
+
+            // Configure environment
+            env: 'sandbox',
+
+            client: {
+                sandbox: 'AZhnH9YyXLDcOgwS8-PQduz5Ytt5rZLXrgfLk0N8xrxfmtHb4MgLXjchaZGPJhebU1hN8Tp5ofs7M4f4',
+                production: 'demo_production_client_id'
+            },
+            // Customize button (optional)
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+            },
+
+            // Enable Pay Now checkout flow (optional)
+            commit: true,
+
+            // Set up a payment
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: `${usd}`,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+            // Execute the payment
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function() {
+                    // Show a confirmation message to the buyer
+                    window.alert('Cảm ơn bạn đã mua hàng của chúng tôi!');
+                });
+            }
+        }, '#paypal-button');
+    </script>
+    {{-- Paypal --}}
 
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
-
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
 
     <script>
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "109767304754230");
-      chatbox.setAttribute("attribution", "biz_inbox");
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "109767304754230");
+        chatbox.setAttribute("attribution", "biz_inbox");
 
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml            : true,
-          version          : 'v11.0'
-        });
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v11.0'
+            });
+        };
 
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
+    <!-- Messenger Plugin chat Code -->
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -167,6 +214,65 @@
         });
     </script> --}}
 
+    <script type="text/javascript">
+        function view() {
+            if (localStorage.getItem('data') != null) {
+                var data = JSON.parse(localStorage.getItem('data'));
+                data.reverse();
+                document.getElementById('row_wishlist').style.overflow = 'scroll';
+                document.getElementById('row_wishlist').style.height = '500px';
+
+                for (i = 0; i < data.length; i++) {
+                    var name = data[i].name;
+                    var price = data[i].price;
+                    var image = data[i].image;
+                    var url = data[i].url;
+
+                    $('#row_wishlist').append(
+                        '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + image +
+                        '"></div><div class="col-md-8 info_wishlist"><p>' + name + '</p><p style="color:#FE980F">' +
+                        price + '</p><a href="' + url + '">Đặt hàng</a></div>');
+                }
+            }
+        }
+
+        view();
+
+        function add_wistlist(clicked_id) {
+            var id = clicked_id;
+            var name = document.getElementById('wishlist_productname' + id).value;
+            var price = document.getElementById('wishlist_productprice' + id).value;
+            var image = document.getElementById('wishlist_productimage' + id).src;
+            var url = document.getElementById('wishlist_producturl' + id).href;
+
+            var newItem = {
+                'url': url,
+                'id': id,
+                'name': name,
+                'price': price,
+                'image': image
+            }
+
+            if (localStorage.getItem('data') == null) {
+                localStorage.setItem('data', '[]');
+            }
+            var old_data = JSON.parse(localStorage.getItem('data'));
+            var matches = $.grep(old_data, function(obj) {
+                return obj.id == id;
+            })
+            if (matches.length) {
+                alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
+            } else {
+                old_data.push(newItem);
+                $('#row_wishlist').append(
+                    '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + newItem
+                    .image + '"></div><div class="col-md-8 info_wishlist"><p>' + newItem.name +
+                    '</p><p style="color:#FE980F">' + newItem.price + '</p><a href="' + newItem.url +
+                    '">Đặt hàng</a></div>');
+            }
+            localStorage.setItem('data', JSON.stringify(old_data));
+        }
+    </script>
 </body>
 
 </html>
