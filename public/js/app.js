@@ -5539,40 +5539,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -103133,38 +103099,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }, [
-            _c("div", { staticClass: "filter-widget" }, [
-              _c("div", { staticClass: "filter-range-wrap" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "\n                price-range\n                ui-slider\n                ui-corner-all\n                ui-slider-horizontal\n                ui-widget\n                ui-widget-content\n              ",
-                    attrs: {
-                      "data-min": _vm.minPrice,
-                      "data-max": _vm.maxPrice
-                    }
-                  },
-                  [
-                    _c("span", {
-                      staticClass:
-                        "ui-slider-handle ui-corner-all ui-state-default",
-                      attrs: { tabindex: "0" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass:
-                        "ui-slider-handle ui-corner-all ui-state-default",
-                      attrs: { tabindex: "0" }
-                    })
-                  ]
-                )
-              ])
-            ])
-          ]),
+          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
             _c("input", {
@@ -103353,7 +103288,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "form-group row" }, [
@@ -103520,18 +103455,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "range-slider" }, [
-      _c("div", { staticClass: "price-input" }, [
-        _c("input", { attrs: { type: "text", id: "minamount" } }),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text", id: "maxamount" } })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

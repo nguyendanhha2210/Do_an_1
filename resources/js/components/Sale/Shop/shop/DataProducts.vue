@@ -24,40 +24,6 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-2">
-          <div class="filter-widget">
-            <div class="filter-range-wrap">
-              <div class="range-slider">
-                <div class="price-input">
-                  <input type="text" id="minamount" />
-                  <input type="text" id="maxamount" />
-                </div>
-              </div>
-              <div
-                class="
-                  price-range
-                  ui-slider
-                  ui-corner-all
-                  ui-slider-horizontal
-                  ui-widget
-                  ui-widget-content
-                "
-                :data-min="minPrice"
-                :data-max="maxPrice"
-              >
-                <!-- <div
-                  class="ui-slider-range ui-corner-all ui-widget-header"
-                ></div> -->
-                <span
-                  tabindex="0"
-                  class="ui-slider-handle ui-corner-all ui-state-default"
-                ></span>
-                <span
-                  tabindex="0"
-                  class="ui-slider-handle ui-corner-all ui-state-default"
-                ></span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="col-lg-4 col-md-4 col-5 text-right">
@@ -272,9 +238,8 @@ export default {
       paginate: 9,
       search: "",
       statusView: 0,
-      minPrice:0,
-      maxPrice:100,
-
+      minPrice: 0,
+      maxPrice: 100,
 
       flagShowLoader: false,
       //Modal

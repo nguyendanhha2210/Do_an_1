@@ -27,31 +27,6 @@ class ShopController extends Controller
 
     public function getData(Request $request)
     {
-        // try {
-        //     $paginate = $request->paginate;
-        //     $search = $request->search;
-        //     $statusView = $request->statusView;
-        //     $products =  Product::where(function ($q) use ($search) {
-        //         if ($search) {
-        //             $q->where('name', 'like', '%' . $search . '%');
-        //         }
-        //     })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-        //         ->whereHas('weight', function ($query) {
-        //             $query->where('deleted_at', NULL);
-        //         })
-        //         ->whereHas('type', function ($query) {
-        //             $query->where('deleted_at', NULL);
-        //         })
-        //         ->whereHas('description', function ($query) {
-        //             $query->where('deleted_at', NULL);
-        //         })
-        //         ->orderBy('created_at', 'desc')->paginate($paginate);
-
-        //     return response()->json($products, StatusCode::OK);
-        // } catch (\Exception $e) {
-        //     return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-        // }
-
         try {
             $paginate = $request->paginate;
             $search = $request->search;
