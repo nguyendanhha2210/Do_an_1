@@ -16,6 +16,7 @@
                                     @if (Session::get('cart') == true)
                                         @php
                                             $total = 0;
+                                            $totalAfter = 0;
                                         @endphp
                                         @foreach (Session::get('cart') as $key => $cart)
                                             @php
@@ -28,12 +29,12 @@
                                             </li>
                                         @endforeach
                                         <li class="fw-normal"><i style="font-size: 17px;color:green;">Thành Tiền</i>
+                                            @php
+                                                $totalAfter = $total;
+                                            @endphp
                                             <span><i
-                                                    style="font-size: 17px;color:green;">{{ number_format($total, 0, ',', '.') }}đ</i></span>
+                                                    style="font-size: 17px;color:green;">{{ number_format($totalAfter, 0, ',', '.') }}đ</i></span>
                                         </li>
-                                        @php
-                                            $totalAfter = 0;    
-                                        @endphp
                                         @if (Session::get('coupon'))
                                             <li class="fw-normal">
                                                 @foreach (Session::get('coupon') as $key => $cou)
@@ -48,21 +49,21 @@
                                             <li class="fw-normal" style="font-size: 18px;color:red;">
                                                 Tổng đã giảm :
                                                 @php
-                                                    $totalAfter = $total - $total_coupon;   
+                                                    $totalAfter = $total - $total_coupon;
                                                 @endphp
-                                                <span>{{ number_format($totalAfter , 0, ',', '.') }} đ</span>
+                                                <span>{{ number_format($totalAfter, 0, ',', '.') }} đ</span>
                                             </li>
                                         @elseif($cou['coupon_condition'] == 2)
                                             Mã Giảm :
                                             <span>{{ number_format($cou['coupon_number'], 0, ',', '.') }}đ</span>
                                             @php
-                                                $totalAfter  = $total - $cou['coupon_number'];
+                                                $totalAfter = $total - $cou['coupon_number'];
                                             @endphp
 
                                             <li class="fw-normal"><i style="font-size: 18px;color:red;">Tổng đã giảm
                                                     :</i>
                                                 <span><i
-                                                        style="font-size: 18px;color:red;">{{ number_format($totalAfter , 0, ',', '.') }}đ</i>
+                                                        style="font-size: 18px;color:red;">{{ number_format($totalAfter, 0, ',', '.') }}đ</i>
                                                 </span>
                                             </li>
                                         @endif

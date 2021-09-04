@@ -70,7 +70,6 @@
 
     {{-- Paypal --}}
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-
     <script>
         var usd = document.getElementById("vnd_to_usd").value;
         paypal.Button.render({
