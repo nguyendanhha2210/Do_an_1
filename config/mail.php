@@ -16,7 +16,7 @@ return [
     'default' => env('MAIL_MAILER', 'smtp'),
 
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    // 'driver' => env('MAIL_DRIVER', 'smtp'),
 
     'stream' => [
         'ssl' => [
@@ -50,8 +50,8 @@ return [
             'host' => env('MAIL_HOST', 'smtp.googlemail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'username' => env('MAIL_USERNAME','danhha221020@gmail.com'),
+            'password' => env('MAIL_PASSWORD','ugugmhrqzcmpqzrv'),
             'timeout' => null,
             'auth_mode' => null,
         ],
