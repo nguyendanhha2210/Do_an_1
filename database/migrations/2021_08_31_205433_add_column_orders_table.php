@@ -17,7 +17,6 @@ class AddColumnOrdersTable extends Migration
             $table->string('total_bill',255)->after('order_destroy');
         });
     }
-
     /**
      * Reverse the migrations.
      *
