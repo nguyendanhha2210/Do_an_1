@@ -48,7 +48,7 @@ class CartController extends Controller
                             'product_id' => $request->id,
                             'product_name' => $request->name,
                             'product_image' => $request->images,
-                            'product_qty' => $val['product_qty'] + $request->qualityOrder,
+                            'product_qty' => 1,
                             'product_price' => $request->price,
                         );
                         Session::put('cart', $cart);
