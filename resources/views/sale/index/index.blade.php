@@ -107,8 +107,7 @@
                                         <img height="320px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
                                         <div class="icon">
-                                            <a class="btn btn-default add-to-favorite"
-                                                data-id_product="{{ $key->id }}" name="add-to-favorite"><i
+                                            <a class="btn btn-default" id="{{ $key->id }}" onclick="add_wistlist(this.id)"><i
                                                     class=" icon_heart_alt"></i></a>
                                         </div>
                                         <ul>

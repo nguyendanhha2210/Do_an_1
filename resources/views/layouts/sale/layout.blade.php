@@ -72,7 +72,10 @@
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script>
-        var usd = document.getElementById("vnd_to_usd").value;
+        // var usd = document.getElementById("vnd_to_usd").value;
+
+        var usd = $('#vnd_to_usd').val();
+
         paypal.Button.render({
             // Configure environment
             env: 'sandbox',
@@ -239,37 +242,39 @@
 
         function add_wistlist(clicked_id) {
             var id = clicked_id;
-            var name = document.getElementById('wishlist_productname' + id).value;
-            var price = document.getElementById('wishlist_productprice' + id).value;
-            var image = document.getElementById('wishlist_productimage' + id).src;
-            var url = document.getElementById('wishlist_producturl' + id).href;
+            alert(id);
 
-            var newItem = {
-                'url': url,
-                'id': id,
-                'name': name,
-                'price': price,
-                'image': image
-            }
+            // var name = document.getElementById('wishlist_productname' + id).value;
+            // var price = document.getElementById('wishlist_productprice' + id).value;
+            // var image = document.getElementById('wishlist_productimage' + id).src;
+            // var url = document.getElementById('wishlist_producturl' + id).href;
 
-            if (localStorage.getItem('data') == null) {
-                localStorage.setItem('data', '[]');
-            }
-            var old_data = JSON.parse(localStorage.getItem('data'));
-            var matches = $.grep(old_data, function(obj) {
-                return obj.id == id;
-            })
-            if (matches.length) {
-                alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
-            } else {
-                old_data.push(newItem);
-                $('#row_wishlist').append(
-                    '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + newItem
-                    .image + '"></div><div class="col-md-8 info_wishlist"><p>' + newItem.name +
-                    '</p><p style="color:#FE980F">' + newItem.price + '</p><a href="' + newItem.url +
-                    '">Đặt hàng</a></div>');
-            }
-            localStorage.setItem('data', JSON.stringify(old_data));
+            // var newItem = {
+            //     'url': url,
+            //     'id': id,
+            //     'name': name,
+            //     'price': price,
+            //     'image': image
+            // }
+
+            // if (localStorage.getItem('data') == null) {
+            //     localStorage.setItem('data', '[]');
+            // }
+            // var old_data = JSON.parse(localStorage.getItem('data'));
+            // var matches = $.grep(old_data, function(obj) {
+            //     return obj.id == id;
+            // })
+            // if (matches.length) {
+            //     alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
+            // } else {
+            //     old_data.push(newItem);
+            //     $('#row_wishlist').append(
+            //         '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + newItem
+            //         .image + '"></div><div class="col-md-8 info_wishlist"><p>' + newItem.name +
+            //         '</p><p style="color:#FE980F">' + newItem.price + '</p><a href="' + newItem.url +
+            //         '">Đặt hàng</a></div>');
+            // }
+            // localStorage.setItem('data', JSON.stringify(old_data));
         }
     </script>
 </body>
