@@ -5520,6 +5520,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5544,6 +5597,9 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       paginate: 9,
       search: "",
+      statusView: 0,
+      minPrice: 0,
+      maxPrice: 100,
       flagShowLoader: false,
       //Modal
       modalShow: false,
@@ -5574,13 +5630,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     search: function search(value) {
       this.fetchData();
+    },
+    statusView: function statusView(value) {
+      this.fetchData();
     }
   },
   methods: {
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-product-shop?page=" + that.page + "&paginate=" + that.paginate + "&search=" + that.search).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-product-shop?page=" + that.page + "&paginate=" + that.paginate + "&search=" + that.search + "&statusView=" + that.statusView).then(function (response) {
         that.products = response.data; // console.log("products", that.products.data);
 
         that.flagShowLoader = false;
@@ -103021,7 +103080,91 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
+          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.statusView,
+                    expression: "statusView"
+                  }
+                ],
+                staticClass: "form-control w-sm inline v-middle",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.statusView = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "0" } }, [
+                  _vm._v("-- Mới nhất --")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "1" } }, [
+                  _vm._v("-- Giá tăng dần --")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "2" } }, [
+                  _vm._v("-- Giá giảm dần --")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "3" } }, [
+                  _vm._v("Tên từ A -> Z")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "4" } }, [
+                  _vm._v("Tên từ Z -> A")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }, [
+            _c("div", { staticClass: "filter-widget" }, [
+              _c("div", { staticClass: "filter-range-wrap" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "\n                price-range\n                ui-slider\n                ui-corner-all\n                ui-slider-horizontal\n                ui-widget\n                ui-widget-content\n              ",
+                    attrs: {
+                      "data-min": _vm.minPrice,
+                      "data-max": _vm.maxPrice
+                    }
+                  },
+                  [
+                    _c("span", {
+                      staticClass:
+                        "ui-slider-handle ui-corner-all ui-state-default",
+                      attrs: { tabindex: "0" }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass:
+                        "ui-slider-handle ui-corner-all ui-state-default",
+                      attrs: { tabindex: "0" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
             _c("input", {
@@ -103072,7 +103215,19 @@ var render = function() {
                       _vm._v("Sale")
                     ]),
                     _vm._v(" "),
-                    _vm._m(0, true),
+                    _c("div", { staticClass: "icon" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-default",
+                          attrs: {
+                            id: product.id,
+                            onclick: "add_wistlist(this.id)"
+                          }
+                        },
+                        [_c("i", { staticClass: "icon_heart_alt" })]
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("ul", [
                       _c("li", { staticClass: "w-icon active" }, [
@@ -103369,8 +103524,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "icon" }, [
-      _c("i", { staticClass: "icon_heart_alt" })
+    return _c("div", { staticClass: "range-slider" }, [
+      _c("div", { staticClass: "price-input" }, [
+        _c("input", { attrs: { type: "text", id: "minamount" } }),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text", id: "maxamount" } })
+      ])
     ])
   },
   function() {

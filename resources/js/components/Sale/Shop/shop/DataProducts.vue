@@ -10,7 +10,55 @@
           </select>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-4"></div>
+        <div class="col-lg-3 col-md-3 col-2">
+          <select
+            v-model="statusView"
+            class="form-control w-sm inline v-middle"
+          >
+            <option value="0">-- Mới nhất --</option>
+            <option value="1">-- Giá tăng dần --</option>
+            <option value="2">-- Giá giảm dần --</option>
+            <option value="3">Tên từ A -> Z</option>
+            <option value="4">Tên từ Z -> A</option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-2">
+          <div class="filter-widget">
+            <div class="filter-range-wrap">
+              <div class="range-slider">
+                <div class="price-input">
+                  <input type="text" id="minamount" />
+                  <input type="text" id="maxamount" />
+                </div>
+              </div>
+              <div
+                class="
+                  price-range
+                  ui-slider
+                  ui-corner-all
+                  ui-slider-horizontal
+                  ui-widget
+                  ui-widget-content
+                "
+                :data-min="minPrice"
+                :data-max="maxPrice"
+              >
+                <!-- <div
+                  class="ui-slider-range ui-corner-all ui-widget-header"
+                ></div> -->
+                <span
+                  tabindex="0"
+                  class="ui-slider-handle ui-corner-all ui-state-default"
+                ></span>
+                <span
+                  tabindex="0"
+                  class="ui-slider-handle ui-corner-all ui-state-default"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="col-lg-4 col-md-4 col-5 text-right">
           <input
@@ -38,7 +86,12 @@
               />
               <div class="sale pp-sale">Sale</div>
               <div class="icon">
-                <i class="icon_heart_alt"></i>
+                <a
+                  class="btn btn-default"
+                  :id="product.id"
+                  onclick="add_wistlist(this.id)"
+                  ><i class="icon_heart_alt"></i
+                ></a>
               </div>
               <ul>
                 <li class="w-icon active">
@@ -218,6 +271,10 @@ export default {
       page: 1,
       paginate: 9,
       search: "",
+      statusView: 0,
+      minPrice:0,
+      maxPrice:100,
+
 
       flagShowLoader: false,
       //Modal
@@ -250,6 +307,9 @@ export default {
     search: function (value) {
       this.fetchData();
     },
+    statusView: function (value) {
+      this.fetchData();
+    },
   },
   methods: {
     fetchData() {
@@ -262,7 +322,9 @@ export default {
             "&paginate=" +
             that.paginate +
             "&search=" +
-            that.search
+            that.search +
+            "&statusView=" +
+            that.statusView
         )
         .then(function (response) {
           that.products = response.data;

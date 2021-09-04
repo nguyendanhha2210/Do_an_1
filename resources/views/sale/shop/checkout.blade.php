@@ -69,7 +69,6 @@
                                     @endforeach
                                     <div class="col-md-12">
 												@php 
-
 													$vnd_to_usd = $totalAfter/23083;
 												@endphp
 												<div id="paypal-button"></div>

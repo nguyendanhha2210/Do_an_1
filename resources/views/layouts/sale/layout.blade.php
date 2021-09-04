@@ -216,13 +216,14 @@
         });
     </script> --}}
 
+    {{-- SP yêu thích --}}
     <script type="text/javascript">
         function view() {
             if (localStorage.getItem('data') != null) {
                 var data = JSON.parse(localStorage.getItem('data'));
                 data.reverse();
                 document.getElementById('row_wishlist').style.overflow = 'scroll';
-                document.getElementById('row_wishlist').style.height = '500px';
+                document.getElementById('row_wishlist').style.height = '300px';
 
                 for (i = 0; i < data.length; i++) {
                     var name = data[i].name;
@@ -231,52 +232,58 @@
                     var url = data[i].url;
 
                     $('#row_wishlist').append(
-                        '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + image +
-                        '"></div><div class="col-md-8 info_wishlist"><p>' + name + '</p><p style="color:#FE980F">' +
-                        price + '</p><a href="' + url + '">Đặt hàng</a></div>');
+                    '<div class="row" style="margin:10px 0"><div class="col-md-4"><a href="' + newItem.url +'"><img width="80px" height="100px" src="' + newItem
+                    .image + '"></a></div><div class="col-md-8 info_wishlist"><b>' + newItem.name +
+                    '</b></br><i style="color:#FE980F">' + newItem.price + '</i>');
                 }
             }
         }
-
         view();
 
         function add_wistlist(clicked_id) {
             var id = clicked_id;
-            alert(id);
+            var name = document.getElementById('wishlist_productname' + id).value;
+            var price = document.getElementById('wishlist_productprice' + id).value;
+            var image = document.getElementById('wishlist_productimage' + id).src;
+            var url = document.getElementById('wishlist_producturl' + id).href;
 
-            // var name = document.getElementById('wishlist_productname' + id).value;
-            // var price = document.getElementById('wishlist_productprice' + id).value;
-            // var image = document.getElementById('wishlist_productimage' + id).src;
-            // var url = document.getElementById('wishlist_producturl' + id).href;
+            var newItem = {
+                'url': url,
+                'id': id,
+                'name': name,
+                'price': price,
+                'image': image
+            }
 
-            // var newItem = {
-            //     'url': url,
-            //     'id': id,
-            //     'name': name,
-            //     'price': price,
-            //     'image': image
-            // }
+            if (localStorage.getItem('data') == null) {
+                localStorage.setItem('data', '[]');
+            }
+            var old_data = JSON.parse(localStorage.getItem('data'));
 
-            // if (localStorage.getItem('data') == null) {
-            //     localStorage.setItem('data', '[]');
-            // }
-            // var old_data = JSON.parse(localStorage.getItem('data'));
-            // var matches = $.grep(old_data, function(obj) {
-            //     return obj.id == id;
-            // })
-            // if (matches.length) {
-            //     alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
-            // } else {
-            //     old_data.push(newItem);
-            //     $('#row_wishlist').append(
-            //         '<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="100%" src="' + newItem
-            //         .image + '"></div><div class="col-md-8 info_wishlist"><p>' + newItem.name +
-            //         '</p><p style="color:#FE980F">' + newItem.price + '</p><a href="' + newItem.url +
-            //         '">Đặt hàng</a></div>');
-            // }
-            // localStorage.setItem('data', JSON.stringify(old_data));
+            var matches = $.grep(old_data, function(obj) {
+                return obj.id == id;
+            })
+
+            if (matches.length) {
+                alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
+            } else {
+                old_data.push(newItem);
+                    $('#row_wishlist').append(
+                    '<div class="row" style="margin:10px 0"><div class="col-md-4"><a href="' + newItem.url +'"><img width="80px" height="100px" src="' + newItem
+                    .image + '"></a></div><div class="col-md-8 info_wishlist"><b>' + newItem.name +
+                    '</b></br><i style="color:#FE980F">' + newItem.price + '</i>');
+
+
+                // $('#row_wishlist').append(
+                //     ' <div class="select-items"><table><tbody><tr><td class="si-pic"> <img width="40px" height="50px" src="' +
+                //     newItem.image + '"> </td> <td class="si-text"><div class="product-selected"><p> ' + newItem.price +
+                //     ' </p><h6>' + newItem.name + '</h6></div></td><td class="si-close"></td></tr><tbody></table></div>');
+
+            }
+            localStorage.setItem('data', JSON.stringify(old_data));
         }
     </script>
+    {{-- SP yêu thích --}}
 </body>
 
 </html>

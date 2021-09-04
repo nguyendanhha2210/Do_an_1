@@ -102,13 +102,20 @@
                                     class="cart_product_price_{{ $key->id }}">
                                 <input type="hidden" value="1" class="cart_product_qty_{{ $key->id }}">
 
+                                {{-- Lấy cho sp yêu thích --}}
+                                <input type="hidden" id="wishlist_productname{{ $key->id }}" value="{{ $key->name }}">
+                                <input type="hidden" id="wishlist_productprice{{ $key->id }}" value="{{ number_format($key->price) . ' đ'  }}">
+                                <input type="hidden" id="wishlist_productimage{{ $key->id }}" src="{{ URL::to('uploads/' . $key->images) }}" value="{{ $key->images }}">
+                                <a type="hidden" id="wishlist_producturl{{ $key->id }}" href="{{ URL::to('/product-detail/' . $key->id) }}"></a>
+                                {{-- Lấy cho sp yêu thích --}}
+
                                 <div class="product-item">
                                     <div class="pi-pic">
                                         <img height="320px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
                                         <div class="icon">
-                                            <a class="btn btn-default" id="{{ $key->id }}" onclick="add_wistlist(this.id)"><i
-                                                    class=" icon_heart_alt"></i></a>
+                                            <a class="btn btn-default" id="{{ $key->id }}"
+                                                onclick="add_wistlist(this.id)"><i class=" icon_heart_alt"></i></a>
                                         </div>
                                         <ul>
                                             <li class="w-icon active">
@@ -135,6 +142,7 @@
                             </form>
                         @endforeach
                     </div>
+                   
                 </div>
             </div>
         </div>

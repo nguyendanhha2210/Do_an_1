@@ -30,3 +30,4 @@
         @endforeach
     </div>
 </div>
+<!--/brands_products-->
