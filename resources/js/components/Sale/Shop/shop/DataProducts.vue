@@ -54,9 +54,8 @@
               <div class="icon">
                 <a
                   class="btn btn-default"
-                  :id="product.id"
-                  onclick="add_wistlist(this.id)"
-                  ><i class="icon_heart_alt"></i
+                  @click="addFavorite(product)"
+                  ><i class="icon_heart_alt" style="color:red;font-size:22px;"></i
                 ></a>
               </div>
               <ul>
@@ -422,6 +421,51 @@ export default {
                     }
                   });
                 }
+              });
+            })
+            .catch((err) => {
+              switch (err.response.status) {
+                case 422:
+                  that.errorBackEnd = err.response.data.errors;
+                  break;
+                case 404:
+                  that
+                    .$swal({
+                      title: "Add Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                case 500:
+                  that
+                    .$swal({
+                      title: "Add Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                default:
+                  break;
+              }
+            });
+        }
+      });
+    },
+
+     addFavorite(product) {
+      let that = this;
+      this.$validator.validateAll().then((valid) => {
+        if (valid) {
+          axios
+            .post(`/add-to-favorite`, product)
+            .then((response) => {
+              this.$swal({
+                title: "Add Successfully!",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then((confirm) => {
               });
             })
             .catch((err) => {

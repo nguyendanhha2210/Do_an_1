@@ -82,56 +82,95 @@
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">
-                            <li class="heart-icon">
-                                <a href="#">
-                                    <i class="icon_heart_alt"></i>
-                                    <span>1</span>
-                                </a>
-                            </li>
                             <li class="cart-icon">
                                 <a href="#">
-                                    <i class="icon_bag_alt"></i>
+                                    <i class="icon_heart_alt"></i>
                                     <?php
-                                    $cart = Session::get('cart');
+                                    $cart = Session::get('favorite');
                                     if ($cart != null) { ?>
-                                    <span>!</span>
+                                    <span>{{ count(Session::get('favorite')) }}</span>
                                     <?php }
                                     ?>
-
                                 </a>
-                                <div class="cart-hover">
-                                    @if (Session::get('cart') == true)
-                                        @php
-                                            $total = 0;
-                                        @endphp
-                                        <div class="select-items">
+                                <div class="cart-hover cart-hover-1">
+                                    @if (Session::get('favorite') == true)
+                                        <div class="select-items ">
                                             <table>
                                                 <tbody>
-                                                    @foreach (Session::get('cart') as $key => $cart)
-                                                        @php
-                                                            $subtotal = $cart['product_price'] * $cart['product_qty'];
-                                                            $total += $subtotal;
-                                                        @endphp
-                                                        <tr>
+                                                    @foreach (Session::get('favorite') as $key => $favorite)
+                                                        <tr class="overflow">
                                                             <td class="si-pic"><img width="40px;" height="50px;"
-                                                                    src="{{ URL::to('uploads/' . $cart['product_image']) }}"
+                                                                    src="{{ URL::to('uploads/' . $favorite['product_image']) }}"
                                                                     alt=""></td>
                                                             <td class="si-text">
                                                                 <div class="product-selected">
-                                                                    <p>{{ number_format($cart['product_price'], 0, ',', '.') }}đ
-                                                                        x {{ $cart['product_qty'] }}</p>
-                                                                    <h6>{{ $cart['product_name'] }}</h6>
+                                                                    <p>{{ number_format($favorite['product_price'], 0, ',', '.') }}đ
+                                                                        x {{ $favorite['product_qty'] }}</p>
+                                                                    <h6>{{ $favorite['product_name'] }}</h6>
                                                                 </div>
                                                             </td>
                                                             <td class="si-close">
                                                                 <a
-                                                                    href="{{ URL::to('/del-product-cart/' . $cart['session_id']) }}"><i
+                                                                    href="{{ URL::to('/del-favorite-product/' . $favorite['session_id']) }}"><i
                                                                         class="ti-close"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    @endif
+                                </div>
+                            </li>
+
+                            <li class="cart-icon">
+                                <a href="#">
+                                    <i class="icon_bag_alt"></i>
+                                    <?php
+                                    $cart = Session::get('cart');
+                                    if ($cart != null) { ?>
+                                    <span>{{ count(Session::get('cart')) }}</span>
+                                    <?php }
+                                    ?>
+
+                                </a>
+                                <div class="cart-hover ">
+                                    @if (Session::get('cart') == true)
+                                        @php
+                                            $total = 0;
+                                        @endphp
+                                        <div class="cartoverflow">
+                                            <div class="select-items">
+                                                <table>
+                                                    <tbody>
+                                                        @foreach (Session::get('cart') as $key => $cart)
+                                                            @php
+                                                                $subtotal = $cart['product_price'] * $cart['product_qty'];
+                                                                $total += $subtotal;
+                                                            @endphp
+                                                            <tr>
+                                                                <td class="si-pic"><img width="40px;"
+                                                                        height="50px;"
+                                                                        src="{{ URL::to('uploads/' . $cart['product_image']) }}"
+                                                                        alt=""></td>
+                                                                <td class="si-text">
+                                                                    <div class="product-selected">
+                                                                        <p>{{ number_format($cart['product_price'], 0, ',', '.') }}đ
+                                                                            x {{ $cart['product_qty'] }}</p>
+                                                                        <h6>{{ $cart['product_name'] }}</h6>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="si-close">
+                                                                    <a
+                                                                        href="{{ URL::to('/del-product-cart/' . $cart['session_id']) }}"><i
+                                                                            class="ti-close"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
                                         </div>
                                         <div class="select-total">
                                             <span>Tổng tiền :</span>

@@ -5538,7 +5538,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -5730,6 +5729,47 @@ __webpack_require__.r(__webpack_exports__);
                 });
               }
             });
+          })["catch"](function (err) {
+            switch (err.response.status) {
+              case 422:
+                that.errorBackEnd = err.response.data.errors;
+                break;
+
+              case 404:
+                that.$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              case 500:
+                that.$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              default:
+                break;
+            }
+          });
+        }
+      });
+    },
+    addFavorite: function addFavorite(product) {
+      var _this2 = this;
+
+      var that = this;
+      this.$validator.validateAll().then(function (valid) {
+        if (valid) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/add-to-favorite", product).then(function (response) {
+            _this2.$swal({
+              title: "Add Successfully!",
+              icon: "success",
+              confirmButtonText: "OK"
+            }).then(function (confirm) {});
           })["catch"](function (err) {
             switch (err.response.status) {
               case 422:
@@ -103155,12 +103195,18 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-default",
-                          attrs: {
-                            id: product.id,
-                            onclick: "add_wistlist(this.id)"
+                          on: {
+                            click: function($event) {
+                              return _vm.addFavorite(product)
+                            }
                           }
                         },
-                        [_c("i", { staticClass: "icon_heart_alt" })]
+                        [
+                          _c("i", {
+                            staticClass: "icon_heart_alt",
+                            staticStyle: { color: "red", "font-size": "22px" }
+                          })
+                        ]
                       )
                     ]),
                     _vm._v(" "),

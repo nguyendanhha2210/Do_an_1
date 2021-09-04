@@ -552,6 +552,20 @@ ol {
     top: 60px;
 }
 
+.inner-header .nav-right li.cart-icon:hover .cart-hover-1 {
+    opacity: 1;
+    visibility: visible;
+    top: 60px;
+    /* width: 300px; */
+    height: 330px;
+    overflow: scroll;
+}
+
+.inner-header .nav-right li.cart-icon:hover .cartoverflow {
+    height: 250px;
+    overflow: scroll;
+}
+
 .inner-header .nav-right li.cart-icon a {
     color: #252525;
     position: relative;
