@@ -181,11 +181,12 @@
                                     @endforeach
                                     </li>
                                     @endif
-                                    <a class="proceed-btn check_out" href="{{ url('sale/checkout') }}">Order</a>
-                                    @if (Session::get('totalPriceBill') == true)
-                                        @foreach (Session::get('totalPriceBill') as $key => $cart)
-                                            {{-- <h1>{{ $cart['money'] }}</h1> --}}
-                                        @endforeach
+
+                                    @if (Session::get('cart') == true)
+                                        <a class="proceed-btn check_out" href="{{ url('sale/checkout') }}">Order</a>
+                                    @else
+                                        <a class="proceed-btn check_out" href="{{ URL::to('/shop') }}"
+                                            class="primary-btn">Shopping</a>
                                     @endif
                             </div>
                         </div>

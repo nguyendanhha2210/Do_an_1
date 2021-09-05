@@ -12,11 +12,13 @@
                             <h4>Thông tin đơn hàng</h4>
                             <div class="order-total">
                                 <ul class="order-table">
+                                    @php
+                                        $totalAfter = 0;
+                                    @endphp
                                     <li>Product <span>Total</span></li>
                                     @if (Session::get('cart') == true)
                                         @php
                                             $total = 0;
-                                            $totalAfter = 0;
                                         @endphp
                                         @foreach (Session::get('cart') as $key => $cart)
                                             @php
@@ -71,13 +73,11 @@
                                     @endif
                                     @endif
                                 </ul>
-                                <ul>
-                                    @php
-                                        $vnd_to_usd = $totalAfter / 23083;
-                                    @endphp
-                                    <div id="paypal-button"></div>
-                                    <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}">
-                                </ul>
+                                @php
+                                    $vnd_to_usd = $totalAfter / 23083;
+                                @endphp
+                                <div id="paypal-button"></div>
+                                <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}">
                             </div>
                         </div>
                     </div>

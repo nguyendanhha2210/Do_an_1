@@ -31,7 +31,7 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <img alt="" src="{{ 'image/3.png' }}" />
+                    <img alt="" src="{{ '/frontend/images/avatar-2.png' }}" />
                     <span class="username">
                         Shipper
                     </span>

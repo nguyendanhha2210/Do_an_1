@@ -132,7 +132,6 @@
                                     <span>{{ count(Session::get('cart')) }}</span>
                                     <?php }
                                     ?>
-
                                 </a>
                                 <div class="cart-hover ">
                                     @if (Session::get('cart') == true)
@@ -181,9 +180,13 @@
                                         <a href="{{ URL::to('/view-cart') }}" class="primary-btn view-card">VIEW
                                             CARD</a>
 
-                                        <a href="{{ URL::to('sale/checkout') }}"
-                                            class="primary-btn checkout-btn">CHECK OUT</a>
-
+                                        @if (Session::get('cart') == true)
+                                            <a class="primary-btn checkout-btn"
+                                                href="{{ url('sale/checkout') }}">CHECK OUT</a>
+                                        @else
+                                            <a class="primary-btn checkout-btn" href="{{ URL::to('/shop') }}"
+                                                class="primary-btn">Shopping</a>
+                                        @endif
                                     </div>
                                 </div>
                             </li>

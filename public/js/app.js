@@ -2908,7 +2908,7 @@ __webpack_require__.r(__webpack_exports__);
         if (valid) {
           that.$swal({
             title: "Do you want to pay ?",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
