@@ -23,10 +23,10 @@
                 <div class="ht-right">
                     @if (Auth::guard('sales')->id())
                         <a href="{{ URL::to('sale/logout') }}" class="login-panel"><i
-                                class="fa fa-user"></i>Logout</a>
+                                class="fa fa-lock"></i>Logout</a>
                     @else
                         <a href="{{ URL::to('/login') }}" class="login-panel"><i
-                                class="fa fa-user"></i>Login</a>
+                                class="fa fa-sign-in"></i>Login</a>
                     @endif
 
                     <div class="lan-selector">
@@ -38,10 +38,12 @@
                         </select>
                     </div>
                     <div class="top-social">
-                        <a href="#"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                        <a href="#"><i class="ti-linkedin"></i></a>
-                        <a href="#"><i class="ti-pinterest"></i></a>
+                        <a href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"><i
+                                class="ti-facebook"></i></a>
+                        <a href="#"><img style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                src="{{ '/frontend/images/view.png' }}" alt=""></a>
+                        <a href="#"><img style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                src="{{ '/frontend/images/view.png' }}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -84,6 +86,50 @@
                         <ul class="nav-right">
                             <li class="cart-icon">
                                 <a href="#">
+                                    <img style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                        src="{{ '/frontend/images/view.png' }}" alt="">
+                                    <?php
+                                    $viewed = Session::get('viewed');
+                                    if ($viewed != null) { ?>
+                                    <span>{{ count(Session::get('viewed')) }}</span>
+                                    <?php }
+                                    ?>
+                                </a>
+                                <div class="cart-hover cart-hover-1">
+                                    @if (Session::get('viewed') == true)
+                                        <div class="select-items ">
+                                            <h5 class="text-center" style="color:red">Viewed Products</h5>
+                                            <hr style="max-width:100%">
+                                            <table>
+                                                <tbody>
+                                                    @foreach (Session::get('viewed') as $key => $viewed)
+                                                        <tr class="overflow">
+                                                            <td class="si-pic"><img width="40px;" height="50px;"
+                                                                    src="{{ URL::to('uploads/' . $viewed['product_image']) }}"
+                                                                    alt=""></td>
+                                                            <td class="si-text">
+                                                                <div class="product-selected">
+                                                                    <p>{{ number_format($viewed['product_price'], 0, ',', '.') }}đ
+                                                                    </p>
+                                                                    <h6>{{ $viewed['product_name'] }}</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td class="si-close">
+                                                                <a
+                                                                    href="{{ URL::to('/del-viewed-product/' . $viewed['session_id']) }}"><i
+                                                                        class="ti-close"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @endif
+                                </div>
+                            </li>
+
+                            <li class="cart-icon">
+                                <a href="#">
                                     <i class="icon_heart_alt"></i>
                                     <?php
                                     $cart = Session::get('favorite');
@@ -95,6 +141,9 @@
                                 <div class="cart-hover cart-hover-1">
                                     @if (Session::get('favorite') == true)
                                         <div class="select-items ">
+                                            <h5 class="text-center" style="color:red">
+                                                Favorite Products</h5>
+                                            <hr style="max-width:100%">
                                             <table>
                                                 <tbody>
                                                     @foreach (Session::get('favorite') as $key => $favorite)
@@ -227,19 +276,24 @@
                         <li><a href="{{ URL::to('/view-cart') }}">Cart</a></li>
                         <li><a href="#">Account</a>
                             <ul class="dropdown">
-                                <li><a href="{{ URL::to('/contact') }}">Contact</a></li>
+                                <li><a href="{{ URL::to('/contact') }}"><i class="fa fa-phone"></i> Contact</a>
+                                </li>
                                 <li>
                                     @if (Auth::guard('sales')->id())
-                                        <a href="{{ URL::to('sale/profile') }}">Profile</a>
+                                        <a href="{{ URL::to('sale/profile') }}"><i class="fa fa-info-circle"></i>
+                                            Profile</a>
                                     @else
-                                        <a href="{{ URL::to('/register') }}">Register</a>
+                                        <a href="{{ URL::to('/register') }}"><i class="fa fa-plus"></i>
+                                            Register</a>
                                     @endif
                                 </li>
                                 <li>
                                     @if (Auth::guard('sales')->id())
-                                        <a href="{{ URL::to('sale/logout') }}">Logout</a>
+                                        <a href="{{ URL::to('sale/logout') }}" class="login-panel"><i
+                                                class="fa fa-lock"></i> Logout</a>
                                     @else
-                                        <a href="{{ URL::to('/login') }}">Login</a>
+                                        <a href="{{ URL::to('/login') }}" class="login-panel"><i
+                                                class="fa fa-sign-in"></i> Login</a>
                                     @endif
                                 </li>
                             </ul>

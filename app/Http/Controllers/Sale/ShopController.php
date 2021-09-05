@@ -12,6 +12,8 @@ use App\Models\Type;
 use App\Models\Weight;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Descriptor\Descriptor;
+use Illuminate\Support\Facades\Session;
+
 
 class ShopController extends Controller
 {
@@ -121,7 +123,7 @@ class ShopController extends Controller
         }
     }
 
-    public function productDetail($id)
+    public function productDetail(Request $request, $id)
     {
         $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
         $description = Description::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
@@ -146,7 +148,83 @@ class ShopController extends Controller
         $productView->views = $productView->views + 1;
         $productView->save();
 
+        $session_id = substr(md5(microtime()), rand(0, 26), 5);
+        $viewed = Session::get('viewed');
+        if ($viewed == true) {
+            $is_avaiable = 0;
+            foreach ($viewed as $key => $val) {
+                if ($val['product_id'] == $productView->id) {
+                    $is_avaiable++;
+                    // dd($val['product_qty'] + $request->qualityOrder);
+                }
+            }
+            if ($is_avaiable == 0) {
+                if ($productView->qualityOrder) {
+                    $viewed[] = array(
+                        'session_id' => $session_id,
+                        'product_id' => $productView->id,
+                        'product_name' => $productView->name,
+                        'product_image' => $productView->images,
+                        'product_qty' => $productView->qualityOrder,
+                        'product_price' => $productView->price,
+                    );
+                    Session::put('viewed', $viewed);
+                } else {
+                    $viewed[] = array(
+                        'session_id' => $session_id,
+                        'product_id' => $productView->id,
+                        'product_name' => $productView->name,
+                        'product_image' => $productView->images,
+                        'product_qty' => 1,
+                        'product_price' => $productView->price,
+                    );
+                    Session::put('viewed', $viewed);
+                }
+            } else {
+            }
+        } else {
+            if ($request->qualityOrder) {
+                $viewed[] = array(
+                    'session_id' => $session_id,
+                    'product_id' => $productView->id,
+                    'product_name' => $productView->name,
+                    'product_image' => $productView->images,
+                    'product_qty' => $productView->qualityOrder,
+                    'product_price' => $productView->price,
+                );
+                Session::put('viewed', $viewed);
+            } else {
+                $viewed[] = array(
+                    'session_id' => $session_id,
+                    'product_id' => $productView->id,
+                    'product_name' => $productView->name,
+                    'product_image' => $productView->images,
+                    'product_qty' => 1,
+                    'product_price' => $productView->price,
+                );
+                Session::put('viewed', $viewed);
+            }
+        }
+        Session::save();
+
+
         return view('sale.shop.detailproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'product'));
+    }
+
+    public function delViewedProduct($session_id)
+    {
+        $viewed = Session::get('viewed');
+        if ($viewed == true) {
+            foreach ($viewed as $key => $val) {
+                if ($val['session_id'] == $session_id) {
+                    unset($viewed[$key]);
+                }
+            }
+            Session::put('viewed', $viewed);
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function productRelated($id)

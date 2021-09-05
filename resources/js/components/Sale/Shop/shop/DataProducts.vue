@@ -454,7 +454,8 @@ export default {
       });
     },
 
-     addFavorite(product) {
+     addFavorite(product) 
+     {
       let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Sale;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class FavoriteProductController extends Controller
 {
@@ -98,7 +98,6 @@ class FavoriteProductController extends Controller
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
-
 
     public function delProductFavorite($session_id)
     {
