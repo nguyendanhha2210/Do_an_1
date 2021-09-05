@@ -42,7 +42,8 @@
                                                 $total += $subtotal;
                                             @endphp
                                             <tr>
-                                                <td style="text-align: center" class="cart-pic first-row"><img width="80px;"
+                                                <td style="text-align: center" class="cart-pic first-row"><img width="70px"
+                                                        height="80px"
                                                         src="{{ URL::to('uploads/' . $cart['product_image']) }}" alt="">
                                                 </td>
                                                 <td style="text-align: center" class="cart-title first-row">
@@ -145,7 +146,6 @@
                                             <li class="subtotal">
                                                 Total has decreased :
                                                 <span>{{ number_format($total - $total_coupon, 0, ',', '.') }}</span>
-
                                                 <?php
                                                 $totalPriceBill = Session::get('totalPriceBill');
                                                 $totalPriceBill[] = [
@@ -182,12 +182,25 @@
                                     </li>
                                     @endif
 
-                                    @if (Session::get('cart') == true)
-                                        <a class="proceed-btn check_out" href="{{ url('sale/checkout') }}">Order</a>
-                                    @else
-                                        <a class="proceed-btn check_out" href="{{ URL::to('/shop') }}"
-                                            class="primary-btn">Shopping</a>
-                                    @endif
+                                    <form method="get" action="{{ URL::to('sale/order-place') }}">
+                                        <div class="payment-options">
+                                            <span>
+                                                <label><input name="payment_option" value="1" type="radio"> Thanh toán khi
+                                                    nhận hàng </label> <i class=" fa fa-money"></i> <br>
+                                            </span>
+                                            <span>
+                                                <label><input name="payment_option" value="2" type="radio"> Thanh toán qua
+                                                    Paypal</label> <i class=" fa fa-paypal"></i> <br>
+                                            </span>
+                                            @if (Session::get('cart') == true)
+                                                <button type="submit" class="proceed-btn check_out"
+                                                    style="width: 100%;">Order</button>
+                                            @else
+                                                <a class="proceed-btn check_out"
+                                                    href="{{ URL::to('/shop') }}">Shopping</a>
+                                            @endif
+                                        </div>
+                                    </form>
                             </div>
                         </div>
                     </div>

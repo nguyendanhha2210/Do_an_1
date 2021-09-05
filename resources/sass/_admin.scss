@@ -229,3 +229,19 @@ th {
     display: none;
     width: 220px;
 }
+
+.width-input input {
+    @include sp {
+        width: 395px !important;
+    }
+    @include tablet {
+        display: table;
+        width: 726px;
+    }
+    @include desktop {
+        width: 395px !important;
+    }
+    @include desktop-extra {
+        width: 395px !important;
+    }
+}

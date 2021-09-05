@@ -3,8 +3,9 @@
     <h4>Thông tin nhận hàng</h4>
     <div class="row">
       <form role="form" @submit.prevent="checkOut()">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-xl-12">
           <input
+            style="width:395px"
             type="text"
             name="name"
             placeholder="Họ và tên người nhận ..."

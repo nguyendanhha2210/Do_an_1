@@ -179,14 +179,9 @@
                                     <div class="select-button">
                                         <a href="{{ URL::to('/view-cart') }}" class="primary-btn view-card">VIEW
                                             CARD</a>
+                                        <a class="primary-btn checkout-btn" href="{{ URL::to('/shop') }}"
+                                            class="primary-btn">Shopping</a>
 
-                                        @if (Session::get('cart') == true)
-                                            <a class="primary-btn checkout-btn"
-                                                href="{{ url('sale/checkout') }}">CHECK OUT</a>
-                                        @else
-                                            <a class="primary-btn checkout-btn" href="{{ URL::to('/shop') }}"
-                                                class="primary-btn">Shopping</a>
-                                        @endif
                                     </div>
                                 </div>
                             </li>

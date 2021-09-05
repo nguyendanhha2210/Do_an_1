@@ -2842,6 +2842,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -99949,7 +99950,7 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "col-lg-12 col-xl-12" }, [
               _c("input", {
                 directives: [
                   {
@@ -99965,6 +99966,7 @@ var render = function() {
                     expression: "shipping.name"
                   }
                 ],
+                staticStyle: { width: "395px" },
                 attrs: {
                   type: "text",
                   name: "name",

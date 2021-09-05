@@ -129,7 +129,6 @@ Route::get('/', [App\Http\Controllers\Sale\HomeController::class, 'index'])->nam
 Route::get('/404', [App\Http\Controllers\Sale\HomeController::class, 'error404'])->name('sale.error404');
 Route::get('/500', [App\Http\Controllers\Sale\HomeController::class, 'error500'])->name('sale.error500');
 Route::get('/shop', [App\Http\Controllers\Sale\ShopController::class, 'index'])->name('sale.shop.index');
-
 Route::get('/blog', [App\Http\Controllers\Sale\PostController::class, 'index'])->name('sale.post.index');
 Route::get('/get-post-list', [App\Http\Controllers\Sale\PostController::class, 'getData'])->name('sale.post.getData');
 Route::get('blog/{id}/detail', [App\Http\Controllers\Sale\PostController::class, 'viewDetail'])->name('sale.post.viewDetail');
@@ -140,7 +139,6 @@ Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'ind
 
 
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
-// Route::get('/fill-option-shop', [App\Http\Controllers\Sale\ShopController::class, 'getOption'])->name('admin.shop.getOption');
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
 Route::post('add-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'store'])->name('admin.comment.store'); //thêm comment
 Route::get('/get-comment/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getComment'])->name('admin.comment.getComment'); //Show data comment
@@ -176,13 +174,12 @@ Route::get('/sale/change-password-complete',  [App\Http\Controllers\Sale\User\Pa
 Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('/home', [App\Http\Controllers\Sale\HomeController::class, 'index'])->name('sale.home');
     Route::get('/logout', [App\Http\Controllers\Sale\User\AccountController::class, 'logout'])->name('sale.users.logout');
-    Route::get('/checkout', [App\Http\Controllers\Sale\CheckoutController::class, 'checkOut'])->name('sale.checkout.checkOut');
     Route::post('/checkout-cart',  [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutCart'])->name('admin.checkout.checkoutCart'); //update giỏ
+    Route::get('/order-place', [App\Http\Controllers\Sale\CheckoutController::class, 'checkOut'])->name('sale.checkout.checkOut');
 
     Route::get('/profile', [App\Http\Controllers\Sale\ProfileController::class, 'index'])->name('sale.profile.index');
     Route::get('/get-user', [App\Http\Controllers\Sale\ProfileController::class, 'getUser'])->name('sale.profile.getUser');
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
-
 
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order

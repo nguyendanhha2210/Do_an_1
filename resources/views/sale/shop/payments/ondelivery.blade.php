@@ -4,10 +4,10 @@
         <div class="container">
             <form action="#" class="checkout-form">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <checkout-cart></checkout-cart>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-7">
                         <div class="place-order">
                             <h4>Thông tin đơn hàng</h4>
                             <div class="order-total">
@@ -73,11 +73,6 @@
                                     @endif
                                     @endif
                                 </ul>
-                                @php
-                                    $vnd_to_usd = $totalAfter / 23083;
-                                @endphp
-                                <div id="paypal-button"></div>
-                                <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}">
                             </div>
                         </div>
                     </div>

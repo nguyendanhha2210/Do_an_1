@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sale;
 
 use App\Enums\OrderStatus;
+use App\Enums\Payments;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
@@ -21,14 +22,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
-    public function checkOut()
+    public function checkOut(Request $request)
     {
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         } else {
             $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-            $breadcrumbs = ['Checkout'];
-            return view('sale.shop.checkout', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            $abc = $request->payment_option;
+            if ($abc == Payments::PAYMENTDELIVERY) {
+                $breadcrumbs = ['Payment on delivery '];
+                return view('sale.shop.payments.ondelivery', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            } elseif ($abc == Payments::PAYMENTPAYPAL) {
+                $breadcrumbs = ['Payment on paypal '];
+                return view('sale.shop.payments.onpaypal', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            }
         }
     }
 

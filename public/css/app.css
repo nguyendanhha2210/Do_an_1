@@ -276,6 +276,28 @@ th {
   width: 220px;
 }
 
+@media (max-width: 767px) {
+  .width-input input {
+    width: 395px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .width-input input {
+    display: table;
+    width: 726px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .width-input input {
+    width: 395px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .width-input input {
+    width: 395px !important;
+  }
+}
+
 .loader-img {
   margin: 100px auto;
   font-size: 25px;
