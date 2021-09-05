@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DescriptionController extends Controller
 {
-
     public function index(Request $request)
     {
         if (!Auth::guard('admin')->check()) {

@@ -15,18 +15,10 @@ use App\Models\WareHouse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 Barryvdh\DomPDF\ServiceProvider::class;
-
 use PDF;
-
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if (!Auth::guard('admin')->check()) {

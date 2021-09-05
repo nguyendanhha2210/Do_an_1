@@ -182,7 +182,8 @@
                                     </li>
                                     @endif
 
-                                    <form method="get" action="{{ URL::to('sale/order-place') }}">
+                                    <form method="post" action="{{ URL::to('sale/order-place') }}">
+                                        @csrf
                                         <div class="payment-options">
                                             <span>
                                                 <label><input name="payment_option" value="1" type="radio"> Thanh toán khi

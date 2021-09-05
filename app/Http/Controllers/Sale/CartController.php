@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
-
 class CartController extends Controller
 {
     public function addCart(Request $request)
@@ -233,5 +232,4 @@ class CartController extends Controller
             return redirect()->back()->with('message', 'Mã giảm giá không đúng hoặc bạn chưa đăng nhập !');
         }
     }
-
 }

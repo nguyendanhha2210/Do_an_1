@@ -67,7 +67,7 @@
             {{ errorBackEnd.phone[0] }}
           </div>
 
-          <button type="submit" class="btn btn-info">Xác nhận đơn hàng</button>
+          <button type="submit" class="btn btn-info" style="width:100%">Xác nhận đơn hàng</button>
         </div>
       </form>
     </div>

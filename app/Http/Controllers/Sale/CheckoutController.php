@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CheckoutController extends Controller
 {
@@ -154,4 +155,131 @@ class CheckoutController extends Controller
         Session::forget('cart');
         Session::forget('totalPriceBill');
     }
+
+    public function checkoutPaypal(Request $request)
+    {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        }
+        if (Session::get('coupon')) {
+            foreach (Session::get('coupon') as $key => $cou) {
+                $order_coupon = $cou['coupon_code'];
+            }
+        } else {
+            $order_coupon = "no";
+        }
+
+        if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
+            foreach (Session::get('totalPriceBill') as $key => $cart) {
+                $totalBill =  $cart['money'];
+            }
+        }
+
+        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())->where('coupon_time', '>', 0)
+            ->with(['coupon'])
+            ->whereHas('coupon', function ($query) use ($order_coupon) {
+                $query->where('code', $order_coupon);
+            })->first();
+
+        if ($couponUser) {
+            $couponUser->coupon_time -= 1;
+            $couponUser->save();
+        }
+
+        $shipping = new Shipping();
+        $shipping->name = $request->shipping_name;
+        $shipping->email = $request->shipping_email;
+        $shipping->address = $request->shipping_address;
+        $shipping->phone = $request->shipping_phone;
+        $flag_shipping = $shipping->save();
+
+        $shipping_id = $shipping->id;
+        $checkout_code = substr(md5(microtime()), rand(0, 26), 5); //tạo rundle chữ và số xong lấy 5 kí tự
+
+        $order = new Order();
+        $order->customer_id = Auth::guard('sales')->id();
+        $order->shipping_id = $shipping_id;
+        $order->order_status = OrderStatus::ORDER;
+        $order->order_code = $checkout_code;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $order->order_date = now();
+        $order->order_destroy = "";
+        $order->total_bill = $totalBill;
+        $flag_order = $order->save();
+
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart) {
+                $order_details = new OrderDetail();
+                $order_details->order_code = $checkout_code;
+                $order_details->product_id = $cart['product_id'];
+                $order_details->product_name = $cart['product_name'];
+                $order_details->product_price = $cart['product_price'];
+                $order_details->product_sales_quantity = $cart['product_qty'];
+                $order_details->product_coupon =  $order_coupon;
+                $order_details->save();
+            }
+        }
+
+        //send mail confirm
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_mail = "Đơn đặt hàng ngày " . ' ' . $now;
+
+        $customer = User::find(Auth::guard('sales')->id());
+
+        $data['email'][] = $customer->email;
+        //lay gio hang
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart_mail) {
+                $cart_array[] = array(
+                    'product_name' => $cart_mail['product_name'],
+                    'product_price' => $cart_mail['product_price'],
+                    'product_qty' => $cart_mail['product_qty']
+                );
+            }
+        }
+
+        $shipping_array = array(
+            // 'fee' =>  $fee,
+            'customer_name' => $customer->name,
+            'shipping_name' => $request->name,
+            'shipping_email' => $request->email,
+            'shipping_phone' => $request->phone,
+            'shipping_address' => $request->address,
+        );
+
+        //lay ma giam gia, lay coupon code
+        $ordercode_mail = array(
+            'coupon_code' => $order_coupon,
+            'order_code' => $checkout_code,
+            'totalBill' => $totalBill,
+        );
+
+        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+            $message->to($data['email'])->subject($title_mail); //send this mail with subject
+            $message->from($data['email'], $title_mail); //send from this mail
+        });
+
+        Session::forget('coupon');
+        Session::forget('cart');
+        Session::forget('totalPriceBill');
+        Session::forget('shipping');
+    }
+
+    // public function orderConfirm(Request $request)
+    // {
+    //     $session_id = substr(md5(microtime()), rand(0, 26), 5);
+    //     $shipping = Session::get('shipping');
+    //     if ($shipping == true) {
+    //     } else {
+    //         $shipping[] = array(
+    //             'session_id' => $session_id,
+    //             'shipping_name' => $request->name,
+    //             'shipping_email' => $request->email,
+    //             'shipping_address' => $request->address,
+    //             'shipping_phone' => $request->phone,
+    //         );
+    //         Session::put('shipping', $shipping);
+    //     }
+    //     Session::save();
+    // }
 }

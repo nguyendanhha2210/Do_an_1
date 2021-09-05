@@ -4,7 +4,7 @@
         <div class="container">
             <form action="#" class="checkout-form">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-7">
                         <div class="place-order">
                             <h4>Thông tin đơn hàng</h4>
                             <div class="order-total">
@@ -74,27 +74,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h4>Thông tin nhận hàng</h4>
-                        <div class="row">
-                            <form role="form">
-                                <div class="col-lg-12">
-                                    <input type="text" name="name" class="shipping_name form-control"
-                                        placeholder="Họ và tên người nhận ..." />
-                                    <input type="text" name="email" class="shipping_email form-control"
-                                        placeholder="Email người nhận ..." />
-                                    <input type="text" name="address" class="shipping_address form-control"
-                                        placeholder="Địa chỉ gửi hàng ..." />
-                                    <input type="text" name="phone" class="shipping_phone form-control"
-                                        placeholder="Số điện thoại ..." />
-                                    @php
-                                        $vnd_to_usd = $totalAfter / 23083;
-                                    @endphp
-                                    <div id="paypal-button" class="text-center"></div>
-                                    <input type="hidden" id="vnd_to_usd" value="{{ round($vnd_to_usd, 2) }}">
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-lg-5">
+                        @php
+                            $abc = round($totalAfter / 23083, 2);
+                        @endphp
+                        <checkout-paypal :total-after="{{ json_encode(isset($abc) ? $abc : '') }}"></checkout-paypal>
                     </div>
                 </div>
             </form>

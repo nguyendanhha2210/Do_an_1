@@ -128,42 +128,6 @@ class CouponController extends Controller
         $coupon->delete();
     }
 
-    // public function sendCustomer($id)
-    // {
-    //     $customer = User::where('role_id', '=', RoleStateType::SALER)->get();
-
-    //     $coupon = Coupon::where('id', $id)->first();
-
-    //     $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-
-    //     $title_mail = "Mã khuyến mãi ngày" . ' ' . $now;
-
-    //     $data = [];
-    //     foreach ($customer as $normal) {
-    //         $data['email'][] = $normal->email;
-    //     }
-
-    //     $coupon = array(
-    //         'start_date' => $coupon->start_date,
-    //         'end_date' => $coupon->end_date,
-    //         'time' => $coupon->time,
-    //         'condition' => $coupon->condition,
-    //         'number' => $coupon->number,
-    //         'code' => $coupon->code
-    //     );
-
-    //     if ($data && $coupon) {
-    //         Mail::send('admin.users.mail.sendCoupon',  ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
-    //             $message->to($data['email'])->subject($title_mail); //send this mail with subject
-    //             $message->from($data['email'], $title_mail); //send from this mail
-    //         });
-
-    //         return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thành công !');
-    //     } else {
-    //         return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
-    //     }
-    // }
-
     public function sendCustomer($id)
     {
         //Lấy ra các khách hàng có tổng đơn lớn nhất sắp xếp giảm dần

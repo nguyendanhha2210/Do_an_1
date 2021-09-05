@@ -71,6 +71,33 @@
     {{-- Paypal --}}
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script>
+        function pay() {
+            alert("Thành công !");
+            if (Session::get('shipping') == true) {
+                $shipping = Session::get('shipping');
+                var shipping_name = $shipping[0]['shipping_name']);
+            var shipping_phone = $shipping[0]['shipping_phone']);
+        var shipping_email = $shipping[0]['shipping_email']);
+        var shipping_address = $shipping[0]['shipping_address']);
+        $.ajax({
+            url: '{{ url('sale/checkout-paypal') }}',
+            method: 'get',
+            data: {
+                shipping_name: shipping_name,
+                shipping_phone: shipping_phone,
+                shipping_email: shipping_email,
+                shipping_address: shipping_address,
+            },
+            success: function(data) {
+                window.location.href = "{{ url('/home') }}";
+            }
+        });
+        }
+        }
+    </script>
+
+    {{-- Paypal --}}
+    {{-- <script>
         var usd = document.getElementById("vnd_to_usd").value;
         paypal.Button.render({
             // Configure environment
@@ -104,12 +131,11 @@
             // Execute the payment
             onAuthorize: function(data, actions) {
                 return actions.payment.execute().then(function() {
-                    // Show a confirmation message to the buyer
-                    window.alert('Cảm ơn bạn đã mua hàng của chúng tôi!');
+                    pay();
                 });
             }
         }, '#paypal-button');
-    </script>
+    </script> --}}
     {{-- Paypal --}}
 
     <!-- Messenger Plugin chat Code -->

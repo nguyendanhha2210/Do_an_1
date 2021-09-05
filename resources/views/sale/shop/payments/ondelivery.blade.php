@@ -4,9 +4,6 @@
         <div class="container">
             <form action="#" class="checkout-form">
                 <div class="row">
-                    <div class="col-lg-5">
-                        <checkout-cart></checkout-cart>
-                    </div>
                     <div class="col-lg-7">
                         <div class="place-order">
                             <h4>Thông tin đơn hàng</h4>
@@ -75,6 +72,9 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <checkout-cart></checkout-cart>
                     </div>
                 </div>
             </form>

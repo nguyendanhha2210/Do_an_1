@@ -15,7 +15,6 @@ use App\Models\Type;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class WareHouseController extends Controller
 {
     public function index(Request $request)
@@ -99,7 +98,6 @@ class WareHouseController extends Controller
             $productImage->image_3 = '';
             $productImage->image_4 = '';
             $flagProductImage = $productImage->save();
-
 
             if ($flagWarehouse && $flagProduct && $flagProductImage) {
                 return response()->json(route('admin.warehouse.list'), StatusCode::OK);  //Lưu thành công gọi ra đg dẫn về list

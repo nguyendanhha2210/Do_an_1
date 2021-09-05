@@ -27,7 +27,7 @@ import PostComponent from './components/Sale/Post/PostComponent.vue'
 import PostDetail from './components/Sale/Post/PostDetail.vue'
 import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
-
+import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.vue'
 
 
 Vue.component('paginate', Paginate)
@@ -64,6 +64,7 @@ new Vue({
         PostDetail,
         ContactComponent,
         ProfileComponent,
+        CheckoutPaypal,
     },
     created() {
         this.$validator.extend("number_phone", {
