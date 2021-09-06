@@ -139,7 +139,7 @@
     {{-- Paypal --}}
 
     <!-- Messenger Plugin chat Code -->
-    <div id="fb-root" style="margin-bottom: 300px"></div>
+    <div id="fb-root"></div>
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" style="margin-bottom: 300px" class="fb-customerchat">
     </div>
