@@ -1,8 +1,42 @@
 <template>
   <div class="table-agile-info">
     <div class="panel panel-default">
-      <div class="panel-heading"></div>
       <div class="row w3-res-tb">
+        <div class="col-md-2 col-sm-4 col-2" style="float: left">
+          <div class="form-check form-check-inline">
+            <label
+              class="
+                container-checkbox
+                form-check-label
+                align-items-center
+                height-14
+                p-0
+              "
+              for="checkAll"
+            >
+              <input
+                v-model="isInputAll"
+                class="form-check-input"
+                type="checkbox"
+                id="checkAll"
+                name="checkAll"
+                @click="checkAll" />
+              <span class="checkmark"></span
+            ></label>
+          </div>
+          <button
+            class="btn border-radius-7"
+            v-bind:class="{
+              'btn-outline-secondary': !isBtnDeleteAll,
+              'background-white': !isBtnDeleteAll,
+              'btn-success': isBtnDeleteAll,
+              disabled: !isBtnDeleteAll,
+            }"
+            @click="deleteAll"
+          >
+            Delete
+          </button>
+        </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
           <select v-model="paginate" class="form-control w-sm inline v-middle">
             <option value="5">5</option>
@@ -10,8 +44,8 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-4 col-sm-7 col-3" style="float: left">
-          <a class="btn btn-success btn-sm" :href="formAdd">Add New</a>
+        <div class="col-md-2 col-sm-3 col-1" style="float: left">
+          <a class="btn btn-success" :href="formAdd">Add New</a>
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input type="text" class="form-control" v-model="search" />
@@ -19,29 +53,48 @@
       </div>
 
       <div class="table-responsive">
-        <table class="table table-striped b-t b-light text-center">
+        <table class="table table-striped b-t b-light">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Type</th>
-              <th style="width: 20%">Action</th>
+              <th></th>
+              <th class="text-center">STT</th>
+              <th class="text-center">Type</th>
+              <th class="text-center" style="width: 20%">Action</th>
             </tr>
           </thead>
           <transition-group type="slide-fade" tag="tbody">
-            <tr v-for="(data, index) in types.data" :key="data.id">
-              <th scope="row">{{ index + 1 }}</th>
-              <td>
-                {{ data.type }}
+            <tr v-for="(type, index) in types" :key="type.id">
+              <td style="width: 5%">
+                <div class="form-check form-check-inline">
+                  <label
+                    class="container-checkbox form-check-label height-17"
+                    :for="`type${index}`"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="selectedIds"
+                      :id="`type${index}`"
+                      name="category"
+                      @change="updateCheckAll"
+                      :value="type.id" />
+                    <span class="checkmark"></span
+                  ></label>
+                </div>
               </td>
-              <td v-if="data.id == 2"></td>
-               <td v-else>
+              <th scope="row" class="text-center">{{ index + 1 }}</th>
+              <td class="text-center">
+                {{ type.type }}
+              </td>
+              <td v-if="type.id == 2"></td>
+              <td v-else>
                 <div class="td-action">
-                  <a :href="`type/${data.id}/edit`">
+                  <a :href="`type/${type.id}/edit`">
                     <button class="btn btn-warning mr-1" type="button">
                       Edit
                     </button></a
                   >
-                  <button class="btn btn-danger" @click="deleteType(data.id)">
+                  <button class="btn btn-danger" @click="singleDelete(type.id)">
                     Delete
                   </button>
                 </div>
@@ -51,22 +104,29 @@
         </table>
       </div>
     </div>
+    <footer class="panel-footer">
+      <div class="row">
+        <div class="col-sm-5 text-center">
+          <small class="text-muted inline m-t-sm m-b-sm"
+            >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
+            {{ totalNumber }} items</small
+          >
+        </div>
+      </div>
+    </footer>
     <nav aria-label="Page navigation example">
       <paginate
-        v-model="page"
-        :page-count="parseInt(types.last_page)"
-        :page-range="5"
-        :margin-pages="2"
-        :click-handler="changePage"
-        :prev-text="'<<'"
-        :next-text="'>>'"
-        :container-class="'pagination justify-content-center'"
+        :page-count="lastPage"
+        :container-class="'pagination d-flex justify-content-center mt-3'"
         :page-class="'page-item'"
-        :prev-class="'page-item'"
-        :next-class="'page-item'"
-        :page-link-class="'page-link bg-info text-light'"
-        :next-link-class="'page-link bg-info text-light'"
-        :prev-link-class="'page-link bg-info text-light'"
+        :page-link-class="'page-link'"
+        :prev-class="'page-item prev-item'"
+        :prev-link-class="'page-link'"
+        :next-class="'page-item next-item'"
+        :next-link-class="'page-link'"
+        :prev-text="'<span><img src=\'/images/icons/angle-left.svg\'></span>'"
+        :next-text="'<span><img src=\'/images/icons/angle-right.svg\'></span>'"
+        :click-handler="fetchData"
       >
       </paginate>
     </nav>
@@ -82,7 +142,7 @@
       :modalShow="modalShow"
     ></Modal>
 
-     <Loader :flag-show="flagShowLoader"></Loader>
+    <Loader :flag-show="flagShowLoader"></Loader>
     <FlashMessage :position="'left bottom'"></FlashMessage>
   </div>
 </template>
@@ -125,41 +185,119 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      currentPage: "",
+      numberOfFirstRecord: "",
+      numberOfPage: "",
+      totalNumber: "",
+      lastPage: 0,
+      isBtnDeleteAll: false,
+      isInputAll: false,
+      selectedIds: [],
     };
   },
   created() {
-    this.fetchData();
+    this.fetchData(1);
   },
   watch: {
     paginate: function (value) {
-      this.fetchData();
+      this.fetchData(1);
     },
     search: function (value) {
-      this.fetchData();
+      this.fetchData(1);
     },
   },
-  props: ["formAdd"],
+  props: ["formAdd", "data"],
   mounted() {},
   components: {
     Modal,
     Loader,
   },
   methods: {
-    fetchData() {
+    checkAll: function () {
+      this.isInputAll = !this.isInputAll;
+      this.selectedIds = [];
+      if (this.isInputAll) {
+        //Nếu check vào ô chon hết
+        this.types.forEach((item, index) => {
+          this.selectedIds.push(item.id);
+          this.isBtnDeleteAll = true;
+        });
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+
+    updateCheckAll: function () {
+      //Check từng ô trong ds sp
+      if (this.selectedIds.length > 0) {
+        this.isBtnDeleteAll = true;
+        if (this.selectedIds.length == this.types.length) {
+          //nếu chọn tất cả thì ô check tất cả trên sáng
+          this.isInputAll = true;
+        } else {
+          this.isInputAll = false;
+        }
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+
+    deleteAll() {
+      let that = this;
+      this.$swal({
+        title: "Do you want to delete ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post("/admin/delete-all", this.selectedIds)
+            .then((response) => {
+              this.$swal({
+                title: "Delete successfully!",
+                icon: "success",
+                confirmButtonText: "OK!",
+              }).then(function (confirm) {});
+              that.fetchData(that.currentPage);
+              that.isBtnDeleteAll = false;
+              that.isInputAll = false;
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Delete Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
+    },
+
+    prev() {},
+    next() {},
+    chanePage: function (page) {},
+
+    fetchData(page) {
       let that = this;
       this.flagShowLoader = true;
       axios
-        .get(
-          "get-type?page=" +
-            that.page +
-            "&paginate=" +
-            that.paginate +
-            "&search=" +
-            that.search
-        )
+        .post("get-type", {
+          page: page,
+          paginate: this.paginate,
+          search: this.search,
+        })
         .then(function (response) {
-          that.types = response.data; //show data ra
+          that.types = response.data.data; //show data ra
           that.flagShowLoader = false;
+          that.totalNumber = response.data.total; //Tổng số sp có
+          that.currentPage = response.data.current_page; //Trang hiện hành
+          that.numberOfFirstRecord = response.data.from; //Thứ tự sp đầu của 1 trang
+          that.numberOfPage = response.data.to; //Thứ tự sp cuối của 1 trang
+          that.lastPage = response.data.last_page;
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -178,25 +316,7 @@ export default {
         });
     },
 
-    prev() {
-      if (this.types.prev_page_url) {
-        this.page--;
-        this.fetchData();
-      }
-    },
-    next() {
-      if (this.types.next_page_url) {
-        this.page++;
-        this.fetchData();
-      }
-    },
-
-    changePage(page) {
-      this.page = page;
-      this.fetchData();
-    },
-
-    deleteType(id) {
+    singleDelete(id) {
       let that = this;
       this.$swal({
         title: "Do you want to delete ？",

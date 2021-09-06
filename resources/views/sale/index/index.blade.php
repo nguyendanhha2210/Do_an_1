@@ -103,10 +103,14 @@
                                 <input type="hidden" value="1" class="cart_product_qty_{{ $key->id }}">
 
                                 {{-- Lấy cho sp yêu thích --}}
-                                <input type="hidden" id="wishlist_productname{{ $key->id }}" value="{{ $key->name }}">
-                                <input type="hidden" id="wishlist_productprice{{ $key->id }}" value="{{ number_format($key->price) . ' đ'  }}">
-                                <input type="hidden" id="wishlist_productimage{{ $key->id }}" src="{{ URL::to('uploads/' . $key->images) }}" value="{{ $key->images }}">
-                                <a type="hidden" id="wishlist_producturl{{ $key->id }}" href="{{ URL::to('/product-detail/' . $key->id) }}"></a>
+                                <input type="hidden" id="wishlist_productname{{ $key->id }}"
+                                    value="{{ $key->name }}">
+                                <input type="hidden" id="wishlist_productprice{{ $key->id }}"
+                                    value="{{ number_format($key->price) . ' đ' }}">
+                                <input type="hidden" id="wishlist_productimage{{ $key->id }}"
+                                    src="{{ URL::to('uploads/' . $key->images) }}" value="{{ $key->images }}">
+                                <a type="hidden" id="wishlist_producturl{{ $key->id }}"
+                                    href="{{ URL::to('/product-detail/' . $key->id) }}"></a>
                                 {{-- Lấy cho sp yêu thích --}}
 
                                 <div class="product-item">
@@ -142,7 +146,7 @@
                             </form>
                         @endforeach
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -349,7 +353,7 @@
                             </div>
                             <div class="sb-text">
                                 <h6>Free Shipping</h6>
-                                <p>For all order over 99$</p>
+                                <p>For all product</p>
                             </div>
                         </div>
                     </div>

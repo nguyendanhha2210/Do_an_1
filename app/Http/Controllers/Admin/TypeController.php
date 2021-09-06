@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\TypeRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class TypeController extends Controller
 {
     public function index(Request $request)
@@ -32,7 +33,10 @@ class TypeController extends Controller
                 if ($search) {
                     $q->where('type', 'like', '%' . $search . '%');
                 }
-            })->orderBy('created_at', 'desc')->paginate($paginate);
+            })
+                ->orderBy('created_at', 'desc')->paginate($paginate);
+            // ->orderBy('created_at', 'desc')->paginate(3);
+
 
             return response()->json($types, StatusCode::OK);
         } catch (\Exception $e) {
@@ -83,5 +87,10 @@ class TypeController extends Controller
     {
         $type = Type::find($id);
         $type->delete();
+    }
+
+    public function deleteAll(Request $request)
+    {
+        Type::whereIn('id', $request)->delete();
     }
 }

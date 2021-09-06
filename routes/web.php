@@ -39,12 +39,13 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
 
     //Type //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/type', [App\Http\Controllers\Admin\TypeController::class, 'index'])->name('admin.type.list'); //gọi form list
-    Route::get('/get-type', [App\Http\Controllers\Admin\TypeController::class, 'getData'])->name('admin.type.getData'); //trả dữ liệu ra form list
+    Route::post('/get-type', [App\Http\Controllers\Admin\TypeController::class, 'getData'])->name('admin.type.getData'); //trả dữ liệu ra form list
     Route::get('/type/add',  [App\Http\Controllers\Admin\TypeController::class, 'create'])->name('admin.type.create'); //thêm
     Route::post('/type/type-add',  [App\Http\Controllers\Admin\TypeController::class, 'store'])->name('admin.type.store'); //thêm
     Route::get('/type/{id}/edit', [App\Http\Controllers\Admin\TypeController::class, 'edit'])->name('admin.type.edit'); //gọi trang edit
     Route::post('/type/{id}/type-update', [App\Http\Controllers\Admin\TypeController::class, 'update'])->name('admin.type.update'); //trả dữ liệu ra form list
     Route::get('/type/{id}/delete', [App\Http\Controllers\Admin\TypeController::class, 'destroy'])->name('admin.type.delete'); //Xóa
+    Route::post('/delete-all', [App\Http\Controllers\Admin\TypeController::class, 'deleteAll'])->name('admin.type.deleteAll'); //Xóa
 
     //Coupon //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/coupon', [App\Http\Controllers\Admin\CouponController::class, 'index'])->name('admin.coupon.list'); //gọi form list

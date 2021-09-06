@@ -6590,6 +6590,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6611,33 +6671,115 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       flagShowLoader: false,
       //Modal
       modalShow: false
-    }, _defineProperty(_ref, "type", ""), _defineProperty(_ref, "title", ""), _defineProperty(_ref, "text", ""), _defineProperty(_ref, "confirm", ""), _defineProperty(_ref, "cancle", ""), _defineProperty(_ref, "urlConfirm", ""), _defineProperty(_ref, "urlCancle", ""), _ref;
+    }, _defineProperty(_ref, "type", ""), _defineProperty(_ref, "title", ""), _defineProperty(_ref, "text", ""), _defineProperty(_ref, "confirm", ""), _defineProperty(_ref, "cancle", ""), _defineProperty(_ref, "urlConfirm", ""), _defineProperty(_ref, "urlCancle", ""), _defineProperty(_ref, "currentPage", ""), _defineProperty(_ref, "numberOfFirstRecord", ""), _defineProperty(_ref, "numberOfPage", ""), _defineProperty(_ref, "totalNumber", ""), _defineProperty(_ref, "lastPage", 0), _defineProperty(_ref, "isBtnDeleteAll", false), _defineProperty(_ref, "isInputAll", false), _defineProperty(_ref, "selectedIds", []), _ref;
   },
   created: function created() {
-    this.fetchData();
+    this.fetchData(1);
   },
   watch: {
     paginate: function paginate(value) {
-      this.fetchData();
+      this.fetchData(1);
     },
     search: function search(value) {
-      this.fetchData();
+      this.fetchData(1);
     }
   },
-  props: ["formAdd"],
+  props: ["formAdd", "data"],
   mounted: function mounted() {},
   components: {
     Modal: _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     Loader: _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   methods: {
-    fetchData: function fetchData() {
+    checkAll: function checkAll() {
+      var _this = this;
+
+      this.isInputAll = !this.isInputAll;
+      this.selectedIds = [];
+
+      if (this.isInputAll) {
+        //Nếu check vào ô chon hết
+        this.types.forEach(function (item, index) {
+          _this.selectedIds.push(item.id);
+
+          _this.isBtnDeleteAll = true;
+        });
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+    updateCheckAll: function updateCheckAll() {
+      //Check từng ô trong ds sp
+      if (this.selectedIds.length > 0) {
+        this.isBtnDeleteAll = true;
+
+        if (this.selectedIds.length == this.types.length) {
+          //nếu chọn tất cả thì ô check tất cả trên sáng
+          this.isInputAll = true;
+        } else {
+          this.isInputAll = false;
+        }
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+    deleteAll: function deleteAll() {
+      var _this2 = this;
+
+      var that = this;
+      this.$swal({
+        title: "Do you want to delete ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!"
+      }).then(function (result) {
+        if (result.value) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/admin/delete-all", _this2.selectedIds).then(function (response) {
+            _this2.$swal({
+              title: "Delete successfully!",
+              icon: "success",
+              confirmButtonText: "OK!"
+            }).then(function (confirm) {});
+
+            that.fetchData(that.currentPage);
+            that.isBtnDeleteAll = false;
+            that.isInputAll = false;
+          })["catch"](function (error) {
+            that.flashMessage.error({
+              message: "Delete Failure!",
+              icon: "/backend/icon/error.svg",
+              blockClass: "text-centet"
+            });
+          });
+        }
+      });
+    },
+    prev: function prev() {},
+    next: function next() {},
+    chanePage: function chanePage(page) {},
+    fetchData: function fetchData(page) {
       var that = this;
       this.flagShowLoader = true;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-type?page=" + that.page + "&paginate=" + that.paginate + "&search=" + that.search).then(function (response) {
-        that.types = response.data; //show data ra
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-type", {
+        page: page,
+        paginate: this.paginate,
+        search: this.search
+      }).then(function (response) {
+        that.types = response.data.data; //show data ra
 
         that.flagShowLoader = false;
+        that.totalNumber = response.data.total; //Tổng số sp có
+
+        that.currentPage = response.data.current_page; //Trang hiện hành
+
+        that.numberOfFirstRecord = response.data.from; //Thứ tự sp đầu của 1 trang
+
+        that.numberOfPage = response.data.to; //Thứ tự sp cuối của 1 trang
+
+        that.lastPage = response.data.last_page;
       })["catch"](function (err) {
         switch (err.response.status) {
           case 500:
@@ -6653,24 +6795,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    prev: function prev() {
-      if (this.types.prev_page_url) {
-        this.page--;
-        this.fetchData();
-      }
-    },
-    next: function next() {
-      if (this.types.next_page_url) {
-        this.page++;
-        this.fetchData();
-      }
-    },
-    changePage: function changePage(page) {
-      this.page = page;
-      this.fetchData();
-    },
-    deleteType: function deleteType(id) {
-      var _this = this;
+    singleDelete: function singleDelete(id) {
+      var _this3 = this;
 
       var that = this;
       this.$swal({
@@ -6684,7 +6810,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (result) {
         if (result.value) {
           axios__WEBPACK_IMPORTED_MODULE_2___default().get("type/".concat(id, "/delete")).then(function (response) {
-            _this.$swal({
+            _this3.$swal({
               title: "Delete successfully!",
               icon: "success",
               confirmButtonText: "OK!"
@@ -83417,9 +83543,89 @@ var render = function() {
     { staticClass: "table-agile-info" },
     [
       _c("div", { staticClass: "panel panel-default" }, [
-        _c("div", { staticClass: "panel-heading" }),
-        _vm._v(" "),
         _c("div", { staticClass: "row w3-res-tb" }, [
+          _c(
+            "div",
+            {
+              staticClass: "col-md-2 col-sm-4 col-2",
+              staticStyle: { float: "left" }
+            },
+            [
+              _c("div", { staticClass: "form-check form-check-inline" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "\n              container-checkbox\n              form-check-label\n              align-items-center\n              height-14\n              p-0\n            ",
+                    attrs: { for: "checkAll" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.isInputAll,
+                          expression: "isInputAll"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "checkAll",
+                        name: "checkAll"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.isInputAll)
+                          ? _vm._i(_vm.isInputAll, null) > -1
+                          : _vm.isInputAll
+                      },
+                      on: {
+                        click: _vm.checkAll,
+                        change: function($event) {
+                          var $$a = _vm.isInputAll,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.isInputAll = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.isInputAll = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.isInputAll = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "checkmark" })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn border-radius-7",
+                  class: {
+                    "btn-outline-secondary": !_vm.isBtnDeleteAll,
+                    "background-white": !_vm.isBtnDeleteAll,
+                    "btn-success": _vm.isBtnDeleteAll,
+                    disabled: !_vm.isBtnDeleteAll
+                  },
+                  on: { click: _vm.deleteAll }
+                },
+                [_vm._v("\n          Delete\n        ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
           _c(
             "div",
             {
@@ -83469,14 +83675,14 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "col-md-4 col-sm-7 col-3",
+              staticClass: "col-md-2 col-sm-3 col-1",
               staticStyle: { float: "left" }
             },
             [
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-success btn-sm",
+                  staticClass: "btn btn-success",
                   attrs: { href: _vm.formAdd }
                 },
                 [_vm._v("Add New")]
@@ -83519,34 +83725,106 @@ var render = function() {
         _c("div", { staticClass: "table-responsive" }, [
           _c(
             "table",
-            { staticClass: "table table-striped b-t b-light text-center" },
+            { staticClass: "table table-striped b-t b-light" },
             [
               _vm._m(0),
               _vm._v(" "),
               _c(
                 "transition-group",
                 { attrs: { type: "slide-fade", tag: "tbody" } },
-                _vm._l(_vm.types.data, function(data, index) {
-                  return _c("tr", { key: data.id }, [
-                    _c("th", { attrs: { scope: "row" } }, [
-                      _vm._v(_vm._s(index + 1))
+                _vm._l(_vm.types, function(type, index) {
+                  return _c("tr", { key: type.id }, [
+                    _c("td", { staticStyle: { width: "5%" } }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-check form-check-inline" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "container-checkbox form-check-label height-17",
+                              attrs: { for: "type" + index }
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selectedIds,
+                                    expression: "selectedIds"
+                                  }
+                                ],
+                                staticClass: "form-check-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "type" + index,
+                                  name: "category"
+                                },
+                                domProps: {
+                                  value: type.id,
+                                  checked: Array.isArray(_vm.selectedIds)
+                                    ? _vm._i(_vm.selectedIds, type.id) > -1
+                                    : _vm.selectedIds
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$a = _vm.selectedIds,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = type.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            (_vm.selectedIds = $$a.concat([
+                                              $$v
+                                            ]))
+                                        } else {
+                                          $$i > -1 &&
+                                            (_vm.selectedIds = $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1)))
+                                        }
+                                      } else {
+                                        _vm.selectedIds = $$c
+                                      }
+                                    },
+                                    _vm.updateCheckAll
+                                  ]
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "checkmark" })
+                            ]
+                          )
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c(
+                      "th",
+                      { staticClass: "text-center", attrs: { scope: "row" } },
+                      [_vm._v(_vm._s(index + 1))]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" }, [
                       _vm._v(
                         "\n              " +
-                          _vm._s(data.type) +
+                          _vm._s(type.type) +
                           "\n            "
                       )
                     ]),
                     _vm._v(" "),
-                    data.id == 2
+                    type.id == 2
                       ? _c("td")
                       : _c("td", [
                           _c("div", { staticClass: "td-action" }, [
                             _c(
                               "a",
-                              { attrs: { href: "type/" + data.id + "/edit" } },
+                              { attrs: { href: "type/" + type.id + "/edit" } },
                               [
                                 _c(
                                   "button",
@@ -83569,7 +83847,7 @@ var render = function() {
                                 staticClass: "btn btn-danger",
                                 on: {
                                   click: function($event) {
-                                    return _vm.deleteType(data.id)
+                                    return _vm.singleDelete(type.id)
                                   }
                                 }
                               },
@@ -83591,32 +83869,44 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("footer", { staticClass: "panel-footer" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-5 text-center" }, [
+            _c("small", { staticClass: "text-muted inline m-t-sm m-b-sm" }, [
+              _vm._v(
+                "showing " +
+                  _vm._s(_vm.numberOfFirstRecord) +
+                  "-" +
+                  _vm._s(_vm.numberOfPage) +
+                  " of\n          " +
+                  _vm._s(_vm.totalNumber) +
+                  " items"
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "nav",
         { attrs: { "aria-label": "Page navigation example" } },
         [
           _c("paginate", {
             attrs: {
-              "page-count": parseInt(_vm.types.last_page),
-              "page-range": 5,
-              "margin-pages": 2,
-              "click-handler": _vm.changePage,
-              "prev-text": "<<",
-              "next-text": ">>",
-              "container-class": "pagination justify-content-center",
+              "page-count": _vm.lastPage,
+              "container-class":
+                "pagination d-flex justify-content-center mt-3",
               "page-class": "page-item",
-              "prev-class": "page-item",
-              "next-class": "page-item",
-              "page-link-class": "page-link bg-info text-light",
-              "next-link-class": "page-link bg-info text-light",
-              "prev-link-class": "page-link bg-info text-light"
-            },
-            model: {
-              value: _vm.page,
-              callback: function($$v) {
-                _vm.page = $$v
-              },
-              expression: "page"
+              "page-link-class": "page-link",
+              "prev-class": "page-item prev-item",
+              "prev-link-class": "page-link",
+              "next-class": "page-item next-item",
+              "next-link-class": "page-link",
+              "prev-text":
+                "<span><img src='/images/icons/angle-left.svg'></span>",
+              "next-text":
+                "<span><img src='/images/icons/angle-right.svg'></span>",
+              "click-handler": _vm.fetchData
             }
           })
         ],
@@ -83652,11 +83942,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("STT")]),
+        _c("th"),
         _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("STT")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { width: "20%" } }, [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text-center", staticStyle: { width: "20%" } },
+          [_vm._v("Action")]
+        )
       ])
     ])
   }

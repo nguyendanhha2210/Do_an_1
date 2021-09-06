@@ -37,13 +37,20 @@
                                 data-imagecss="flag yu" data-title="Bangladesh">German </option>
                         </select>
                     </div>
+
+
                     <div class="top-social">
-                        <a href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"><i
-                                class="ti-facebook"></i></a>
-                        <a href="#"><img style="width: 27px; height: 21px;transform: translate(11%, -8%);"
-                                src="{{ '/frontend/images/view.png' }}" alt=""></a>
-                        <a href="#"><img style="width: 27px; height: 21px;transform: translate(11%, -8%);"
-                                src="{{ '/frontend/images/view.png' }}" alt=""></a>
+                        <a href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"><img
+                                style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                src="{{ '/frontend/images/fb.png' }}" alt=""></a>
+                        <a
+                            href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"><img
+                                style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                src="{{ '/frontend/images/sendo.png' }}" alt=""></a>
+                        <a
+                            href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"><img
+                                style="width: 27px; height: 21px;transform: translate(11%, -8%);"
+                                src="{{ '/frontend/images/shoppee.jpg' }}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -95,8 +102,8 @@
                                     <?php }
                                     ?>
                                 </a>
-                                <div class="cart-hover cart-hover-1">
-                                    @if (Session::get('viewed') == true)
+                                @if (Session::get('viewed') == true)
+                                    <div class="cart-hover cart-hover-1">
                                         <div class="select-items ">
                                             <h5 class="text-center" style="color:red">Viewed Products</h5>
                                             <hr style="max-width:100%">
@@ -124,8 +131,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    @endif
-                                </div>
+
+                                    </div>
+                                @endif
                             </li>
 
                             <li class="cart-icon">
@@ -138,8 +146,8 @@
                                     <?php }
                                     ?>
                                 </a>
-                                <div class="cart-hover cart-hover-1">
-                                    @if (Session::get('favorite') == true)
+                                @if (Session::get('favorite') == true)
+                                    <div class="cart-hover cart-hover-1">
                                         <div class="select-items ">
                                             <h5 class="text-center" style="color:red">
                                                 Favorite Products</h5>
@@ -168,8 +176,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
                             </li>
 
                             <li class="cart-icon">
@@ -285,15 +293,6 @@
                                     @else
                                         <a href="{{ URL::to('/register') }}"><i class="fa fa-plus"></i>
                                             Register</a>
-                                    @endif
-                                </li>
-                                <li>
-                                    @if (Auth::guard('sales')->id())
-                                        <a href="{{ URL::to('sale/logout') }}" class="login-panel"><i
-                                                class="fa fa-lock"></i> Logout</a>
-                                    @else
-                                        <a href="{{ URL::to('/login') }}" class="login-panel"><i
-                                                class="fa fa-sign-in"></i> Login</a>
                                     @endif
                                 </li>
                             </ul>
