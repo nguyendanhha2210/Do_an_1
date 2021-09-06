@@ -141,7 +141,7 @@
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
     <!-- Your Plugin chat code -->
-    <div id="fb-customer-chat" style="margin-bottom: 300px" class="fb-customerchat">
+    <div id="fb-customer-chat" class="fb-customerchat">
     </div>
 
     <script>
