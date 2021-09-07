@@ -193,6 +193,10 @@
                                                 <label><input name="payment_option" value="2" type="radio"> Thanh toán qua
                                                     Paypal</label> <i class=" fa fa-paypal"></i> <br>
                                             </span>
+                                            <span>
+                                                <label><input name="payment_option" value="3" type="radio"> Thanh toán qua
+                                                    VnPay</label><br>
+                                            </span>
                                             @if (Session::get('cart') == true)
                                                 <button type="submit" class="proceed-btn check_out"
                                                     style="width: 100%;">Order</button>

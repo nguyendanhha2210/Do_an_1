@@ -3248,6 +3248,200 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Modal/Modal.vue */ "./resources/js/components/Modal/Modal.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      baseUrl: Laravel.baseUrl,
+      //Gọi thay cho đg dẫn http://127.0.0.1:8000
+      errorBackEnd: {},
+      //Lỗi bên backend laravel
+      shipping: {
+        name: "",
+        email: "",
+        address: "",
+        phone: ""
+      },
+      //Modal
+      modalShow: false,
+      type: "",
+      title: "",
+      text: "",
+      confirm: "",
+      cancle: "",
+      urlConfirm: "",
+      urlCancle: "" //Modal
+
+    };
+  },
+  created: function created() {
+    var messError = {
+      custom: {
+        name: {
+          required: "* Tên chưa nhập"
+        },
+        email: {
+          required: "* Emaill chưa nhập",
+          max: "* Tối đa 255 kí tự",
+          email_format: "* Phải thuộc kiểu email"
+        },
+        address: {
+          required: "* Địa chỉ chưa nhập"
+        },
+        phone: {
+          required: "* Điện thoại chưa nhập",
+          number_phone: "* Điện thoại chưa hợp lệ"
+        }
+      }
+    };
+    this.$validator.localize("en", messError);
+  },
+  components: {
+    Modal: _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  mounted: function mounted() {},
+  props: ["totalAfter"],
+  methods: {
+    changeInput: function changeInput() {
+      this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
+    checkOut: function checkOut() {
+      var that = this;
+      this.$validator.validateAll().then(function (valid) {
+        if (valid) {
+          that.$swal({
+            title: "Do you want to pay ?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No, cancel"
+          }).then(function (result) {
+            if (result.value) {
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-vnpay", that.shipping).then(function (response) {
+                window.location.href = response.data.data;
+              })["catch"](function (error) {
+                that.flashMessage.error({
+                  message: "Purchase Failure!",
+                  icon: "/backend/icon/error.svg",
+                  blockClass: "text-centet"
+                });
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue?vue&type=script&lang=js& ***!
@@ -6974,7 +7168,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
@@ -7007,6 +7201,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Sale_Contact_ContactComponent_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/Sale/Contact/ContactComponent.vue */ "./resources/js/components/Sale/Contact/ContactComponent.vue");
 /* harmony import */ var _components_Sale_Profile_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/Sale/Profile/ProfileComponent.vue */ "./resources/js/components/Sale/Profile/ProfileComponent.vue");
 /* harmony import */ var _components_Sale_Shop_checkout_cart_CheckoutPaypal_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/Sale/Shop/checkout-cart/CheckoutPaypal.vue */ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutPaypal.vue");
+/* harmony import */ var _components_Sale_Shop_checkout_cart_CheckoutVnpay_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/Sale/Shop/checkout-cart/CheckoutVnpay.vue */ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue').default;
 
 
@@ -7037,20 +7232,21 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_26__.default.component('paginate', (vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default()));
-vue__WEBPACK_IMPORTED_MODULE_26__.default.use((vue_card_carousel__WEBPACK_IMPORTED_MODULE_7___default()));
-vue__WEBPACK_IMPORTED_MODULE_26__.default.use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()));
-vue__WEBPACK_IMPORTED_MODULE_26__.default.use((laravel_vue_datatable__WEBPACK_IMPORTED_MODULE_3___default()));
-vue__WEBPACK_IMPORTED_MODULE_26__.default.use((_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_2___default()));
-vue__WEBPACK_IMPORTED_MODULE_26__.default.use(vee_validate__WEBPACK_IMPORTED_MODULE_1__.default, {
+
+vue__WEBPACK_IMPORTED_MODULE_27__.default.component('paginate', (vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default()));
+vue__WEBPACK_IMPORTED_MODULE_27__.default.use((vue_card_carousel__WEBPACK_IMPORTED_MODULE_7___default()));
+vue__WEBPACK_IMPORTED_MODULE_27__.default.use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()));
+vue__WEBPACK_IMPORTED_MODULE_27__.default.use((laravel_vue_datatable__WEBPACK_IMPORTED_MODULE_3___default()));
+vue__WEBPACK_IMPORTED_MODULE_27__.default.use((_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_2___default()));
+vue__WEBPACK_IMPORTED_MODULE_27__.default.use(vee_validate__WEBPACK_IMPORTED_MODULE_1__.default, {
   locale: "ja"
 });
-vue__WEBPACK_IMPORTED_MODULE_26__.default.filter('formatDate', function (value) {
+vue__WEBPACK_IMPORTED_MODULE_27__.default.filter('formatDate', function (value) {
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_6___default()(String(value)).format('MM/DD/YYYY hh:mm');
   }
 });
-new vue__WEBPACK_IMPORTED_MODULE_26__.default({
+new vue__WEBPACK_IMPORTED_MODULE_27__.default({
   el: '#app',
   components: {
     LoginComponent: _components_Sale_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__.default,
@@ -7070,7 +7266,8 @@ new vue__WEBPACK_IMPORTED_MODULE_26__.default({
     PostDetail: _components_Sale_Post_PostDetail_vue__WEBPACK_IMPORTED_MODULE_22__.default,
     ContactComponent: _components_Sale_Contact_ContactComponent_vue__WEBPACK_IMPORTED_MODULE_23__.default,
     ProfileComponent: _components_Sale_Profile_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_24__.default,
-    CheckoutPaypal: _components_Sale_Shop_checkout_cart_CheckoutPaypal_vue__WEBPACK_IMPORTED_MODULE_25__.default
+    CheckoutPaypal: _components_Sale_Shop_checkout_cart_CheckoutPaypal_vue__WEBPACK_IMPORTED_MODULE_25__.default,
+    CheckoutVnpay: _components_Sale_Shop_checkout_cart_CheckoutVnpay_vue__WEBPACK_IMPORTED_MODULE_26__.default
   },
   created: function created() {
     this.$validator.extend("number_phone", {
@@ -97880,6 +98077,45 @@ component.options.__file = "resources/js/components/Sale/Shop/checkout-cart/Chec
 
 /***/ }),
 
+/***/ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckoutVnpay.vue?vue&type=template&id=8e9d1454& */ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454&");
+/* harmony import */ var _CheckoutVnpay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckoutVnpay.vue?vue&type=script&lang=js& */ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _CheckoutVnpay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue":
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue ***!
@@ -98580,6 +98816,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutVnpay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CheckoutVnpay.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutVnpay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************!*\
   !*** ./resources/js/components/Sale/Shop/choose-product/DescriptionProduct.vue?vue&type=script&lang=js& ***!
@@ -99044,6 +99296,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPaypal_vue_vue_type_template_id_91f09506___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPaypal_vue_vue_type_template_id_91f09506___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CheckoutPaypal.vue?vue&type=template&id=91f09506& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutPaypal.vue?vue&type=template&id=91f09506&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutVnpay_vue_vue_type_template_id_8e9d1454___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CheckoutVnpay.vue?vue&type=template&id=8e9d1454& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454&");
 
 
 /***/ }),
@@ -100978,6 +101247,313 @@ var render = function() {
             }
           })
         ])
+      ]),
+      _vm._v(" "),
+      _vm.modalShow
+        ? _c("Modal", {
+            attrs: {
+              type: _vm.type,
+              title: _vm.title,
+              text: _vm.text,
+              confirm: _vm.confirm,
+              cancle: _vm.cancle,
+              urlConfirm: _vm.urlConfirm,
+              urlCancle: _vm.urlCancle,
+              modalShow: _vm.modalShow
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sale/Shop/checkout-cart/CheckoutVnpay.vue?vue&type=template&id=8e9d1454& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("h4", [_vm._v("Thông tin nhận hàng")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "form",
+          {
+            attrs: { role: "form" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.checkOut()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "col-lg-12 col-xl-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.shipping.name,
+                    expression: "shipping.name"
+                  }
+                ],
+                staticStyle: { width: "395px" },
+                attrs: {
+                  type: "text",
+                  name: "name",
+                  placeholder: "Họ và tên người nhận ..."
+                },
+                domProps: { value: _vm.shipping.name },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.shipping, "name", $event.target.value)
+                    },
+                    function($event) {
+                      return _vm.changeInput()
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticStyle: { color: "red" }, attrs: { role: "alert" } },
+                [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.errors.first("name")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm.errorBackEnd.name
+                ? _c("div", { staticStyle: { color: "red" } }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.errorBackEnd.name[0]) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|email_format|max:255",
+                    expression: "'required|email_format|max:255'"
+                  },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.shipping.email,
+                    expression: "shipping.email"
+                  }
+                ],
+                attrs: {
+                  type: "text",
+                  name: "email",
+                  placeholder: "Email người nhận ..."
+                },
+                domProps: { value: _vm.shipping.email },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.shipping, "email", $event.target.value)
+                    },
+                    function($event) {
+                      return _vm.changeInput()
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticStyle: { color: "red" }, attrs: { role: "alert" } },
+                [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.errors.first("email")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm.errorBackEnd.email
+                ? _c("div", { staticStyle: { color: "red" } }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.errorBackEnd.email[0]) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required",
+                    expression: "'required'"
+                  },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.shipping.address,
+                    expression: "shipping.address"
+                  }
+                ],
+                attrs: {
+                  type: "text",
+                  name: "address",
+                  placeholder: "Địa chỉ gửi hàng ..."
+                },
+                domProps: { value: _vm.shipping.address },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.shipping, "address", $event.target.value)
+                    },
+                    function($event) {
+                      return _vm.changeInput()
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticStyle: { color: "red" }, attrs: { role: "alert" } },
+                [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.errors.first("address")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm.errorBackEnd.address
+                ? _c("div", { staticStyle: { color: "red" } }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.errorBackEnd.address[0]) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|number_phone",
+                    expression: "'required|number_phone'"
+                  },
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.shipping.phone,
+                    expression: "shipping.phone"
+                  }
+                ],
+                attrs: {
+                  type: "text",
+                  name: "phone",
+                  placeholder: "Số điện thoại ..."
+                },
+                domProps: { value: _vm.shipping.phone },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.shipping, "phone", $event.target.value)
+                    },
+                    function($event) {
+                      return _vm.changeInput()
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticStyle: { color: "red" }, attrs: { role: "alert" } },
+                [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.errors.first("phone")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm.errorBackEnd.phone
+                ? _c("div", { staticStyle: { color: "red" } }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.errorBackEnd.phone[0]) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-info",
+                  staticStyle: { width: "100%" },
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n          Xác nhận đơn hàng\n        ")]
+              )
+            ])
+          ]
+        )
       ]),
       _vm._v(" "),
       _vm.modalShow

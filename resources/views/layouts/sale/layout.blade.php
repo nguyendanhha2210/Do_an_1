@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
 
+    {{-- <link href="/vnpay_php/assets/bootstrap.min.css" rel="stylesheet"/> --}}
+        <!-- Custom styles for this template -->
+
     {{-- Buộc phải thêm khi dùng Vue JS --}}
     {{-- <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" /> --}}
     {{-- <script src="{{ asset('js/app.js') }}" type="text/javascript" defer></script> --}}
@@ -67,34 +70,10 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     {{-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
         nonce="giodsXR5"></script> --}}
+       
 
     {{-- Paypal --}}
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script>
-        function pay() {
-            alert("Thành công !");
-            if (Session::get('shipping') == true) {
-                $shipping = Session::get('shipping');
-                var shipping_name = $shipping[0]['shipping_name']);
-            var shipping_phone = $shipping[0]['shipping_phone']);
-        var shipping_email = $shipping[0]['shipping_email']);
-        var shipping_address = $shipping[0]['shipping_address']);
-        $.ajax({
-            url: '{{ url('sale/checkout-paypal') }}',
-            method: 'get',
-            data: {
-                shipping_name: shipping_name,
-                shipping_phone: shipping_phone,
-                shipping_email: shipping_email,
-                shipping_address: shipping_address,
-            },
-            success: function(data) {
-                window.location.href = "{{ url('/home') }}";
-            }
-        });
-        }
-        }
-    </script>
 
     {{-- Paypal --}}
     {{-- <script>

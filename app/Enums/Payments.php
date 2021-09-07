@@ -13,4 +13,5 @@ final class Payments extends Enum
 {
     const PAYMENTDELIVERY = 1;
     const PAYMENTPAYPAL = 2;
+    const PAYMENTVNPAY = 3;
 }
