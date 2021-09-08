@@ -26,6 +26,7 @@ session_start();
 <body>
     <?php
     $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+    // $vnp_Returnurl = "http://127.0.0.1:8000/vnpay_php/vnpay_return.php";
     // $vnp_Returnurl =  url('vnpay_php/vnpay_return.php');
     $vnp_TmnCode = "BHCR7T7U"; //Mã website tại VNPAY 
     $vnp_HashSecret = "LOZIHNNZNVGVOGSBDIZQXYKLBGIAJSYR";

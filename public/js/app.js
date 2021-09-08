@@ -3424,6 +3424,7 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (result) {
             if (result.value) {
               axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-vnpay", that.shipping).then(function (response) {
+                console.log(response.data);
                 window.location.href = response.data.data;
               })["catch"](function (error) {
                 that.flashMessage.error({

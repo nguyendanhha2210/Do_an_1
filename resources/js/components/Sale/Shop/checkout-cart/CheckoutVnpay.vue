@@ -167,6 +167,7 @@ export default {
                 axios
                   .post(`/sale/checkout-vnpay`, that.shipping)
                   .then((response) => {
+                    console.log(response.data);
                     window.location.href = response.data.data;
                   })
                   .catch((error) => {
