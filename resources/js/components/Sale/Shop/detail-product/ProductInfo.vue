@@ -67,7 +67,11 @@
           <div class="pd-title">
             <span>oranges</span>
             <h3>{{ info[0].name }}</h3>
-            <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                <a
+                  class="heart-icon"
+                  @click="addFavorite(info[0])"
+                  ><i class="icon_heart_alt" style="color:red;font-size:22px;"></i
+                ></a>
           </div>
           <div class="pd-rating">
             <i class="fa fa-star"></i>
@@ -237,6 +241,51 @@ export default {
       if (this.qualityOrder != 1) {
         this.qualityOrder -= 1;
       }
+    },
+     addFavorite(info) 
+     {
+      let that = this;
+      this.$validator.validateAll().then((valid) => {
+        if (valid) {
+          axios
+            .post(`/add-to-favorite`, info)
+            .then((response) => {
+              this.$swal({
+                title: "Add Successfully!",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then((confirm) => {
+              });
+            })
+            .catch((err) => {
+              switch (err.response.status) {
+                case 422:
+                  that.errorBackEnd = err.response.data.errors;
+                  break;
+                case 404:
+                  that
+                    .$swal({
+                      title: "Add Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                case 500:
+                  that
+                    .$swal({
+                      title: "Add Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                default:
+                  break;
+              }
+            });
+        }
+      });
     },
   },
 };

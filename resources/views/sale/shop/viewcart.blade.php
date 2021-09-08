@@ -60,6 +60,11 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                {{-- <td><input readonly type="text" name="gia" value=" {{ number_format($cart['product_price'], 0, ',', '.') }}"></td>
+                        <td><input type="number" min="1" onchange="chonmua(this.form)" name="soluong"></td>
+                        <td><input readonly type="text" value="0" name="thanhtien" size="9"></td> --}}
+
+
                                                 <td style="text-align: center" class="total-price first-row">
                                                     {{ number_format($subtotal, 0, ',', '.') }}đ</td>
                                                 <td style="text-align: center" class="close-td first-row"><a
@@ -186,7 +191,8 @@
                                         @csrf
                                         <div class="payment-options">
                                             <span>
-                                                <label><input name="payment_option" value="1" type="radio"> Thanh toán khi
+                                                <label><input name="payment_option" checked value="1" type="radio"> Thanh
+                                                    toán khi
                                                     nhận hàng </label> <i class=" fa fa-money"></i> <br>
                                             </span>
                                             <span>
@@ -212,5 +218,13 @@
                 </div>
             </div>
         </div>
+        {{-- <script type="text/javascript">
+            function chonmua(form) {
+                a = eval(form.gia.value);
+                b = eval(form.soluong.value);
+                c = a * b;
+                form.thanhtien.value = (c + " " + "VNĐ");
+            }
+        </script> --}}
     </section>
 @endsection

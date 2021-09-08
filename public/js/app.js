@@ -5092,6 +5092,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -5180,6 +5184,47 @@ __webpack_require__.r(__webpack_exports__);
       if (this.qualityOrder != 1) {
         this.qualityOrder -= 1;
       }
+    },
+    addFavorite: function addFavorite(info) {
+      var _this = this;
+
+      var that = this;
+      this.$validator.validateAll().then(function (valid) {
+        if (valid) {
+          axios__WEBPACK_IMPORTED_MODULE_1___default().post("/add-to-favorite", info).then(function (response) {
+            _this.$swal({
+              title: "Add Successfully!",
+              icon: "success",
+              confirmButtonText: "OK"
+            }).then(function (confirm) {});
+          })["catch"](function (err) {
+            switch (err.response.status) {
+              case 422:
+                that.errorBackEnd = err.response.data.errors;
+                break;
+
+              case 404:
+                that.$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              case 500:
+                that.$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              default:
+                break;
+            }
+          });
+        }
+      });
     }
   }
 });
@@ -103468,10 +103513,26 @@ var render = function() {
               _vm._v(" "),
               _c("h3", [_vm._v(_vm._s(_vm.info[0].name))]),
               _vm._v(" "),
-              _vm._m(1)
+              _c(
+                "a",
+                {
+                  staticClass: "heart-icon",
+                  on: {
+                    click: function($event) {
+                      return _vm.addFavorite(_vm.info[0])
+                    }
+                  }
+                },
+                [
+                  _c("i", {
+                    staticClass: "icon_heart_alt",
+                    staticStyle: { color: "red", "font-size": "22px" }
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "pd-desc" }, [
               _c("p", [
@@ -103581,7 +103642,7 @@ var render = function() {
                 _vm._v("Id : 000" + _vm._s(_vm.info[0].id))
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(2)
             ])
           ])
         ])
@@ -103612,14 +103673,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "zoom-icon" }, [
       _c("i", { staticClass: "fa fa-search-plus" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "heart-icon", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "icon_heart_alt" })
     ])
   },
   function() {

@@ -29,7 +29,11 @@ class AccountController extends Controller
 
             $message = '';
             if (Auth::guard('sales')->attempt($credentials)) {
-                return redirect(route('sale.shop.index'));
+                if (Session::get('cart') == true) {
+                    return redirect(route('admin.cart.viewCart'));
+                } else {
+                    return redirect(route('sale.index'));
+                }
             } else {
                 $message = 'Please check email address and password !';
             }
