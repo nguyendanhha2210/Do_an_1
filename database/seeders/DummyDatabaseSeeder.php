@@ -15,6 +15,10 @@ class DummyDatabaseSeeder extends Seeder
     {
         $this->call([
             DummyUserSeeder::class,
+            DummyRoleSeeder::class,
+            DummyTypeSeeder::class,
+            DummyWeightSeeder::class,
+            DummyDescriptionSeeder::class,
         ]);
     }
 }
