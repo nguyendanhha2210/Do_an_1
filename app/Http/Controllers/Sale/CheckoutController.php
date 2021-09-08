@@ -272,7 +272,7 @@ class CheckoutController extends Controller
 
     public function checkoutVnpay(Request $request)
     {
-    
+
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
@@ -385,7 +385,7 @@ class CheckoutController extends Controller
         $vnp_Returnurl = url("/sale/success-vnpay");
 
         // $vnp_Returnurl = "http://127.0.0.1:8000/vnpay_php/vnpay_return.php";
-        
+
         $vnp_TmnCode = "BHCR7T7U"; //Mã website tại VNPAY 
         $vnp_HashSecret = "LOZIHNNZNVGVOGSBDIZQXYKLBGIAJSYR"; //Chuỗi bí mật
 
@@ -495,6 +495,6 @@ class CheckoutController extends Controller
     {
         $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
         $abc = $request->all();
-        return view('sale.shop.payments.vnpay_php.successvnpay', compact('type','abc'));
+        return view('sale.shop.payments.vnpay_php.successvnpay', compact('type', 'abc'));
     }
 }
