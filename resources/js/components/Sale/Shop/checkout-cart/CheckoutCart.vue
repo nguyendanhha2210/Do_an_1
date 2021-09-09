@@ -5,7 +5,7 @@
       <form role="form" @submit.prevent="checkOut()">
         <div class="col-lg-12 col-xl-12">
           <input
-            style="width:395px"
+            style="width: 395px"
             type="text"
             name="name"
             placeholder="Họ và tên người nhận ..."
@@ -67,7 +67,9 @@
             {{ errorBackEnd.phone[0] }}
           </div>
 
-          <button type="submit" class="btn btn-info" style="width:100%">Xác nhận đơn hàng</button>
+          <button type="submit" class="btn btn-info" style="width: 100%">
+            Xác nhận đơn hàng
+          </button>
         </div>
       </form>
     </div>
@@ -168,7 +170,7 @@ export default {
                       (this.text = ""),
                       (this.confirm = "Yes"),
                       (this.cancle = "Cancle"),
-                      (this.urlConfirm = ""),
+                      (this.urlConfirm = response.data),
                       (this.urlCancle = ""), //lấy url từ respon->json() bên controller
                       (this.modalShow = true); //gọi modal thêm thành công ra
                   })

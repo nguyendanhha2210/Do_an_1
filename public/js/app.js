@@ -2843,6 +2843,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2918,7 +2920,7 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (result) {
             if (result.value) {
               axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-cart", that.shipping).then(function (response) {
-                _this.type = "success", _this.title = "Saved", _this.text = "", _this.confirm = "Yes", _this.cancle = "Cancle", _this.urlConfirm = "", _this.urlCancle = "", _this.modalShow = true; //gọi modal thêm thành công ra
+                _this.type = "success", _this.title = "Saved", _this.text = "", _this.confirm = "Yes", _this.cancle = "Cancle", _this.urlConfirm = response.data, _this.urlCancle = "", _this.modalShow = true; //gọi modal thêm thành công ra
               })["catch"](function (error) {
                 that.flashMessage.error({
                   message: "Purchase Failure!",
@@ -3232,7 +3234,7 @@ __webpack_require__.r(__webpack_exports__);
                         icon: "success",
                         confirmButtonText: "Ok"
                       }).then(function (confirm) {
-                        window.location.href = "/";
+                        window.location.href = "/sale/manage-order";
                       });
                     });
                   }
@@ -100893,7 +100895,7 @@ var render = function() {
                   staticStyle: { width: "100%" },
                   attrs: { type: "submit" }
                 },
-                [_vm._v("Xác nhận đơn hàng")]
+                [_vm._v("\n          Xác nhận đơn hàng\n        ")]
               )
             ])
           ]

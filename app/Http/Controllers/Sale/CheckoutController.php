@@ -160,6 +160,8 @@ class CheckoutController extends Controller
         Session::forget('coupon');
         Session::forget('cart');
         Session::forget('totalPriceBill');
+
+        return response()->json(route('sale.order.manageOrder'), StatusCode::OK);
     }
 
     public function checkoutPaypal(Request $request)
@@ -260,6 +262,7 @@ class CheckoutController extends Controller
             'totalBill' => $totalBill,
         );
 
+
         Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail); //send this mail with subject
             $message->from($data['email'], $title_mail); //send from this mail
@@ -335,7 +338,6 @@ class CheckoutController extends Controller
                 $order_details->save();
             }
         }
-
 
         //send mail confirm
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
@@ -528,6 +530,6 @@ class CheckoutController extends Controller
         }
 
         $breadcrumbs = ['Success Order'];
-        return view('sale.shop.payments.vnpay_php.successvnpay',['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
+        return view('sale.shop.payments.vnpay_php.successvnpay', ['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
     }
 }

@@ -293,7 +293,7 @@ export default {
                                 confirmButtonText: "Ok",
                               })
                               .then(function (confirm) {
-                                window.location.href = "/";
+                                  window.location.href = "/sale/manage-order";
                               });
                           });
                       }
