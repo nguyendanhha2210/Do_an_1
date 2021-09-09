@@ -165,14 +165,15 @@ export default {
                 axios
                   .post(`/sale/checkout-cart`, that.shipping)
                   .then((response) => {
-                    (this.type = "success"),
-                      (this.title = "Saved"),
-                      (this.text = ""),
-                      (this.confirm = "Yes"),
-                      (this.cancle = "Cancle"),
-                      (this.urlConfirm = response.data),
-                      (this.urlCancle = ""), //lấy url từ respon->json() bên controller
-                      (this.modalShow = true); //gọi modal thêm thành công ra
+                    that
+                      .$swal({
+                        title: "Thành Công !",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                      })
+                      .then(function (confirm) {
+                        window.location.href = response.data;
+                      });
                   })
                   .catch((error) => {
                     that.flashMessage.error({

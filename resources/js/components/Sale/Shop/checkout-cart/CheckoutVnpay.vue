@@ -167,8 +167,16 @@ export default {
                 axios
                   .post(`/sale/checkout-vnpay`, that.shipping)
                   .then((response) => {
-                    console.log(response.data);
                     window.location.href = response.data.data;
+                      // that
+                      // .$swal({
+                      //   title: "Thành Công !",
+                      //   icon: "success",
+                      //   confirmButtonText: "Ok",
+                      // })
+                      // .then(function (confirm) {
+                      //   window.location.href = response.data.data;
+                      // });
                   })
                   .catch((error) => {
                     that.flashMessage.error({

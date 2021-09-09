@@ -2904,8 +2904,6 @@ __webpack_require__.r(__webpack_exports__);
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
     },
     checkOut: function checkOut() {
-      var _this = this;
-
       var that = this;
       this.$validator.validateAll().then(function (valid) {
         if (valid) {
@@ -2920,7 +2918,13 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (result) {
             if (result.value) {
               axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-cart", that.shipping).then(function (response) {
-                _this.type = "success", _this.title = "Saved", _this.text = "", _this.confirm = "Yes", _this.cancle = "Cancle", _this.urlConfirm = response.data, _this.urlCancle = "", _this.modalShow = true; //gọi modal thêm thành công ra
+                that.$swal({
+                  title: "Thành Công !",
+                  icon: "success",
+                  confirmButtonText: "Ok"
+                }).then(function (confirm) {
+                  window.location.href = response.data;
+                });
               })["catch"](function (error) {
                 that.flashMessage.error({
                   message: "Purchase Failure!",
@@ -3234,7 +3238,7 @@ __webpack_require__.r(__webpack_exports__);
                         icon: "success",
                         confirmButtonText: "Ok"
                       }).then(function (confirm) {
-                        window.location.href = "/sale/manage-order";
+                        window.location.href = "sale/manage-order";
                       });
                     });
                   }
@@ -3426,8 +3430,15 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (result) {
             if (result.value) {
               axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-vnpay", that.shipping).then(function (response) {
-                console.log(response.data);
-                window.location.href = response.data.data;
+                window.location.href = response.data.data; // that
+                // .$swal({
+                //   title: "Thành Công !",
+                //   icon: "success",
+                //   confirmButtonText: "Ok",
+                // })
+                // .then(function (confirm) {
+                //   window.location.href = response.data.data;
+                // });
               })["catch"](function (error) {
                 that.flashMessage.error({
                   message: "Purchase Failure!",
