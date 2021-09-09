@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Payment;
 use App\Models\Shipping;
 use App\Models\Type;
 use App\Models\User;
@@ -493,8 +494,40 @@ class CheckoutController extends Controller
 
     public function successPay(Request $request)
     {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        }
         $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
         $abc = $request->all();
-        return view('sale.shop.payments.vnpay_php.successvnpay', compact('type', 'abc'));
+
+        $payments = Payment::where('order_id', '=',  $request->order_id)->get();
+        $countPayment = $payments->count();
+
+        if ($countPayment > 0) {
+            $payment = Payment::where('order_id', '=',  $request->order_id)->first();
+            $payment->order_id = $request->vnp_TxnRef;
+            $payment->customer_id = Auth::guard('sales')->id();
+            $payment->total_money = $request->vnp_Amount;
+            $payment->vnp_response = $request->vnp_ResponseCode;
+            $payment->code_vnpay = $request->vnp_TransactionNo;
+            $payment->code_back = $request->vnp_BankCode;
+            $date_time = substr($request->vnp_PayDate, 0, 4) . '-' . substr($request->vnp_PayDate, 4, 2) . '-' . substr($request->vnp_PayDate, 6, 2) . ' ' . substr($request->vnp_PayDate, 8, 2) . ':' . substr($request->vnp_PayDate, 10, 2) . ':' . substr($request->vnp_PayDate, 12, 2);
+            $payment->time = $date_time;
+            $payment->save();
+        } else {
+            $payment = new Payment();
+            $payment->order_id = $request->vnp_TxnRef;
+            $payment->customer_id = Auth::guard('sales')->id();
+            $payment->total_money = $request->vnp_Amount;
+            $payment->vnp_response = $request->vnp_ResponseCode;
+            $payment->code_vnpay = $request->vnp_TransactionNo;
+            $payment->code_back = $request->vnp_BankCode;
+            $date_time = substr($request->vnp_PayDate, 0, 4) . '-' . substr($request->vnp_PayDate, 4, 2) . '-' . substr($request->vnp_PayDate, 6, 2) . ' ' . substr($request->vnp_PayDate, 8, 2) . ':' . substr($request->vnp_PayDate, 10, 2) . ':' . substr($request->vnp_PayDate, 12, 2);
+            $payment->time = $date_time;
+            $payment->save();
+        }
+
+        $breadcrumbs = ['Success Order'];
+        return view('sale.shop.payments.vnpay_php.successvnpay',['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
     }
 }
