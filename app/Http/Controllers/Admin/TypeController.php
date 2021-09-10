@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\StatusCode;
+use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TypeRequest;
 use App\Models\Type;
@@ -35,7 +36,6 @@ class TypeController extends Controller
                 }
             })
                 ->orderBy('created_at', 'desc')->paginate($paginate);
-            // ->orderBy('created_at', 'desc')->paginate(3);
 
 
             return response()->json($types, StatusCode::OK);
@@ -91,6 +91,6 @@ class TypeController extends Controller
 
     public function deleteAll(Request $request)
     {
-        Type::whereIn('id', $request)->delete();
+        Type::whereIn('id', $request)->where('id', '!=', StatusSale::JUSTENTERD)->delete();
     }
 }

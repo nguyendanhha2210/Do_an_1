@@ -42,7 +42,17 @@ class CheckoutController extends Controller
             } elseif ($abc == Payments::PAYMENTVNPAY) {
                 $breadcrumbs = ['Payment on vnpay '];
                 return view('sale.shop.payments.onvnpay', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            } elseif ($abc == Payments::PAYMENTONEPAY) {
+                $breadcrumbs = ['Payment on onepay '];
+                return view('sale.shop.payments.ononepay', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            } elseif ($abc == Payments::PAYMENTMOMO) {
+                $breadcrumbs = ['Payment on Momo '];
+                return view('sale.shop.payments.onmomo', ['breadcrumbs' => $breadcrumbs], compact('type'));
             }
+            // elseif ($abc == Payments::PAYMENTMOMO) {
+            //     $breadcrumbs = ['Payment on Momo '];
+            //     return view('sale.shop.payments.momo.paymomo.init_payment', ['breadcrumbs' => $breadcrumbs], compact('type'));
+            // }
         }
     }
 
@@ -276,7 +286,6 @@ class CheckoutController extends Controller
 
     public function checkoutVnpay(Request $request)
     {
-
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
@@ -531,5 +540,385 @@ class CheckoutController extends Controller
 
         $breadcrumbs = ['Success Order'];
         return view('sale.shop.payments.vnpay_php.successvnpay', ['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
+    }
+
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data)
+            )
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
+
+    public function checkoutOnepay(Request $request)
+    {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        }
+        if (Session::get('coupon')) {
+            foreach (Session::get('coupon') as $key => $cou) {
+                $order_coupon = $cou['coupon_code'];
+            }
+        } else {
+            $order_coupon = "no";
+        }
+
+        if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
+            foreach (Session::get('totalPriceBill') as $key => $cart) {
+                $totalBill =  $cart['money'];
+            }
+        }
+
+        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())->where('coupon_time', '>', 0)
+            ->with(['coupon'])
+            ->whereHas('coupon', function ($query) use ($order_coupon) {
+                $query->where('code', $order_coupon);
+            })->first();
+
+        if ($couponUser) {
+            $couponUser->coupon_time -= 1;
+            $couponUser->save();
+        }
+
+        $shipping = new Shipping();
+        $shipping->name = $request->name;
+        $shipping->email = $request->email;
+        $shipping->address = $request->address;
+        $shipping->phone = $request->phone;
+        $flag_shipping = $shipping->save();
+
+        $shipping_id = $shipping->id;
+        $checkout_code = substr(md5(microtime()), rand(0, 26), 5); //tạo rundle chữ và số xong lấy 5 kí tự
+
+        $order = new Order();
+        $order->customer_id = Auth::guard('sales')->id();
+        $order->shipping_id = $shipping_id;
+        $order->order_status = OrderStatus::ORDER;
+        $order->order_code = $checkout_code;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $order->order_date = now();
+        $order->order_destroy = "";
+        $order->total_bill = $totalBill;
+        $flag_order = $order->save();
+
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart) {
+                $order_details = new OrderDetail();
+                $order_details->order_code = $checkout_code;
+                $order_details->product_id = $cart['product_id'];
+                $order_details->product_name = $cart['product_name'];
+                $order_details->product_price = $cart['product_price'];
+                $order_details->product_sales_quantity = $cart['product_qty'];
+                $order_details->product_coupon =  $order_coupon;
+                $order_details->save();
+            }
+        }
+
+        //send mail confirm
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_mail = "Đơn đặt hàng ngày " . ' ' . $now;
+
+        $customer = User::find(Auth::guard('sales')->id());
+
+        $data['email'][] = $customer->email;
+        //lay gio hang
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart_mail) {
+                $cart_array[] = array(
+                    'product_name' => $cart_mail['product_name'],
+                    'product_price' => $cart_mail['product_price'],
+                    'product_qty' => $cart_mail['product_qty']
+                );
+            }
+        }
+
+        $shipping_array = array(
+            // 'fee' =>  $fee,
+            'customer_name' => $customer->name,
+            'shipping_name' => $request->name,
+            'shipping_email' => $request->email,
+            'shipping_phone' => $request->phone,
+            'shipping_address' => $request->address,
+        );
+
+        //lay ma giam gia, lay coupon code
+        $ordercode_mail = array(
+            'coupon_code' => $order_coupon,
+            'order_code' => $checkout_code,
+            'totalBill' => $totalBill,
+        );
+
+        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+            $message->to($data['email'])->subject($title_mail); //send this mail with subject
+            $message->from($data['email'], $title_mail); //send from this mail
+        });
+
+        // Session::forget('coupon');
+        // Session::forget('cart');
+        // Session::forget('totalPriceBill');
+        // Session::forget('shipping');
+
+        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
+        $vpcURL = "https://mtf.onepay.vn/onecomm-pay/vpc.op";
+
+        unset($_POST["https://mtf.onepay.vn/onecomm-pay/vpc.op"]);
+        unset($_POST["SubButL"]);
+        $stringHashData = "";
+        ksort($_POST);
+        $appendAmp = 0;
+
+        foreach ($_POST as $key => $value) {
+            if (strlen($value) > 0) {
+                if ($appendAmp == 0) {
+                    $vpcURL .= urlencode($key) . '=' . urlencode($value);
+                    $appendAmp = 1;
+                } else {
+                    $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
+                }
+                if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
+                    $stringHashData .= $key . "=" . $value . "&";
+                }
+            }
+        }
+
+        $vpc_Txn_Secure_Hash = $_GET["vpc_SecureHash"];
+        unset($_GET["vpc_SecureHash"]);
+
+        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
+        $vpc_Txn_Secure_Hash = $_GET["vpc_SecureHash"];
+        unset($_GET["vpc_SecureHash"]);
+        $errorExists = false;
+        ksort($_GET);
+
+        $stringHashData = rtrim($stringHashData, "&");
+        if (strlen($SECURE_SECRET) > 0) {
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
+        }
+
+
+
+
+
+        if (strlen($SECURE_SECRET) > 0 && $_GET["vpc_TxnResponseCode"] != "7" && $_GET["vpc_TxnResponseCode"] != "No Value Returned") {
+            $stringHashData = "";
+
+            foreach ($_GET as $key => $value) {
+                if ($key != "vpc_SecureHash" && (strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
+                    $stringHashData .= $key . "=" . $value . "&";
+                }
+            }
+            $stringHashData = rtrim($stringHashData, "&");
+            if (strtoupper($vpc_Txn_Secure_Hash) == strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)))) {
+                $hashValidated = "CORRECT";
+            } else {
+                $hashValidated = "INVALID HASH";
+            }
+        } else {
+            $hashValidated = "INVALID HASH";
+        }
+
+
+
+        return request()->json($vpcURL);
+    }
+
+    public function checkoutMomo(Request $request)
+    {
+        dd(1);
+
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        }
+        if (Session::get('coupon')) {
+            foreach (Session::get('coupon') as $key => $cou) {
+                $order_coupon = $cou['coupon_code'];
+            }
+        } else {
+            $order_coupon = "no";
+        }
+
+        if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
+            foreach (Session::get('totalPriceBill') as $key => $cart) {
+                $totalBill =  $cart['money'];
+            }
+        }
+
+        $couponUser = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())->where('coupon_time', '>', 0)
+            ->with(['coupon'])
+            ->whereHas('coupon', function ($query) use ($order_coupon) {
+                $query->where('code', $order_coupon);
+            })->first();
+
+        if ($couponUser) {
+            $couponUser->coupon_time -= 1;
+            $couponUser->save();
+        }
+
+        $shipping = new Shipping();
+        $shipping->name = $request->name;
+        $shipping->email = $request->email;
+        $shipping->address = $request->address;
+        $shipping->phone = $request->phone;
+        $flag_shipping = $shipping->save();
+
+        $shipping_id = $shipping->id;
+        $checkout_code = substr(md5(microtime()), rand(0, 26), 5); //tạo rundle chữ và số xong lấy 5 kí tự
+
+        $order = new Order();
+        $order->customer_id = Auth::guard('sales')->id();
+        $order->shipping_id = $shipping_id;
+        $order->order_status = OrderStatus::ORDER;
+        $order->order_code = $checkout_code;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $order->order_date = now();
+        $order->order_destroy = "";
+        $order->total_bill = $totalBill;
+        $flag_order = $order->save();
+
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart) {
+                $order_details = new OrderDetail();
+                $order_details->order_code = $checkout_code;
+                $order_details->product_id = $cart['product_id'];
+                $order_details->product_name = $cart['product_name'];
+                $order_details->product_price = $cart['product_price'];
+                $order_details->product_sales_quantity = $cart['product_qty'];
+                $order_details->product_coupon =  $order_coupon;
+                $order_details->save();
+            }
+        }
+
+        //send mail confirm
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_mail = "Đơn đặt hàng ngày " . ' ' . $now;
+
+        $customer = User::find(Auth::guard('sales')->id());
+
+        $data['email'][] = $customer->email;
+        //lay gio hang
+        if (Session::get('cart') == true) {
+            foreach (Session::get('cart') as $key => $cart_mail) {
+                $cart_array[] = array(
+                    'product_name' => $cart_mail['product_name'],
+                    'product_price' => $cart_mail['product_price'],
+                    'product_qty' => $cart_mail['product_qty']
+                );
+            }
+        }
+
+        // $shipping_array = array(
+        //     // 'fee' =>  $fee,
+        //     'customer_name' => $customer->name,
+        //     'shipping_name' => $request->name,
+        //     'shipping_email' => $request->email,
+        //     'shipping_phone' => $request->phone,
+        //     'shipping_address' => $request->address,
+        // );
+
+        //lay ma giam gia, lay coupon code
+        // $ordercode_mail = array(
+        //     'coupon_code' => $order_coupon,
+        //     'order_code' => $checkout_code,
+        //     'totalBill' => "100000",
+        // );
+
+        // Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        //     $message->to($data['email'])->subject($title_mail); //send this mail with subject
+        //     $message->from($data['email'], $title_mail); //send from this mail
+        // });
+
+        // Session::forget('coupon');
+        // Session::forget('cart');
+        // Session::forget('totalPriceBill');
+        // Session::forget('shipping');
+
+
+        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+        $notifyurl = "http://localhost:8000/paymomo/ipn_momo.php";
+        $returnUrl = "http://localhost:8000/paymomo/result.php";
+        $extraData = "merchantName=MoMo Partner";
+
+        $partnerCode = "MOMOBKUN20180529";
+        $accessKey = "klm05TvNBzhg7h7j";
+        $serectkey = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
+        $orderId = $order->id; // Mã đơn hàng
+        $amount =  $totalBill;
+
+        $requestId = time() . "";
+        $requestType = "captureMoMoWallet";
+        $extraData = "merchantName=MoMo Partner";
+        //before sign HMAC SHA256 signature
+        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData;
+        $signature = hash_hmac("sha256", $rawHash, $serectkey);
+
+        $data = array(
+            'partnerCode' => $partnerCode,
+            'accessKey' => $accessKey,
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'returnUrl' => $returnUrl,
+            'notifyUrl' => $notifyurl,
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature
+        );
+
+        // var_dump($data);
+
+        // $result = execPostRequest($endpoint, json_encode($data));
+        // $jsonResult = json_decode($result, true);  // decode json
+
+        // //Just a example, please check more in there
+
+        // header('Location: ' . $jsonResult['payUrl']);
+
+        ksort($data);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($data as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $endpoint = $endpoint . "?" . $query;
+        if (isset($serectkey)) {
+            $vnpSecureHash =   hash_hmac('sha256', $hashdata, $serectkey); //
+            $endpoint .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+
+        $returnData = array(
+            'code' => '00',
+            'message' => 'success',
+            'data' => $endpoint
+        );
+        if (isset($_POST['redirect'])) {
+            header('Location: ' . $endpoint);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
+        return request()->json($returnData);
     }
 }

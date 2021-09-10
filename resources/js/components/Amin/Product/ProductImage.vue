@@ -65,96 +65,96 @@
                 <div class="form-row">
                   <div class="form-group col-md-6 text-center">
                     <label for="exampleInputEmail1 ">Image 1</label>
-                    <div>
-                      <img
-                        src
-                        ref="fileImageDispaly_1"
-                        width="200px"
-                        height="200px"
-                      />
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner1">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img src ref="imageDispaly_1" class="img-thumbnail" />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 52px;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_1"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          id="file_img_banner1"
+                          v-validate="'required|image_format'"
+                          name="image_1"
+                          ref="image_1"
+                          v-on:change="attachImage_1"
+                          accept="image_1/*"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-none"
+                        style="background-color: black; border-radius: 91%"
+                        ref="iconClose_1"
+                        @click="deleteImage_1"
+                      ></a>
                     </div>
-                    <input
-                      @change="attachFile_1"
-                      type="file"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      ref="fileImage"
-                      name="image_1"
-                    />
-                    <div style="color: red" role="alert">
-                      {{ errors.first("image_1") }}
-                    </div>
+                    <!-- <div style="color: red" role="alert">
+                    {{ errors.first("images") }}
+                  </div>
+                  <div style="color: red" v-if="errorBackEnd.images">
+                    {{ errorBackEnd.images[0] }}
+                  </div> -->
                   </div>
 
                   <div class="form-group col-md-6 text-center">
-                    <label for="exampleInputEmail1">Image 2</label>
-                    <div>
-                      <img
-                        src
-                        ref="fileImageDispaly_2"
-                        width="200px"
-                        height="200px"
-                      />
+                    <label for="exampleInputEmail1 ">Image 2</label>
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner1">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img src ref="imageDispaly_2" class="img-thumbnail" />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 52px;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_2"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          id="file_img_banner1"
+                          v-validate="'required|image_format'"
+                          name="image_2"
+                          ref="image_2"
+                          v-on:change="attachImage_2"
+                          accept="image_2/*"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-none"
+                        style="background-color: black; border-radius: 91%"
+                        ref="iconClose_2"
+                        @click="deleteImage_2"
+                      ></a>
                     </div>
-                    <input
-                      @change="attachFile_2"
-                      type="file"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      ref="fileImage"
-                      name="image_2"
-                    />
-                    <div style="color: red" role="alert">
-                      {{ errors.first("image_2") }}
-                    </div>
+                    <!-- <div style="color: red" role="alert">
+                    {{ errors.first("images") }}
                   </div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group col-md-6 text-center">
-                    <label for="exampleInputEmail1">Image 3</label>
-                    <div>
-                      <img
-                        src
-                        ref="fileImageDispaly_3"
-                        width="200px"
-                        height="200px"
-                      />
-                    </div>
-                    <input
-                      @change="attachFile_3"
-                      type="file"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      ref="fileImage"
-                      name="image_3"
-                    />
-                    <div style="color: red" role="alert">
-                      {{ errors.first("image_3") }}
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-6 text-center">
-                    <label for="exampleInputEmail1">Image 4</label>
-                    <div>
-                      <img
-                        src
-                        ref="fileImageDispaly_4"
-                        width="200px"
-                        height="200px"
-                      />
-                    </div>
-                    <input
-                      @change="attachFile_4"
-                      type="file"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      ref="fileImage"
-                      name="image_4"
-                    />
-                    <div style="color: red" role="alert">
-                      {{ errors.first("image_4") }}
-                    </div>
+                  <div style="color: red" v-if="errorBackEnd.images">
+                    {{ errorBackEnd.images[0] }}
+                  </div> -->
                   </div>
                 </div>
 
@@ -347,59 +347,6 @@ export default {
     },
   },
   methods: {
-    attachFile_1() {
-      this.productImage.image_1 = this.$refs.fileImage_1.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly_1.src = reader.result;
-        }.bind(this),
-        false
-      );
-
-      reader.readAsDataURL(this.productImage.image_1);
-    },
-    attachFile_2() {
-      this.productImage.image_2 = this.$refs.fileImage_2.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly_1.src = reader.result;
-        }.bind(this),
-        false
-      );
-
-      reader.readAsDataURL(this.productImage.image_2);
-    },
-    attachFile_3() {
-      this.productImage.image_3 = this.$refs.fileImage_2.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly_3.src = reader.result;
-        }.bind(this),
-        false
-      );
-
-      reader.readAsDataURL(this.productImage.image_3);
-    },
-    attachFile_4() {
-      this.productImage.image_4 = this.$refs.fileImage_3.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly_4.src = reader.result;
-        }.bind(this),
-        false
-      );
-
-      reader.readAsDataURL(this.productImage.image_4);
-    },
-
     AddProductImage() {
       let that = this;
       if (this.edit == false) {
@@ -533,6 +480,52 @@ export default {
         this.$refs.fileImageDispaly_4.src =
           this.baseUrl + "/uploads/" + productImage.image_4;
       }
+    },
+
+    attachImage_1() {
+      this.productImage.image_1 = this.$refs.image_1.files[0];
+      let reader_1 = new FileReader();
+      reader_1.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_1.style.display = "block";
+          this.$refs.iconClose_1.style.display = "block";
+          this.$refs.imageDispaly_1.src = reader_1.result;
+          this.$refs.iconFile_1.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_1.readAsDataURL(this.productImage.image_1);
+    },
+    deleteImage_1() {
+      this.productImage.image_1 = "";
+      this.$refs.imageDispaly_1.style.display = "none";
+      this.$refs.iconClose_1.style.display = "none";
+      this.$refs.image_1.value = "";
+      this.$refs.iconFile_1.style.display = "block";
+    },
+
+    attachImage_2() {
+      this.productImage.image_2 = this.$refs.image_2.files[0];
+      let reader_2 = new FileReader();
+      reader_2.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_2.style.display = "block";
+          this.$refs.iconClose_2.style.display = "block";
+          this.$refs.imageDispaly_2.src = reader_2.result;
+          this.$refs.iconFile_2.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_2.readAsDataURL(this.productImage.image_2);
+    },
+    deleteImage_2() {
+      this.productImage.image_2 = "";
+      this.$refs.imageDispaly_2.style.display = "none";
+      this.$refs.iconClose_2.style.display = "none";
+      this.$refs.image_2.value = "";
+      this.$refs.iconFile_2.style.display = "block";
     },
   },
 };

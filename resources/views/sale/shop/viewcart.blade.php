@@ -203,6 +203,14 @@
                                                 <label><input name="payment_option" value="3" type="radio"> Thanh toán qua
                                                     VnPay</label><br>
                                             </span>
+                                            <span>
+                                                <label><input name="payment_option" value="4" type="radio"> Thanh toán qua
+                                                    OnePay</label><br>
+                                            </span>
+                                            <span>
+                                                <label><input name="payment_option" value="5" type="radio"> Thanh toán qua
+                                                    Momo</label><br>
+                                            </span>
                                             @if (Session::get('cart') == true)
                                                 <button type="submit" class="proceed-btn check_out"
                                                     style="width: 100%;">Order</button>

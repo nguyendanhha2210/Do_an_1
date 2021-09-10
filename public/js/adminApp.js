@@ -3850,6 +3850,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3875,35 +3938,127 @@ __webpack_require__.r(__webpack_exports__);
       confirm: "",
       cancle: "",
       urlConfirm: "",
-      urlCancle: "" //Modal
-
+      urlCancle: "",
+      //Modal
+      currentPage: "",
+      numberOfFirstRecord: "",
+      numberOfPage: "",
+      totalNumber: "",
+      lastPage: 0,
+      isBtnDeleteAll: false,
+      isInputAll: false,
+      selectedIds: []
     };
   },
-  props: ["formAdd"],
   created: function created() {
-    this.fetchData();
+    this.fetchData(1);
   },
   watch: {
     paginate: function paginate(value) {
-      this.fetchData();
+      this.fetchData(1);
     },
     search: function search(value) {
-      this.fetchData();
+      this.fetchData(1);
     }
   },
+  props: ["formAdd", "data"],
   mounted: function mounted() {},
   components: {
     Modal: _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     Loader: _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   methods: {
-    fetchData: function fetchData() {
+    checkAll: function checkAll() {
+      var _this = this;
+
+      this.isInputAll = !this.isInputAll;
+      this.selectedIds = [];
+
+      if (this.isInputAll) {
+        //Nếu check vào ô chon hết
+        this.descriptions.forEach(function (item, index) {
+          _this.selectedIds.push(item.id);
+
+          _this.isBtnDeleteAll = true;
+        });
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+    updateCheckAll: function updateCheckAll() {
+      //Check từng ô trong ds sp
+      if (this.selectedIds.length > 0) {
+        this.isBtnDeleteAll = true;
+
+        if (this.selectedIds.length == this.descriptions.length) {
+          //nếu chọn tất cả thì ô check tất cả trên sáng
+          this.isInputAll = true;
+        } else {
+          this.isInputAll = false;
+        }
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+    deleteAll: function deleteAll() {
+      var _this2 = this;
+
+      var that = this;
+      this.$swal({
+        title: "Do you want to delete ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!"
+      }).then(function (result) {
+        if (result.value) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/admin/description/delete-all", _this2.selectedIds).then(function (response) {
+            _this2.$swal({
+              title: "Delete successfully!",
+              icon: "success",
+              confirmButtonText: "OK!"
+            }).then(function (confirm) {});
+
+            that.fetchData(that.currentPage);
+            that.isBtnDeleteAll = false;
+            that.isInputAll = false;
+          })["catch"](function (error) {
+            that.flashMessage.error({
+              message: "Delete Failure!",
+              icon: "/backend/icon/error.svg",
+              blockClass: "text-centet"
+            });
+          });
+        }
+      });
+    },
+    prev: function prev() {},
+    next: function next() {},
+    chanePage: function chanePage(page) {},
+    fetchData: function fetchData(page) {
       var that = this;
       this.flagShowLoader = true;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-description?page=" + that.page + "&paginate=" + that.paginate + "&search=" + that.search).then(function (response) {
-        that.descriptions = response.data; //show data ra
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-description", {
+        params: {
+          page: page,
+          paginate: this.paginate,
+          search: this.search
+        }
+      }).then(function (response) {
+        that.descriptions = response.data.data; //show data ra
 
         that.flagShowLoader = false;
+        that.totalNumber = response.data.total; //Tổng số sp có
+
+        that.currentPage = response.data.current_page; //Trang hiện hành
+
+        that.numberOfFirstRecord = response.data.from; //Thứ tự sp đầu của 1 trang
+
+        that.numberOfPage = response.data.to; //Thứ tự sp cuối của 1 trang
+
+        that.lastPage = response.data.last_page;
       })["catch"](function (err) {
         switch (err.response.status) {
           case 500:
@@ -3919,24 +4074,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    prev: function prev() {
-      if (this.descriptions.prev_page_url) {
-        this.page--;
-        this.fetchData();
-      }
-    },
-    next: function next() {
-      if (this.descriptions.next_page_url) {
-        this.page++;
-        this.fetchData();
-      }
-    },
-    changePage: function changePage(page) {
-      this.page = page;
-      this.fetchData();
-    },
-    deleteDescription: function deleteDescription(id) {
-      var _this = this;
+    singleDelete: function singleDelete(id) {
+      var _this3 = this;
 
       var that = this;
       this.$swal({
@@ -3950,7 +4089,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios__WEBPACK_IMPORTED_MODULE_2___default().get("description/".concat(id, "/delete")).then(function (response) {
-            _this.$swal({
+            _this3.$swal({
               title: "Delete successfully!",
               icon: "success",
               confirmButtonText: "OK!"
@@ -6179,38 +6318,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     }
   },
   methods: {
-    attachFile_1: function attachFile_1() {
-      this.productImage.image_1 = this.$refs.fileImage_1.files[0];
-      var reader = new FileReader();
-      reader.buttonAddEventListener("load", function () {
-        this.$refs.fileImageDispaly_1.src = reader.result;
-      }.bind(this), false);
-      reader.readAsDataURL(this.productImage.image_1);
-    },
-    attachFile_2: function attachFile_2() {
-      this.productImage.image_2 = this.$refs.fileImage_2.files[0];
-      var reader = new FileReader();
-      reader.buttonAddEventListener("load", function () {
-        this.$refs.fileImageDispaly_1.src = reader.result;
-      }.bind(this), false);
-      reader.readAsDataURL(this.productImage.image_2);
-    },
-    attachFile_3: function attachFile_3() {
-      this.productImage.image_3 = this.$refs.fileImage_2.files[0];
-      var reader = new FileReader();
-      reader.buttonAddEventListener("load", function () {
-        this.$refs.fileImageDispaly_3.src = reader.result;
-      }.bind(this), false);
-      reader.readAsDataURL(this.productImage.image_3);
-    },
-    attachFile_4: function attachFile_4() {
-      this.productImage.image_4 = this.$refs.fileImage_3.files[0];
-      var reader = new FileReader();
-      reader.buttonAddEventListener("load", function () {
-        this.$refs.fileImageDispaly_4.src = reader.result;
-      }.bind(this), false);
-      reader.readAsDataURL(this.productImage.image_4);
-    },
     AddProductImage: function AddProductImage() {
       var that = this;
 
@@ -6322,6 +6429,42 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       if (productImage.image_4 != "") {
         this.$refs.fileImageDispaly_4.src = this.baseUrl + "/uploads/" + productImage.image_4;
       }
+    },
+    attachImage_1: function attachImage_1() {
+      this.productImage.image_1 = this.$refs.image_1.files[0];
+      var reader_1 = new FileReader();
+      reader_1.addEventListener("load", function () {
+        this.$refs.imageDispaly_1.style.display = "block";
+        this.$refs.iconClose_1.style.display = "block";
+        this.$refs.imageDispaly_1.src = reader_1.result;
+        this.$refs.iconFile_1.style.display = "none";
+      }.bind(this), false);
+      reader_1.readAsDataURL(this.productImage.image_1);
+    },
+    deleteImage_1: function deleteImage_1() {
+      this.productImage.image_1 = "";
+      this.$refs.imageDispaly_1.style.display = "none";
+      this.$refs.iconClose_1.style.display = "none";
+      this.$refs.image_1.value = "";
+      this.$refs.iconFile_1.style.display = "block";
+    },
+    attachImage_2: function attachImage_2() {
+      this.productImage.image_2 = this.$refs.image_2.files[0];
+      var reader_2 = new FileReader();
+      reader_2.addEventListener("load", function () {
+        this.$refs.imageDispaly_2.style.display = "block";
+        this.$refs.iconClose_2.style.display = "block";
+        this.$refs.imageDispaly_2.src = reader_2.result;
+        this.$refs.iconFile_2.style.display = "none";
+      }.bind(this), false);
+      reader_2.readAsDataURL(this.productImage.image_2);
+    },
+    deleteImage_2: function deleteImage_2() {
+      this.productImage.image_2 = "";
+      this.$refs.imageDispaly_2.style.display = "none";
+      this.$refs.iconClose_2.style.display = "none";
+      this.$refs.image_2.value = "";
+      this.$refs.iconFile_2.style.display = "block";
     }
   }
 });
@@ -6737,7 +6880,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonText: "No, cancel!"
       }).then(function (result) {
         if (result.value) {
-          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/admin/delete-all", _this2.selectedIds).then(function (response) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/admin/type/delete-all", _this2.selectedIds).then(function (response) {
             _this2.$swal({
               title: "Delete successfully!",
               icon: "success",
@@ -6763,10 +6906,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fetchData: function fetchData(page) {
       var that = this;
       this.flagShowLoader = true;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-type", {
-        page: page,
-        paginate: this.paginate,
-        search: this.search
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-type", {
+        params: {
+          page: page,
+          paginate: this.paginate,
+          search: this.search
+        }
       }).then(function (response) {
         that.types = response.data.data; //show data ra
 
@@ -80132,9 +80277,89 @@ var render = function() {
     { staticClass: "table-agile-info" },
     [
       _c("div", { staticClass: "panel panel-default" }, [
-        _c("div", { staticClass: "panel-heading" }),
-        _vm._v(" "),
         _c("div", { staticClass: "row w3-res-tb" }, [
+          _c(
+            "div",
+            {
+              staticClass: "col-md-2 col-sm-4 col-2",
+              staticStyle: { float: "left" }
+            },
+            [
+              _c("div", { staticClass: "form-check form-check-inline" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "\n              container-checkbox\n              form-check-label\n              align-items-center\n              height-14\n              p-0\n            ",
+                    attrs: { for: "checkAll" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.isInputAll,
+                          expression: "isInputAll"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "checkAll",
+                        name: "checkAll"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.isInputAll)
+                          ? _vm._i(_vm.isInputAll, null) > -1
+                          : _vm.isInputAll
+                      },
+                      on: {
+                        click: _vm.checkAll,
+                        change: function($event) {
+                          var $$a = _vm.isInputAll,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.isInputAll = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.isInputAll = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.isInputAll = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "checkmark" })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn border-radius-7",
+                  class: {
+                    "btn-outline-secondary": !_vm.isBtnDeleteAll,
+                    "background-white": !_vm.isBtnDeleteAll,
+                    "btn-success": _vm.isBtnDeleteAll,
+                    disabled: !_vm.isBtnDeleteAll
+                  },
+                  on: { click: _vm.deleteAll }
+                },
+                [_vm._v("\n          Delete\n        ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
           _c(
             "div",
             {
@@ -80184,14 +80409,14 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "col-md-4 col-sm-7 col-3",
+              staticClass: "col-md-2 col-sm-3 col-1",
               staticStyle: { float: "left" }
             },
             [
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-success btn-sm",
+                  staticClass: "btn btn-success",
                   attrs: { href: _vm.formAdd }
                 },
                 [_vm._v("Add New")]
@@ -80234,28 +80459,105 @@ var render = function() {
         _c("div", { staticClass: "table-responsive" }, [
           _c(
             "table",
-            { staticClass: "table table-striped b-t b-light text-center" },
+            { staticClass: "table table-striped b-t b-light" },
             [
               _vm._m(0),
               _vm._v(" "),
               _c(
                 "transition-group",
                 { attrs: { type: "slide-fade", tag: "tbody" } },
-                _vm._l(_vm.descriptions.data, function(data, index) {
-                  return _c("tr", { key: data.id }, [
-                    _c("th", { attrs: { scope: "row" } }, [
-                      _vm._v(_vm._s(index + 1))
+                _vm._l(_vm.descriptions, function(description, index) {
+                  return _c("tr", { key: description.id }, [
+                    _c("td", { staticStyle: { width: "5%" } }, [
+                      description.id != 2
+                        ? _c(
+                            "div",
+                            { staticClass: "form-check form-check-inline" },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "container-checkbox form-check-label height-17",
+                                  attrs: { for: "type" + index }
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.selectedIds,
+                                        expression: "selectedIds"
+                                      }
+                                    ],
+                                    staticClass: "form-check-input",
+                                    attrs: {
+                                      type: "checkbox",
+                                      id: "description" + index,
+                                      name: "category"
+                                    },
+                                    domProps: {
+                                      value: description.id,
+                                      checked: Array.isArray(_vm.selectedIds)
+                                        ? _vm._i(
+                                            _vm.selectedIds,
+                                            description.id
+                                          ) > -1
+                                        : _vm.selectedIds
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$a = _vm.selectedIds,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = description.id,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                (_vm.selectedIds = $$a.concat([
+                                                  $$v
+                                                ]))
+                                            } else {
+                                              $$i > -1 &&
+                                                (_vm.selectedIds = $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1)))
+                                            }
+                                          } else {
+                                            _vm.selectedIds = $$c
+                                          }
+                                        },
+                                        _vm.updateCheckAll
+                                      ]
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "checkmark" })
+                                ]
+                              )
+                            ]
+                          )
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c(
+                      "th",
+                      { staticClass: "text-center", attrs: { scope: "row" } },
+                      [_vm._v(_vm._s(index + 1))]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" }, [
                       _vm._v(
                         "\n              " +
-                          _vm._s(data.description) +
+                          _vm._s(description.description) +
                           "\n            "
                       )
                     ]),
                     _vm._v(" "),
-                    data.id == 2
+                    description.id == 2
                       ? _c("td")
                       : _c("td", [
                           _c("div", { staticClass: "td-action" }, [
@@ -80263,7 +80565,8 @@ var render = function() {
                               "a",
                               {
                                 attrs: {
-                                  href: "description/" + data.id + "/edit"
+                                  href:
+                                    "description/" + description.id + "/edit"
                                 }
                               },
                               [
@@ -80288,7 +80591,7 @@ var render = function() {
                                 staticClass: "btn btn-danger",
                                 on: {
                                   click: function($event) {
-                                    return _vm.deleteDescription(data.id)
+                                    return _vm.singleDelete(description.id)
                                   }
                                 }
                               },
@@ -80310,32 +80613,44 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("footer", { staticClass: "panel-footer" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-5 text-center" }, [
+            _c("small", { staticClass: "text-muted inline m-t-sm m-b-sm" }, [
+              _vm._v(
+                "showing " +
+                  _vm._s(_vm.numberOfFirstRecord) +
+                  "-" +
+                  _vm._s(_vm.numberOfPage) +
+                  " of\n          " +
+                  _vm._s(_vm.totalNumber) +
+                  " items"
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "nav",
         { attrs: { "aria-label": "Page navigation example" } },
         [
           _c("paginate", {
             attrs: {
-              "page-count": parseInt(_vm.descriptions.last_page),
-              "page-range": 5,
-              "margin-pages": 2,
-              "click-handler": _vm.changePage,
-              "prev-text": "<<",
-              "next-text": ">>",
-              "container-class": "pagination justify-content-center",
+              "page-count": _vm.lastPage,
+              "container-class":
+                "pagination d-flex justify-content-center mt-3",
               "page-class": "page-item",
-              "prev-class": "page-item",
-              "next-class": "page-item",
-              "page-link-class": "page-link bg-info text-light",
-              "next-link-class": "page-link bg-info text-light",
-              "prev-link-class": "page-link bg-info text-light"
-            },
-            model: {
-              value: _vm.page,
-              callback: function($$v) {
-                _vm.page = $$v
-              },
-              expression: "page"
+              "page-link-class": "page-link",
+              "prev-class": "page-item prev-item",
+              "prev-link-class": "page-link",
+              "next-class": "page-item next-item",
+              "next-link-class": "page-link",
+              "prev-text":
+                "<span><img src='/images/icons/angle-left.svg'></span>",
+              "next-text":
+                "<span><img src='/images/icons/angle-right.svg'></span>",
+              "click-handler": _vm.fetchData
             }
           })
         ],
@@ -80371,11 +80686,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("STT")]),
+        _c("th"),
         _vm._v(" "),
-        _c("th", [_vm._v("Description")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("STT")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { width: "20%" } }, [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Description")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text-center", staticStyle: { width: "20%" } },
+          [_vm._v("Action")]
+        )
       ])
     ])
   }
@@ -82967,40 +83288,88 @@ var render = function() {
                                 [_vm._v("Image 1")]
                               ),
                               _vm._v(" "),
-                              _c("div", [
-                                _c("img", {
-                                  ref: "fileImageDispaly_1",
-                                  attrs: {
-                                    src: "",
-                                    width: "200px",
-                                    height: "200px"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                ref: "fileImage",
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  id: "exampleInputEmail1",
-                                  name: "image_1"
-                                },
-                                on: { change: _vm.attachFile_1 }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 {
-                                  staticStyle: { color: "red" },
-                                  attrs: { role: "alert" }
+                                  staticClass:
+                                    "position-relative d-inline-block"
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(_vm.errors.first("image_1")) +
-                                      "\n                  "
-                                  )
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner1" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "img-drop-box mt-2 mr-2"
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_1",
+                                            staticClass: "img-thumbnail",
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_1",
+                                              staticStyle: {
+                                                "margin-top": "52px",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required|image_format",
+                                            expression:
+                                              "'required|image_format'"
+                                          }
+                                        ],
+                                        ref: "image_1",
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner1",
+                                          name: "image_1",
+                                          accept: "image_1/*"
+                                        },
+                                        on: { change: _vm.attachImage_1 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("a", {
+                                    ref: "iconClose_1",
+                                    staticClass:
+                                      "btn btn-light icon-close-white display-none",
+                                    staticStyle: {
+                                      "background-color": "black",
+                                      "border-radius": "91%"
+                                    },
+                                    on: { click: _vm.deleteImage_1 }
+                                  })
                                 ]
                               )
                             ]
@@ -83012,144 +83381,92 @@ var render = function() {
                             [
                               _c(
                                 "label",
-                                { attrs: { for: "exampleInputEmail1" } },
+                                { attrs: { for: "exampleInputEmail1 " } },
                                 [_vm._v("Image 2")]
                               ),
                               _vm._v(" "),
-                              _c("div", [
-                                _c("img", {
-                                  ref: "fileImageDispaly_2",
-                                  attrs: {
-                                    src: "",
-                                    width: "200px",
-                                    height: "200px"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                ref: "fileImage",
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  id: "exampleInputEmail1",
-                                  name: "image_2"
-                                },
-                                on: { change: _vm.attachFile_2 }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 {
-                                  staticStyle: { color: "red" },
-                                  attrs: { role: "alert" }
+                                  staticClass:
+                                    "position-relative d-inline-block"
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(_vm.errors.first("image_2")) +
-                                      "\n                  "
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "form-group col-md-6 text-center" },
-                            [
-                              _c(
-                                "label",
-                                { attrs: { for: "exampleInputEmail1" } },
-                                [_vm._v("Image 3")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c("img", {
-                                  ref: "fileImageDispaly_3",
-                                  attrs: {
-                                    src: "",
-                                    width: "200px",
-                                    height: "200px"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                ref: "fileImage",
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  id: "exampleInputEmail1",
-                                  name: "image_3"
-                                },
-                                on: { change: _vm.attachFile_3 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticStyle: { color: "red" },
-                                  attrs: { role: "alert" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(_vm.errors.first("image_3")) +
-                                      "\n                  "
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "form-group col-md-6 text-center" },
-                            [
-                              _c(
-                                "label",
-                                { attrs: { for: "exampleInputEmail1" } },
-                                [_vm._v("Image 4")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c("img", {
-                                  ref: "fileImageDispaly_4",
-                                  attrs: {
-                                    src: "",
-                                    width: "200px",
-                                    height: "200px"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                ref: "fileImage",
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  id: "exampleInputEmail1",
-                                  name: "image_4"
-                                },
-                                on: { change: _vm.attachFile_4 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticStyle: { color: "red" },
-                                  attrs: { role: "alert" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(_vm.errors.first("image_4")) +
-                                      "\n                  "
-                                  )
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner1" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "img-drop-box mt-2 mr-2"
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_2",
+                                            staticClass: "img-thumbnail",
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_2",
+                                              staticStyle: {
+                                                "margin-top": "52px",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required|image_format",
+                                            expression:
+                                              "'required|image_format'"
+                                          }
+                                        ],
+                                        ref: "image_2",
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner1",
+                                          name: "image_2",
+                                          accept: "image_2/*"
+                                        },
+                                        on: { change: _vm.attachImage_2 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("a", {
+                                    ref: "iconClose_2",
+                                    staticClass:
+                                      "btn btn-light icon-close-white display-none",
+                                    staticStyle: {
+                                      "background-color": "black",
+                                      "border-radius": "91%"
+                                    },
+                                    on: { click: _vm.deleteImage_2 }
+                                  })
                                 ]
                               )
                             ]
@@ -83735,73 +84052,75 @@ var render = function() {
                 _vm._l(_vm.types, function(type, index) {
                   return _c("tr", { key: type.id }, [
                     _c("td", { staticStyle: { width: "5%" } }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-check form-check-inline" },
-                        [
-                          _c(
-                            "label",
-                            {
-                              staticClass:
-                                "container-checkbox form-check-label height-17",
-                              attrs: { for: "type" + index }
-                            },
+                      type.id != 2
+                        ? _c(
+                            "div",
+                            { staticClass: "form-check form-check-inline" },
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.selectedIds,
-                                    expression: "selectedIds"
-                                  }
-                                ],
-                                staticClass: "form-check-input",
-                                attrs: {
-                                  type: "checkbox",
-                                  id: "type" + index,
-                                  name: "category"
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "container-checkbox form-check-label height-17",
+                                  attrs: { for: "type" + index }
                                 },
-                                domProps: {
-                                  value: type.id,
-                                  checked: Array.isArray(_vm.selectedIds)
-                                    ? _vm._i(_vm.selectedIds, type.id) > -1
-                                    : _vm.selectedIds
-                                },
-                                on: {
-                                  change: [
-                                    function($event) {
-                                      var $$a = _vm.selectedIds,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = type.id,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            (_vm.selectedIds = $$a.concat([
-                                              $$v
-                                            ]))
-                                        } else {
-                                          $$i > -1 &&
-                                            (_vm.selectedIds = $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1)))
-                                        }
-                                      } else {
-                                        _vm.selectedIds = $$c
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.selectedIds,
+                                        expression: "selectedIds"
                                       }
+                                    ],
+                                    staticClass: "form-check-input",
+                                    attrs: {
+                                      type: "checkbox",
+                                      id: "type" + index,
+                                      name: "category"
                                     },
-                                    _vm.updateCheckAll
-                                  ]
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "checkmark" })
+                                    domProps: {
+                                      value: type.id,
+                                      checked: Array.isArray(_vm.selectedIds)
+                                        ? _vm._i(_vm.selectedIds, type.id) > -1
+                                        : _vm.selectedIds
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$a = _vm.selectedIds,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = type.id,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                (_vm.selectedIds = $$a.concat([
+                                                  $$v
+                                                ]))
+                                            } else {
+                                              $$i > -1 &&
+                                                (_vm.selectedIds = $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1)))
+                                            }
+                                          } else {
+                                            _vm.selectedIds = $$c
+                                          }
+                                        },
+                                        _vm.updateCheckAll
+                                      ]
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "checkmark" })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c(

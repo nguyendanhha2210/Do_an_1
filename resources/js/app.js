@@ -30,6 +30,8 @@ import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.
 
 
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
+import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
+import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
 
 
@@ -69,6 +71,8 @@ new Vue({
         ProfileComponent,
         CheckoutPaypal,
         CheckoutVnpay,
+        CheckoutOnepay,
+        CheckoutMomo,
     },
     created() {
         this.$validator.extend("number_phone", {

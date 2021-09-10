@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\StatusCode;
+use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DescriptionRequest;
 use App\Models\Description;
@@ -86,5 +87,10 @@ class DescriptionController extends Controller
     {
         $description = Description::find($id);
         $description->delete();
+    }
+
+    public function deleteAll(Request $request)
+    {
+        Description::whereIn('id', $request)->where('id', '!=', StatusSale::JUSTENTERD)->delete();
     }
 }

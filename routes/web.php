@@ -39,13 +39,13 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
 
     //Type //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/type', [App\Http\Controllers\Admin\TypeController::class, 'index'])->name('admin.type.list'); //gọi form list
-    Route::post('/get-type', [App\Http\Controllers\Admin\TypeController::class, 'getData'])->name('admin.type.getData'); //trả dữ liệu ra form list
+    Route::get('/get-type', [App\Http\Controllers\Admin\TypeController::class, 'getData'])->name('admin.type.getData'); //trả dữ liệu ra form list
     Route::get('/type/add',  [App\Http\Controllers\Admin\TypeController::class, 'create'])->name('admin.type.create'); //thêm
     Route::post('/type/type-add',  [App\Http\Controllers\Admin\TypeController::class, 'store'])->name('admin.type.store'); //thêm
     Route::get('/type/{id}/edit', [App\Http\Controllers\Admin\TypeController::class, 'edit'])->name('admin.type.edit'); //gọi trang edit
     Route::post('/type/{id}/type-update', [App\Http\Controllers\Admin\TypeController::class, 'update'])->name('admin.type.update'); //trả dữ liệu ra form list
     Route::get('/type/{id}/delete', [App\Http\Controllers\Admin\TypeController::class, 'destroy'])->name('admin.type.delete'); //Xóa
-    Route::post('/delete-all', [App\Http\Controllers\Admin\TypeController::class, 'deleteAll'])->name('admin.type.deleteAll'); //Xóa
+    Route::post('type/delete-all', [App\Http\Controllers\Admin\TypeController::class, 'deleteAll'])->name('admin.type.deleteAll'); //Xóa
 
     //Coupon //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/coupon', [App\Http\Controllers\Admin\CouponController::class, 'index'])->name('admin.coupon.list'); //gọi form list
@@ -57,8 +57,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/coupon/{id}/coupon-update', [App\Http\Controllers\Admin\CouponController::class, 'update'])->name('admin.coupon.update'); //trả dữ liệu ra form list
     Route::get('/coupon/{id}/delete', [App\Http\Controllers\Admin\CouponController::class, 'destroy'])->name('admin.coupon.delete'); //Xóa
     Route::get('/coupon/{id}/send-customer', [App\Http\Controllers\Admin\CouponController::class, 'sendCustomer'])->name('admin.coupon.sendCustomer'); //gửi mã cho khách hàng
-
-
 
     //Weight //view kiểu datatable //edit gọi ra trang thứ 2  //add trang thứ 2
     Route::get('/weight', [App\Http\Controllers\Admin\WeightController::class, 'index'])->name('admin.weight.list'); //gọi form list
@@ -89,6 +87,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/description/{id}/edit', [App\Http\Controllers\Admin\DescriptionController::class, 'edit'])->name('admin.description.edit'); //gọi trang edit
     Route::post('/description/{id}/description-update', [App\Http\Controllers\Admin\DescriptionController::class, 'update'])->name('admin.description.update'); //trả dữ liệu ra form list
     Route::get('/description/{id}/delete', [App\Http\Controllers\Admin\DescriptionController::class, 'destroy'])->name('admin.description.delete'); //Xóa
+    Route::post('description/delete-all', [App\Http\Controllers\Admin\DescriptionController::class, 'deleteAll'])->name('admin.description.deleteAll'); //Xóa
 
     //categorypost //edit gọi ra trang thứ 2 //add trang thứ 2
     Route::get('/category-post', [App\Http\Controllers\Admin\CategoryPostController::class, 'index'])->name('admin.categorypost.list'); //gọi form list
@@ -183,6 +182,13 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
 
     Route::post('/checkout-cart',  [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutCart'])->name('admin.checkout.checkoutCart'); //thanh toán khi nhận tiền
     Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
+    Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
+
+
+    Route::post('/checkout-onepay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutOnepay'])->name('admin.checkout.checkoutOnepay'); //thanh toán paypal
+    Route::post('/checkout-momo', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutMomo'])->name('admin.checkout.checkoutMomo'); //thanh toán paypal
+
+    
 
 
     Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal

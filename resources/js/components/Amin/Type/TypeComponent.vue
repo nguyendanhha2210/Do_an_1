@@ -65,7 +65,7 @@
           <transition-group type="slide-fade" tag="tbody">
             <tr v-for="(type, index) in types" :key="type.id">
               <td style="width: 5%">
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline" v-if="type.id != 2">
                   <label
                     class="container-checkbox form-check-label height-17"
                     :for="`type${index}`"
@@ -255,7 +255,7 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .post("/admin/delete-all", this.selectedIds)
+            .post("/admin/type/delete-all", this.selectedIds)
             .then((response) => {
               this.$swal({
                 title: "Delete successfully!",
@@ -285,10 +285,12 @@ export default {
       let that = this;
       this.flagShowLoader = true;
       axios
-        .post("get-type", {
-          page: page,
-          paginate: this.paginate,
-          search: this.search,
+        .get("get-type", {
+          params: {
+            page: page,
+            paginate: this.paginate,
+            search: this.search,
+          },
         })
         .then(function (response) {
           that.types = response.data.data; //show data ra
