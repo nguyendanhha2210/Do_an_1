@@ -145,7 +145,7 @@ class CouponController extends Controller
         //     })->groupBy('orders.customer_id')->orderBy('total_bill', 'desc')
         //     ->get();
 
-        $abc = Order::select('customer_id', DB::raw('Sum(cast(total_bill as double totalBill))'))
+        $abc = Order::select('customer_id', DB::raw('Sum(cast(total_bill as totalBill))'))
             ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
             ->whereHas('user', function ($query) {
                 $query->where('role_id', RoleStateType::SALER);
