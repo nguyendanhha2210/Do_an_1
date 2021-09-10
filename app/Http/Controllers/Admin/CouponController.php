@@ -131,12 +131,29 @@ class CouponController extends Controller
     public function sendCustomer($id)
     {
         //Lấy ra các khách hàng có tổng đơn lớn nhất sắp xếp giảm dần
-        $abc = Order::select("customer_id", DB::raw('Sum(total_bill)'))
-            ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
-            ->whereHas('user', function ($query) {
-                $query->where('role_id', RoleStateType::SALER);
-            })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
-            ->get();
+        // $abc = Order::select('customer_id', DB::raw('Sum(total_bill)'))
+        //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
+        //     ->whereHas('user', function ($query) {
+        //         $query->where('role_id', RoleStateType::SALER);
+        //     })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
+        //     ->get();
+
+        $abc = Order::select('customer_id', DB::raw('SUM(total_bill) OVER (PARTITION BY customer_id) AS total_bill,') )
+        ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
+        ->whereHas('user', function ($query) {
+            $query->where('role_id', RoleStateType::SALER);
+        })->groupBy('orders.customer_id')->orderBy('total_bill', 'desc')
+        ->get();
+
+        
+
+
+//             select product_groups.group_id, products.product_name, products.price, 
+// AVG(price) OVER (PARTITION BY product_groups.group_id) AS average_price, 
+// SUM(price) OVER (PARTITION BY product_groups.group_id) AS total_price,
+// ( products.price - AVG(price) OVER (PARTITION BY product_groups.group_id) ) AS price_diff
+// from products, product_groups
+// where products.group_id = product_groups.group_id
 
         $coupon = Coupon::where('id', $id)->first();
         $qualityCoupon = $coupon->time;
