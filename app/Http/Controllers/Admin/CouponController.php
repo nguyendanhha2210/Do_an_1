@@ -131,11 +131,11 @@ class CouponController extends Controller
     public function sendCustomer($id)
     {
         //Lấy ra các khách hàng có tổng đơn lớn nhất sắp xếp giảm dần
-        $abc = Order::select('customer_id', DB::raw('sum(cast(total_bill as double totalMoney))'))
+        $abc = Order::select("customer_id", DB::raw('Sum(total_bill)'))
             ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
             ->whereHas('user', function ($query) {
                 $query->where('role_id', RoleStateType::SALER);
-            })->groupBy('orders.customer_id')->orderBy('totalMoney', 'desc')
+            })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
             ->get();
 
         $coupon = Coupon::where('id', $id)->first();
