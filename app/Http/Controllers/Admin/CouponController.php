@@ -131,19 +131,19 @@ class CouponController extends Controller
     public function sendCustomer($id)
     {
         //Lấy ra các khách hàng có tổng đơn lớn nhất sắp xếp giảm dần
-        // $abc = Order::select('customer_id', DB::raw('Sum(total_bill)'))
-        //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
-        //     ->whereHas('user', function ($query) {
-        //         $query->where('role_id', RoleStateType::SALER);
-        //     })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
-        //     ->get();
-
-        $abc = Order::select('customer_id', DB::raw('SUM(orders.total_bill) OVER (PARTITION BY customer_id)'))
+        $abc = Order::select('customer_id', DB::raw('Sum(total_bill)'))
             ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
             ->whereHas('user', function ($query) {
                 $query->where('role_id', RoleStateType::SALER);
-            })->groupBy('orders.customer_id')->orderBy('SUM(orders.total_bill) OVER (PARTITION BY customer_id)', 'desc')
+            })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
             ->get();
+
+        // $abc = Order::select('customer_id', DB::raw('SUM(orders.total_bill) OVER (PARTITION BY customer_id) AS totalBill'))
+        //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
+        //     ->whereHas('user', function ($query) {
+        //         $query->where('role_id', RoleStateType::SALER);
+        //     })->groupBy('orders.customer_id')->orderBy('totalBill', 'desc')
+        //     ->get();
 
         // $abc = Order::select('customer_id', DB::raw('Sum(cast(total_bill as totalBill))'))
         //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
