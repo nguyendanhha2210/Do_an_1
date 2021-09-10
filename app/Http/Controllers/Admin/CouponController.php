@@ -138,11 +138,11 @@ class CouponController extends Controller
         //     })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
         //     ->get();
 
-        $abc = Order::select('customer_id', DB::raw('SUM(orders.total_bill) OVER (PARTITION BY customer_id) AS totalBill'))
+        $abc = Order::select('customer_id', DB::raw('SUM(orders.total_bill) OVER (PARTITION BY customer_id)'))
             ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
             ->whereHas('user', function ($query) {
                 $query->where('role_id', RoleStateType::SALER);
-            })->groupBy('orders.customer_id')->orderBy('totalBill', 'desc')
+            })->groupBy('orders.customer_id')->orderBy('SUM(orders.total_bill) OVER (PARTITION BY customer_id)', 'desc')
             ->get();
 
         // $abc = Order::select('customer_id', DB::raw('Sum(cast(total_bill as totalBill))'))
