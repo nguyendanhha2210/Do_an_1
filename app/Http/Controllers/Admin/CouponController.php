@@ -138,21 +138,6 @@ class CouponController extends Controller
             })->groupBy('orders.customer_id')->orderBy(DB::raw('Sum(total_bill)'), 'desc')
             ->get();
 
-        // $abc = Order::select('customer_id', DB::raw('SUM(orders.total_bill) OVER (PARTITION BY customer_id) AS totalBill'))
-        //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
-        //     ->whereHas('user', function ($query) {
-        //         $query->where('role_id', RoleStateType::SALER);
-        //     })->groupBy('orders.customer_id')->orderBy('totalBill', 'desc')
-        //     ->get();
-
-        // $abc = Order::select('customer_id', DB::raw('Sum(cast(total_bill as totalBill))'))
-        //     ->where('order_status', '=', OrderStatus::SUCCESS)->with(['user'])
-        //     ->whereHas('user', function ($query) {
-        //         $query->where('role_id', RoleStateType::SALER);
-        //     })->groupBy('orders.customer_id')->orderBy('totalBill', 'desc')
-        //     ->get();
-
-
         $coupon = Coupon::where('id', $id)->first();
         $qualityCoupon = $coupon->time;
 
