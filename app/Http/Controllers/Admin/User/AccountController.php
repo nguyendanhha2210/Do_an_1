@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Enums\LimitTimeForgot;
+use App\Enums\OrderStatus;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Order;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -60,6 +63,78 @@ class AccountController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::UNAUTHORIZED);
+        }
+    }
+
+    public function index(Request $request)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        } else {
+            $breadcrumbs = ['User List'];
+            return view('admin.users.index', ['breadcrumbs' => $breadcrumbs]);
+        }
+    }
+
+    public function getUser(Request $request)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $paginate = $request->paginate;
+            $search = $request->search;
+            $role = $request->role;
+            $users = User::where('role_id', '!=', RoleStateType::MANAGERMENT)->where('role_id', '=', RoleStateType::SALER)->where(function ($q) use ($search) {
+                if ($search) {
+                    $q->where('email', 'like', '%' . $search . '%');
+                }
+            })->where(function ($st) use ($role) {
+                if ($role) {
+                    $st->where('role_id', '=', $role);
+                }
+            })
+                ->orderBy('created_at', 'desc')->paginate($paginate);
+            return response()->json($users, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function showViewUser($id)
+    {
+        $breadcrumbs = ['User Detail'];
+        return view('admin.users.detailuser', ['breadcrumbs' => $breadcrumbs]);
+    }
+
+    public function getUserDetail(Request $request, $id)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $paginate = $request->paginate;
+            $search = $request->search;
+            $userDetail = User::where('id', $id)->first();
+            $orders = Order::where('customer_id', $id)->where(function ($q) use ($search) {
+                if ($search) {
+                    $q->where('order_date', 'like', '%' . $search . '%');
+                }
+            })->orderBy('created_at', 'desc')->paginate($paginate);
+
+            return response()->json(["userDetails" => $userDetail, "orders" =>  $orders], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function indexShip()
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        } else {
+            $breadcrumbs = ['Shipper List'];
+            return view('admin.users.shipper', ['breadcrumbs' => $breadcrumbs]);
         }
     }
 }

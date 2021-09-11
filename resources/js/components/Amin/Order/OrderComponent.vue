@@ -69,7 +69,9 @@
                 {{ data.shipping_id }}
               </td>
               <td>
-                {{ data.order_code }}
+                <a :href="`order/${data.order_code}/detail`">
+                  {{ data.order_code }}</a
+                >
               </td>
               <td v-if="data.order_status == 1">
                 <b style="color: blue">Ordered</b>
@@ -94,7 +96,7 @@
                 <div class="td-action">
                   <a :href="`order/${data.order_code}/detail`">
                     <button class="btn btn-warning mr-1" type="button">
-                      Order Detail
+                      Confirm
                     </button></a
                   >
                 </div>

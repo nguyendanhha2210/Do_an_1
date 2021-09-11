@@ -13,6 +13,13 @@
                 </li>
 
                 <li class="sub-menu">
+                <a href="{{ route('admin.profit.list') }}">
+                        <i class="fa fa-book"></i>
+                        <span>Profit</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
                     <a href="{{ route('admin.comment.list') }}">
                         <i class="fa fa-book"></i>
                         <span>Comment</span>
@@ -52,6 +59,18 @@
                     <ul class="sub">
                         <li><a href="{{ route('admin.post.list') }}">Post List</a></li>
                         <li><a href="{{ route('admin.categorypost.list') }}">Posts Category</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Account</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ route('admin.user.list') }}">User</a></li>
+                        <li><a href="{{ route('admin.shipper.list') }}">Shipper</a></li>
+                        {{-- <li><a href="{{ route('admin.admin.list') }}">Admin</a></li> --}}
                     </ul>
                 </li>
 

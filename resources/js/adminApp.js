@@ -7,6 +7,7 @@ import FlashMessage from '@smartweb/vue-flash-message';
 import DataTable from 'laravel-vue-datatable'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import moment from 'moment';
 
 import LoginComponent from './components/Amin/User/LoginComponent'
 import TypeComponent from './components/Amin/Type/TypeComponent.vue'
@@ -37,6 +38,10 @@ import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
 import PostComponent from './components/Amin/Post/PostComponent.vue'
 
 import CommentComponent from './components/Amin/Comment/CommentComponent.vue'
+import ProfitComponent from './components/Amin/Profit/ProfitComponent.vue'
+import UserComponent from './components/Amin/User/UserComponent.vue'
+import UserDetail from './components/Amin/User/UserDetail.vue'
+import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
 
 
 Vue.use(VueSweetalert2);
@@ -45,6 +50,11 @@ Vue.component('paginate', Paginate)
 Vue.use(FlashMessage);
 Vue.use(VeeValidate, {
     locale: "ja"
+});
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('MM/DD/YYYY hh:mm')
+    }
 });
 
 new Vue({
@@ -79,6 +89,10 @@ new Vue({
         CategoryPostEdit,
         PostComponent,
         CommentComponent,
+        ProfitComponent,
+        UserComponent,
+        UserDetail,
+        ShipperComponent,
     },
     created() {
         this.$validator.extend("number_phone", {

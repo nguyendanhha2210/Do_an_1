@@ -8,6 +8,7 @@ import DataTable from 'laravel-vue-datatable';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
+
 import VueCardCarousel from "vue-card-carousel"
 import LoginComponent from './components/Sale/User/LoginComponent.vue'
 import RegisterComponent from './components/Sale/User/RegisterComponent.vue'
@@ -27,7 +28,6 @@ import PostDetail from './components/Sale/Post/PostDetail.vue'
 import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
 import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.vue'
-
 
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'

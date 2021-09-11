@@ -121,7 +121,19 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     // Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
     // Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
 
+    //Profit 
+    Route::get('/profit', [App\Http\Controllers\Admin\ProfitController::class, 'index'])->name('admin.profit.list'); //gọi form list
+    Route::post('/get-profit', [App\Http\Controllers\Admin\ProfitController::class, 'getData'])->name('admin.profit.getData'); //trả dữ liệu ra form list
 
+    //User
+    Route::get('/user', [App\Http\Controllers\Admin\User\AccountController::class, 'index'])->name('admin.user.list'); //gọi form list
+    Route::get('/get-user', [App\Http\Controllers\Admin\User\AccountController::class, 'getUser'])->name('admin.user.getUser'); //trả dữ liệu ra form list
+    Route::get('/account/{id}/detail', [App\Http\Controllers\Admin\User\AccountController::class, 'showViewUser'])->name('admin.user.showViewUser'); //gọi trang edit
+    Route::get('/account/{id}/get-user-detail', [App\Http\Controllers\Admin\User\AccountController::class, 'getUserDetail'])->name('admin.user.getUserDetail'); //trả dữ liệu ra form list
+    
+    Route::get('/shipper', [App\Http\Controllers\Admin\User\AccountController::class, 'indexShip'])->name('admin.shipper.list'); //gọi form list
+
+    
 });
 
 
@@ -188,7 +200,7 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('/checkout-onepay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutOnepay'])->name('admin.checkout.checkoutOnepay'); //thanh toán paypal
     Route::post('/checkout-momo', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutMomo'])->name('admin.checkout.checkoutMomo'); //thanh toán paypal
 
-    
+
 
 
     Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal
