@@ -542,29 +542,6 @@ class CheckoutController extends Controller
         return view('sale.shop.payments.vnpay_php.successvnpay', ['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
     }
 
-    public function execPostRequest($url, $data)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data)
-            )
-        );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        //execute post
-        $result = curl_exec($ch);
-        //close connection
-        curl_close($ch);
-        return $result;
-    }
-
     public function checkoutOnepay(Request $request)
     {
         if (!Auth::guard('sales')->check()) {
@@ -668,10 +645,10 @@ class CheckoutController extends Controller
             $message->from($data['email'], $title_mail); //send from this mail
         });
 
-        // Session::forget('coupon');
-        // Session::forget('cart');
-        // Session::forget('totalPriceBill');
-        // Session::forget('shipping');
+        Session::forget('coupon');
+        Session::forget('cart');
+        Session::forget('totalPriceBill');
+        Session::forget('shipping');
 
         $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
         $vpcURL = "https://mtf.onepay.vn/onecomm-pay/vpc.op";
@@ -735,6 +712,29 @@ class CheckoutController extends Controller
 
 
         return request()->json($vpcURL);
+    }
+
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data)
+            )
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
     }
 
     public function checkoutMomo(Request $request)
