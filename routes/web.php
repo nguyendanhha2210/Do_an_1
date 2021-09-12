@@ -131,7 +131,18 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/account/{id}/detail', [App\Http\Controllers\Admin\User\AccountController::class, 'showViewUser'])->name('admin.user.showViewUser'); //gọi trang edit
     Route::get('/account/{id}/get-user-detail', [App\Http\Controllers\Admin\User\AccountController::class, 'getUserDetail'])->name('admin.user.getUserDetail'); //trả dữ liệu ra form list
     
-    Route::get('/shipper', [App\Http\Controllers\Admin\User\AccountController::class, 'indexShip'])->name('admin.shipper.list'); //gọi form list
+    Route::get('/shipper', [App\Http\Controllers\Admin\User\ShipperController::class, 'indexShip'])->name('admin.shipper.list'); //gọi form list
+    Route::get('/get-ship', [App\Http\Controllers\Admin\User\ShipperController::class, 'getShipper'])->name('admin.shipper.getShipper'); //trả dữ liệu ra form list
+    Route::post('/ship-add',  [App\Http\Controllers\Admin\User\ShipperController::class, 'store'])->name('admin.shipper.add'); //thêm
+    Route::post('/ship/{id}/update', [App\Http\Controllers\Admin\User\ShipperController::class, 'update'])->name('admin.shipper.update'); //Sửa
+    Route::get('/ship/{id}/delete', [App\Http\Controllers\Admin\User\ShipperController::class, 'destroy'])->name('admin.shipper.delete'); //Xóa
+
+    Route::get('/adminer', [App\Http\Controllers\Admin\User\AdminController::class, 'index'])->name('admin.admin.list'); //gọi form list
+    Route::get('/get-admin', [App\Http\Controllers\Admin\User\AdminController::class, 'getAdmin'])->name('admin.getShipper'); //trả dữ liệu ra form list
+    Route::post('/admin-add',  [App\Http\Controllers\Admin\User\AdminController::class, 'store'])->name('admin.add'); //thêm
+    Route::post('/admin/{id}/update', [App\Http\Controllers\Admin\User\AdminController::class, 'update'])->name('admin.update'); //Sửa
+    Route::get('/admin/{id}/delete', [App\Http\Controllers\Admin\User\AdminController::class, 'destroy'])->name('admin.delete'); //Xóa
+
 
     
 });

@@ -58,11 +58,8 @@
             <tr v-for="(data, index) in orders.data" :key="data.id">
               <th scope="row">{{ index + 1 }}</th>
               <td>
-                {{ data.customer_id }}
-                <a :href="`customer/${data.order_code}/detail`">
-                  <button class="btn btn-warning ml-1" type="button">
-                    Show
-                  </button></a
+                <a :href="`account/${data.customer_id}/detail`">
+                  {{ data.customer_id }}</a
                 >
               </td>
               <td>
@@ -96,7 +93,7 @@
                 <div class="td-action">
                   <a :href="`order/${data.order_code}/detail`">
                     <button class="btn btn-warning mr-1" type="button">
-                      Confirm
+                      Detail
                     </button></a
                   >
                 </div>

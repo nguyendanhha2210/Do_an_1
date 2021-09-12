@@ -28,8 +28,8 @@ import PostDetail from './components/Sale/Post/PostDetail.vue'
 import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
 import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.vue'
-
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
+
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
 import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 

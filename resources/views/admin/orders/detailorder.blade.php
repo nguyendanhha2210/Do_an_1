@@ -380,7 +380,8 @@
                 <div class="col-sm-5 col-1" style="float: left"></div>
                 <div class="col-md-3 col-sm-3 col-5">
                     <a class="btn btn-success" style="float: right" target="_blank"
-                        href="{{ url('admin/print-order/' . $details->order_code) }}">In đơn hàng</a>
+                        href="{{ url('admin/print-order/' . $details->order_code) }}"><i class="fa fa-print"
+                            aria-hidden="true"></i> In đơn hàng</a>
                 </div>
             </div>
         </div>

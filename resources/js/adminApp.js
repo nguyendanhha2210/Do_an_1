@@ -36,12 +36,13 @@ import CategoryPostAdd from './components/Amin/CategoryPost/CategoryAdd.vue'
 import CategoryPostComponent from './components/Amin/CategoryPost/CategoryComponent.vue'
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
 import PostComponent from './components/Amin/Post/PostComponent.vue'
-
 import CommentComponent from './components/Amin/Comment/CommentComponent.vue'
 import ProfitComponent from './components/Amin/Profit/ProfitComponent.vue'
 import UserComponent from './components/Amin/User/UserComponent.vue'
 import UserDetail from './components/Amin/User/UserDetail.vue'
 import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
+import AdminComponent from './components/Amin/User/AdminComponet.vue'
+
 
 
 Vue.use(VueSweetalert2);
@@ -93,6 +94,7 @@ new Vue({
         UserComponent,
         UserDetail,
         ShipperComponent,
+        AdminComponent,
     },
     created() {
         this.$validator.extend("number_phone", {

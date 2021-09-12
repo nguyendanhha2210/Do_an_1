@@ -165,8 +165,9 @@ export default {
             .then((result) => {
               if (result.value) {
                 axios
-                  .post(`/sale/checkout-momo`, that.shipping)
+                  .post(`checkout-momo`, that.shipping)
                   .then((response) => {
+                    console.log(response.data.data);
                     window.location.href = response.data.data;
                       // that
                       // .$swal({

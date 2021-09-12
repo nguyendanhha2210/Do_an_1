@@ -3117,7 +3117,8 @@ __webpack_require__.r(__webpack_exports__);
             cancelButtonText: "No, cancel"
           }).then(function (result) {
             if (result.value) {
-              axios__WEBPACK_IMPORTED_MODULE_1___default().post("/sale/checkout-momo", that.shipping).then(function (response) {
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post("checkout-momo", that.shipping).then(function (response) {
+                console.log(response.data.data);
                 window.location.href = response.data.data; // that
                 // .$swal({
                 //   title: "Thành Công !",

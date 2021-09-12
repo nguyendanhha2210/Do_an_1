@@ -127,14 +127,4 @@ class AccountController extends Controller
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
-
-    public function indexShip()
-    {
-        if (!Auth::guard('admin')->check()) {
-            return view('admin.users.login');
-        } else {
-            $breadcrumbs = ['Shipper List'];
-            return view('admin.users.shipper', ['breadcrumbs' => $breadcrumbs]);
-        }
-    }
 }
