@@ -32,7 +32,7 @@
               <th>Start Date</th>
               <th>End Date</th>
               <th>Limit</th>
-              <th style="width: 20%">Action</th>
+              <th></th>
             </tr>
           </thead>
           <transition-group type="slide-fade" tag="tbody">
@@ -108,25 +108,20 @@
               <td>
                 <div class="td-action">
                   <a v-if="data.status == 0 && data.time > 0">
-                    <button
-                      class="btn btn-info mr-1"
-                      type="button"
+                    <i
                       @click="sendCustomer(data.id)"
-                    >
-                      Send Customer
-                    </button></a
-                  >
+                      class="fa fa-paper-plane text-success text-active"
+                      style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ></i
+                  ></a>
 
                   <a v-else-if="data.status == 3"> </a>
-
                   <a :href="`coupon/${data.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Edit
-                    </button></a
-                  >
-                  <!-- <button class="btn btn-danger" @click="deleteCoupon(data.id)">
-                    Delete
-                  </button> -->
+                    <i
+                      style="font-size: 21px"
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
                 </div>
               </td>
             </tr>

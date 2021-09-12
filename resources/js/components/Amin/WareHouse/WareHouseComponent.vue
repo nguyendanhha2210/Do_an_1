@@ -86,11 +86,13 @@
               </td>
               <td v-if="warehouse.status == 1">
                 <div class="td-action">
-                  <a :href="`warehouse/${warehouse.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Import Add
-                    </button></a
-                  >
+                  <a
+                    :href="`warehouse/${warehouse.id}/edit`"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
                 </div>
               </td>
               <td v-else></td>

@@ -228,29 +228,22 @@
                   alt=""
                 />
               </td>
-
               <td>
                 <div class="td-action">
-                  <button
-                    type="button"
-                    class="btn btn-warning mr-1"
+                  <a
                     data-toggle="modal"
                     data-target="#myModal"
                     @click="
                       updateProductImage(productImage),
                         ((buttonAdd = false), (edit = true))
                     "
-                  >
-                    Add Photo
-                  </button>
-
-                  <!-- <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="deleteProduct(product.id)"
-                  >
-                    Delete
-                  </button> -->
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      style="color: green"
+                      class="fa fa-plus"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
                 </div>
               </td>
             </tr>

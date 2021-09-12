@@ -41,14 +41,18 @@
               </td>
               <td>
                 <div class="td-action">
-                  <a :href="`coupon/${data.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Edit
-                    </button></a
-                  >
-                  <button class="btn btn-danger" @click="deleteCoupon(data.id)">
-                    Delete
-                  </button>
+                  <a
+                    :href="`coupon/${data.id}/edit`"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
+                  <i
+                    class="fa fa-times-circle"
+                    style="font-size: 21px;color:red"
+                    @click="deleteCoupon(data.id)"
+                  ></i>
                 </div>
               </td>
             </tr>

@@ -93,7 +93,7 @@
                 <div class="td-action">
                   <a :href="`order/${data.order_code}/detail`">
                     <button class="btn btn-warning mr-1" type="button">
-                      Detail
+                      <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
                     </button></a
                   >
                 </div>

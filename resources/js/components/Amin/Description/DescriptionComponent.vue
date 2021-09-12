@@ -45,7 +45,7 @@
           </select>
         </div>
         <div class="col-md-2 col-sm-3 col-1" style="float: left">
-          <a class="btn btn-success" :href="formAdd">Add New</a>
+          <a class="btn btn-success" style="transform: translate(40%, -27%);" :href="formAdd">Add New</a>
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input type="text" class="form-control" v-model="search" />
@@ -59,7 +59,7 @@
               <th></th>
               <th class="text-center">STT</th>
               <th class="text-center">Description</th>
-              <th class="text-center" style="width: 20%">Action</th>
+              <th class="text-center"></th>
             </tr>
           </thead>
           <transition-group type="slide-fade" tag="tbody">
@@ -68,7 +68,10 @@
               :key="description.id"
             >
               <td style="width: 5%">
-                <div class="form-check form-check-inline" v-if="description.id != 2">
+                <div
+                  class="form-check form-check-inline"
+                  v-if="description.id != 2"
+                >
                   <label
                     class="container-checkbox form-check-label height-17"
                     :for="`type${index}`"
@@ -92,17 +95,16 @@
               <td v-if="description.id == 2"></td>
               <td v-else>
                 <div class="td-action">
-                  <a :href="`description/${description.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Edit
-                    </button></a
-                  >
-                  <button
-                    class="btn btn-danger"
+                  <a
+                    :href="`description/${description.id}/edit`"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                  <i
+                    class="fa fa-times-circle"
+                    style="font-size: 21px; color: red"
+                    aria-hidden="true"
                     @click="singleDelete(description.id)"
-                  >
-                    Delete
-                  </button>
+                  ></i>
                 </div>
               </td>
             </tr>
@@ -113,7 +115,7 @@
     <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm"
+          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
             >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
             {{ totalNumber }} items</small
           >

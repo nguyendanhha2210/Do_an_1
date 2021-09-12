@@ -33,19 +33,24 @@
                         </data-table-cell>
                         <slot v-if="column.name == 'action' && item.id != 2">
                           <a :href="`weight/${item.id}/edit`">
-                            <button
-                              class="btn btn-success delete-button"
-                              type="button"
-                            >
-                              Sửa
-                            </button></a
-                          >
-                          <button
-                            class="btn btn-danger delete-button"
+                            <i
+                              style="
+                                font-size: 21px;
+                                transform: translate(-26%, 1%);
+                              "
+                              class="
+                                fa fa-pencil-square-o
+                                text-success text-active
+                              "
+                            ></i
+                          ></a>
+
+                          <i
+                            class="fa fa-times-circle"
+                            style="font-size: 21px; color: red"
+                            aria-hidden="true"
                             @click="deleteWeight(item.id)"
-                          >
-                            Xóa
-                          </button>
+                          ></i>
                         </slot>
                       </td>
                     </tr>

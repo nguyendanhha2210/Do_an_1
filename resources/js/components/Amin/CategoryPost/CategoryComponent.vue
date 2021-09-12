@@ -25,7 +25,7 @@
               <th>STT</th>
               <th>name</th>
               <th>desc</th>
-              <th style="width: 20%">Action</th>
+              <th></th>
             </tr>
           </thead>
           <transition-group type="slide-fade" tag="tbody">
@@ -39,17 +39,19 @@
               </td>
               <td>
                 <div class="td-action">
-                  <a :href="`category-post/${data.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Edit
-                    </button></a
-                  >
-                  <button
-                    class="btn btn-danger"
+                  <a
+                    :href="`category-post/${data.id}/edit`"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
+                  <i
+                    class="fa fa-times-circle"
+                    style="font-size: 21px; color: red"
+                    aria-hidden="true"
                     @click="deleteCategoryPost(data.id)"
-                  >
-                    Delete
-                  </button>
+                  ></i>
                 </div>
               </td>
             </tr>

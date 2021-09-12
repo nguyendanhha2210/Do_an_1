@@ -45,7 +45,7 @@
           </select>
         </div>
         <div class="col-md-2 col-sm-3 col-1" style="float: left">
-          <a class="btn btn-success" :href="formAdd">Add New</a>
+          <a class="btn btn-success" style="transform: translate(40%, -27%);" :href="formAdd">Add New</a>
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input type="text" class="form-control" v-model="search" />
@@ -87,16 +87,17 @@
                 {{ type.type }}
               </td>
               <td v-if="type.id == 2"></td>
-              <td v-else>
+               <td v-else>
                 <div class="td-action">
-                  <a :href="`type/${type.id}/edit`">
-                    <button class="btn btn-warning mr-1" type="button">
-                      Edit
-                    </button></a
-                  >
-                  <button class="btn btn-danger" @click="singleDelete(type.id)">
-                    Delete
-                  </button>
+                  <a
+                    :href="`type/${type.id}/edit`"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                  <i
+                    class="fa fa-times-circle"
+                    style="font-size: 21px; color: red"
+                    @click="singleDelete(type.id)"
+                  ></i>
                 </div>
               </td>
             </tr>
@@ -107,7 +108,7 @@
     <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm"
+          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
             >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
             {{ totalNumber }} items</small
           >

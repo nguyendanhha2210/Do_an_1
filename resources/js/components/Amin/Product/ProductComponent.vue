@@ -278,7 +278,7 @@
               <th scope="col">Product Sold</th>
               <th scope="col">Ware Houses</th>
               <th scope="col">Views</th>
-              <th>Action</th>
+              <th></th>
             </tr>
           </thead>
           <transition-group name="slide-fade" tag="tbody">
@@ -335,33 +335,27 @@
                 {{ product.product_sold }}
               </td>
               <td>
-                <a href="warehouse"><span class="fa fa-eye"></span></a>
+                <a style="font-size: 20px" href="warehouse"
+                  ><span class="fa fa-eye"></span
+                ></a>
               </td>
               <td>
                 {{ product.views }}
               </td>
               <td>
                 <div class="td-action">
-                  <button
-                    type="button"
-                    class="btn btn-warning mr-1"
+                  <a
                     data-toggle="modal"
                     data-target="#myModal"
                     @click="
                       updateProduct(product),
                         ((buttonAdd = false), (edit = true))
                     "
-                  >
-                    Edit
-                  </button>
-
-                  <!-- <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="deleteProduct(product.id)"
-                  >
-                    Delete
-                  </button> -->
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
                 </div>
               </td>
             </tr>

@@ -207,7 +207,7 @@ m<template>
               <th scope="col">Status</th>
               <th scope="col">Content</th>
               <th scope="col">Views</th>
-              <th>Action</th>
+              <th></th>
             </tr>
           </thead>
           <transition-group name="slide-fade" tag="tbody">
@@ -251,25 +251,23 @@ m<template>
               </td>
               <td>
                 <div class="td-action">
-                  <button
-                    type="button"
-                    class="btn btn-warning mr-1"
+                  <a
                     data-toggle="modal"
                     data-target="#myModal"
                     @click="
                       updatePost(data), ((buttonAdd = false), (edit = true))
                     "
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-danger"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
+                  <i
+                    class="fa fa-times-circle"
+                    style="font-size: 21px;color:red"
+                    aria-hidden="true"
                     @click="deletePost(data.id)"
-                  >
-                    Delete
-                  </button>
+                  ></i>
                 </div>
               </td>
             </tr>

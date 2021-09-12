@@ -152,7 +152,7 @@
                   ></a>
                   <i
                     class="fa fa-times-circle"
-                    style="font-size: 21px"
+                    style="font-size: 21px; color: red"
                     aria-hidden="true"
                     @click="deleteAdmin(admin.id)"
                   ></i>
@@ -166,7 +166,7 @@
     <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm"
+          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
             >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
             {{ totalNumber }} items</small
           >
