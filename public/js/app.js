@@ -5591,6 +5591,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5610,6 +5611,12 @@ __webpack_require__.r(__webpack_exports__);
       idProduct: "",
       commentReplys: [],
       commentReply: {
+        nameRep: "",
+        images: "",
+        product_id: "",
+        contentRep: ""
+      },
+      replySecond: {
         nameRep: "",
         images: "",
         product_id: "",
@@ -5790,30 +5797,74 @@ __webpack_require__.r(__webpack_exports__);
 
       // this.$validator.validateAll().then((valid) => {
       //   if (valid) {
+      var that = this;
       var formData = new FormData();
       formData.append("repComment", this.commentReply.contentRep);
       formData.append("idProduct", this.decrip[0].id);
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("/reply-comment/".concat(id), formData).then(function (response) {
-        _this2.$swal({
+        that.$swal({
+          title: response.data,
+          icon: "success",
+          confirmButtonText: "OK!"
+        });
+        that.commentReply.contentRep = "";
+        that.statusCommentFirst = !_this2.statusCommentFirst;
+        that.fetchData();
+      })["catch"](function (err) {
+        switch (err.response.status) {
+          case 422:
+            that.errorBackEnd = err.response.data.errors;
+            break;
+
+          case 404:
+            that.$swal({
+              title: "Comment Error !",
+              icon: "warning",
+              confirmButtonText: "Cancle !"
+            }).then(function (confirm) {});
+            break;
+
+          case 500:
+            that.$swal({
+              title: "Comment Error !",
+              icon: "warning",
+              confirmButtonText: "Cancle !"
+            }).then(function (confirm) {});
+            break;
+
+          default:
+            break;
+        }
+      }); //   }
+      // });
+    },
+    repCommentSecond: function repCommentSecond(id) {
+      var _this3 = this;
+
+      // this.$validator.validateAll().then((valid) => {
+      //   if (valid) {
+      var formData = new FormData();
+      formData.append("repComment", this.replySecond.contentRep);
+      formData.append("idProduct", this.decrip[0].id);
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post("/reply-comment-second/".concat(id), formData).then(function (response) {
+        _this3.$swal({
           title: response.data,
           icon: "success",
           confirmButtonText: "OK!"
         });
 
-        _this2.commentReply.content = "";
-        _this2.statusReplyFirst = false;
+        _this3.replySecond.contentRep = "";
+        _this3.statusCommentFirst = !_this3.statusCommentFirst;
 
-        _this2.fetchData();
-
-        _this2.commentFirst();
+        _this3.fetchData();
       })["catch"](function (err) {
         switch (err.response.status) {
           case 422:
-            _this2.errorBackEnd = err.response.data.errors;
+            _this3.errorBackEnd = err.response.data.errors;
             break;
 
           case 404:
-            _this2.$swal({
+            _this3.$swal({
               title: "Comment Error !",
               icon: "warning",
               confirmButtonText: "Cancle !"
@@ -5822,7 +5873,7 @@ __webpack_require__.r(__webpack_exports__);
             break;
 
           case 500:
-            _this2.$swal({
+            _this3.$swal({
               title: "Comment Error !",
               icon: "warning",
               confirmButtonText: "Cancle !"
@@ -104902,6 +104953,7 @@ var render = function() {
                                           click: function($event) {
                                             _vm.commentFirst(comment.id)
                                             _vm.statusCommentFirst = !_vm.statusCommentFirst
+                                            _vm.statusReplyFirst = !_vm.statusReplyFirst
                                           }
                                         }
                                       },
@@ -105209,7 +105261,7 @@ var render = function() {
                                               _c(
                                                 "span",
                                                 { staticClass: "ml-1" },
-                                                [_vm._v("Reply1")]
+                                                [_vm._v("Reply")]
                                               )
                                             ]
                                           )
@@ -105245,7 +105297,7 @@ var render = function() {
                                                 submit: function($event) {
                                                   $event.preventDefault()
                                                   return _vm.repCommentSecond(
-                                                    comment.id
+                                                    commentReply.code
                                                   )
                                                 }
                                               }
@@ -105281,9 +105333,10 @@ var render = function() {
                                                         name: "model",
                                                         rawName: "v-model",
                                                         value:
-                                                          commentReply.contentRep,
+                                                          _vm.replySecond
+                                                            .contentRep,
                                                         expression:
-                                                          "commentReply.contentRep"
+                                                          "replySecond.contentRep"
                                                       }
                                                     ],
                                                     staticClass:
@@ -105294,7 +105347,8 @@ var render = function() {
                                                     },
                                                     domProps: {
                                                       value:
-                                                        commentReply.contentRep
+                                                        _vm.replySecond
+                                                          .contentRep
                                                     },
                                                     on: {
                                                       input: [
@@ -105306,7 +105360,7 @@ var render = function() {
                                                             return
                                                           }
                                                           _vm.$set(
-                                                            commentReply,
+                                                            _vm.replySecond,
                                                             "contentRep",
                                                             $event.target.value
                                                           )
@@ -105356,7 +105410,7 @@ var render = function() {
                                                     },
                                                     [
                                                       _vm._v(
-                                                        "\n                        Post1 comment"
+                                                        "\n                        Post comment"
                                                       )
                                                     ]
                                                   ),

@@ -12,11 +12,11 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function getComment(Request $request, $id)
-    {  
+    {
         try {
             $comments = Comment::where('product_id', '=', $id)->where('rank', '=', CommentRank::FIRSTRANK)->orderBy('created_at', 'desc')->paginate(3);
             $count = Comment::where('product_id', '=', $id)->where('rank', '=', CommentRank::FIRSTRANK)->count();
-            
+
             return response()->json(['comments' => $comments, 'count' => $count], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
@@ -74,6 +74,25 @@ class CommentController extends Controller
             return response()->json(['comments' => $comments, 'countReply' => $countReply], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function replyCommentSecond(Request $request, $code)
+    {
+        try {
+            $comment = new Comment();
+            $comment->name = "ABC";
+            $comment->images = "2";
+            $comment->product_id = $request->idProduct;
+            $comment->content = $request->repComment;
+            $comment->rank = CommentRank::SECONDRANK;
+            $comment->code = $code;
+            $flag = $comment->save();
+            if ($flag) {
+                return response()->json('Comment success !', StatusCode::OK);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
 }

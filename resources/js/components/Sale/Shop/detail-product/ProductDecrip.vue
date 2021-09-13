@@ -144,6 +144,7 @@
                         @click="
                           commentFirst(comment.id);
                           statusCommentFirst = !statusCommentFirst;
+                          statusReplyFirst = !statusReplyFirst;
                         "
                         class="like p-2 cursor action-collapse"
                         data-toggle="collapse"
@@ -262,7 +263,7 @@
                         href="#collapse-1"
                       >
                         <i class="fa fa-reply"></i
-                        ><span class="ml-1">Reply1</span>
+                        ><span class="ml-1">Reply</span>
                       </div>
                     </div>
                   </div>
@@ -284,7 +285,7 @@
                     data-parent="#myGroup"
                   >
                     <form
-                      @submit.prevent="repCommentSecond(comment.id)"
+                      @submit.prevent="repCommentSecond(commentReply.code)"
                       class="comment-form"
                     >
                       <div class="d-flex flex-row align-items-start">
@@ -300,7 +301,7 @@
                           class="form-control ml-1 shadow-none textarea"
                           v-validate="'required'"
                           @input="changeInput()"
-                          v-model="commentReply.contentRep"
+                          v-model="replySecond.contentRep"
                         ></textarea>
                         <div style="color: red" role="alert">
                           {{ errors.first("contentRep") }}
@@ -311,7 +312,7 @@
                           class="btn btn-primary btn-sm shadow-none"
                           type="submit"
                         >
-                          Post1 comment</button
+                          Post comment</button
                         ><button
                           @click="statusReplySecond = !statusReplySecond"
                           class="
@@ -581,6 +582,13 @@ export default {
         contentRep: "",
       },
 
+      replySecond: {
+        nameRep: "",
+        images: "",
+        product_id: "",
+        contentRep: "",
+      },
+
       errorBackEnd: {}, //Lỗi bên backend laravel
       count: "",
       countReply: "",
@@ -769,21 +777,69 @@ export default {
     repCommentFirst(id) {
       // this.$validator.validateAll().then((valid) => {
       //   if (valid) {
+      let that = this;
       let formData = new FormData();
       formData.append("repComment", this.commentReply.contentRep);
       formData.append("idProduct", this.decrip[0].id);
       axios
         .post(`/reply-comment/${id}`, formData)
         .then((response) => {
+          that.$swal({
+            title: response.data,
+            icon: "success",
+            confirmButtonText: "OK!",
+          });
+          that.commentReply.contentRep = "";
+          that.statusCommentFirst = !this.statusCommentFirst;
+          that.fetchData();
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              that.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Comment Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Comment Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+      //   }
+      // });
+    },
+    repCommentSecond(id) {
+      // this.$validator.validateAll().then((valid) => {
+      //   if (valid) {
+      let formData = new FormData();
+      formData.append("repComment", this.replySecond.contentRep);
+      formData.append("idProduct", this.decrip[0].id);
+      axios
+        .post(`/reply-comment-second/${id}`, formData)
+        .then((response) => {
           this.$swal({
             title: response.data,
             icon: "success",
             confirmButtonText: "OK!",
           });
-          this.commentReply.content = "";
-          this.statusReplyFirst = false;
+          this.replySecond.contentRep = "";
+          this.statusCommentFirst = !this.statusCommentFirst;
           this.fetchData();
-          this.commentFirst();
         })
         .catch((err) => {
           switch (err.response.status) {
