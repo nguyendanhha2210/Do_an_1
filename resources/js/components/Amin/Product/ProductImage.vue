@@ -89,7 +89,7 @@
                         <input
                           type="file"
                           id="file_img_banner1"
-                          v-validate="'required|image_format'"
+                          v-validate="'required'"
                           name="image_1"
                           ref="image_1"
                           v-on:change="attachImage_1"
@@ -133,7 +133,7 @@
                         <input
                           type="file"
                           id="file_img_banner2"
-                          v-validate="'required|image_format'"
+                          v-validate="'required'"
                           name="image_2"
                           ref="image_2"
                           v-on:change="attachImage_2"
@@ -180,7 +180,7 @@
                         <input
                           type="file"
                           id="file_img_banner3"
-                          v-validate="'required|image_format'"
+                          v-validate="'required'"
                           name="image_3"
                           ref="image_3"
                           v-on:change="attachImage_3"
@@ -225,7 +225,7 @@
                         <input
                           type="file"
                           id="file_img_banner4"
-                          v-validate="'required|image_format'"
+                          v-validate="'required'"
                           name="image_4"
                           ref="image_4"
                           v-on:change="attachImage_4"
@@ -401,6 +401,9 @@ export default {
   created() {
     let messError = {
       custom: {
+        image_1: {
+          required: "* Ảnh  chưa chọn",
+        },
         image_2: {
           required: "* Ảnh  chưa chọn",
         },
@@ -428,72 +431,144 @@ export default {
     },
   },
   methods: {
+    // AddProductImage() {
+    //   let that = this;
+    //   if (this.edit == false) {
+    //   } else {
+    //     console.log("id", that.productImage.image_1);
+    //     let formData = new FormData();
+    //     formData.append("image_1", that.productImage.image_1);
+    //     formData.append("image_2", that.productImage.image_2);
+    //     formData.append("image_3", that.productImage.image_3);
+    //     formData.append("image_4", that.productImage.image_4);
+    //     axios
+    //       .post(
+    //         `product-image/${that.productImage.product_id}/update`,
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //         }
+    //       )
+    //       .then((response) => {
+    //         that.fetchData();
+    //         that
+    //           .$swal({
+    //             title: "Update success!",
+    //             icon: "success",
+    //             confirmButtonText: "Yes !",
+    //             confirmButtonColor: "#3085d6",
+    //           })
+    //           .then(function (confirm) {
+    //             if (confirm.isConfirmed) {
+    //               that.buttonAdd = true;
+    //               (window.location = response.data),
+    //                 (that.product = {
+    //                   name: "",
+    //                   images: "",
+    //                   price: "",
+    //                   type_id: "",
+    //                   weight_id: "",
+    //                   description_id: "",
+    //                   content: "",
+    //                   status: "",
+    //                 });
+    //             } else {
+    //             }
+    //           });
+    //       })
+    //       .catch((err) => {
+    //         switch (err.response.status) {
+    //           case 422:
+    //             that.errorBackEnd = err.response.data.errors;
+    //             break;
+    //           case 500:
+    //             that
+    //               .$swal({
+    //                 title: "Update Failure Data!",
+    //                 icon: "error",
+    //                 confirmButtonText: "Ok",
+    //               })
+    //               .then(function (confirm) {});
+    //             break;
+    //           default:
+    //             break;
+    //         }
+    //       });
+    //   }
+    // },
+
     AddProductImage() {
       let that = this;
-      if (this.edit == false) {
-      } else {
-        console.log("id", that.productImage.image_1);
-        let formData = new FormData();
-        formData.append("image_1", that.productImage.image_1);
-        formData.append("image_2", that.productImage.image_2);
-        formData.append("image_3", that.productImage.image_3);
-        formData.append("image_4", that.productImage.image_4);
-        axios
-          .post(
-            `product-image/${that.productImage.product_id}/update`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          )
-          .then((response) => {
-            that.fetchData();
-            that
-              .$swal({
-                title: "Update success!",
-                icon: "success",
-                confirmButtonText: "Yes !",
-                confirmButtonColor: "#3085d6",
-              })
-              .then(function (confirm) {
-                if (confirm.isConfirmed) {
-                  that.buttonAdd = true;
-                  (window.location = response.data),
-                    (that.product = {
-                      name: "",
-                      images: "",
-                      price: "",
-                      type_id: "",
-                      weight_id: "",
-                      description_id: "",
-                      content: "",
-                      status: "",
-                    });
-                } else {
+      this.$validator.validateAll().then((valid) => {
+        if (valid) {
+          if (this.edit == false) {
+          } else {
+            console.log("id", that.productImage.image_1);
+            let formData = new FormData();
+            formData.append("image_1", that.productImage.image_1);
+            formData.append("image_2", that.productImage.image_2);
+            formData.append("image_3", that.productImage.image_3);
+            formData.append("image_4", that.productImage.image_4);
+            axios
+              .post(
+                `product-image/${that.productImage.product_id}/update`,
+                formData,
+                {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
                 }
-              });
-          })
-          .catch((err) => {
-            switch (err.response.status) {
-              case 422:
-                that.errorBackEnd = err.response.data.errors;
-                break;
-              case 500:
+              )
+              .then((response) => {
+                that.fetchData();
                 that
                   .$swal({
-                    title: "Update Failure Data!",
-                    icon: "error",
-                    confirmButtonText: "Ok",
+                    title: "Update success!",
+                    icon: "success",
+                    confirmButtonText: "Yes !",
+                    confirmButtonColor: "#3085d6",
                   })
-                  .then(function (confirm) {});
-                break;
-              default:
-                break;
-            }
-          });
-      }
+                  .then(function (confirm) {
+                    if (confirm.isConfirmed) {
+                      that.buttonAdd = true;
+                      (window.location = response.data),
+                        (that.product = {
+                          name: "",
+                          images: "",
+                          price: "",
+                          type_id: "",
+                          weight_id: "",
+                          description_id: "",
+                          content: "",
+                          status: "",
+                        });
+                    } else {
+                    }
+                  });
+              })
+              .catch((err) => {
+                switch (err.response.status) {
+                  case 422:
+                    that.errorBackEnd = err.response.data.errors;
+                    break;
+                  case 500:
+                    that
+                      .$swal({
+                        title: "Update Failure Data!",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                      })
+                      .then(function (confirm) {});
+                    break;
+                  default:
+                    break;
+                }
+              });
+          }
+        }
+      });
     },
 
     fetchData() {
@@ -549,23 +624,54 @@ export default {
 
     updateProductImage(productImage) {
       this.productImage.product_id = productImage.product_id;
-      // console.log(this.productImage.product_id);
       if (productImage.image_1 != "") {
         this.$refs.imageDispaly_1.src =
           this.baseUrl + "/uploads/" + productImage.image_1;
+        this.$refs.imageDispaly_1.style.display = "block";
+        this.$refs.iconClose_1.style.display = "block";
+        this.$refs.iconFile_1.style.display = "none";
       }
+
       if (productImage.image_2 != "") {
-        this.$refs.fileImageDispaly_2.src =
+        this.$refs.imageDispaly_2.src =
           this.baseUrl + "/uploads/" + productImage.image_2;
+        this.$refs.imageDispaly_2.style.display = "block";
+        this.$refs.iconClose_2.style.display = "block";
+        this.$refs.iconFile_2.style.display = "none";
       }
+
       if (productImage.image_3 != "") {
-        this.$refs.fileImageDispaly_3.src =
+        this.$refs.imageDispaly_3.src =
           this.baseUrl + "/uploads/" + productImage.image_3;
+        this.$refs.imageDispaly_3.style.display = "block";
+        this.$refs.iconClose_3.style.display = "block";
+        this.$refs.iconFile_3.style.display = "none";
       }
+
       if (productImage.image_4 != "") {
-        this.$refs.fileImageDispaly_4.src =
+        this.$refs.imageDispaly_4.src =
           this.baseUrl + "/uploads/" + productImage.image_4;
+        this.$refs.imageDispaly_4.style.display = "block";
+        this.$refs.iconClose_4.style.display = "block";
+        this.$refs.iconFile_4.style.display = "none";
       }
+
+      // if (productImage.image_1 != "") {
+      //   this.$refs.imageDispaly_1.src =
+      //     this.baseUrl + "/uploads/" + productImage.image_1;
+      // }
+      // if (productImage.image_2 != "") {
+      //   this.$refs.fileImageDispaly_2.src =
+      //     this.baseUrl + "/uploads/" + productImage.image_2;
+      // }
+      // if (productImage.image_3 != "") {
+      //   this.$refs.fileImageDispaly_3.src =
+      //     this.baseUrl + "/uploads/" + productImage.image_3;
+      // }
+      // if (productImage.image_4 != "") {
+      //   this.$refs.fileImageDispaly_4.src =
+      //     this.baseUrl + "/uploads/" + productImage.image_4;
+      // }
     },
 
     attachImage_1() {
