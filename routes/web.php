@@ -78,7 +78,8 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/product-image', [App\Http\Controllers\Admin\ProductController::class, 'productImage'])->name('admin.productImage.list'); //Sửa
     Route::get('/get-product-image', [App\Http\Controllers\Admin\ProductController::class, 'getProductImage'])->name('admin.product.getProductImage'); //trả dữ liệu ra form list
     Route::post('/product-image/{id}/update', [App\Http\Controllers\Admin\ProductController::class, 'updateProductImage'])->name('admin.product.updateProductImage'); //Sửa
-
+    Route::get('/detail-image/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
+    Route::get('/detail-image/{id}/get-image', [App\Http\Controllers\Admin\ProductController::class, 'getDetailProductImage'])->name('admin.productImage.getDetailProductImage'); //Sửa
 
     Route::get('/description', [App\Http\Controllers\Admin\DescriptionController::class, 'index'])->name('admin.description.list'); //gọi form list
     Route::get('/get-description', [App\Http\Controllers\Admin\DescriptionController::class, 'getData'])->name('admin.description.getData'); //trả dữ liệu ra form list
@@ -130,7 +131,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/get-user', [App\Http\Controllers\Admin\User\AccountController::class, 'getUser'])->name('admin.user.getUser'); //trả dữ liệu ra form list
     Route::get('/account/{id}/detail', [App\Http\Controllers\Admin\User\AccountController::class, 'showViewUser'])->name('admin.user.showViewUser'); //gọi trang edit
     Route::get('/account/{id}/get-user-detail', [App\Http\Controllers\Admin\User\AccountController::class, 'getUserDetail'])->name('admin.user.getUserDetail'); //trả dữ liệu ra form list
-    
+
     Route::get('/shipper', [App\Http\Controllers\Admin\User\ShipperController::class, 'indexShip'])->name('admin.shipper.list'); //gọi form list
     Route::get('/get-ship', [App\Http\Controllers\Admin\User\ShipperController::class, 'getShipper'])->name('admin.shipper.getShipper'); //trả dữ liệu ra form list
     Route::post('/ship-add',  [App\Http\Controllers\Admin\User\ShipperController::class, 'store'])->name('admin.shipper.add'); //thêm
@@ -144,7 +145,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/admin/{id}/delete', [App\Http\Controllers\Admin\User\AdminController::class, 'destroy'])->name('admin.delete'); //Xóa
 
 
-    
+
 });
 
 

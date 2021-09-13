@@ -192,4 +192,29 @@ class ProductController extends Controller
             }
         }
     }
+
+    public function detailProductImage()
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        } else {
+            $breadcrumbs = ['Product Image'];
+            return view('admin.products.imagedetail', ['breadcrumbs' => $breadcrumbs]);
+        }
+    }
+
+    public function getDetailProductImage(Request $request, $id)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $productImages =  ProductImage::where('product_id', $id)->with(['product'])->whereHas('product', function ($query) {
+                $query->where('deleted_at', NULL);
+            })->orderBy('created_at', 'desc')->get();
+            return response()->json($productImages, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
 }

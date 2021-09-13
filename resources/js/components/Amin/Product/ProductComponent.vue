@@ -11,18 +11,16 @@
           </select>
         </div>
         <div class="col-md-4 col-sm-7 col-3" style="float: left">
-          <!-- <button
-            style="background-color: green; color: white; height: 36px"
-            type="button"
-            class="btn btn-sm"
-            data-toggle="modal"
-            data-target="#myModal"
-            data-whatever="@getbootstrap"
-            v-if="buttonAdd"
-            @click="edit = false"
+          <a href="product-image">
+            <button
+              style="background-color: green; color: white; height: 36px"
+              type="button"
+              class="btn btn-sm"
+            >
+              <span class="fa fa-plus"></span>
+              Image
+            </button></a
           >
-            Add New
-          </button> -->
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input
@@ -294,7 +292,9 @@
                   height="50px"
                   alt=""
                 />
-                <a href="product-image"><span class="fa fa-plus"></span></a>
+                <a :href="`detail-image/${product.id}/edit`"
+                  ><span class="fa fa-plus"></span
+                ></a>
               </td>
               <td>
                 {{ product.price }}
@@ -363,7 +363,7 @@
         </table>
       </div>
     </div>
-    <div v-if="profits != ''">
+    <div v-if="products != ''">
       <nav aria-label="Page navigation example">
         <paginate
           v-model="page"

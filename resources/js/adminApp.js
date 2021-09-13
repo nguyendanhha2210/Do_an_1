@@ -42,6 +42,7 @@ import UserComponent from './components/Amin/User/UserComponent.vue'
 import UserDetail from './components/Amin/User/UserDetail.vue'
 import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
 import AdminComponent from './components/Amin/User/AdminComponet.vue'
+import ImageDetail from './components/Amin/Product/ImageDetail.vue'
 
 
 
@@ -95,6 +96,7 @@ new Vue({
         UserDetail,
         ShipperComponent,
         AdminComponent,
+        ImageDetail,
     },
     created() {
         this.$validator.extend("number_phone", {
