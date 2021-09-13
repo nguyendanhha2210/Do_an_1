@@ -63,6 +63,7 @@
                 enctype="multipart/form-data"
               >
                 <div class="form-row">
+                  <input type="text" v-model="productImage.product_id" hidden />
                   <div class="form-group col-md-6 text-center">
                     <label for="exampleInputEmail1 ">Image 1</label>
                     <div class="position-relative d-inline-block">
@@ -102,12 +103,9 @@
                         @click="deleteImage_1"
                       ></a>
                     </div>
-                    <!-- <div style="color: red" role="alert">
-                    {{ errors.first("images") }}
-                  </div>
-                  <div style="color: red" v-if="errorBackEnd.images">
-                    {{ errorBackEnd.images[0] }}
-                  </div> -->
+                    <div style="color: red" role="alert">
+                      {{ errors.first("image_1") }}
+                    </div>
                   </div>
 
                   <div class="form-group col-md-6 text-center">
@@ -140,7 +138,7 @@
                           ref="image_2"
                           v-on:change="attachImage_2"
                           accept="image_2/*"
-                          style="display: none;"
+                          style="display: none"
                         />
                       </label>
                       <a
@@ -150,12 +148,101 @@
                         @click="deleteImage_2"
                       ></a>
                     </div>
-                    <!-- <div style="color: red" role="alert">
-                    {{ errors.first("images") }}
+                    <div style="color: red" role="alert">
+                      {{ errors.first("image_2") }}
+                    </div>
                   </div>
-                  <div style="color: red" v-if="errorBackEnd.images">
-                    {{ errorBackEnd.images[0] }}
-                  </div> -->
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6 text-center">
+                    <label for="exampleInputEmail1 ">Image 3</label>
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner3">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img src ref="imageDispaly_3" class="img-thumbnail" />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 52px;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_3"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          id="file_img_banner3"
+                          v-validate="'required|image_format'"
+                          name="image_3"
+                          ref="image_3"
+                          v-on:change="attachImage_3"
+                          accept="image_3/*"
+                          style="display: none"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-none"
+                        style="background-color: black; border-radius: 91%"
+                        ref="iconClose_3"
+                        @click="deleteImage_3"
+                      ></a>
+                    </div>
+                    <div style="color: red" role="alert">
+                      {{ errors.first("image_3") }}
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6 text-center">
+                    <label for="exampleInputEmail1 ">Image 2</label>
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner4">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img src ref="imageDispaly_4" class="img-thumbnail" />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 52px;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_4"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          id="file_img_banner4"
+                          v-validate="'required|image_format'"
+                          name="image_4"
+                          ref="image_4"
+                          v-on:change="attachImage_4"
+                          accept="image_4/*"
+                          style="display: none"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-none"
+                        style="background-color: black; border-radius: 91%"
+                        ref="iconClose_4"
+                        @click="deleteImage_4"
+                      ></a>
+                    </div>
+                    <div style="color: red" role="alert">
+                      {{ errors.first("image_4") }}
+                    </div>
                   </div>
                 </div>
 
@@ -345,18 +432,22 @@ export default {
       let that = this;
       if (this.edit == false) {
       } else {
-        console.log("id", this.productImage.image_1);
+        console.log("id", that.productImage.image_1);
         let formData = new FormData();
-        formData.append("image_1", this.productImage.image_1);
-        formData.append("image_2", this.productImage.image_2);
-        formData.append("image_3", this.productImage.image_3);
-        formData.append("image_4", this.productImage.image_4);
+        formData.append("image_1", that.productImage.image_1);
+        formData.append("image_2", that.productImage.image_2);
+        formData.append("image_3", that.productImage.image_3);
+        formData.append("image_4", that.productImage.image_4);
         axios
-          .post(`product-image/${this.productImage.id}/update`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
+          .post(
+            `product-image/${that.productImage.product_id}/update`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
           .then((response) => {
             that.fetchData();
             that
@@ -458,8 +549,9 @@ export default {
 
     updateProductImage(productImage) {
       this.productImage.product_id = productImage.product_id;
+      // console.log(this.productImage.product_id);
       if (productImage.image_1 != "") {
-        this.$refs.fileImageDispaly_1.src =
+        this.$refs.imageDispaly_1.src =
           this.baseUrl + "/uploads/" + productImage.image_1;
       }
       if (productImage.image_2 != "") {
@@ -521,6 +613,54 @@ export default {
       this.$refs.iconClose_2.style.display = "none";
       this.$refs.image_2.value = "";
       this.$refs.iconFile_2.style.display = "block";
+    },
+
+    attachImage_3() {
+      this.productImage.image_3 = this.$refs.image_3.files[0];
+      console.log(this.$refs.image_3.files[0]);
+      let reader_3 = new FileReader();
+      reader_3.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_3.style.display = "block";
+          this.$refs.iconClose_3.style.display = "block";
+          this.$refs.imageDispaly_3.src = reader_3.result;
+          this.$refs.iconFile_3.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_3.readAsDataURL(this.productImage.image_3);
+    },
+    deleteImage_3() {
+      this.productImage.image_3 = "";
+      this.$refs.imageDispaly_3.style.display = "none";
+      this.$refs.iconClose_3.style.display = "none";
+      this.$refs.image_3.value = "";
+      this.$refs.iconFile_3.style.display = "block";
+    },
+
+    attachImage_4() {
+      this.productImage.image_4 = this.$refs.image_4.files[0];
+      console.log(this.$refs.image_4.files[0]);
+      let reader_4 = new FileReader();
+      reader_4.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_4.style.display = "block";
+          this.$refs.iconClose_4.style.display = "block";
+          this.$refs.imageDispaly_4.src = reader_4.result;
+          this.$refs.iconFile_4.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_4.readAsDataURL(this.productImage.image_4);
+    },
+    deleteImage_4() {
+      this.productImage.image_4 = "";
+      this.$refs.imageDispaly_4.style.display = "none";
+      this.$refs.iconClose_4.style.display = "none";
+      this.$refs.image_4.value = "";
+      this.$refs.iconFile_4.style.display = "block";
     },
   },
 };

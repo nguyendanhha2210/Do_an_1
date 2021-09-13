@@ -155,8 +155,8 @@ class ProductController extends Controller
             return view('admin.users.login');
         } else {
             try {
-                $productImage = ProductImage::where('id', $id)->firstOrFail();
-
+                $productImage = ProductImage::where('product_id', $id)->firstOrFail();
+                $productImage->product_id = $id;
                 $file_1 = $request->image_1;
                 if ($file_1 != null) {
                     $fileName_1 = $file_1->getClientOriginalName();
@@ -166,8 +166,8 @@ class ProductController extends Controller
 
                 $file_2 = $request->image_2;
                 if ($file_2 != null) {
-                    $fileName_2 = $file_1->getClientOriginalName();
-                    $file_1->move('uploads', $fileName_2);
+                    $fileName_2 = $file_2->getClientOriginalName();
+                    $file_2->move('uploads', $fileName_2);
                     $productImage->image_2 = $fileName_2;
                 }
 

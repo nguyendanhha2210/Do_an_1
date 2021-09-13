@@ -104684,14 +104684,22 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-5" }, [
-                      _c("img", {
-                        staticStyle: { height: "250px" },
-                        attrs: {
-                          src: _vm.baseUrl + "/uploads/" + _vm.decrip[0].images
-                        }
-                      })
-                    ])
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-lg-5",
+                        staticStyle: { transform: "translate(-5%, 0%)" }
+                      },
+                      [
+                        _c("img", {
+                          staticStyle: { height: "250px" },
+                          attrs: {
+                            src:
+                              _vm.baseUrl + "/uploads/" + _vm.decrip[0].images
+                          }
+                        })
+                      ]
+                    )
                   ])
                 ])
               ]

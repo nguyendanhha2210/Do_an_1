@@ -10,7 +10,7 @@ class ProductImage extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'product_id', 'image_1', 'image_2', 'image_3'
+        'id', 'product_id', 'image_1', 'image_2', 'image_3', 'image_4'
     ];
 
     public function product()

@@ -28,7 +28,7 @@
                     {{ decrip[0].content }}
                   </p>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5" style="transform: translate(-5%, 0%);">
                   <img
                     style="height: 250px"
                     :src="baseUrl + '/uploads/' + decrip[0].images"
