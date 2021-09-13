@@ -113,7 +113,7 @@
                   <div class="form-group col-md-6 text-center">
                     <label for="exampleInputEmail1 ">Image 2</label>
                     <div class="position-relative d-inline-block">
-                      <label for="file_img_banner1">
+                      <label for="file_img_banner2">
                         <div class="img-drop-box mt-2 mr-2">
                           <img src ref="imageDispaly_2" class="img-thumbnail" />
                           <svg
@@ -134,12 +134,13 @@
                         </div>
                         <input
                           type="file"
-                          id="file_img_banner1"
+                          id="file_img_banner2"
                           v-validate="'required|image_format'"
                           name="image_2"
                           ref="image_2"
                           v-on:change="attachImage_2"
                           accept="image_2/*"
+                          style="display: none;"
                         />
                       </label>
                       <a
@@ -500,6 +501,7 @@ export default {
 
     attachImage_2() {
       this.productImage.image_2 = this.$refs.image_2.files[0];
+      console.log(this.$refs.image_2.files[0]);
       let reader_2 = new FileReader();
       reader_2.addEventListener(
         "load",

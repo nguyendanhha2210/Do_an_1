@@ -10,6 +10,6 @@ class Comment extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'name','images','content'
+        'id', 'name','images','content','rank'
     ];
 }

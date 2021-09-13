@@ -208,12 +208,13 @@ export default {
       formData.append("time2", this.time2);
       formData.append("page", this.page);
       formData.append("paginate", this.paginate);
-
-      axios.post("get-profit", formData).then(function (response) {
+      axios.post("get-profit", formData).
+      then(function (response) {
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
         that.flagShowLoader = false;
       });
+      that.flagShowLoader = false;
     },
 
     searchKeyword() {

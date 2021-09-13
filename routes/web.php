@@ -167,6 +167,11 @@ Route::post('add-comment/{id}',  [App\Http\Controllers\Sale\CommentController::c
 Route::get('/get-comment/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getComment'])->name('admin.comment.getComment'); //Show data comment
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
 
+Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
+Route::get('/get-commentReply/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getCommentReply'])->name('admin.comment.getCommentReply'); //Show data comment
+
+
+
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product
 Route::get('/get-type-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getTypeProduct'])->name('admin.shop.getTypeProduct'); //Show data type product
 Route::get('/choose-description/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseDescription'])->name('admin.shop.chooseDescription'); //Show view type product
