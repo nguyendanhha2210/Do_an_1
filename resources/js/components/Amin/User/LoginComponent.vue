@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 style="color:white">Sign In Admin</h2>
-    <!-- <form
+    <h2 style="color: white">Sign In Admin</h2>
+    <form
       method="POST"
       ref="loginForm"
       :action="formUrl"
@@ -83,7 +83,7 @@
       <h6><a :href="forgotPasswordUrl">Forgot Password?</a></h6>
       <div class="clearfix"></div>
       <input type="submit" value="Sign In" name="login" />
-    </form> -->
+    </form>
   </div>
 </template>
 
@@ -92,8 +92,8 @@
   display: block;
 }
 .is-danger {
-    color: red;
-    font-size: 17px;
+  color: red;
+  font-size: 17px;
 }
 </style>
 
@@ -126,13 +126,7 @@ export default {
       },
     };
   },
-  props: [
-    "formUrl",
-    "forgotPasswordUrl",
-    "message",
-    "oldEmail",
-    "oldPassword",
-  ],
+  props: ["formUrl", "forgotPasswordUrl", "message", "oldEmail", "oldPassword"],
   methods: {
     hidePassword() {
       this.passwordHidden = true;
