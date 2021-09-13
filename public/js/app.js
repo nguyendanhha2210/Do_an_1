@@ -5622,13 +5622,13 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       paginate: 5,
       flagShowLoader: false,
-      statusCom: "",
-      status: false,
-      replyPro: "",
-      statusRep: false,
-      codeReply2: "",
-      codeReply3: "",
-      statusReplyPro2: false
+      idFormReplyFirst: "",
+      statusReplyFirst: false,
+      idFormCommentFirst: "",
+      statusCommentFirst: false,
+      codeFormReplySecond: "",
+      idFormReplySecond: "",
+      statusReplySecond: false
     };
   },
   created: function created() {
@@ -5656,20 +5656,20 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchData();
   },
   methods: {
-    replyPro2: function replyPro2(code) {
-      this.codeReply2 = code;
-      this.statusReplyPro2 == true;
+    codeReplySecond: function codeReplySecond(code) {
+      this.codeFormReplySecond = code;
+      this.statusReplySecond == true;
     },
-    replyPro3: function replyPro3(id) {
-      this.codeReply3 = id;
+    idReplySecond: function idReplySecond(id) {
+      this.idFormReplySecond = id;
     },
-    commentPro: function commentPro(id) {
-      this.statusCom = id;
-      this.status == true;
+    replyFirst: function replyFirst(id) {
+      this.idFormReplyFirst = id;
+      this.statusReplyFirst == true;
     },
-    commnetReplyPro: function commnetReplyPro(id) {
-      this.replyPro = id;
-      this.statusRep == true;
+    commentFirst: function commentFirst(id) {
+      this.idFormCommentFirst = id;
+      this.statusCommentFirst == true;
       var that = this;
       this.flagShowLoader = true;
       var url = "/get-commentReply/".concat(id);
@@ -5785,7 +5785,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    repComment: function repComment(id) {
+    repCommentFirst: function repCommentFirst(id) {
       var _this2 = this;
 
       // this.$validator.validateAll().then((valid) => {
@@ -5801,8 +5801,11 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this2.commentReply.content = "";
+        _this2.statusReplyFirst = false;
 
         _this2.fetchData();
+
+        _this2.commentFirst();
       })["catch"](function (err) {
         switch (err.response.status) {
           case 422:
@@ -104876,8 +104879,8 @@ var render = function() {
                                     staticClass: "d-flex flex-row fs-12",
                                     on: {
                                       click: function($event) {
-                                        _vm.commentPro(comment.id)
-                                        _vm.status = !_vm.status
+                                        _vm.replyFirst(comment.id)
+                                        _vm.statusReplyFirst = !_vm.statusReplyFirst
                                       }
                                     }
                                   },
@@ -104897,8 +104900,8 @@ var render = function() {
                                         },
                                         on: {
                                           click: function($event) {
-                                            _vm.commnetReplyPro(comment.id)
-                                            _vm.statusRep = !_vm.statusRep
+                                            _vm.commentFirst(comment.id)
+                                            _vm.statusCommentFirst = !_vm.statusCommentFirst
                                           }
                                         }
                                       },
@@ -104916,7 +104919,8 @@ var render = function() {
                               ]
                             ),
                             _vm._v(" "),
-                            _vm.statusCom == comment.id && _vm.status
+                            _vm.idFormReplyFirst == comment.id &&
+                            _vm.statusReplyFirst
                               ? _c(
                                   "div",
                                   {
@@ -104937,7 +104941,9 @@ var render = function() {
                                         on: {
                                           submit: function($event) {
                                             $event.preventDefault()
-                                            return _vm.repComment(comment.id)
+                                            return _vm.repCommentFirst(
+                                              comment.id
+                                            )
                                           }
                                         }
                                       },
@@ -105053,7 +105059,7 @@ var render = function() {
                                                 attrs: { type: "button" },
                                                 on: {
                                                   click: function($event) {
-                                                    _vm.status = !_vm.status
+                                                    _vm.statusReplyFirst = !_vm.statusReplyFirst
                                                   }
                                                 }
                                               },
@@ -105074,7 +105080,8 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm.replyPro == comment.id && _vm.statusRep
+                      _vm.idFormCommentFirst == comment.id &&
+                      _vm.statusCommentFirst
                         ? _c(
                             "div",
                             {
@@ -105185,11 +105192,13 @@ var render = function() {
                                               },
                                               on: {
                                                 click: function($event) {
-                                                  _vm.replyPro2(
+                                                  _vm.codeReplySecond(
                                                     commentReply.code
                                                   )
-                                                  _vm.replyPro3(commentReply.id)
-                                                  _vm.statusReplyPro2 = !_vm.statusReplyPro2
+                                                  _vm.idReplySecond(
+                                                    commentReply.id
+                                                  )
+                                                  _vm.statusReplySecond = !_vm.statusReplySecond
                                                 }
                                               }
                                             },
@@ -105211,9 +105220,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _vm._m(5, true),
                                   _vm._v(" "),
-                                  _vm.codeReply2 == commentReply.code &&
-                                  _vm.codeReply3 == commentReply.id &&
-                                  _vm.statusReplyPro2
+                                  _vm.codeFormReplySecond ==
+                                    commentReply.code &&
+                                  _vm.idFormReplySecond == commentReply.id &&
+                                  _vm.statusReplySecond
                                     ? _c(
                                         "div",
                                         {
@@ -105234,7 +105244,7 @@ var render = function() {
                                               on: {
                                                 submit: function($event) {
                                                   $event.preventDefault()
-                                                  return _vm.repComment(
+                                                  return _vm.repCommentSecond(
                                                     comment.id
                                                   )
                                                 }
@@ -105360,7 +105370,7 @@ var render = function() {
                                                         click: function(
                                                           $event
                                                         ) {
-                                                          _vm.statusReplyPro2 = !_vm.statusReplyPro2
+                                                          _vm.statusReplySecond = !_vm.statusReplySecond
                                                         }
                                                       }
                                                     },
@@ -105683,7 +105693,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fa fa-reply" }),
-        _c("span", { staticClass: "ml-1" }, [_vm._v("Reply ")])
+        _c("span", { staticClass: "ml-1" }, [_vm._v("Reply")])
       ]
     )
   },

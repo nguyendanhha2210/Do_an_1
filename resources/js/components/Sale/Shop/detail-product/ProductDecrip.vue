@@ -126,8 +126,8 @@
                     <div
                       class="d-flex flex-row fs-12"
                       @click="
-                        commentPro(comment.id);
-                        status = !status;
+                        replyFirst(comment.id);
+                        statusReplyFirst = !statusReplyFirst;
                       "
                     >
                       <div
@@ -138,12 +138,12 @@
                         href="#collapse-1"
                       >
                         <i class="fa fa-reply"></i
-                        ><span class="ml-1">Reply </span>
+                        ><span class="ml-1">Reply</span>
                       </div>
                       <div
                         @click="
-                          commnetReplyPro(comment.id);
-                          statusRep = !statusRep;
+                          commentFirst(comment.id);
+                          statusCommentFirst = !statusCommentFirst;
                         "
                         class="like p-2 cursor action-collapse"
                         data-toggle="collapse"
@@ -157,14 +157,14 @@
                     </div>
                   </div>
                   <div
-                    v-if="statusCom == comment.id && status"
+                    v-if="idFormReplyFirst == comment.id && statusReplyFirst"
                     id="collapse-1"
                     class="bg-light collapse"
                     style="transform: translate(1%, -24%)"
                     data-parent="#myGroup"
                   >
                     <form
-                      @submit.prevent="repComment(comment.id)"
+                      @submit.prevent="repCommentFirst(comment.id)"
                       class="comment-form"
                     >
                       <div class="d-flex flex-row align-items-start">
@@ -193,7 +193,7 @@
                         >
                           Post comment</button
                         ><button
-                          @click="status = !status"
+                          @click="statusReplyFirst = !statusReplyFirst"
                           class="
                             btn btn-outline-primary btn-sm
                             ml-1
@@ -212,7 +212,7 @@
               <div
                 class="col-md-12"
                 style="padding-left: 58px"
-                v-if="replyPro == comment.id && statusRep"
+                v-if="idFormCommentFirst == comment.id && statusCommentFirst"
               >
                 <div
                   class="d-flex flex-column comment-section"
@@ -251,9 +251,9 @@
                     <div class="d-flex flex-row fs-12">
                       <div
                         @click="
-                          replyPro2(commentReply.code);
-                          replyPro3(commentReply.id);
-                          statusReplyPro2 = !statusReplyPro2;
+                          codeReplySecond(commentReply.code);
+                          idReplySecond(commentReply.id);
+                          statusReplySecond = !statusReplySecond;
                         "
                         class="like p-2 cursor action-collapse"
                         data-toggle="collapse"
@@ -274,9 +274,9 @@
 
                   <div
                     v-if="
-                      codeReply2 == commentReply.code &&
-                      codeReply3 == commentReply.id &&
-                      statusReplyPro2
+                      codeFormReplySecond == commentReply.code &&
+                      idFormReplySecond == commentReply.id &&
+                      statusReplySecond
                     "
                     id="collapse-1"
                     class="bg-light collapse"
@@ -284,7 +284,7 @@
                     data-parent="#myGroup"
                   >
                     <form
-                      @submit.prevent="repComment(comment.id)"
+                      @submit.prevent="repCommentSecond(comment.id)"
                       class="comment-form"
                     >
                       <div class="d-flex flex-row align-items-start">
@@ -313,7 +313,7 @@
                         >
                           Post1 comment</button
                         ><button
-                          @click="statusReplyPro2 = !statusReplyPro2"
+                          @click="statusReplySecond = !statusReplySecond"
                           class="
                             btn btn-outline-primary btn-sm
                             ml-1
@@ -588,14 +588,15 @@ export default {
       paginate: 5,
       flagShowLoader: false,
 
-      statusCom: "",
-      status: false,
-      replyPro: "",
-      statusRep: false,
+      idFormReplyFirst: "",
+      statusReplyFirst: false,
 
-      codeReply2: "",
-      codeReply3: "",
-      statusReplyPro2: false,
+      idFormCommentFirst: "",
+      statusCommentFirst: false,
+
+      codeFormReplySecond: "",
+      idFormReplySecond: "",
+      statusReplySecond: false,
     };
   },
   created() {
@@ -623,22 +624,22 @@ export default {
     this.fetchData();
   },
   methods: {
-    replyPro2(code) {
-      this.codeReply2 = code;
-      this.statusReplyPro2 == true;
+    codeReplySecond(code) {
+      this.codeFormReplySecond = code;
+      this.statusReplySecond == true;
     },
 
-    replyPro3(id) {
-      this.codeReply3 = id;
+    idReplySecond(id) {
+      this.idFormReplySecond = id;
     },
 
-    commentPro(id) {
-      this.statusCom = id;
-      this.status == true;
+    replyFirst(id) {
+      this.idFormReplyFirst = id;
+      this.statusReplyFirst == true;
     },
-    commnetReplyPro(id) {
-      this.replyPro = id;
-      this.statusRep == true;
+    commentFirst(id) {
+      this.idFormCommentFirst = id;
+      this.statusCommentFirst == true;
 
       let that = this;
       this.flagShowLoader = true;
@@ -765,7 +766,7 @@ export default {
       });
     },
 
-    repComment(id) {
+    repCommentFirst(id) {
       // this.$validator.validateAll().then((valid) => {
       //   if (valid) {
       let formData = new FormData();
@@ -780,7 +781,9 @@ export default {
             confirmButtonText: "OK!",
           });
           this.commentReply.content = "";
+          this.statusReplyFirst = false;
           this.fetchData();
+          this.commentFirst();
         })
         .catch((err) => {
           switch (err.response.status) {
