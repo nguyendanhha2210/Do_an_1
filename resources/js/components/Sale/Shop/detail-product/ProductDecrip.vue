@@ -28,7 +28,7 @@
                     {{ decrip[0].content }}
                   </p>
                 </div>
-                <div class="col-lg-5" style="transform: translate(-5%, 0%);">
+                <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
                     style="height: 250px"
                     :src="baseUrl + '/uploads/' + decrip[0].images"
@@ -152,7 +152,7 @@
                         href="#collapse-2"
                       >
                         <i class="fa fa-commenting-o"></i
-                        ><span class="ml-1">Comment ({{ countReply }})</span>
+                        ><span class="ml-1">Comment (...)</span>
                       </div>
                     </div>
                   </div>
@@ -631,6 +631,7 @@ export default {
         .get(url)
         .then(function (response) {
           that.commentReplys = response.data.comments; //show data ra
+          that.countReply = response.data.countReply; //show data ra
           that.flagShowLoader = false;
         })
         .catch((err) => {
@@ -665,7 +666,6 @@ export default {
         .then(function (response) {
           that.comments = response.data.comments; //show data ra
           that.count = response.data.count; //show data ra
-          that.countReply = response.data.countReply; //show data ra
           that.flagShowLoader = false;
         })
         .catch((err) => {

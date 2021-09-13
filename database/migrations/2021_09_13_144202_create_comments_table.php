@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->integer('product_id');
             $table->text('content');
             $table->integer('rank');
+            $table->string('code');
             $table->timestamps();
             $table->softDeletes();
         });

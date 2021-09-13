@@ -5663,6 +5663,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
         that.commentReplys = response.data.comments; //show data ra
 
+        that.countReply = response.data.countReply; //show data ra
+
         that.flagShowLoader = false;
       })["catch"](function (err) {
         switch (err.response.status) {
@@ -5687,8 +5689,6 @@ __webpack_require__.r(__webpack_exports__);
         that.comments = response.data.comments; //show data ra
 
         that.count = response.data.count; //show data ra
-
-        that.countReply = response.data.countReply; //show data ra
 
         that.flagShowLoader = false;
       })["catch"](function (err) {
@@ -104894,11 +104894,7 @@ var render = function() {
                                           staticClass: "fa fa-commenting-o"
                                         }),
                                         _c("span", { staticClass: "ml-1" }, [
-                                          _vm._v(
-                                            "Comment (" +
-                                              _vm._s(_vm.countReply) +
-                                              ")"
-                                          )
+                                          _vm._v("Comment (...)")
                                         ])
                                       ]
                                     )
