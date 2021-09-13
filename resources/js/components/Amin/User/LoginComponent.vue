@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 style="color:white">Sign In Admin</h2>
-    <form
+    <!-- <form
       method="POST"
       ref="loginForm"
       :action="formUrl"
@@ -83,7 +83,7 @@
       <h6><a :href="forgotPasswordUrl">Forgot Password?</a></h6>
       <div class="clearfix"></div>
       <input type="submit" value="Sign In" name="login" />
-    </form>
+    </form> -->
   </div>
 </template>
 
