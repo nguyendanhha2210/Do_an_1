@@ -152,7 +152,7 @@
                   ></a>
                   <i
                     class="fa fa-times-circle"
-                    style="font-size: 21px;color:red"
+                    style="font-size: 21px; color: red"
                     aria-hidden="true"
                     @click="singleDelete(ship.id)"
                   ></i>
@@ -163,32 +163,39 @@
         </table>
       </div>
     </div>
-    <footer class="panel-footer">
-      <div class="row">
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
-            >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
-            {{ totalNumber }} items</small
-          >
+    <div v-if="ships != ''">
+      <footer class="panel-footer">
+        <div class="row">
+          <div class="col-sm-5 text-center">
+            <small
+              class="text-muted inline m-t-sm m-b-sm"
+              style="float: inherit; font-size: 16px"
+              >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
+              {{ totalNumber }} items</small
+            >
+          </div>
         </div>
-      </div>
-    </footer>
-    <nav aria-label="Page navigation example">
-      <paginate
-        :page-count="lastPage"
-        :container-class="'pagination d-flex justify-content-center mt-3'"
-        :page-class="'page-item'"
-        :page-link-class="'page-link'"
-        :prev-class="'page-item prev-item'"
-        :prev-link-class="'page-link'"
-        :next-class="'page-item next-item'"
-        :next-link-class="'page-link'"
-        :prev-text="'<span><img src=\'/images/icons/angle-left.svg\'></span>'"
-        :next-text="'<span><img src=\'/images/icons/angle-right.svg\'></span>'"
-        :click-handler="fetchData"
-      >
-      </paginate>
-    </nav>
+      </footer>
+      <nav aria-label="Page navigation example">
+        <paginate
+          :page-count="lastPage"
+          :container-class="'pagination d-flex justify-content-center mt-3'"
+          :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-class="'page-item prev-item'"
+          :prev-link-class="'page-link'"
+          :next-class="'page-item next-item'"
+          :next-link-class="'page-link'"
+          :prev-text="'<span><img src=\'/images/icons/angle-left.svg\'></span>'"
+          :next-text="'<span><img src=\'/images/icons/angle-right.svg\'></span>'"
+          :click-handler="fetchData"
+        >
+        </paginate>
+      </nav>
+    </div>
+
+    <div class="text-center" v-else style="color: red">There is no data !</div>
+
     <Modal
       v-if="modalShow"
       :type="type"
@@ -378,11 +385,11 @@ export default {
               .then(function (confirm) {
                 if (confirm.isConfirmed) {
                   that.buttonAdd = true;
-                    (that.ship = {
-                      name: "",
-                      email: "",
-                      password: "",
-                    });
+                  that.ship = {
+                    name: "",
+                    email: "",
+                    password: "",
+                  };
                 } else {
                 }
               });

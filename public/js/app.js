@@ -4060,6 +4060,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4429,6 +4430,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4613,6 +4615,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Common/loader.vue */ "./resources/js/components/Common/loader.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -6757,6 +6760,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Common_loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Common/loader.vue */ "./resources/js/components/Common/loader.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -103357,74 +103361,76 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "product-show-option" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
-          _c(
-            "select",
-            {
-              directives: [
+    _vm.products != ""
+      ? _c("div", { staticClass: "product-show-option" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
+              _c(
+                "select",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.paginate,
-                  expression: "paginate"
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.paginate,
+                      expression: "paginate"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.paginate = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Search" },
+                domProps: { value: _vm.search },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  }
                 }
-              ],
-              staticClass: "form-control",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.paginate = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.search,
-                expression: "search"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Search" },
-            domProps: { value: _vm.search },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search = $event.target.value
-              }
-            }
-          })
+              })
+            ])
+          ])
         ])
-      ])
-    ]),
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "product-list" }, [
       _c(
@@ -103521,39 +103527,45 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "loading-more" }, [
-      _c(
-        "nav",
-        { attrs: { "aria-label": "Page navigation example" } },
-        [
-          _c("paginate", {
-            attrs: {
-              "page-count": parseInt(_vm.products.last_page),
-              "page-range": 9,
-              "margin-pages": 2,
-              "click-handler": _vm.changePage,
-              "prev-text": "<<",
-              "next-text": ">>",
-              "container-class": "pagination justify-content-center",
-              "page-class": "page-item",
-              "prev-class": "page-item",
-              "next-class": "page-item",
-              "page-link-class": "page-link bg-info text-light",
-              "next-link-class": "page-link bg-info text-light",
-              "prev-link-class": "page-link bg-info text-light"
-            },
-            model: {
-              value: _vm.page,
-              callback: function($$v) {
-                _vm.page = $$v
-              },
-              expression: "page"
-            }
-          })
-        ],
-        1
-      )
-    ]),
+    _vm.products != ""
+      ? _c("div", { staticClass: "loading-more" }, [
+          _c(
+            "nav",
+            { attrs: { "aria-label": "Page navigation example" } },
+            [
+              _c("paginate", {
+                attrs: {
+                  "page-count": parseInt(_vm.products.last_page),
+                  "page-range": 9,
+                  "margin-pages": 2,
+                  "click-handler": _vm.changePage,
+                  "prev-text": "<<",
+                  "next-text": ">>",
+                  "container-class": "pagination justify-content-center",
+                  "page-class": "page-item",
+                  "prev-class": "page-item",
+                  "next-class": "page-item",
+                  "page-link-class": "page-link bg-info text-light",
+                  "next-link-class": "page-link bg-info text-light",
+                  "prev-link-class": "page-link bg-info text-light"
+                },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      : _c(
+          "div",
+          { staticClass: "text-center", staticStyle: { color: "red" } },
+          [_vm._v("There is no data !")]
+        ),
     _vm._v(" "),
     _c(
       "div",
@@ -103764,74 +103776,76 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "product-show-option" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
-          _c(
-            "select",
-            {
-              directives: [
+    _vm.products != ""
+      ? _c("div", { staticClass: "product-show-option" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
+              _c(
+                "select",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.paginate,
-                  expression: "paginate"
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.paginate,
+                      expression: "paginate"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.paginate = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Search" },
+                domProps: { value: _vm.search },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  }
                 }
-              ],
-              staticClass: "form-control",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.paginate = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.search,
-                expression: "search"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Search" },
-            domProps: { value: _vm.search },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search = $event.target.value
-              }
-            }
-          })
+              })
+            ])
+          ])
         ])
-      ])
-    ]),
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "product-list" }, [
       _c(
@@ -103928,39 +103942,45 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "loading-more" }, [
-      _c(
-        "nav",
-        { attrs: { "aria-label": "Page navigation example" } },
-        [
-          _c("paginate", {
-            attrs: {
-              "page-count": parseInt(_vm.products.last_page),
-              "page-range": 9,
-              "margin-pages": 2,
-              "click-handler": _vm.changePage,
-              "prev-text": "<<",
-              "next-text": ">>",
-              "container-class": "pagination justify-content-center",
-              "page-class": "page-item",
-              "prev-class": "page-item",
-              "next-class": "page-item",
-              "page-link-class": "page-link bg-info text-light",
-              "next-link-class": "page-link bg-info text-light",
-              "prev-link-class": "page-link bg-info text-light"
-            },
-            model: {
-              value: _vm.page,
-              callback: function($$v) {
-                _vm.page = $$v
-              },
-              expression: "page"
-            }
-          })
-        ],
-        1
-      )
-    ]),
+    _vm.products != ""
+      ? _c("div", { staticClass: "loading-more" }, [
+          _c(
+            "nav",
+            { attrs: { "aria-label": "Page navigation example" } },
+            [
+              _c("paginate", {
+                attrs: {
+                  "page-count": parseInt(_vm.products.last_page),
+                  "page-range": 9,
+                  "margin-pages": 2,
+                  "click-handler": _vm.changePage,
+                  "prev-text": "<<",
+                  "next-text": ">>",
+                  "container-class": "pagination justify-content-center",
+                  "page-class": "page-item",
+                  "prev-class": "page-item",
+                  "next-class": "page-item",
+                  "page-link-class": "page-link bg-info text-light",
+                  "next-link-class": "page-link bg-info text-light",
+                  "prev-link-class": "page-link bg-info text-light"
+                },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      : _c(
+          "div",
+          { staticClass: "text-center", staticStyle: { color: "red" } },
+          [_vm._v("There is no data !")]
+        ),
     _vm._v(" "),
     _c(
       "div",
@@ -104171,74 +104191,76 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "product-show-option" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
-          _c(
-            "select",
-            {
-              directives: [
+    _vm.products != ""
+      ? _c("div", { staticClass: "product-show-option" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
+              _c(
+                "select",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.paginate,
-                  expression: "paginate"
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.paginate,
+                      expression: "paginate"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.paginate = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Search" },
+                domProps: { value: _vm.search },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  }
                 }
-              ],
-              staticClass: "form-control",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.paginate = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-6 col-md-6 col-4" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.search,
-                expression: "search"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Search" },
-            domProps: { value: _vm.search },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search = $event.target.value
-              }
-            }
-          })
+              })
+            ])
+          ])
         ])
-      ])
-    ]),
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "product-list" }, [
       _c(
@@ -104335,39 +104357,45 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "loading-more" }, [
-      _c(
-        "nav",
-        { attrs: { "aria-label": "Page navigation example" } },
-        [
-          _c("paginate", {
-            attrs: {
-              "page-count": parseInt(_vm.products.last_page),
-              "page-range": 9,
-              "margin-pages": 2,
-              "click-handler": _vm.changePage,
-              "prev-text": "<<",
-              "next-text": ">>",
-              "container-class": "pagination justify-content-center",
-              "page-class": "page-item",
-              "prev-class": "page-item",
-              "next-class": "page-item",
-              "page-link-class": "page-link bg-info text-light",
-              "next-link-class": "page-link bg-info text-light",
-              "prev-link-class": "page-link bg-info text-light"
-            },
-            model: {
-              value: _vm.page,
-              callback: function($$v) {
-                _vm.page = $$v
-              },
-              expression: "page"
-            }
-          })
-        ],
-        1
-      )
-    ]),
+    _vm.products != ""
+      ? _c("div", { staticClass: "loading-more" }, [
+          _c(
+            "nav",
+            { attrs: { "aria-label": "Page navigation example" } },
+            [
+              _c("paginate", {
+                attrs: {
+                  "page-count": parseInt(_vm.products.last_page),
+                  "page-range": 9,
+                  "margin-pages": 2,
+                  "click-handler": _vm.changePage,
+                  "prev-text": "<<",
+                  "next-text": ">>",
+                  "container-class": "pagination justify-content-center",
+                  "page-class": "page-item",
+                  "prev-class": "page-item",
+                  "next-class": "page-item",
+                  "page-link-class": "page-link bg-info text-light",
+                  "next-link-class": "page-link bg-info text-light",
+                  "prev-link-class": "page-link bg-info text-light"
+                },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      : _c(
+          "div",
+          { staticClass: "text-center", staticStyle: { color: "red" } },
+          [_vm._v("There is no data !")]
+        ),
     _vm._v(" "),
     _c(
       "div",
@@ -106752,127 +106780,129 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "product-show-option" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
-            _c(
-              "select",
-              {
-                directives: [
+      _vm.products != ""
+        ? _c("div", { staticClass: "product-show-option" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-2 col-md-2 col-3" }, [
+                _c(
+                  "select",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.paginate,
-                    expression: "paginate"
-                  }
-                ],
-                staticClass: "form-control",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.paginate = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }, [
-            _c(
-              "select",
-              {
-                directives: [
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.paginate,
+                        expression: "paginate"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.paginate = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }, [
+                _c(
+                  "select",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.statusView,
-                    expression: "statusView"
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.statusView,
+                        expression: "statusView"
+                      }
+                    ],
+                    staticClass: "form-control w-sm inline v-middle",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.statusView = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v("-- Mới nhất --")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("-- Giá tăng dần --")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("-- Giá giảm dần --")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("Tên từ A -> Z")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "4" } }, [
+                      _vm._v("Tên từ Z -> A")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search,
+                      expression: "search"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Search" },
+                  domProps: { value: _vm.search },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.search = $event.target.value
+                    }
                   }
-                ],
-                staticClass: "form-control w-sm inline v-middle",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.statusView = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "0" } }, [
-                  _vm._v("-- Mới nhất --")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [
-                  _vm._v("-- Giá tăng dần --")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [
-                  _vm._v("-- Giá giảm dần --")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [
-                  _vm._v("Tên từ A -> Z")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "4" } }, [
-                  _vm._v("Tên từ Z -> A")
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-md-3 col-2" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-4 col-md-4 col-5 text-right" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.search,
-                  expression: "search"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Search" },
-              domProps: { value: _vm.search },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.search = $event.target.value
-                }
-              }
-            })
+                })
+              ])
+            ])
           ])
-        ])
-      ]),
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "product-list" }, [
         _c(
@@ -106989,39 +107019,45 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "loading-more" }, [
-        _c(
-          "nav",
-          { attrs: { "aria-label": "Page navigation example" } },
-          [
-            _c("paginate", {
-              attrs: {
-                "page-count": parseInt(_vm.products.last_page),
-                "page-range": 9,
-                "margin-pages": 2,
-                "click-handler": _vm.changePage,
-                "prev-text": "<<",
-                "next-text": ">>",
-                "container-class": "pagination justify-content-center",
-                "page-class": "page-item",
-                "prev-class": "page-item",
-                "next-class": "page-item",
-                "page-link-class": "page-link bg-info text-light",
-                "next-link-class": "page-link bg-info text-light",
-                "prev-link-class": "page-link bg-info text-light"
-              },
-              model: {
-                value: _vm.page,
-                callback: function($$v) {
-                  _vm.page = $$v
-                },
-                expression: "page"
-              }
-            })
-          ],
-          1
-        )
-      ]),
+      _vm.products != ""
+        ? _c("div", { staticClass: "loading-more" }, [
+            _c(
+              "nav",
+              { attrs: { "aria-label": "Page navigation example" } },
+              [
+                _c("paginate", {
+                  attrs: {
+                    "page-count": parseInt(_vm.products.last_page),
+                    "page-range": 9,
+                    "margin-pages": 2,
+                    "click-handler": _vm.changePage,
+                    "prev-text": "<<",
+                    "next-text": ">>",
+                    "container-class": "pagination justify-content-center",
+                    "page-class": "page-item",
+                    "prev-class": "page-item",
+                    "next-class": "page-item",
+                    "page-link-class": "page-link bg-info text-light",
+                    "next-link-class": "page-link bg-info text-light",
+                    "prev-link-class": "page-link bg-info text-light"
+                  },
+                  model: {
+                    value: _vm.page,
+                    callback: function($$v) {
+                      _vm.page = $$v
+                    },
+                    expression: "page"
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        : _c(
+            "div",
+            { staticClass: "text-center", staticStyle: { color: "red" } },
+            [_vm._v("There is no data !")]
+          ),
       _vm._v(" "),
       _c(
         "div",

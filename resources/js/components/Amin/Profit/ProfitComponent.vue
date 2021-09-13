@@ -92,25 +92,31 @@
             </transition-group>
           </table>
         </div>
-        <nav aria-label="Page navigation example">
-          <paginate
-            v-model="page"
-            :page-count="parseInt(profits.last_page)"
-            :page-range="5"
-            :margin-pages="2"
-            :click-handler="changePage"
-            :prev-text="'<<'"
-            :next-text="'>>'"
-            :container-class="'pagination justify-content-center'"
-            :page-class="'page-item'"
-            :prev-class="'page-item'"
-            :next-class="'page-item'"
-            :page-link-class="'page-link bg-info text-light'"
-            :next-link-class="'page-link bg-info text-light'"
-            :prev-link-class="'page-link bg-info text-light'"
-          >
-          </paginate>
-        </nav>
+        <div class="loading-more" v-if="profits != ''">
+          <nav aria-label="Page navigation example">
+            <paginate
+              v-model="page"
+              :page-count="parseInt(profits.last_page)"
+              :page-range="5"
+              :margin-pages="2"
+              :click-handler="changePage"
+              :prev-text="'<<'"
+              :next-text="'>>'"
+              :container-class="'pagination justify-content-center'"
+              :page-class="'page-item'"
+              :prev-class="'page-item'"
+              :next-class="'page-item'"
+              :page-link-class="'page-link bg-info text-light'"
+              :next-link-class="'page-link bg-info text-light'"
+              :prev-link-class="'page-link bg-info text-light'"
+            >
+            </paginate>
+          </nav>
+        </div>
+
+        <div class="text-center" v-else style="color: red">
+          There is no data !
+        </div>
         <Modal
           v-if="modalShow"
           :type="type"
@@ -208,8 +214,7 @@ export default {
       formData.append("time2", this.time2);
       formData.append("page", this.page);
       formData.append("paginate", this.paginate);
-      axios.post("get-profit", formData).
-      then(function (response) {
+      axios.post("get-profit", formData).then(function (response) {
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
         that.flagShowLoader = false;

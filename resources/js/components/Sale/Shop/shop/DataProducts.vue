@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="product-show-option">
+    <div class="product-show-option" v-if="products != ''">
       <div class="row">
         <div class="col-lg-2 col-md-2 col-3">
           <select v-model="paginate" class="form-control">
@@ -23,8 +23,7 @@
           </select>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-2">
-        </div>
+        <div class="col-lg-3 col-md-3 col-2"></div>
 
         <div class="col-lg-4 col-md-4 col-5 text-right">
           <input
@@ -52,10 +51,11 @@
               />
               <div class="sale pp-sale">Sale</div>
               <div class="icon">
-                <a
-                  class="btn btn-default"
-                  @click="addFavorite(product)"
-                  ><i class="icon_heart_alt" style="color:red;font-size:22px;"></i
+                <a class="btn btn-default" @click="addFavorite(product)"
+                  ><i
+                    class="icon_heart_alt"
+                    style="color: red; font-size: 22px"
+                  ></i
                 ></a>
               </div>
               <ul>
@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div class="loading-more">
+    <div class="loading-more" v-if="products != ''">
       <nav aria-label="Page navigation example">
         <paginate
           v-model="page"
@@ -117,6 +117,7 @@
         </paginate>
       </nav>
     </div>
+    <div class="text-center" v-else  style="color: red">There is no data !</div>
 
     <div
       class="modal fade"
@@ -454,8 +455,7 @@ export default {
       });
     },
 
-     addFavorite(product) 
-     {
+    addFavorite(product) {
       let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
@@ -466,8 +466,7 @@ export default {
                 title: "Add Successfully!",
                 icon: "success",
                 confirmButtonText: "OK",
-              }).then((confirm) => {
-              });
+              }).then((confirm) => {});
             })
             .catch((err) => {
               switch (err.response.status) {

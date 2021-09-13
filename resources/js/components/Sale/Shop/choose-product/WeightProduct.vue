@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="product-show-option">
+    <div class="product-show-option" v-if="products != ''">
       <div class="row">
         <div class="col-lg-2 col-md-2 col-3">
           <select v-model="paginate" class="form-control">
@@ -78,7 +78,7 @@
         </div>
       </div>
     </div>
-    <div class="loading-more">
+    <div class="loading-more" v-if="products != ''">
       <nav aria-label="Page navigation example">
         <paginate
           v-model="page"
@@ -99,6 +99,7 @@
         </paginate>
       </nav>
     </div>
+    <div class="text-center" v-else  style="color: red">There is no data !</div>
 
     <div
       class="modal fade"

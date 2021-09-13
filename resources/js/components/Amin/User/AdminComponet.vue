@@ -150,12 +150,12 @@
                       class="fa fa-pencil-square-o text-success text-active"
                     ></i
                   ></a>
-                  <i
+                  <!-- <i
                     class="fa fa-times-circle"
                     style="font-size: 21px; color: red"
                     aria-hidden="true"
                     @click="deleteAdmin(admin.id)"
-                  ></i>
+                  ></i> -->
                 </div>
               </td>
             </tr>
@@ -166,7 +166,9 @@
     <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
+          <small
+            class="text-muted inline m-t-sm m-b-sm"
+            style="float: inherit; font-size: 16px"
             >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
             {{ totalNumber }} items</small
           >

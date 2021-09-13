@@ -93,7 +93,8 @@
                 <div class="td-action">
                   <a :href="`order/${data.order_code}/detail`">
                     <button class="btn btn-warning mr-1" type="button">
-                      <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Detail
                     </button></a
                   >
                 </div>
@@ -103,25 +104,29 @@
         </table>
       </div>
     </div>
-    <nav aria-label="Page navigation example">
-      <paginate
-        v-model="page"
-        :page-count="parseInt(orders.last_page)"
-        :page-range="5"
-        :margin-pages="2"
-        :click-handler="changePage"
-        :prev-text="'<<'"
-        :next-text="'>>'"
-        :container-class="'pagination justify-content-center'"
-        :page-class="'page-item'"
-        :prev-class="'page-item'"
-        :next-class="'page-item'"
-        :page-link-class="'page-link bg-info text-light'"
-        :next-link-class="'page-link bg-info text-light'"
-        :prev-link-class="'page-link bg-info text-light'"
-      >
-      </paginate>
-    </nav>
+    <div v-if="orders != ''">
+      <nav aria-label="Page navigation example">
+        <paginate
+          v-model="page"
+          :page-count="parseInt(orders.last_page)"
+          :page-range="5"
+          :margin-pages="2"
+          :click-handler="changePage"
+          :prev-text="'<<'"
+          :next-text="'>>'"
+          :container-class="'pagination justify-content-center'"
+          :page-class="'page-item'"
+          :prev-class="'page-item'"
+          :next-class="'page-item'"
+          :page-link-class="'page-link bg-info text-light'"
+          :next-link-class="'page-link bg-info text-light'"
+          :prev-link-class="'page-link bg-info text-light'"
+        >
+        </paginate>
+      </nav>
+    </div>
+    <div class="text-center" v-else style="color: red">There is no data !</div>
+
     <Modal
       v-if="modalShow"
       :type="type"
