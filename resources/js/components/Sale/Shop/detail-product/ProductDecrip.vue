@@ -248,14 +248,13 @@
                     class="bg-white p-2"
                     style="transform: translate(-1%, -45%)"
                   >
-                    <div
-                      class="d-flex flex-row fs-12"
-                      @click="
-                        commentPro(comment.id);
-                        status = !status;
-                      "
-                    >
+                    <div class="d-flex flex-row fs-12">
                       <div
+                        @click="
+                          replyPro2(commentReply.code);
+                          replyPro3(commentReply.id);
+                          statusReplyPro2 = !statusReplyPro2;
+                        "
                         class="like p-2 cursor action-collapse"
                         data-toggle="collapse"
                         aria-expanded="true"
@@ -274,7 +273,11 @@
                   </div>
 
                   <div
-                    v-if="statusCom == comment.id && status"
+                    v-if="
+                      codeReply2 == commentReply.code &&
+                      codeReply3 == commentReply.id &&
+                      statusReplyPro2
+                    "
                     id="collapse-1"
                     class="bg-light collapse"
                     style="transform: translate(1%, -24%)"
@@ -308,9 +311,9 @@
                           class="btn btn-primary btn-sm shadow-none"
                           type="submit"
                         >
-                          Post comment</button
+                          Post1 comment</button
                         ><button
-                          @click="status = !status"
+                          @click="statusReplyPro2 = !statusReplyPro2"
                           class="
                             btn btn-outline-primary btn-sm
                             ml-1
@@ -589,6 +592,10 @@ export default {
       status: false,
       replyPro: "",
       statusRep: false,
+
+      codeReply2: "",
+      codeReply3: "",
+      statusReplyPro2: false,
     };
   },
   created() {
@@ -616,6 +623,15 @@ export default {
     this.fetchData();
   },
   methods: {
+    replyPro2(code) {
+      this.codeReply2 = code;
+      this.statusReplyPro2 == true;
+    },
+
+    replyPro3(id) {
+      this.codeReply3 = id;
+    },
+
     commentPro(id) {
       this.statusCom = id;
       this.status == true;

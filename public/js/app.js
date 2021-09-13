@@ -5588,6 +5588,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5622,7 +5625,10 @@ __webpack_require__.r(__webpack_exports__);
       statusCom: "",
       status: false,
       replyPro: "",
-      statusRep: false
+      statusRep: false,
+      codeReply2: "",
+      codeReply3: "",
+      statusReplyPro2: false
     };
   },
   created: function created() {
@@ -5650,6 +5656,13 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchData();
   },
   methods: {
+    replyPro2: function replyPro2(code) {
+      this.codeReply2 = code;
+      this.statusReplyPro2 == true;
+    },
+    replyPro3: function replyPro3(id) {
+      this.codeReply3 = id;
+    },
     commentPro: function commentPro(id) {
       this.statusCom = id;
       this.status == true;
@@ -105156,22 +105169,51 @@ var render = function() {
                                       _c(
                                         "div",
                                         {
-                                          staticClass: "d-flex flex-row fs-12",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.commentPro(comment.id)
-                                              _vm.status = !_vm.status
-                                            }
-                                          }
+                                          staticClass: "d-flex flex-row fs-12"
                                         },
-                                        [_vm._m(5, true)]
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "like p-2 cursor action-collapse",
+                                              attrs: {
+                                                "data-toggle": "collapse",
+                                                "aria-expanded": "true",
+                                                "aria-controls": "collapse-1",
+                                                href: "#collapse-1"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.replyPro2(
+                                                    commentReply.code
+                                                  )
+                                                  _vm.replyPro3(commentReply.id)
+                                                  _vm.statusReplyPro2 = !_vm.statusReplyPro2
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa fa-reply"
+                                              }),
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-1" },
+                                                [_vm._v("Reply1")]
+                                              )
+                                            ]
+                                          )
+                                        ]
                                       )
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _vm._m(6, true),
+                                  _vm._m(5, true),
                                   _vm._v(" "),
-                                  _vm.statusCom == comment.id && _vm.status
+                                  _vm.codeReply2 == commentReply.code &&
+                                  _vm.codeReply3 == commentReply.id &&
+                                  _vm.statusReplyPro2
                                     ? _c(
                                         "div",
                                         {
@@ -105304,7 +105346,7 @@ var render = function() {
                                                     },
                                                     [
                                                       _vm._v(
-                                                        "\n                        Post comment"
+                                                        "\n                        Post1 comment"
                                                       )
                                                     ]
                                                   ),
@@ -105318,7 +105360,7 @@ var render = function() {
                                                         click: function(
                                                           $event
                                                         ) {
-                                                          _vm.status = !_vm.status
+                                                          _vm.statusReplyPro2 = !_vm.statusReplyPro2
                                                         }
                                                       }
                                                     },
@@ -105642,27 +105684,6 @@ var staticRenderFns = [
       [
         _c("i", { staticClass: "fa fa-reply" }),
         _c("span", { staticClass: "ml-1" }, [_vm._v("Reply ")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "like p-2 cursor action-collapse",
-        attrs: {
-          "data-toggle": "collapse",
-          "aria-expanded": "true",
-          "aria-controls": "collapse-1",
-          href: "#collapse-1"
-        }
-      },
-      [
-        _c("i", { staticClass: "fa fa-reply" }),
-        _c("span", { staticClass: "ml-1" }, [_vm._v("Reply1")])
       ]
     )
   },
