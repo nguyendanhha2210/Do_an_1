@@ -7,6 +7,8 @@ use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sale\CommentRequest;
 use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -26,9 +28,11 @@ class CommentController extends Controller
     public function store(CommentRequest $request, $id)
     {
         try {
+            $idUser = Auth::guard('sales')->id();
+            $user = User::find($idUser);
             $comment = new Comment();
-            $comment->name = $request->name;
-            $comment->images = "1";
+            $comment->name = $user->name;
+            $comment->images = $user->images;
             $comment->product_id = $id;
             $comment->content = $request->content;
             $comment->rank = CommentRank::FIRSTRANK;
@@ -46,10 +50,13 @@ class CommentController extends Controller
     public function replyComment(Request $request, $id)
     {
         try {
+            $idUser = Auth::guard('sales')->id();
+            $user = User::find($idUser);
+
             $commentCode = Comment::find($id);
             $comment = new Comment();
-            $comment->name = "ABC";
-            $comment->images = "2";
+            $comment->name = $user->name;
+            $comment->images =  $user->images;
             $comment->product_id = $request->idProduct;
             $comment->content = $request->repComment;
             $comment->rank = CommentRank::SECONDRANK;
@@ -80,9 +87,12 @@ class CommentController extends Controller
     public function replyCommentSecond(Request $request, $code)
     {
         try {
+            $idUser = Auth::guard('sales')->id();
+            $user = User::find($idUser);
+
             $comment = new Comment();
-            $comment->name = "ABC";
-            $comment->images = "2";
+            $comment->name = $user->name;
+            $comment->images = $user->images;
             $comment->product_id = $request->idProduct;
             $comment->content = $request->repComment;
             $comment->rank = CommentRank::SECONDRANK;
@@ -91,6 +101,17 @@ class CommentController extends Controller
             if ($flag) {
                 return response()->json('Comment success !', StatusCode::OK);
             }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    public function fillImage()
+    {
+        try {
+            $idUser = Auth::guard('sales')->id();
+            $user = User::find($idUser);
+            return response()->json(["image" => $user->images], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }

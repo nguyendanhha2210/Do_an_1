@@ -5735,6 +5735,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5746,12 +5760,12 @@ __webpack_require__.r(__webpack_exports__);
       decrip: this.decripProduct,
       comments: [],
       comment: {
-        name: "",
         images: "",
         product_id: "",
         content: ""
       },
       idProduct: "",
+      showImage: "",
       commentReplys: [],
       commentReply: {
         nameRep: "",
@@ -5784,9 +5798,6 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var messError = {
       custom: {
-        name: {
-          required: "* Tên chưa nhập !"
-        },
         content: {
           required: "* Comment is not !"
         },
@@ -5797,6 +5808,7 @@ __webpack_require__.r(__webpack_exports__);
     };
     this.$validator.localize("en", messError);
     this.fetchData();
+    this.fillImage();
   },
   components: {
     Loader: _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__.default
@@ -5804,6 +5816,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ["decripProduct"],
   mounted: function mounted() {
     this.fetchData();
+    this.fillImage();
+    console.log("ANC", this.showImage);
   },
   methods: {
     codeReplySecond: function codeReplySecond(code) {
@@ -5900,7 +5914,6 @@ __webpack_require__.r(__webpack_exports__);
               confirmButtonText: "OK!"
             });
 
-            _this.comment.name = "";
             _this.comment.content = "";
 
             _this.fetchData();
@@ -6029,6 +6042,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }); //   }
       // });
+    },
+    fillImage: function fillImage() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post("/fill-image").then(function (response) {
+        this.showImage = response.data.image; //show data ra
+      });
     }
   }
 });
@@ -105285,8 +105303,13 @@ var render = function() {
                                   _c("img", {
                                     staticClass: "rounded-circle",
                                     attrs: {
-                                      src: "/frontend/images/flag-1.jpg",
-                                      width: "40"
+                                      src:
+                                        _vm.baseUrl +
+                                        "/uploads/" +
+                                        comment.images,
+                                      width: "40px",
+                                      height: "40px",
+                                      alt: ""
                                     }
                                   }),
                                   _vm._v(" "),
@@ -105430,9 +105453,12 @@ var render = function() {
                                               staticClass: "rounded-circle",
                                               attrs: {
                                                 src:
-                                                  "/frontend/images/flag-1.jpg",
-                                                width: "40",
-                                                height: "40px"
+                                                  _vm.baseUrl +
+                                                  "/uploads/" +
+                                                  comment.images,
+                                                width: "40px",
+                                                height: "40px",
+                                                alt: ""
                                               }
                                             }),
                                             _vm._v(" "),
@@ -105579,8 +105605,13 @@ var render = function() {
                                         _c("img", {
                                           staticClass: "rounded-circle",
                                           attrs: {
-                                            src: "/frontend/images/flag-1.jpg",
-                                            width: "40"
+                                            src:
+                                              _vm.baseUrl +
+                                              "/uploads/" +
+                                              commentReply.images,
+                                            width: "40px",
+                                            height: "40px",
+                                            alt: ""
                                           }
                                         }),
                                         _vm._v(" "),
@@ -105734,9 +105765,12 @@ var render = function() {
                                                       "rounded-circle",
                                                     attrs: {
                                                       src:
-                                                        "/frontend/images/flag-1.jpg",
-                                                      width: "40",
-                                                      height: "40px"
+                                                        _vm.baseUrl +
+                                                        "/uploads/" +
+                                                        _vm.comments.images,
+                                                      width: "40px",
+                                                      height: "40px",
+                                                      alt: ""
                                                     }
                                                   }),
                                                   _vm._v(" "),
@@ -105870,37 +105904,49 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _c(
-                  "nav",
-                  { attrs: { "aria-label": "Page navigation example" } },
-                  [
-                    _c("paginate", {
-                      attrs: {
-                        "page-count": parseInt(_vm.comments.last_page),
-                        "page-range": 3,
-                        "margin-pages": 2,
-                        "click-handler": _vm.changePage,
-                        "prev-text": "<<",
-                        "next-text": ">>",
-                        "container-class": "pagination justify-content-center",
-                        "page-class": "page-item",
-                        "prev-class": "page-item",
-                        "next-class": "page-item",
-                        "page-link-class": "page-link bg-info text-light",
-                        "next-link-class": "page-link bg-info text-light",
-                        "prev-link-class": "page-link bg-info text-light"
+                _vm.comments != ""
+                  ? _c("div", [
+                      _c(
+                        "nav",
+                        { attrs: { "aria-label": "Page navigation example" } },
+                        [
+                          _c("paginate", {
+                            attrs: {
+                              "page-count": parseInt(_vm.comments.last_page),
+                              "page-range": 3,
+                              "margin-pages": 2,
+                              "click-handler": _vm.changePage,
+                              "prev-text": "<<",
+                              "next-text": ">>",
+                              "container-class":
+                                "pagination justify-content-center",
+                              "page-class": "page-item",
+                              "prev-class": "page-item",
+                              "next-class": "page-item",
+                              "page-link-class": "page-link bg-info text-light",
+                              "next-link-class": "page-link bg-info text-light",
+                              "prev-link-class": "page-link bg-info text-light"
+                            },
+                            model: {
+                              value: _vm.page,
+                              callback: function($$v) {
+                                _vm.page = $$v
+                              },
+                              expression: "page"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  : _c(
+                      "div",
+                      {
+                        staticClass: "text-center",
+                        staticStyle: { color: "red" }
                       },
-                      model: {
-                        value: _vm.page,
-                        callback: function($$v) {
-                          _vm.page = $$v
-                        },
-                        expression: "page"
-                      }
-                    })
-                  ],
-                  1
-                ),
+                      [_vm._v("\n            There is no data !\n          ")]
+                    ),
                 _vm._v(" "),
                 _c("div", { staticClass: "customer-review-option" }, [
                   _c("div", { staticClass: "leave-comment" }, [
@@ -105919,77 +105965,9 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-lg-12" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.comment.name,
-                                  expression: "comment.name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                placeholder: "Name",
-                                name: "name"
-                              },
-                              domProps: { value: _vm.comment.name },
-                              on: {
-                                input: [
-                                  function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.comment,
-                                      "name",
-                                      $event.target.value
-                                    )
-                                  },
-                                  function($event) {
-                                    return _vm.changeInput()
-                                  }
-                                ]
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticStyle: { color: "red" },
-                                attrs: { role: "alert" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(_vm.errors.first("name")) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm.errorBackEnd.name
-                              ? _c("div", { staticStyle: { color: "red" } }, [
-                                  _vm._v(
-                                    "\n                      " +
-                                      _vm._s(_vm.errorBackEnd.name[0]) +
-                                      "\n                    "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
+                          _vm._m(6),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-lg-6" }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-lg-12" }, [
+                          _c("div", { staticClass: "col-lg-11" }, [
                             _c("textarea", {
                               directives: [
                                 {
@@ -106176,6 +106154,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "bg-white p-2" }, [
       _c("div", { staticClass: "d-flex flex-row fs-12" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-1" }, [
+      _c("img", {
+        staticClass: "rounded-circle",
+        attrs: {
+          src: "/frontend/images/flag-1.jpg",
+          width: "40",
+          height: "40px"
+        }
+      })
     ])
   }
 ]

@@ -99,8 +99,10 @@
                     <div class="d-flex flex-row user-info">
                       <img
                         class="rounded-circle"
-                        src="/frontend/images/flag-1.jpg"
-                        width="40"
+                        :src="baseUrl + '/uploads/' + comment.images"
+                        width="40px"
+                        height="40px"
+                        alt=""
                       />
                       <div
                         class="d-flex flex-column justify-content-start ml-2"
@@ -171,9 +173,10 @@
                       <div class="d-flex flex-row align-items-start">
                         <img
                           class="rounded-circle"
-                          src="/frontend/images/flag-1.jpg"
-                          width="40"
+                          :src="baseUrl + '/uploads/' + comment.images"
+                          width="40px"
                           height="40px"
+                          alt=""
                         />
                         <textarea
                           placeholder="Messages"
@@ -225,8 +228,10 @@
                     <div class="d-flex flex-row user-info">
                       <img
                         class="rounded-circle"
-                        src="/frontend/images/flag-1.jpg"
-                        width="40"
+                        :src="baseUrl + '/uploads/' + commentReply.images"
+                        width="40px"
+                        height="40px"
+                        alt=""
                       />
                       <div
                         class="d-flex flex-column justify-content-start ml-2"
@@ -291,10 +296,17 @@
                       <div class="d-flex flex-row align-items-start">
                         <img
                           class="rounded-circle"
+                          :src="baseUrl + '/uploads/' + comments.images"
+                          width="40px"
+                          height="40px"
+                          alt=""
+                        />
+                        <!-- <img
+                          class="rounded-circle"
                           src="/frontend/images/flag-1.jpg"
                           width="40"
                           height="40px"
-                        />
+                        /> -->
                         <textarea
                           placeholder="Messages"
                           name="content"
@@ -330,49 +342,51 @@
                 </div>
               </div>
             </div>
-            <nav aria-label="Page navigation example">
-              <paginate
-                v-model="page"
-                :page-count="parseInt(comments.last_page)"
-                :page-range="3"
-                :margin-pages="2"
-                :click-handler="changePage"
-                :prev-text="'<<'"
-                :next-text="'>>'"
-                :container-class="'pagination justify-content-center'"
-                :page-class="'page-item'"
-                :prev-class="'page-item'"
-                :next-class="'page-item'"
-                :page-link-class="'page-link bg-info text-light'"
-                :next-link-class="'page-link bg-info text-light'"
-                :prev-link-class="'page-link bg-info text-light'"
-              >
-              </paginate>
-            </nav>
+            <div v-if="comments != ''">
+              <nav aria-label="Page navigation example">
+                <paginate
+                  v-model="page"
+                  :page-count="parseInt(comments.last_page)"
+                  :page-range="3"
+                  :margin-pages="2"
+                  :click-handler="changePage"
+                  :prev-text="'<<'"
+                  :next-text="'>>'"
+                  :container-class="'pagination justify-content-center'"
+                  :page-class="'page-item'"
+                  :prev-class="'page-item'"
+                  :next-class="'page-item'"
+                  :page-link-class="'page-link bg-info text-light'"
+                  :next-link-class="'page-link bg-info text-light'"
+                  :prev-link-class="'page-link bg-info text-light'"
+                >
+                </paginate>
+              </nav>
+            </div>
+            <div class="text-center" v-else style="color: red">
+              There is no data !
+            </div>
+
             <div class="customer-review-option">
               <div class="leave-comment">
                 <h4>Leave A Comment</h4>
                 <form @submit.prevent="addComment()" class="comment-form">
                   <div class="row">
-                    <div class="col-lg-12">
-                      <input
-                        type="text"
-                        placeholder="Name"
-                        name="name"
-                        class="form-control"
-                        v-validate="'required'"
-                        @input="changeInput()"
-                        v-model="comment.name"
+                    <div class="col-lg-1">
+                      <!-- <img class="rounded-circle"
+                  :src="baseUrl + '/uploads/' + comments.images"
+                  width="40px"
+                  height="40px"
+                  alt=""
+                /> -->
+                      <img
+                        class="rounded-circle"
+                        src="/frontend/images/flag-1.jpg"
+                        width="40"
+                        height="40px"
                       />
-                      <div style="color: red" role="alert">
-                        {{ errors.first("name") }}
-                      </div>
-                      <div style="color: red" v-if="errorBackEnd.name">
-                        {{ errorBackEnd.name[0] }}
-                      </div>
                     </div>
-                    <div class="col-lg-6"></div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-11">
                       <textarea
                         placeholder="Messages"
                         name="content"
@@ -567,12 +581,13 @@ export default {
 
       comments: [],
       comment: {
-        name: "",
         images: "",
         product_id: "",
         content: "",
       },
       idProduct: "",
+
+      showImage: "",
 
       commentReplys: [],
       commentReply: {
@@ -610,9 +625,6 @@ export default {
   created() {
     let messError = {
       custom: {
-        name: {
-          required: "* Tên chưa nhập !",
-        },
         content: {
           required: "* Comment is not !",
         },
@@ -623,6 +635,7 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
+    this.fillImage();
   },
   components: {
     Loader,
@@ -630,6 +643,8 @@ export default {
   props: ["decripProduct"],
   mounted() {
     this.fetchData();
+    this.fillImage();
+    console.log("ANC", this.showImage);
   },
   methods: {
     codeReplySecond(code) {
@@ -743,7 +758,6 @@ export default {
                 icon: "success",
                 confirmButtonText: "OK!",
               });
-              this.comment.name = "";
               this.comment.content = "";
               this.fetchData();
             })
@@ -866,6 +880,12 @@ export default {
         });
       //   }
       // });
+    },
+
+    fillImage() {
+      axios.post("/fill-image").then(function (response) {
+        this.showImage = response.data.image; //show data ra
+      });
     },
   },
 };
