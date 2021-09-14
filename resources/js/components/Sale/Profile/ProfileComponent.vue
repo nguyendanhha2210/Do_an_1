@@ -9,7 +9,9 @@
                 <thead>
                   <tr class="cart_menu">
                     <td>Họ Tên</td>
+                    <td>Ảnh</td>
                     <td>Email</td>
+                    <td>Phone</td>
                     <td>Ngày Tạo</td>
                     <td>Ngày Thay Đổi</td>
                     <td></td>
@@ -18,7 +20,15 @@
                 <tbody>
                   <tr v-for="user in users" :key="user.id">
                     <td>{{ user.name }}</td>
+                    <td>
+                      <img
+                        style="width: 50px; height: 50px"
+                        :src="baseUrl + '/uploads/' + user.images"
+                        alt=""
+                      />
+                    </td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
                     <td>{{ user.created_at | formatDate }}</td>
                     <td>{{ user.updated_at | formatDate }}</td>
                     <td>
@@ -76,6 +86,62 @@
                     hidden
                   />
                 </div>
+
+                <div class="form-group">
+                  <div class="position-relative d-inline-block">
+                    <label for="file_img_banner1">
+                      <div class="img-drop-box mt-2 mr-2 profile-image">
+                        <img
+                          src
+                          ref="imageDispaly"
+                          style="width: 200px; height: 200px"
+                          class="img-thumbnail profile-image"
+                        />
+                        <svg
+                          width="45"
+                          height="45"
+                          viewBox="0 0 45 45"
+                          style="
+                            margin-top: 52px;
+                            margin-left: 38%;
+                            margin-right: 38%;
+                          "
+                          ref="iconFile"
+                        >
+                          <use
+                            xlink:href="/images/Group_1287.svg#Group_1287"
+                          ></use>
+                        </svg>
+                      </div>
+                      <input
+                        type="file"
+                        id="file_img_banner1"
+                        v-validate="'required'"
+                        name="images"
+                        ref="image"
+                        v-on:change="attachImage"
+                        accept="image/*"
+                        style="display: none"
+                      />
+                    </label>
+                    <a ref="iconClose" @click="deleteImage"
+                      ><i
+                        class="fa fa-times"
+                        aria-hidden="true"
+                        style="
+                          transform: translate(942%, -898%);
+                          font-size: 25px;
+                          color: red;
+                          font-weight: 600;
+                        "
+                      ></i
+                    ></a>
+                  </div>
+                  <div style="color: red" role="alert">
+                    {{ errors.first("images") }}
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label for="exampleInputEmail1">Name User</label>
                   <input
@@ -105,6 +171,22 @@
                     {{ errors.first("email") }}
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="phone"
+                    v-validate="'required|number_phone'"
+                    v-model="user.phone"
+                  />
+                  <div style="color: red" role="alert">
+                    {{ errors.first("phone") }}
+                  </div>
+                </div>
+
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Save</button>
                 </div>
@@ -116,6 +198,18 @@
     </section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.td-action {
+  display: inline-flex;
+}
+.btn-success {
+  float: right;
+  margin-top: 10px;
+  margin-right: 5%;
+}
+</style>
+
 <script>
 import Vue from "vue";
 import axios from "axios";
@@ -128,6 +222,8 @@ export default {
         id: "",
         name: "",
         email: "",
+        phone: "",
+        images: "",
         password: "",
         created_at: "",
         updated_at: "",
@@ -138,11 +234,19 @@ export default {
     let messError = {
       custom: {
         name: {
-          required: "* Tên chưa được nhập !",
+          required: "* Name has not been entered !",
         },
         email: {
-          required: "* Email chưa nhập !",
-          email_format: "* Email chưa hợp lệ !",
+          required: "* Email has not been entered !",
+          email_format: "* Email is not valid !",
+        },
+        phone: {
+          required: "* Phone has not been entered !",
+          number_phone: "* Phone is not valid !",
+        },
+        images: {
+          required: "* Images has not been entered",
+          image_format: "* Ảnh chưa đúng định dạng",
         },
       },
     };
@@ -180,6 +284,13 @@ export default {
       this.user.id = user.id;
       this.user.name = user.name;
       this.user.email = user.email;
+      this.user.phone = user.phone;
+      if (user.images != "") {
+        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/" + user.images;
+        this.$refs.imageDispaly.style.display = "block";
+        this.$refs.iconClose.style.display = "block";
+        this.$refs.iconFile.style.display = "none";
+      }
     },
 
     updateUser() {
@@ -187,6 +298,8 @@ export default {
       formData.append("id", this.user.id);
       formData.append("name", this.user.name);
       formData.append("email", this.user.email);
+      formData.append("phone", this.user.phone);
+      formData.append("images", this.user.images);
       axios
         .post(`user-update`, formData, {
           headers: {
@@ -195,17 +308,28 @@ export default {
         })
         .then((response) => {
           this.fetchData();
-          this.$swal({
-            title: "Update success!",
-            icon: "success",
-            confirmButtonText: "Yes !",
-            confirmButtonColor: "#3085d6",
-          }).then(function (confirm) {
-            if (confirm.isConfirmed) {
-              window.location = response.data;
-            } else {
-            }
-          });
+          if (response.data.result) {
+            this.$swal({
+              title: "Update success!",
+              icon: "success",
+              confirmButtonText: "Yes !",
+              confirmButtonColor: "#3085d6",
+            }).then(function (confirm) {
+              if (confirm.isConfirmed) {
+                window.location = response.data.result;
+              }
+            });
+          } else {
+            this.$swal({
+              title: response.data.error,
+              icon: "error",
+              confirmButtonText: "Yes !",
+              confirmButtonColor: "#3085d6",
+            }).then(function (confirm) {
+              if (confirm.isConfirmed) {
+              }
+            });
+          }
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -223,6 +347,28 @@ export default {
               break;
           }
         });
+    },
+    attachImage() {
+      this.user.images = this.$refs.image.files[0];
+      let reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly.style.display = "block";
+          this.$refs.iconClose.style.display = "block";
+          this.$refs.imageDispaly.src = reader.result;
+          this.$refs.iconFile.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader.readAsDataURL(this.user.images);
+    },
+    deleteImage() {
+      this.user.images = "";
+      this.$refs.imageDispaly.style.display = "none";
+      this.$refs.iconClose.style.display = "none";
+      this.$refs.image.value = "";
+      this.$refs.iconFile.style.display = "block";
     },
   },
 };
