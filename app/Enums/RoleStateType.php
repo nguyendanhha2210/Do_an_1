@@ -11,6 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class RoleStateType extends Enum
 {
+    const CLIENT = 0;
     const MANAGERMENT = 1;
     const SALER = 2;
     const SHIP = 3;

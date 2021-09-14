@@ -9,6 +9,11 @@
       autocomplete="off"
     >
       <input type="hidden" :value="csrfToken" name="_token" />
+      <div class="row">
+        <div class="col-12 text-center is-danger" v-if="messageText">
+          {{ messageText }}
+        </div>
+      </div>
       <input
         type="text"
         class="ggg"
@@ -20,6 +25,19 @@
       />
       <div class="text-center is-danger" role="alert">
         {{ errors.first("name") }}
+      </div>
+
+      <input
+        type="text"
+        class="ggg"
+        placeholder="Phone"
+        name="phone"
+        v-validate="'required|number_phone'"
+        @input="changeInput()"
+        v-model="user.phone"
+      />
+      <div class="text-center is-danger" role="alert">
+        {{ errors.first("phone") }}
       </div>
 
       <input
@@ -168,6 +186,10 @@ export default {
         name: {
           required: "* Name chưa nhập !",
         },
+        phone: {
+          required: "* Phone chưa nhập !",
+          number_phone: "* Phone chưa hợp lệ !",
+        },
         email: {
           required: "* Email chưa nhập !",
           email_format: "* Email chưa hợp lệ !",
@@ -190,12 +212,14 @@ export default {
       csrfToken: Laravel.csrfToken,
       user: {
         name: "",
+        phone: "",
         email: "",
         password_confirm: "",
       },
 
       password: "",
       token: this.tokenUrl,
+      messageText: this.message,
 
       checker: false,
 
@@ -209,7 +233,7 @@ export default {
       },
     };
   },
-  props: ["formLogin", "formUrl"],
+  props: ["formLogin", "formUrl", "message"],
   methods: {
     hidePassword() {
       this.passwordHidden = true;

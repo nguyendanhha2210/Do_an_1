@@ -52,18 +52,41 @@ class AccountController extends Controller
             return view('sale.users.register');
         }
         if ($request->isMethod('post')) {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password_confirm);
-            $user->role_id = RoleStateType::SALER;
-            $flag = $user->save();
-            if ($flag) {
-                $message = 'Đăng kí thành công !';
-            } else {
-                $message = 'Đăng kí thất bại !';
+            $userEmail = User::where('role_id', '=', RoleStateType::SALER)->get();
+            $count = 0;
+            foreach ($userEmail as $key => $email) {
+                if ($request->email == $email->email) {
+                    $count = 1;
+                }
             }
-            return view('sale.users.login', [
+
+            if ($count == 1) {
+                $message = 'Email Đã Tồn Tại, Vui Lòng Nhập Lại !';
+            } else {
+                $user = new User();
+                $user->name = $request->name;
+                $user->phone = $request->phone;
+                $user->email = $request->email;
+                $user->images = '';
+                $user->password = bcrypt($request->password_confirm);
+                $user->role_id = RoleStateType::CLIENT;
+                $flag = $user->save();
+                if ($flag) {
+                    $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+                    $title_mail = "Fressh Mama xác minh đăng kí" . ' ' . $now;
+
+                    Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
+                        $message->to($request->email)->subject($title_mail);
+                    });
+                    $message = 'Đăng kí thành công, Vui Lòng Vào Email Để Xác Nhận Trước Khi Đăng Nhập !';
+                } else {
+                    $message = 'Đăng kí thất bại !';
+                }
+                return view('sale.users.login', [
+                    'message' => $message,
+                ]);
+            }
+            return view('sale.users.register', [
                 'message' => $message,
             ]);
         }
@@ -74,5 +97,23 @@ class AccountController extends Controller
         Auth::guard('sales')->logout();
         Session::flush();
         return redirect(route('sale.index'));
+    }
+
+    public function registerConfirm()
+    {
+        $email = explode("/", url()->current())[4];
+        $message = '';
+        $user = User::where('email', $email)->where('role_id', '=', RoleStateType::CLIENT)->first();
+        if ($user) {
+            $user->role_id = RoleStateType::SALER;
+            $user->save();
+            $message = 'Xác Nhận Thành Công !';
+        } else {
+            $message = 'Email not found。';
+        }
+
+        return view('sale.users.login', [
+            'message' => $message,
+        ]);
     }
 }

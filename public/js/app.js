@@ -8076,6 +8076,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -8084,6 +8102,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       custom: {
         name: {
           required: "* Name chưa nhập !"
+        },
+        phone: {
+          required: "* Phone chưa nhập !",
+          number_phone: "* Phone chưa hợp lệ !"
         },
         email: {
           required: "* Email chưa nhập !",
@@ -8107,11 +8129,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       csrfToken: Laravel.csrfToken,
       user: {
         name: "",
+        phone: "",
         email: "",
         password_confirm: ""
       },
       password: "",
       token: this.tokenUrl,
+      messageText: this.message,
       checker: false,
       passwordHidden: {
         "default": false,
@@ -8123,7 +8147,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       }
     };
   },
-  props: ["formLogin", "formUrl"],
+  props: ["formLogin", "formUrl", "message"],
   methods: {
     hidePassword: function hidePassword() {
       this.passwordHidden = true;
@@ -108243,6 +108267,14 @@ var render = function() {
           domProps: { value: _vm.csrfToken }
         }),
         _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _vm.messageText
+            ? _c("div", { staticClass: "col-12 text-center is-danger" }, [
+                _vm._v("\n        " + _vm._s(_vm.messageText) + "\n      ")
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
         _c("input", {
           directives: [
             {
@@ -108280,6 +108312,45 @@ var render = function() {
           "div",
           { staticClass: "text-center is-danger", attrs: { role: "alert" } },
           [_vm._v("\n      " + _vm._s(_vm.errors.first("name")) + "\n    ")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "validate",
+              rawName: "v-validate",
+              value: "required|number_phone",
+              expression: "'required|number_phone'"
+            },
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.user.phone,
+              expression: "user.phone"
+            }
+          ],
+          staticClass: "ggg",
+          attrs: { type: "text", placeholder: "Phone", name: "phone" },
+          domProps: { value: _vm.user.phone },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "phone", $event.target.value)
+              },
+              function($event) {
+                return _vm.changeInput()
+              }
+            ]
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "text-center is-danger", attrs: { role: "alert" } },
+          [_vm._v("\n      " + _vm._s(_vm.errors.first("phone")) + "\n    ")]
         ),
         _vm._v(" "),
         _c("input", {

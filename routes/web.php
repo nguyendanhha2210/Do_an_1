@@ -191,10 +191,9 @@ Route::post('/check-coupon',  [App\Http\Controllers\Sale\CartController::class, 
 
 Route::post('/add-to-favorite',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'addFavorite'])->name('admin.cart.addCart'); //thêm sp yêu thích
 Route::get('/del-favorite-product/{session_id}',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'delProductFavorite'])->name('admin.cart.delProductFavorite'); //thêm sp yêu thích
-
 Route::get('/del-viewed-product/{session_id}',  [App\Http\Controllers\Sale\ShopController::class, 'delViewedProduct'])->name('admin.viewd.delViewedProduct'); //thêm sp yêu thích
 
-
+Route::get('/register-confirm/{email}', [App\Http\Controllers\Sale\User\AccountController::class, 'registerConfirm'])->name('sale.users.registerConfirm');
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\Sale\User\AccountController::class, 'loginForm'])->name('sale.users.login');
 Route::match(['get', 'post'], '/register', [App\Http\Controllers\Sale\User\AccountController::class, 'registerForm'])->name('sale.users.register');
