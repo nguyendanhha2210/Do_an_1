@@ -2726,6 +2726,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7076,6 +7077,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7102,7 +7155,7 @@ __webpack_require__.r(__webpack_exports__);
         id: "",
         user_id: "",
         order_id: "",
-        star_vote: 0,
+        star_vote: 1,
         content: "",
         image_1: "",
         image_2: "",
@@ -7166,6 +7219,9 @@ __webpack_require__.r(__webpack_exports__);
       this.page = page;
       this.fetchData();
     },
+    changeInput: function changeInput() {
+      this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
     updateProduct: function updateProduct(id) {
       this.order.id = id;
     },
@@ -7211,28 +7267,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    // nhanHang(id) {
-    //   let that = this;
-    //   axios
-    //     .get(`order/${id}/receivedOrder`)
-    //     .then((response) => {
-    //       that
-    //         .$swal({
-    //           title: "Thank you for your purchase !",
-    //           icon: "success",
-    //           confirmButtonText: "OK!",
-    //         })
-    //         .then(function (confirm) {});
-    //       that.fetchData();
-    //     })
-    //     .catch((error) => {
-    //       that.flashMessage.error({
-    //         message: "Failure!",
-    //         icon: "/backend/icon/error.svg",
-    //         blockClass: "text-centet",
-    //       });
-    //     });
-    // },
     muaLai: function muaLai(id) {
       var that = this;
       this.$swal({
@@ -7372,12 +7406,31 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success",
               confirmButtonText: "OK!"
             }).then(function (confirm) {});
-          })["catch"](function (error) {
-            that.flashMessage.error({
-              message: "Failure Evaluation!",
-              icon: "/backend/icon/error.svg",
-              blockClass: "text-centet"
-            });
+          })["catch"](function (err) {
+            switch (err.response.status) {
+              case 422:
+                _this2.errorBackEnd = err.response.data.errors;
+                break;
+
+              case 404:
+                that.$swal({
+                  title: "Evaluation Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              case 500:
+                that.$swal({
+                  title: "Evaluation Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              default:
+                break;
+            }
           });
         }
       });
@@ -107351,7 +107404,6 @@ var render = function() {
                               _c("b", { staticStyle: { color: "blue" } }, [
                                 _vm._v("Đang xử lý !")
                               ]),
-                              _c("br"),
                               _vm._v(" "),
                               _c(
                                 "button",
@@ -107722,12 +107774,6 @@ var render = function() {
                             _c("textarea", {
                               directives: [
                                 {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
                                   name: "model",
                                   rawName: "v-model",
                                   value: _vm.evaluate.content,
@@ -107740,7 +107786,7 @@ var render = function() {
                                 type: "text",
                                 placeholder:
                                   "Điều bạn muốn nói về sản phẩm ...",
-                                name: "contentVote"
+                                name: "content"
                               },
                               domProps: { value: _vm.evaluate.content },
                               on: {
@@ -107755,7 +107801,17 @@ var render = function() {
                                   )
                                 }
                               }
-                            })
+                            }),
+                            _vm._v(" "),
+                            _vm.errorBackEnd.content
+                              ? _c("div", { staticStyle: { color: "red" } }, [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(_vm.errorBackEnd.content[0]) +
+                                      "\n                  "
+                                  )
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-row" }, [
@@ -107780,12 +107836,23 @@ var render = function() {
                                           "div",
                                           {
                                             staticClass:
-                                              "img-drop-box mt-2 mr-2"
+                                              "img-drop-box mt-2 mr-2 profile-image",
+                                            staticStyle: {
+                                              border: "dotted 1px #c0c0c0",
+                                              width: "225px",
+                                              height: "205px"
+                                            }
                                           },
                                           [
                                             _c("img", {
                                               ref: "imageDispaly_1",
-                                              staticClass: "img-thumbnail",
+                                              staticClass:
+                                                "img-thumbnail profile-image",
+                                              staticStyle: {
+                                                width: "242px",
+                                                height: "202px",
+                                                display: "none"
+                                              },
                                               attrs: { src: "" }
                                             }),
                                             _vm._v(" "),
@@ -107794,7 +107861,7 @@ var render = function() {
                                               {
                                                 ref: "iconFile_1",
                                                 staticStyle: {
-                                                  "margin-top": "52px",
+                                                  "margin-top": "34%",
                                                   "margin-left": "38%",
                                                   "margin-right": "38%"
                                                 },
@@ -107826,6 +107893,7 @@ var render = function() {
                                             }
                                           ],
                                           ref: "image_1",
+                                          staticStyle: { display: "none" },
                                           attrs: {
                                             type: "file",
                                             id: "file_img_banner1",
@@ -107837,30 +107905,24 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c("a", {
-                                      ref: "iconClose_1",
-                                      staticClass:
-                                        "btn btn-light icon-close-white display-none",
-                                      staticStyle: {
-                                        "background-color": "black",
-                                        "border-radius": "91%"
+                                    _c(
+                                      "a",
+                                      {
+                                        ref: "iconClose_1",
+                                        on: { click: _vm.deleteImage_1 }
                                       },
-                                      on: { click: _vm.deleteImage_1 }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticStyle: { color: "red" },
-                                    attrs: { role: "alert" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(_vm.errors.first("image_1")) +
-                                        "\n                    "
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-times",
+                                          staticStyle: {
+                                            transform: "translate(523%, -932%)",
+                                            "font-size": "25px",
+                                            color: "red",
+                                            "font-weight": "600"
+                                          },
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
                                     )
                                   ]
                                 )
@@ -107888,12 +107950,22 @@ var render = function() {
                                           "div",
                                           {
                                             staticClass:
-                                              "img-drop-box mt-2 mr-2"
+                                              "img-drop-box mt-2 mr-2",
+                                            staticStyle: {
+                                              border: "dotted 1px #c0c0c0",
+                                              width: "225px",
+                                              height: "205px"
+                                            }
                                           },
                                           [
                                             _c("img", {
                                               ref: "imageDispaly_2",
                                               staticClass: "img-thumbnail",
+                                              staticStyle: {
+                                                width: "242px",
+                                                height: "202px",
+                                                display: "none"
+                                              },
                                               attrs: { src: "" }
                                             }),
                                             _vm._v(" "),
@@ -107902,7 +107974,7 @@ var render = function() {
                                               {
                                                 ref: "iconFile_2",
                                                 staticStyle: {
-                                                  "margin-top": "52px",
+                                                  "margin-top": "34%",
                                                   "margin-left": "38%",
                                                   "margin-right": "38%"
                                                 },
@@ -107946,30 +108018,24 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c("a", {
-                                      ref: "iconClose_2",
-                                      staticClass:
-                                        "btn btn-light icon-close-white display-none",
-                                      staticStyle: {
-                                        "background-color": "black",
-                                        "border-radius": "91%"
+                                    _c(
+                                      "a",
+                                      {
+                                        ref: "iconClose_2",
+                                        on: { click: _vm.deleteImage_2 }
                                       },
-                                      on: { click: _vm.deleteImage_2 }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticStyle: { color: "red" },
-                                    attrs: { role: "alert" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(_vm.errors.first("image_2")) +
-                                        "\n                    "
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-times",
+                                          staticStyle: {
+                                            transform: "translate(523%, -932%)",
+                                            "font-size": "25px",
+                                            color: "red",
+                                            "font-weight": "600"
+                                          },
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
                                     )
                                   ]
                                 )
@@ -107999,12 +108065,22 @@ var render = function() {
                                           "div",
                                           {
                                             staticClass:
-                                              "img-drop-box mt-2 mr-2"
+                                              "img-drop-box mt-2 mr-2",
+                                            staticStyle: {
+                                              border: "dotted 1px #c0c0c0",
+                                              width: "225px",
+                                              height: "205px"
+                                            }
                                           },
                                           [
                                             _c("img", {
                                               ref: "imageDispaly_3",
                                               staticClass: "img-thumbnail",
+                                              staticStyle: {
+                                                width: "242px",
+                                                height: "202px",
+                                                display: "none"
+                                              },
                                               attrs: { src: "" }
                                             }),
                                             _vm._v(" "),
@@ -108013,7 +108089,7 @@ var render = function() {
                                               {
                                                 ref: "iconFile_3",
                                                 staticStyle: {
-                                                  "margin-top": "52px",
+                                                  "margin-top": "34%",
                                                   "margin-left": "38%",
                                                   "margin-right": "38%"
                                                 },
@@ -108057,30 +108133,24 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c("a", {
-                                      ref: "iconClose_3",
-                                      staticClass:
-                                        "btn btn-light icon-close-white display-none",
-                                      staticStyle: {
-                                        "background-color": "black",
-                                        "border-radius": "91%"
+                                    _c(
+                                      "a",
+                                      {
+                                        ref: "iconClose_3",
+                                        on: { click: _vm.deleteImage_3 }
                                       },
-                                      on: { click: _vm.deleteImage_3 }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticStyle: { color: "red" },
-                                    attrs: { role: "alert" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(_vm.errors.first("image_3")) +
-                                        "\n                    "
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-times",
+                                          staticStyle: {
+                                            transform: "translate(523%, -932%)",
+                                            "font-size": "25px",
+                                            color: "red",
+                                            "font-weight": "600"
+                                          },
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
                                     )
                                   ]
                                 )
@@ -108108,12 +108178,22 @@ var render = function() {
                                           "div",
                                           {
                                             staticClass:
-                                              "img-drop-box mt-2 mr-2"
+                                              "img-drop-box mt-2 mr-2",
+                                            staticStyle: {
+                                              border: "dotted 1px #c0c0c0",
+                                              width: "225px",
+                                              height: "205px"
+                                            }
                                           },
                                           [
                                             _c("img", {
                                               ref: "imageDispaly_4",
                                               staticClass: "img-thumbnail",
+                                              staticStyle: {
+                                                width: "242px",
+                                                height: "202px",
+                                                display: "none"
+                                              },
                                               attrs: { src: "" }
                                             }),
                                             _vm._v(" "),
@@ -108122,7 +108202,7 @@ var render = function() {
                                               {
                                                 ref: "iconFile_4",
                                                 staticStyle: {
-                                                  "margin-top": "52px",
+                                                  "margin-top": "34%",
                                                   "margin-left": "38%",
                                                   "margin-right": "38%"
                                                 },
@@ -108166,30 +108246,24 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c("a", {
-                                      ref: "iconClose_4",
-                                      staticClass:
-                                        "btn btn-light icon-close-white display-none",
-                                      staticStyle: {
-                                        "background-color": "black",
-                                        "border-radius": "91%"
+                                    _c(
+                                      "a",
+                                      {
+                                        ref: "iconClose_4",
+                                        on: { click: _vm.deleteImage_4 }
                                       },
-                                      on: { click: _vm.deleteImage_4 }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticStyle: { color: "red" },
-                                    attrs: { role: "alert" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(_vm.errors.first("image_4")) +
-                                        "\n                    "
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-times",
+                                          staticStyle: {
+                                            transform: "translate(523%, -932%)",
+                                            "font-size": "25px",
+                                            color: "red",
+                                            "font-weight": "600"
+                                          },
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
                                     )
                                   ]
                                 )

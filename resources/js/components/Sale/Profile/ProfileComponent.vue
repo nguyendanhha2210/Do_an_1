@@ -133,9 +133,10 @@
                           font-size: 25px;
                           color: red;
                           font-weight: 600;
-                        "
-                      ></i
-                    ></a>
+                        ">
+                        </i>
+                        
+                        </a>
                   </div>
                   <div style="color: red" role="alert">
                     {{ errors.first("images") }}

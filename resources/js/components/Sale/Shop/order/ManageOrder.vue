@@ -25,7 +25,7 @@
                     <td>{{ order.total_bill }} vnđ</td>
                     <td>{{ order.order_date }}</td>
                     <td v-if="order.order_status == 1">
-                      <b style="color: blue">Đang xử lý !</b><br>
+                      <b style="color: blue">Đang xử lý !</b>
                       <button
                         data-toggle="modal"
                         data-target="#myModal"
@@ -49,7 +49,7 @@
                       >
                     </td>
                     <td v-else-if="order.order_status == 4">
-                      <b style="color: red">Đã hủy !</b> <br>
+                      <b style="color: red">Đã hủy !</b> <br />
                       <button
                         class="btn btn-success button-mualai"
                         @click="muaLai(order.id)"
@@ -164,7 +164,7 @@
                 >
                   <div class="form-group">
                     <input
-                    hidden
+                      hidden
                       type="text"
                       class="form-control"
                       id="exampleInputEmail1"
@@ -178,7 +178,7 @@
                         v-model="evaluate.star_vote"
                       ></star-rating>
                       <input
-                      hidden
+                        hidden
                         type="text"
                         name="star_vote"
                         v-model="evaluate.star_vote"
@@ -190,27 +190,37 @@
                       placeholder="Điều bạn muốn nói về sản phẩm ..."
                       style="height: 130px"
                       class="form-control"
-                      name="contentVote"
-                      v-validate="'required'"
+                      name="content"
                       v-model="evaluate.content"
                     ></textarea>
+                    <div style="color: red" v-if="errorBackEnd.content">
+                      {{ errorBackEnd.content[0] }}
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6 text-center">
                       <div class="position-relative d-inline-block">
                         <label for="file_img_banner1">
-                          <div class="img-drop-box mt-2 mr-2">
+                          <div
+                            class="img-drop-box mt-2 mr-2 profile-image"
+                            style="
+                              border: dotted 1px #c0c0c0;
+                              width: 225px;
+                              height: 205px;
+                            "
+                          >
                             <img
                               src
                               ref="imageDispaly_1"
-                              class="img-thumbnail"
+                              class="img-thumbnail profile-image"
+                              style="width: 242px; height: 202px; display: none"
                             />
                             <svg
                               width="45"
                               height="45"
                               viewBox="0 0 45 45"
                               style="
-                                margin-top: 52px;
+                                margin-top: 34%;
                                 margin-left: 38%;
                                 margin-right: 38%;
                               "
@@ -229,35 +239,49 @@
                             ref="image_1"
                             v-on:change="attachImage_1"
                             accept="image_1/*"
+                            style="display: none"
                           />
                         </label>
-                        <a
-                          class="btn btn-light icon-close-white display-none"
-                          style="background-color: black; border-radius: 91%"
-                          ref="iconClose_1"
-                          @click="deleteImage_1"
-                        ></a>
-                      </div>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("image_1") }}
+
+                        <a ref="iconClose_1" @click="deleteImage_1"
+                          ><i
+                            class="fa fa-times"
+                            aria-hidden="true"
+                            style="
+                              transform: translate(523%, -932%);
+                              font-size: 25px;
+                              color: red;
+                              font-weight: 600;
+                            "
+                          >
+                          </i>
+                        </a>
                       </div>
                     </div>
 
                     <div class="form-group col-md-6 text-center">
                       <div class="position-relative d-inline-block">
                         <label for="file_img_banner2">
-                          <div class="img-drop-box mt-2 mr-2">
+                          <div
+                            class="img-drop-box mt-2 mr-2"
+                            style="
+                              border: dotted 1px #c0c0c0;
+                              width: 225px;
+                              height: 205px;
+                            "
+                          >
                             <img
                               src
                               ref="imageDispaly_2"
                               class="img-thumbnail"
+                              style="width: 242px; height: 202px; display: none"
                             />
                             <svg
                               width="45"
                               height="45"
                               viewBox="0 0 45 45"
                               style="
-                                margin-top: 52px;
+                                margin-top: 34%;
                                 margin-left: 38%;
                                 margin-right: 38%;
                               "
@@ -279,15 +303,19 @@
                             style="display: none"
                           />
                         </label>
-                        <a
-                          class="btn btn-light icon-close-white display-none"
-                          style="background-color: black; border-radius: 91%"
-                          ref="iconClose_2"
-                          @click="deleteImage_2"
-                        ></a>
-                      </div>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("image_2") }}
+                        <a ref="iconClose_2" @click="deleteImage_2"
+                          ><i
+                            class="fa fa-times"
+                            aria-hidden="true"
+                            style="
+                              transform: translate(523%, -932%);
+                              font-size: 25px;
+                              color: red;
+                              font-weight: 600;
+                            "
+                          >
+                          </i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -296,18 +324,26 @@
                     <div class="form-group col-md-6 text-center">
                       <div class="position-relative d-inline-block">
                         <label for="file_img_banner3">
-                          <div class="img-drop-box mt-2 mr-2">
+                          <div
+                            class="img-drop-box mt-2 mr-2"
+                            style="
+                              border: dotted 1px #c0c0c0;
+                              width: 225px;
+                              height: 205px;
+                            "
+                          >
                             <img
                               src
                               ref="imageDispaly_3"
                               class="img-thumbnail"
+                              style="width: 242px; height: 202px; display: none"
                             />
                             <svg
                               width="45"
                               height="45"
                               viewBox="0 0 45 45"
                               style="
-                                margin-top: 52px;
+                                margin-top: 34%;
                                 margin-left: 38%;
                                 margin-right: 38%;
                               "
@@ -329,33 +365,45 @@
                             style="display: none"
                           />
                         </label>
-                        <a
-                          class="btn btn-light icon-close-white display-none"
-                          style="background-color: black; border-radius: 91%"
-                          ref="iconClose_3"
-                          @click="deleteImage_3"
-                        ></a>
-                      </div>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("image_3") }}
+                        <a ref="iconClose_3" @click="deleteImage_3"
+                          ><i
+                            class="fa fa-times"
+                            aria-hidden="true"
+                            style="
+                              transform: translate(523%, -932%);
+                              font-size: 25px;
+                              color: red;
+                              font-weight: 600;
+                            "
+                          >
+                          </i>
+                        </a>
                       </div>
                     </div>
 
                     <div class="form-group col-md-6 text-center">
                       <div class="position-relative d-inline-block">
                         <label for="file_img_banner4">
-                          <div class="img-drop-box mt-2 mr-2">
+                          <div
+                            class="img-drop-box mt-2 mr-2"
+                            style="
+                              border: dotted 1px #c0c0c0;
+                              width: 225px;
+                              height: 205px;
+                            "
+                          >
                             <img
                               src
                               ref="imageDispaly_4"
                               class="img-thumbnail"
+                              style="width: 242px; height: 202px; display: none"
                             />
                             <svg
                               width="45"
                               height="45"
                               viewBox="0 0 45 45"
                               style="
-                                margin-top: 52px;
+                                margin-top: 34%;
                                 margin-left: 38%;
                                 margin-right: 38%;
                               "
@@ -377,15 +425,19 @@
                             style="display: none"
                           />
                         </label>
-                        <a
-                          class="btn btn-light icon-close-white display-none"
-                          style="background-color: black; border-radius: 91%"
-                          ref="iconClose_4"
-                          @click="deleteImage_4"
-                        ></a>
-                      </div>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("image_4") }}
+                        <a ref="iconClose_4" @click="deleteImage_4"
+                          ><i
+                            class="fa fa-times"
+                            aria-hidden="true"
+                            style="
+                              transform: translate(523%, -932%);
+                              font-size: 25px;
+                              color: red;
+                              font-weight: 600;
+                            "
+                          >
+                          </i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -464,7 +516,7 @@ export default {
         id: "",
         user_id: "",
         order_id: "",
-        star_vote: 0,
+        star_vote: 1,
         content: "",
         image_1: "",
         image_2: "",
@@ -534,6 +586,10 @@ export default {
       this.fetchData();
     },
 
+    changeInput() {
+      this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
+
     updateProduct(id) {
       this.order.id = id;
     },
@@ -584,29 +640,6 @@ export default {
         }
       });
     },
-
-    // nhanHang(id) {
-    //   let that = this;
-    //   axios
-    //     .get(`order/${id}/receivedOrder`)
-    //     .then((response) => {
-    //       that
-    //         .$swal({
-    //           title: "Thank you for your purchase !",
-    //           icon: "success",
-    //           confirmButtonText: "OK!",
-    //         })
-    //         .then(function (confirm) {});
-    //       that.fetchData();
-    //     })
-    //     .catch((error) => {
-    //       that.flashMessage.error({
-    //         message: "Failure!",
-    //         icon: "/backend/icon/error.svg",
-    //         blockClass: "text-centet",
-    //       });
-    //     });
-    // },
 
     muaLai(id) {
       let that = this;
@@ -743,49 +776,70 @@ export default {
     },
 
     customerReviews() {
-       let that = this;
-          this.$swal({
-            title: "Are you sure with the above review ？",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes !",
-            cancelButtonText: "No, cancel!",
-          }).then((result) => {
-            if (result.value) {
-               let formData = new FormData();
-                formData.append("order_id", this.evaluate.id);
-                formData.append("star_vote", this.evaluate.star_vote);
-                formData.append("content", this.evaluate.content);
-                formData.append("image_1", this.evaluate.image_1);
-                formData.append("image_2", this.evaluate.image_2);
-                formData.append("image_3", this.evaluate.image_3);
-                formData.append("image_4", this.evaluate.image_4);
+      let that = this;
 
-              axios
-                .post(`customer-reviews`, formData, {
-                  headers: {
-                    "Content-Type": "multipart/form-data",
-                  },
+      this.$swal({
+        title: "Are you sure with the above review ？",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          let formData = new FormData();
+          formData.append("order_id", this.evaluate.id);
+          formData.append("star_vote", this.evaluate.star_vote);
+          formData.append("content", this.evaluate.content);
+          formData.append("image_1", this.evaluate.image_1);
+          formData.append("image_2", this.evaluate.image_2);
+          formData.append("image_3", this.evaluate.image_3);
+          formData.append("image_4", this.evaluate.image_4);
+
+          axios
+            .post(`customer-reviews`, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              that
+                .$swal({
+                  title: "Successful Evaluation!",
+                  icon: "success",
+                  confirmButtonText: "OK!",
                 })
-                .then((response) => {
+                .then(function (confirm) {});
+            })
+            .catch((err) => {
+              switch (err.response.status) {
+                case 422:
+                  this.errorBackEnd = err.response.data.errors;
+                  break;
+                case 404:
                   that
                     .$swal({
-                      title: "Successful Evaluation!",
-                      icon: "success",
-                      confirmButtonText: "OK!",
+                      title: "Evaluation Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
                     })
                     .then(function (confirm) {});
-                })
-                .catch((error) => {
-                  that.flashMessage.error({
-                    message: "Failure Evaluation!",
-                    icon: "/backend/icon/error.svg",
-                    blockClass: "text-centet",
-                  });
-                });
-            }
+                  break;
+                case 500:
+                  that
+                    .$swal({
+                      title: "Evaluation Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                default:
+                  break;
+              }
+            });
+        }
       });
     },
   },
