@@ -41,6 +41,22 @@
                     </td>
                     <td v-else-if="order.order_status == 3">
                       <b style="color: #00cc00">Đã Nhận Hàng !</b>
+                      <div class="td-action">
+                        <a
+                          data-toggle="modal"
+                          data-target="#myModalVote"
+                          style="
+                            font-size: 21px;
+                            transform: translate(-26%, -14%);
+                          "
+                          ><i
+                            class="
+                              fa fa-pencil-square-o
+                              text-success text-active
+                            "
+                          ></i
+                        ></a>
+                      </div>
                     </td>
                     <td v-else-if="order.order_status == 4">
                       <b style="color: red">Đã hủy !</b>
@@ -125,25 +141,90 @@
             </div>
           </div>
         </div>
-        <nav aria-label="Page navigation example">
-          <paginate
-            v-model="page"
-            :page-count="parseInt(orders.last_page)"
-            :page-range="5"
-            :margin-pages="2"
-            :click-handler="changePage"
-            :prev-text="'<<'"
-            :next-text="'>>'"
-            :container-class="'pagination justify-content-center'"
-            :page-class="'page-item'"
-            :prev-class="'page-item'"
-            :next-class="'page-item'"
-            :page-link-class="'page-link bg-info text-light'"
-            :next-link-class="'page-link bg-info text-light'"
-            :prev-link-class="'page-link bg-info text-light'"
-          >
-          </paginate>
-        </nav>
+         <div
+          class="modal fade"
+          id="myModalVote"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  What are your thoughts on the product?
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form
+                  role="form"
+                  @submit.prevent="cancelOrder()"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      hidden
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      name="id"
+                      v-model="order.id"
+                    />
+                    <label for="exampleInputEmail1">Content</label>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      name="order_destroy"
+                      v-validate="'required'"
+                      id="message-text"
+                      v-model="order.order_destroy"
+                    ></textarea>
+                    <div style="color: red" role="alert">
+                      {{ errors.first("order_destroy") }}
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="orders != ''">
+          <nav aria-label="Page navigation example">
+            <paginate
+              v-model="page"
+              :page-count="parseInt(orders.last_page)"
+              :page-range="5"
+              :margin-pages="2"
+              :click-handler="changePage"
+              :prev-text="'<<'"
+              :next-text="'>>'"
+              :container-class="'pagination justify-content-center'"
+              :page-class="'page-item'"
+              :prev-class="'page-item'"
+              :next-class="'page-item'"
+              :page-link-class="'page-link bg-info text-light'"
+              :next-link-class="'page-link bg-info text-light'"
+              :prev-link-class="'page-link bg-info text-light'"
+            >
+            </paginate>
+          </nav>
+        </div>
+        <div v-else class="text-center" style="color: red">
+          There is no data !
+        </div>
       </div>
     </section>
     <Loader :flag-show="flagShowLoader"></Loader>

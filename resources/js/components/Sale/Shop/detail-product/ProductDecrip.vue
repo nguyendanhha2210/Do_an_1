@@ -373,12 +373,13 @@
                 <form @submit.prevent="addComment()" class="comment-form">
                   <div class="row">
                     <div class="col-lg-1">
-                      <!-- <img class="rounded-circle"
-                  :src="baseUrl + '/uploads/' + comments.images"
-                  width="40px"
-                  height="40px"
-                  alt=""
-                /> -->
+                      <img
+                        class="rounded-circle"
+                        :src="baseUrl + '/uploads/' + showImage"
+                        width="40px"
+                        height="40px"
+                        alt=""
+                      />
                       <img
                         class="rounded-circle"
                         src="/frontend/images/flag-1.jpg"

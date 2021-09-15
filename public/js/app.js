@@ -5749,6 +5749,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -6635,6 +6636,87 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Common/loader.vue */ "./resources/js/components/Common/loader.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -105965,7 +106047,26 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "row" }, [
-                          _vm._m(6),
+                          _c("div", { staticClass: "col-lg-1" }, [
+                            _c("img", {
+                              staticClass: "rounded-circle",
+                              attrs: {
+                                src: _vm.baseUrl + "/uploads/" + _vm.showImage,
+                                width: "40px",
+                                height: "40px",
+                                alt: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("img", {
+                              staticClass: "rounded-circle",
+                              attrs: {
+                                src: "/frontend/images/flag-1.jpg",
+                                width: "40",
+                                height: "40px"
+                              }
+                            })
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-lg-11" }, [
                             _c("textarea", {
@@ -106154,21 +106255,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "bg-white p-2" }, [
       _c("div", { staticClass: "d-flex flex-row fs-12" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-1" }, [
-      _c("img", {
-        staticClass: "rounded-circle",
-        attrs: {
-          src: "/frontend/images/flag-1.jpg",
-          width: "40",
-          height: "40px"
-        }
-      })
     ])
   }
 ]
@@ -106962,7 +107048,9 @@ var render = function() {
                           ? _c("td", [
                               _c("b", { staticStyle: { color: "#00cc00" } }, [
                                 _vm._v("Đã Nhận Hàng !")
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(1, true)
                             ])
                           : order.order_status == 4
                           ? _c("td", [
@@ -107038,7 +107126,7 @@ var render = function() {
                 { staticClass: "modal-dialog", attrs: { role: "document" } },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(1),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c(
@@ -107142,7 +107230,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._m(2)
+                          _vm._m(3)
                         ]
                       )
                     ])
@@ -107153,36 +107241,176 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "nav",
-            { attrs: { "aria-label": "Page navigation example" } },
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "myModalVote",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
             [
-              _c("paginate", {
-                attrs: {
-                  "page-count": parseInt(_vm.orders.last_page),
-                  "page-range": 5,
-                  "margin-pages": 2,
-                  "click-handler": _vm.changePage,
-                  "prev-text": "<<",
-                  "next-text": ">>",
-                  "container-class": "pagination justify-content-center",
-                  "page-class": "page-item",
-                  "prev-class": "page-item",
-                  "next-class": "page-item",
-                  "page-link-class": "page-link bg-info text-light",
-                  "next-link-class": "page-link bg-info text-light",
-                  "prev-link-class": "page-link bg-info text-light"
-                },
-                model: {
-                  value: _vm.page,
-                  callback: function($$v) {
-                    _vm.page = $$v
-                  },
-                  expression: "page"
-                }
-              })
-            ],
-            1
-          )
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            role: "form",
+                            enctype: "multipart/form-data"
+                          },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.cancelOrder()
+                            }
+                          }
+                        },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.order.id,
+                                  expression: "order.id"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                hidden: "",
+                                id: "exampleInputEmail1",
+                                name: "id"
+                              },
+                              domProps: { value: _vm.order.id },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(_vm.order, "id", $event.target.value)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              { attrs: { for: "exampleInputEmail1" } },
+                              [_vm._v("Content")]
+                            ),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "validate",
+                                  rawName: "v-validate",
+                                  value: "required",
+                                  expression: "'required'"
+                                },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.order.order_destroy,
+                                  expression: "order.order_destroy"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "order_destroy",
+                                id: "message-text"
+                              },
+                              domProps: { value: _vm.order.order_destroy },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.order,
+                                    "order_destroy",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticStyle: { color: "red" },
+                                attrs: { role: "alert" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.errors.first("order_destroy")) +
+                                    "\n                  "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(5)
+                        ]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.orders != ""
+            ? _c("div", [
+                _c(
+                  "nav",
+                  { attrs: { "aria-label": "Page navigation example" } },
+                  [
+                    _c("paginate", {
+                      attrs: {
+                        "page-count": parseInt(_vm.orders.last_page),
+                        "page-range": 5,
+                        "margin-pages": 2,
+                        "click-handler": _vm.changePage,
+                        "prev-text": "<<",
+                        "next-text": ">>",
+                        "container-class": "pagination justify-content-center",
+                        "page-class": "page-item",
+                        "prev-class": "page-item",
+                        "next-class": "page-item",
+                        "page-link-class": "page-link bg-info text-light",
+                        "next-link-class": "page-link bg-info text-light",
+                        "prev-link-class": "page-link bg-info text-light"
+                      },
+                      model: {
+                        value: _vm.page,
+                        callback: function($$v) {
+                          _vm.page = $$v
+                        },
+                        expression: "page"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            : _c(
+                "div",
+                { staticClass: "text-center", staticStyle: { color: "red" } },
+                [_vm._v("\n        There is no data !\n      ")]
+              )
         ])
       ]),
       _vm._v(" "),
@@ -107218,6 +107446,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "td-action" }, [
+      _c(
+        "a",
+        {
+          staticStyle: {
+            "font-size": "21px",
+            transform: "translate(-26%, -14%)"
+          },
+          attrs: { "data-toggle": "modal", "data-target": "#myModalVote" }
+        },
+        [
+          _c("i", {
+            staticClass:
+              "\n                            fa fa-pencil-square-o\n                            text-success text-active\n                          "
+          })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
@@ -107225,6 +107476,47 @@ var staticRenderFns = [
         [
           _vm._v(
             "\n                Why do you want to cancel the order?\n              "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [
+          _vm._v(
+            "\n                What are your thoughts on the product?\n              "
           )
         ]
       ),
