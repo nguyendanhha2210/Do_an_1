@@ -116,12 +116,14 @@
                       type="text"
                       class="form-control"
                       name="order_destroy"
-                      v-validate="'required'"
                       id="message-text"
                       v-model="order.order_destroy"
                     ></textarea>
-                    <div style="color: red" role="alert">
-                      {{ errors.first("order_destroy") }}
+                    <div
+                      style="color: red"
+                      v-if="errorBackEnd_HuyDon.order_destroy"
+                    >
+                      {{ errorBackEnd_HuyDon.order_destroy[0] }}
                     </div>
                   </div>
 
@@ -477,6 +479,7 @@
       </div>
     </section>
     <Loader :flag-show="flagShowLoader"></Loader>
+    <FlashMessage :position="'left bottom'"></FlashMessage>
   </div>
 </template>
 
@@ -508,6 +511,7 @@ export default {
       },
 
       errorBackEnd: {}, //Lỗi bên backend laravel
+      errorBackEnd_HuyDon: {},
       page: 1,
       paginate: 5,
       flagShowLoader: false,
@@ -527,11 +531,7 @@ export default {
   },
   created() {
     let messError = {
-      custom: {
-        order_destroy: {
-          required: "* Nội dung hủy hàng chưa được nhập !",
-        },
-      },
+      custom: {},
     };
     this.$validator.localize("en", messError);
     this.fetchData();
@@ -596,47 +596,68 @@ export default {
 
     cancelOrder() {
       let that = this;
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          this.$swal({
-            title: "Do you want to cancel order ？",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes !",
-            cancelButtonText: "No, cancel!",
-          }).then((result) => {
-            if (result.value) {
-              let formData = new FormData();
-              formData.append("id", this.order.id);
-              formData.append("order_destroy", this.order.order_destroy);
-
-              axios
-                .post(`cancel-order`, formData, {
-                  headers: {
-                    "Content-Type": "multipart/form-data",
-                  },
+      this.$swal({
+        title: "Do you want to cancel order ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          let formData = new FormData();
+          formData.append("id", this.order.id);
+          formData.append("order_destroy", this.order.order_destroy);
+          axios
+            .post(`cancel-order`, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              that
+                .$swal({
+                  title: "Cancel successfully!",
+                  icon: "success",
+                  confirmButtonText: "OK!",
                 })
-                .then((response) => {
+                .then(function (confirm) {});
+              that.fetchData();
+            })
+            .catch((err) => {
+              switch (err.response.status) {
+                case 400: //lỗi validate trong function
                   that
                     .$swal({
-                      title: "Cancel successfully!",
-                      icon: "success",
-                      confirmButtonText: "OK!",
+                      title: err.response.data.order_destroy,
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
                     })
                     .then(function (confirm) {});
-                  that.fetchData();
-                })
-                .catch((error) => {
-                  that.flashMessage.error({
-                    message: "Cancel Failure!",
-                    icon: "/backend/icon/error.svg",
-                    blockClass: "text-centet",
-                  });
-                });
-            }
-          });
+                  break;
+                case 404:
+                  that
+                    .$swal({
+                      title: "Evaluation Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                case 500:
+                  that
+                    .$swal({
+                      title: "Evaluation Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                default:
+                  break;
+              }
+            });
         }
       });
     },

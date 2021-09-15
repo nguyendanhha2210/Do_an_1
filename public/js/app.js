@@ -7129,6 +7129,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -7148,6 +7151,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       errorBackEnd: {},
       //Lỗi bên backend laravel
+      errorBackEnd_HuyDon: {},
       page: 1,
       paginate: 5,
       flagShowLoader: false,
@@ -7166,11 +7170,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     var messError = {
-      custom: {
-        order_destroy: {
-          required: "* Nội dung hủy hàng chưa được nhập !"
-        }
-      }
+      custom: {}
     };
     this.$validator.localize("en", messError);
     this.fetchData();
@@ -7229,39 +7229,59 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var that = this;
-      this.$validator.validateAll().then(function (valid) {
-        if (valid) {
-          _this.$swal({
-            title: "Do you want to cancel order ？",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes !",
-            cancelButtonText: "No, cancel!"
-          }).then(function (result) {
-            if (result.value) {
-              var formData = new FormData();
-              formData.append("id", _this.order.id);
-              formData.append("order_destroy", _this.order.order_destroy);
-              axios__WEBPACK_IMPORTED_MODULE_2___default().post("cancel-order", formData, {
-                headers: {
-                  "Content-Type": "multipart/form-data"
-                }
-              }).then(function (response) {
+      this.$swal({
+        title: "Do you want to cancel order ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!"
+      }).then(function (result) {
+        if (result.value) {
+          var formData = new FormData();
+          formData.append("id", _this.order.id);
+          formData.append("order_destroy", _this.order.order_destroy);
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("cancel-order", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }).then(function (response) {
+            that.$swal({
+              title: "Cancel successfully!",
+              icon: "success",
+              confirmButtonText: "OK!"
+            }).then(function (confirm) {});
+            that.fetchData();
+          })["catch"](function (err) {
+            switch (err.response.status) {
+              case 400:
+                //lỗi validate trong function
                 that.$swal({
-                  title: "Cancel successfully!",
-                  icon: "success",
-                  confirmButtonText: "OK!"
+                  title: err.response.data.order_destroy,
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
                 }).then(function (confirm) {});
-                that.fetchData();
-              })["catch"](function (error) {
-                that.flashMessage.error({
-                  message: "Cancel Failure!",
-                  icon: "/backend/icon/error.svg",
-                  blockClass: "text-centet"
-                });
-              });
+                break;
+
+              case 404:
+                that.$swal({
+                  title: "Evaluation Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              case 500:
+                that.$swal({
+                  title: "Evaluation Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !"
+                }).then(function (confirm) {});
+                break;
+
+              default:
+                break;
             }
           });
         }
@@ -107590,12 +107610,6 @@ var render = function() {
                             _c("textarea", {
                               directives: [
                                 {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
                                   name: "model",
                                   rawName: "v-model",
                                   value: _vm.order.order_destroy,
@@ -107623,20 +107637,17 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticStyle: { color: "red" },
-                                attrs: { role: "alert" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm.errors.first("order_destroy")) +
-                                    "\n                  "
-                                )
-                              ]
-                            )
+                            _vm.errorBackEnd_HuyDon.order_destroy
+                              ? _c("div", { staticStyle: { color: "red" } }, [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.errorBackEnd_HuyDon.order_destroy[0]
+                                      ) +
+                                      "\n                  "
+                                  )
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _vm._m(2)
@@ -108323,7 +108334,9 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("Loader", { attrs: { "flag-show": _vm.flagShowLoader } })
+      _c("Loader", { attrs: { "flag-show": _vm.flagShowLoader } }),
+      _vm._v(" "),
+      _c("FlashMessage", { attrs: { position: "left bottom" } })
     ],
     1
   )

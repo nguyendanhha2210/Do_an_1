@@ -14,6 +14,7 @@ use App\Models\Shipping;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -48,12 +49,27 @@ class OrderController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         } else {
-            $idUser = Auth::guard('sales')->id();
-            $id = $request->id;
-            $orders = Order::where('customer_id', '=', $idUser)->where('id', '=', $id)->first();
-            $orders->order_status = OrderStatus::FAILURE;
-            $orders->order_destroy = $request->order_destroy;
-            $orders->save();
+            $validator = Validator::make($request->all(), [
+                'order_destroy' => ['required'],
+            ], [
+                'order_destroy.required' => 'Nội dung hủy hàng chưa được nhập !',
+            ]);
+            if ($validator->fails()) {
+                $message = array_combine($validator->errors()->keys(), $validator->errors()->all());
+                return response()->json($message, StatusCode::BAD_REQUEST);
+            }
+
+            try {
+                $idUser = Auth::guard('sales')->id();
+                $id = $request->id;
+                $orders = Order::where('customer_id', '=', $idUser)->where('id', '=', $id)->first();
+                $orders->order_status = OrderStatus::FAILURE;
+                $orders->order_destroy = $request->order_destroy;
+                $orders->save();
+                return response()->json($orders, StatusCode::OK);
+            } catch (\Exception $e) {
+                return response()->json(['message_failure' => $e->getMessage(), 'status' => StatusCode::INTERNAL_ERR], StatusCode::INTERNAL_ERR);
+            }
         }
     }
 
@@ -138,7 +154,6 @@ class OrderController extends Controller
             $coupon_condition = 2;
             $coupon_number = 0;
         }
-
         return view('sale.shop.orders.orderdetail')->with(compact('order_id', 'order_details', 'type', 'shipping', 'Order_detail_product', 'coupon_condition', 'coupon_number', 'order', 'order_status', 'breadcrumbs'));
     }
 }
