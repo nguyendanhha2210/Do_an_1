@@ -252,7 +252,7 @@
                 </div>
             </div>
         </div>
-        <div class="nav-item" style="height: 53px;">
+        <div class="nav-item">
             <div class="container">
                 <div class="nav-depart">
                     <div class="depart-btn">
