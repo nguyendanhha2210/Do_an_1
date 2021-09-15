@@ -210,26 +210,25 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('/home', [App\Http\Controllers\Sale\HomeController::class, 'index'])->name('sale.home');
     Route::get('/logout', [App\Http\Controllers\Sale\User\AccountController::class, 'logout'])->name('sale.users.logout');
     Route::post('/order-place', [App\Http\Controllers\Sale\CheckoutController::class, 'checkOut'])->name('sale.checkout.checkOut'); //Chọn hình thức thanh toán
-
     Route::post('/checkout-cart',  [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutCart'])->name('admin.checkout.checkoutCart'); //thanh toán khi nhận tiền
     Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
     Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
+    Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal
+    Route::get('/success-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'successPay'])->name('admin.checkout.successPay'); //thanh toán paypal
 
 
     Route::post('/checkout-onepay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutOnepay'])->name('admin.checkout.checkoutOnepay'); //thanh toán paypal
     Route::post('/checkout-momo', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutMomo'])->name('admin.checkout.checkoutMomo'); //thanh toán paypal
 
 
-
-
-    Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal
-    Route::get('/success-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'successPay'])->name('admin.checkout.successPay'); //thanh toán paypal
-
-
     Route::get('/profile', [App\Http\Controllers\Sale\ProfileController::class, 'index'])->name('sale.profile.index');
     Route::get('/get-user', [App\Http\Controllers\Sale\ProfileController::class, 'getUser'])->name('sale.profile.getUser');
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
 
+
+    Route::post('customer-reviews', [App\Http\Controllers\Sale\CustomerReviewController::class, 'customerReview'])->name('sale.evaluate.customerReview');
+
+    
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order
     Route::get('/get-order', [App\Http\Controllers\Sale\OrderController::class, 'getData'])->name('sale.order.getData'); //lấy ra data

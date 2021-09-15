@@ -9,12 +9,12 @@
                 <thead>
                   <tr class="cart_menu">
                     <td>ID</td>
-                    <td>Tên người đặt</td>
-                    <td>Tên người nhận</td>
-                    <td>Tổng tiền</td>
-                    <td>Ngày đặt</td>
-                    <td>Tình trạng</td>
-                    <td>Hiển thị</td>
+                    <td>Orderer</td>
+                    <td>Receivern</td>
+                    <td>Total Money</td>
+                    <td>Order Date</td>
+                    <td>Status</td>
+                    <td></td>
                   </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@
                     <td>{{ order.total_bill }} vnđ</td>
                     <td>{{ order.order_date }}</td>
                     <td v-if="order.order_status == 1">
-                      <b style="color: blue">Đang xử lý !</b>
+                      <b style="color: blue">Đang xử lý !</b><br>
                       <button
                         data-toggle="modal"
                         data-target="#myModal"
@@ -40,26 +40,16 @@
                       <b style="color: blue">Shipper Đang Giao !</b>
                     </td>
                     <td v-else-if="order.order_status == 3">
-                      <b style="color: #00cc00">Đã Nhận Hàng !</b>
-                      <div class="td-action">
-                        <a
-                          data-toggle="modal"
-                          data-target="#myModalVote"
-                          style="
-                            font-size: 21px;
-                            transform: translate(-26%, -14%);
-                          "
-                          ><i
-                            class="
-                              fa fa-pencil-square-o
-                              text-success text-active
-                            "
-                          ></i
-                        ></a>
-                      </div>
+                      <b style="color: #00cc00">Đã Nhận Hàng !</b> <br />
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalVote"
+                        @click="voteProduct(order)"
+                        ><button class="btn btn-warning">Evaluate</button></a
+                      >
                     </td>
                     <td v-else-if="order.order_status == 4">
-                      <b style="color: red">Đã hủy !</b>
+                      <b style="color: red">Đã hủy !</b> <br>
                       <button
                         class="btn btn-success button-mualai"
                         @click="muaLai(order.id)"
@@ -69,11 +59,13 @@
                     </td>
 
                     <td>
-                      <a :href="`order-detail/${order.order_code}/view`"
-                        ><button class="btn btn-info button-mualai">
-                          Order Detail
-                        </button></a
-                      >
+                      <a :href="`order-detail/${order.order_code}/view`">
+                        <i
+                          class="fa fa-pencil-square-o text-success text-active"
+                          style="font-size: 25px"
+                        >
+                        </i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -141,7 +133,7 @@
             </div>
           </div>
         </div>
-         <div
+        <div
           class="modal fade"
           id="myModalVote"
           tabindex="-1"
@@ -167,29 +159,234 @@
               <div class="modal-body">
                 <form
                   role="form"
-                  @submit.prevent="cancelOrder()"
+                  @submit.prevent="customerReviews()"
                   enctype="multipart/form-data"
                 >
                   <div class="form-group">
                     <input
+                    hidden
                       type="text"
-                      hidden
                       class="form-control"
                       id="exampleInputEmail1"
                       name="id"
-                      v-model="order.id"
+                      v-model="evaluate.id"
                     />
-                    <label for="exampleInputEmail1">Content</label>
+                    <div style="margin: auto; display: table">
+                      <star-rating
+                        :star-size="45"
+                        :increment="0.5"
+                        v-model="evaluate.star_vote"
+                      ></star-rating>
+                      <input
+                      hidden
+                        type="text"
+                        name="star_vote"
+                        v-model="evaluate.star_vote"
+                      />
+                    </div>
+                    <br />
                     <textarea
                       type="text"
+                      placeholder="Điều bạn muốn nói về sản phẩm ..."
+                      style="height: 130px"
                       class="form-control"
-                      name="order_destroy"
+                      name="contentVote"
                       v-validate="'required'"
-                      id="message-text"
-                      v-model="order.order_destroy"
+                      v-model="evaluate.content"
                     ></textarea>
-                    <div style="color: red" role="alert">
-                      {{ errors.first("order_destroy") }}
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6 text-center">
+                      <div class="position-relative d-inline-block">
+                        <label for="file_img_banner1">
+                          <div class="img-drop-box mt-2 mr-2">
+                            <img
+                              src
+                              ref="imageDispaly_1"
+                              class="img-thumbnail"
+                            />
+                            <svg
+                              width="45"
+                              height="45"
+                              viewBox="0 0 45 45"
+                              style="
+                                margin-top: 52px;
+                                margin-left: 38%;
+                                margin-right: 38%;
+                              "
+                              ref="iconFile_1"
+                            >
+                              <use
+                                xlink:href="/images/Group_1287.svg#Group_1287"
+                              ></use>
+                            </svg>
+                          </div>
+                          <input
+                            type="file"
+                            id="file_img_banner1"
+                            v-validate="'required'"
+                            name="image_1"
+                            ref="image_1"
+                            v-on:change="attachImage_1"
+                            accept="image_1/*"
+                          />
+                        </label>
+                        <a
+                          class="btn btn-light icon-close-white display-none"
+                          style="background-color: black; border-radius: 91%"
+                          ref="iconClose_1"
+                          @click="deleteImage_1"
+                        ></a>
+                      </div>
+                      <div style="color: red" role="alert">
+                        {{ errors.first("image_1") }}
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6 text-center">
+                      <div class="position-relative d-inline-block">
+                        <label for="file_img_banner2">
+                          <div class="img-drop-box mt-2 mr-2">
+                            <img
+                              src
+                              ref="imageDispaly_2"
+                              class="img-thumbnail"
+                            />
+                            <svg
+                              width="45"
+                              height="45"
+                              viewBox="0 0 45 45"
+                              style="
+                                margin-top: 52px;
+                                margin-left: 38%;
+                                margin-right: 38%;
+                              "
+                              ref="iconFile_2"
+                            >
+                              <use
+                                xlink:href="/images/Group_1287.svg#Group_1287"
+                              ></use>
+                            </svg>
+                          </div>
+                          <input
+                            type="file"
+                            id="file_img_banner2"
+                            v-validate="'required'"
+                            name="image_2"
+                            ref="image_2"
+                            v-on:change="attachImage_2"
+                            accept="image_2/*"
+                            style="display: none"
+                          />
+                        </label>
+                        <a
+                          class="btn btn-light icon-close-white display-none"
+                          style="background-color: black; border-radius: 91%"
+                          ref="iconClose_2"
+                          @click="deleteImage_2"
+                        ></a>
+                      </div>
+                      <div style="color: red" role="alert">
+                        {{ errors.first("image_2") }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6 text-center">
+                      <div class="position-relative d-inline-block">
+                        <label for="file_img_banner3">
+                          <div class="img-drop-box mt-2 mr-2">
+                            <img
+                              src
+                              ref="imageDispaly_3"
+                              class="img-thumbnail"
+                            />
+                            <svg
+                              width="45"
+                              height="45"
+                              viewBox="0 0 45 45"
+                              style="
+                                margin-top: 52px;
+                                margin-left: 38%;
+                                margin-right: 38%;
+                              "
+                              ref="iconFile_3"
+                            >
+                              <use
+                                xlink:href="/images/Group_1287.svg#Group_1287"
+                              ></use>
+                            </svg>
+                          </div>
+                          <input
+                            type="file"
+                            id="file_img_banner3"
+                            v-validate="'required'"
+                            name="image_3"
+                            ref="image_3"
+                            v-on:change="attachImage_3"
+                            accept="image_3/*"
+                            style="display: none"
+                          />
+                        </label>
+                        <a
+                          class="btn btn-light icon-close-white display-none"
+                          style="background-color: black; border-radius: 91%"
+                          ref="iconClose_3"
+                          @click="deleteImage_3"
+                        ></a>
+                      </div>
+                      <div style="color: red" role="alert">
+                        {{ errors.first("image_3") }}
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6 text-center">
+                      <div class="position-relative d-inline-block">
+                        <label for="file_img_banner4">
+                          <div class="img-drop-box mt-2 mr-2">
+                            <img
+                              src
+                              ref="imageDispaly_4"
+                              class="img-thumbnail"
+                            />
+                            <svg
+                              width="45"
+                              height="45"
+                              viewBox="0 0 45 45"
+                              style="
+                                margin-top: 52px;
+                                margin-left: 38%;
+                                margin-right: 38%;
+                              "
+                              ref="iconFile_4"
+                            >
+                              <use
+                                xlink:href="/images/Group_1287.svg#Group_1287"
+                              ></use>
+                            </svg>
+                          </div>
+                          <input
+                            type="file"
+                            id="file_img_banner4"
+                            v-validate="'required'"
+                            name="image_4"
+                            ref="image_4"
+                            v-on:change="attachImage_4"
+                            accept="image_4/*"
+                            style="display: none"
+                          />
+                        </label>
+                        <a
+                          class="btn btn-light icon-close-white display-none"
+                          style="background-color: black; border-radius: 91%"
+                          ref="iconClose_4"
+                          @click="deleteImage_4"
+                        ></a>
+                      </div>
+                      <div style="color: red" role="alert">
+                        {{ errors.first("image_4") }}
+                      </div>
                     </div>
                   </div>
 
@@ -240,6 +437,7 @@
 </style>
 
 <script>
+import StarRating from "vue-star-rating";
 import Loader from "../../../Common/loader.vue";
 import Vue from "vue";
 import axios from "axios";
@@ -261,6 +459,18 @@ export default {
       page: 1,
       paginate: 5,
       flagShowLoader: false,
+
+      evaluate: {
+        id: "",
+        user_id: "",
+        order_id: "",
+        star_vote: 0,
+        content: "",
+        image_1: "",
+        image_2: "",
+        image_3: "",
+        image_4: "",
+      },
     };
   },
   created() {
@@ -277,6 +487,7 @@ export default {
   mounted() {},
   components: {
     Loader,
+    StarRating,
   },
   methods: {
     fetchData() {
@@ -429,6 +640,152 @@ export default {
               });
             });
         }
+      });
+    },
+
+    voteProduct(order) {
+      this.evaluate.id = order.id;
+    },
+
+    attachImage_1() {
+      this.evaluate.image_1 = this.$refs.image_1.files[0];
+      let reader_1 = new FileReader();
+      reader_1.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_1.style.display = "block";
+          this.$refs.iconClose_1.style.display = "block";
+          this.$refs.imageDispaly_1.src = reader_1.result;
+          this.$refs.iconFile_1.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_1.readAsDataURL(this.evaluate.image_1);
+    },
+    deleteImage_1() {
+      this.evaluate.image_1 = "";
+      this.$refs.imageDispaly_1.style.display = "none";
+      this.$refs.iconClose_1.style.display = "none";
+      this.$refs.image_1.value = "";
+      this.$refs.iconFile_1.style.display = "block";
+    },
+
+    attachImage_2() {
+      this.evaluate.image_2 = this.$refs.image_2.files[0];
+      console.log(this.$refs.image_2.files[0]);
+      let reader_2 = new FileReader();
+      reader_2.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_2.style.display = "block";
+          this.$refs.iconClose_2.style.display = "block";
+          this.$refs.imageDispaly_2.src = reader_2.result;
+          this.$refs.iconFile_2.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_2.readAsDataURL(this.evaluate.image_2);
+    },
+    deleteImage_2() {
+      this.evaluate.image_2 = "";
+      this.$refs.imageDispaly_2.style.display = "none";
+      this.$refs.iconClose_2.style.display = "none";
+      this.$refs.image_2.value = "";
+      this.$refs.iconFile_2.style.display = "block";
+    },
+
+    attachImage_3() {
+      this.evaluate.image_3 = this.$refs.image_3.files[0];
+      console.log(this.$refs.image_3.files[0]);
+      let reader_3 = new FileReader();
+      reader_3.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_3.style.display = "block";
+          this.$refs.iconClose_3.style.display = "block";
+          this.$refs.imageDispaly_3.src = reader_3.result;
+          this.$refs.iconFile_3.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_3.readAsDataURL(this.evaluate.image_3);
+    },
+    deleteImage_3() {
+      this.evaluate.image_3 = "";
+      this.$refs.imageDispaly_3.style.display = "none";
+      this.$refs.iconClose_3.style.display = "none";
+      this.$refs.image_3.value = "";
+      this.$refs.iconFile_3.style.display = "block";
+    },
+
+    attachImage_4() {
+      this.evaluate.image_4 = this.$refs.image_4.files[0];
+      console.log(this.$refs.image_4.files[0]);
+      let reader_4 = new FileReader();
+      reader_4.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly_4.style.display = "block";
+          this.$refs.iconClose_4.style.display = "block";
+          this.$refs.imageDispaly_4.src = reader_4.result;
+          this.$refs.iconFile_4.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader_4.readAsDataURL(this.evaluate.image_4);
+    },
+    deleteImage_4() {
+      this.evaluate.image_4 = "";
+      this.$refs.imageDispaly_4.style.display = "none";
+      this.$refs.iconClose_4.style.display = "none";
+      this.$refs.image_4.value = "";
+      this.$refs.iconFile_4.style.display = "block";
+    },
+
+    customerReviews() {
+       let that = this;
+          this.$swal({
+            title: "Are you sure with the above review ？",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes !",
+            cancelButtonText: "No, cancel!",
+          }).then((result) => {
+            if (result.value) {
+               let formData = new FormData();
+                formData.append("order_id", this.evaluate.id);
+                formData.append("star_vote", this.evaluate.star_vote);
+                formData.append("content", this.evaluate.content);
+                formData.append("image_1", this.evaluate.image_1);
+                formData.append("image_2", this.evaluate.image_2);
+                formData.append("image_3", this.evaluate.image_3);
+                formData.append("image_4", this.evaluate.image_4);
+
+              axios
+                .post(`customer-reviews`, formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                })
+                .then((response) => {
+                  that
+                    .$swal({
+                      title: "Successful Evaluation!",
+                      icon: "success",
+                      confirmButtonText: "OK!",
+                    })
+                    .then(function (confirm) {});
+                })
+                .catch((error) => {
+                  that.flashMessage.error({
+                    message: "Failure Evaluation!",
+                    icon: "/backend/icon/error.svg",
+                    blockClass: "text-centet",
+                  });
+                });
+            }
       });
     },
   },

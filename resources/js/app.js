@@ -8,6 +8,7 @@ import DataTable from 'laravel-vue-datatable';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
+import VueStarRating from 'vue-star-rating';
 
 import VueCardCarousel from "vue-card-carousel"
 import LoginComponent from './components/Sale/User/LoginComponent.vue'
@@ -35,6 +36,7 @@ import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
 
 
+Vue.use(VueStarRating)
 Vue.component('paginate', Paginate)
 Vue.use(VueCardCarousel)
 Vue.use(VueSweetalert2);
