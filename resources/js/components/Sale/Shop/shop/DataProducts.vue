@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="product-show-option" v-if="products != ''">
+  <div class="pt-3">
+    <div class="product-show-option" style="background-color: #e9edf0;height: 54px;" v-if="products != ''">
       <div class="row">
-        <div class="col-lg-2 col-md-2 col-3">
+        <div class="col-lg-2 col-md-2 col-3" style="transform: translate(10%, 23%);">
           <select v-model="paginate" class="form-control">
             <option value="10">10</option>
             <option value="20">20</option>
@@ -10,22 +10,22 @@
           </select>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-2">
+        <div class="col-lg-3 col-md-3 col-2" style="transform: translate(10%, 23%);">
           <select
             v-model="statusView"
-            class="form-control w-sm inline v-middle"
+            class="form-control w-sm inline v-middle text-center"
           >
             <option value="0">-- Mới nhất --</option>
             <option value="1">-- Giá tăng dần --</option>
             <option value="2">-- Giá giảm dần --</option>
-            <option value="3">Tên từ A -> Z</option>
-            <option value="4">Tên từ Z -> A</option>
+            <option value="3">-- Tên từ A -> Z --</option>
+            <option value="4">-- Tên từ Z -> A --</option>
           </select>
         </div>
 
         <div class="col-lg-3 col-md-3 col-2"></div>
 
-        <div class="col-lg-4 col-md-4 col-5 text-right">
+        <div class="col-lg-4 col-md-4 col-5 text-right" style="transform: translate(-4%, 23%);">
           <input
             type="text"
             class="form-control"
@@ -35,6 +35,7 @@
         </div>
       </div>
     </div>
+    
     <div class="product-list">
       <div class="row">
         <div

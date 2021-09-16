@@ -1784,8 +1784,8 @@ ol {
 -----------------------*/
 
 .product-shop {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
 .filter-widget {
@@ -2027,7 +2027,7 @@ ol {
 }
 
 .product-show-option {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .product-show-option .select-option {
@@ -4081,6 +4081,98 @@ ol {
     .inner-header .advanced-search .input-group button {
         right: -8px;
     }
+}
+
+.c-sidebar {
+    background-color: #222222 !important;
+    width: 240px;
+}
+
+.c-sidebar-nav-link:hover,
+.c-sidebar-nav-link.c-active {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    width: 99%;
+    padding-bottom: 40px;
+    background-color: #DDDDDD !important;
+}
+
+.c-sidebar-nav-title {
+    color: #b9b9b9 !important;
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 30px;
+}
+
+.c-sidebar-nav-home {
+    margin-top: 5px;
+    background-color: #222222 !important;
+    height: 30px;
+    color: white !important;
+    font-size: 13px;
+    font-weight: normal;
+    padding-left: 40px;
+    float: left;
+    display: flex;
+    text-decoration: none;
+}
+
+.c-sidebar-nav-icon {
+    margin-left: 0rem !important;
+    flex: 0 0 30px;
+    float: left;
+    display: flex;
+}
+
+.c-sidebar-brand {
+    background-color: #222222 !important;
+    justify-content: left;
+    padding-left: 40px;
+}
+
+
+/* .c-sidebar-nav {
+    background-color: #222222 !important;
+} */
+
+.c-sidebar-nav-link {
+    margin-top: 5px;
+    /* background-color: #222222 !important; */
+    height: 30px;
+    color: #222222 !important;
+    font-size: 14px;
+    font-weight: normal;
+    padding-left: 20px;
+}
+
+.c-sidebar-nav-icon {
+    margin-left: 0rem !important;
+    flex: 0 0 30px;
+}
+
+.c-sidebar .c-sidebar-nav .c-sidebar-nav-item:first-child {
+    margin-top: 44px;
+}
+
+.c-sidebar .c-sidebar-nav .c-sidebar-nav-item .c-sidebar-nav-link {
+    margin-top: 5px;
+    background-color: #222222 !important;
+    height: 30px;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: normal;
+    padding-left: 40px;
+}
+
+.c-sidebar .c-sidebar-nav .c-sidebar-nav-item .c-sidebar-nav-link .c-sidebar-nav-icon {
+    margin-left: 0rem !important;
+    flex: 0 0 30px;
+}
+
+.c-sidebar .c-sidebar-nav .c-sidebar-nav-item .c-sidebar-nav-link:hover,
+.c-sidebar .c-sidebar-nav .c-sidebar-nav-item .c-sidebar-nav-link.c-active {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
 }
 
 

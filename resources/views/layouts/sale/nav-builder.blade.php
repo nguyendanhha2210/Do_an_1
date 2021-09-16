@@ -1,33 +1,35 @@
-<div class="filter-widget">
-    <h4 class="fw-title">Categories</h4>
-    <ul class="filter-catagories">
+<div class="filter-widget" style="margin-top: 4px; margin-bottom: 19px;">
+    <img src="{{ '/frontend/images/sale-logo-1.jpg' }}" style="height: 86px;width: 100%;" alt="">
+</div>
+
+<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
+    <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Categories Product</h4>
+    <ul class="filter-catagories c-sidebar-nav">
         @foreach ($type as $key => $dataType)
-            <li><a href="{{ URL::to('/choose-type/' . $dataType->id) }}">{{ $dataType->type }}</a>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                    href="{{ URL::to('/choose-type/' . $dataType->id) }}">{{ $dataType->type }}</a>
             </li>
         @endforeach
     </ul>
 </div>
 
-<div class="filter-widget">
-    <h4 class="fw-title">Descriptions</h4>
-    <ul class="filter-catagories">
+<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
+    <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Descriptions Product</h4>
+    <ul class="filter-catagories c-sidebar-nav">
         @foreach ($description as $key => $dataDescription)
-            <li><a
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
                     href="{{ URL::to('/choose-description/' . $dataDescription->id) }}">{{ $dataDescription->description }}</a>
             </li>
         @endforeach
     </ul>
 </div>
-<div class="filter-widget">
-    <h4 class="fw-title">Weights</h4>
-    <div class="fw-size-choose">
+<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
+    <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Weights Product</h4>
+    <ul class="filter-catagories c-sidebar-nav">
         @foreach ($weight as $key => $dataWeight)
-            <div class="sc-item">
-                {{-- <input type="radio" id="s-size"> --}}
-                <a href="{{ URL::to('/choose-weight/' . $dataWeight->id) }}"><label
-                        for="s-size">{{ $dataWeight->weight }}</label></a>
-            </div>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                    href="{{ URL::to('/choose-weight/' . $dataWeight->id) }}">{{ $dataWeight->weight }}</a>
+            </li>
         @endforeach
-    </div>
+    </ul>
 </div>
-<!--/brands_products-->

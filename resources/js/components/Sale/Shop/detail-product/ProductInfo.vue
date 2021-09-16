@@ -67,11 +67,9 @@
           <div class="pd-title">
             <span>oranges</span>
             <h3>{{ info[0].name }}</h3>
-                <a
-                  class="heart-icon"
-                  @click="addFavorite(info[0])"
-                  ><i class="icon_heart_alt" style="color:red;font-size:22px;"></i
-                ></a>
+            <a class="heart-icon" @click="addFavorite(info[0])"
+              ><i class="icon_heart_alt" style="color: red; font-size: 22px"></i
+            ></a>
           </div>
           <div class="pd-rating">
             <i class="fa fa-star"></i>
@@ -114,13 +112,37 @@
               <span>DECRIPTIONS</span>: {{ info[0].description.description }}
             </li>
           </ul>
-          <div class="pd-share">
-            <div class="p-code">Id : 000{{ info[0].id }}</div>
+          <div class="pd-share" style="transform: translate(0%, -81%);">
+            <div class="p-code"><b>Id</b>: 000{{ info[0].id }}</div>
             <div class="pd-social">
-              <a href="#"><i class="ti-facebook"></i></a>
-              <a href="#"><i class="ti-twitter-alt"></i></a>
-              <a href="#"><i class="ti-linkedin"></i></a>
+              <a
+                href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"
+                ><img
+                  style="width: 34px; height: 31px"
+                  src="/frontend/images/fb.png"
+                  alt=""
+              /></a>
+              <a
+                href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"
+                ><img
+                  style="width: 34px; height: 31px"
+                  src="/frontend/images/sendo.png"
+                  alt=""
+              /></a>
+              <a
+                href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"
+                ><img
+                  style="width: 34px; height: 31px"
+                  src="/frontend/images/shoppee.jpg"
+                  alt=""
+              /></a>
             </div>
+          </div>
+          <div><img
+                  style="width: 401px; height: 92px"
+                  src="/frontend/images/sale-logo.jpg"
+                  alt=""
+              />
           </div>
         </div>
       </div>
@@ -242,8 +264,7 @@ export default {
         this.qualityOrder -= 1;
       }
     },
-     addFavorite(info) 
-     {
+    addFavorite(info) {
       let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
@@ -254,8 +275,7 @@ export default {
                 title: "Add Successfully!",
                 icon: "success",
                 confirmButtonText: "OK",
-              }).then((confirm) => {
-              });
+              }).then((confirm) => {});
             })
             .catch((err) => {
               switch (err.response.status) {

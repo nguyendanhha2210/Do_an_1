@@ -125,9 +125,9 @@ class ShopController extends Controller
 
     public function productDetail(Request $request, $id)
     {
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $description = Description::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description', 'productImages'])
             ->whereHas('weight', function ($query) {
                 $query->where('deleted_at', NULL);
@@ -254,9 +254,9 @@ class ShopController extends Controller
     public function chooseType($id)
     {
         $breadcrumbs = ['Type Product'];
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $description = Description::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         $productType =  Product::where('type_id', '=', $id)->get();
 
         return view('sale.shop.typeproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productType'));
@@ -294,9 +294,9 @@ class ShopController extends Controller
     public function chooseDescription($id)
     {
         $breadcrumbs = ['Description Product'];
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $description = Description::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         $productDescription =  Product::where('description_id', '=', $id)->get();
 
         return view('sale.shop.descriptionproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productDescription'));
@@ -335,9 +335,9 @@ class ShopController extends Controller
     public function chooseWeight($id)
     {
         $breadcrumbs = ['Description Product'];
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $description = Description::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
+        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         $productWeight =  Product::where('weight_id', '=', $id)->get();
 
         return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productWeight'));

@@ -42,13 +42,13 @@
     </div>
     <div id="app">
         @include('layouts.sale.header')
-        <section class="product-shop spad">
-            <div class="container">
+        <section class="product-shop spad" style="background-color: #e9edf0">
+            <div class="container" style="margin-top: 17px;">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-8 order-1 order-lg-1 produts-sidebar-filter">
+                    <div class="col-lg-3 col-md-6 col-sm-8 order-1 order-lg-1 produts-sidebar-filter" style="background-color: white;border-right:solid 1px #e9edf0">
                         @include('layouts.sale.nav-builder')
                     </div>
-                    <div class="col-lg-9 order-2 order-lg-2">
+                    <div class="col-lg-9 order-2 order-lg-2" style="background-color: white">
                         @yield('content')
                     </div>
                 </div>
