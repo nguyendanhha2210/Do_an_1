@@ -59,7 +59,12 @@
                     </td>
                     <td v-else-if="order.order_status == 5">
                       <b style="color: red">Đã đánh giá !</b> <br />
-                      <button class="btn btn-success button-mualai">Xem</button>
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalViewVote"
+                        @click="viewVoted(order)"
+                        ><button class="btn btn-warning">Xem</button></a
+                      >
                     </td>
 
                     <td>
@@ -456,6 +461,141 @@
             </div>
           </div>
         </div>
+
+        <div
+          class="modal fade"
+          id="myModalViewVote"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Your review !
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <div style="margin: auto; display: table">
+                    <star-rating
+                      :star-size="45"
+                      :increment="0.5"
+                      v-model="viewVote.star_vote"
+                    ></star-rating>
+                  </div>
+                  <br />
+                  <textarea
+                    readonly
+                    type="text"
+                    placeholder="Điều bạn muốn nói về sản phẩm ..."
+                    style="height: 130px"
+                    class="form-control"
+                    name="content"
+                    v-model="viewVote.content"
+                  ></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 text-center">
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner1">
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-if="viewVote.image_1 != ''"
+                        >
+                          <img
+                            class="img-thumbnail profile-image"
+                            :src="baseUrl + '/uploads/' + viewVote.image_1"
+                            style="width: 242px; height: 202px"
+                          />
+                        </div>
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-else
+                        ></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6 text-center">
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner2">
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-if="viewVote.image_2 != ''"
+                        >
+                          <img
+                            class="img-thumbnail profile-image"
+                            :src="baseUrl + '/uploads/' + viewVote.image_2"
+                            style="width: 242px; height: 202px"
+                          />
+                        </div>
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-else
+                        ></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6 text-center">
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner3">
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-if="viewVote.image_3 != ''"
+                        >
+                          <img
+                            class="img-thumbnail profile-image"
+                            :src="baseUrl + '/uploads/' + viewVote.image_3"
+                            style="width: 242px; height: 202px"
+                          />
+                        </div>
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-else
+                        ></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6 text-center">
+                    <div class="position-relative d-inline-block">
+                      <label for="file_img_banner4">
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-if="viewVote.image_4 != ''"
+                        >
+                          <img
+                            class="img-thumbnail profile-image"
+                            :src="baseUrl + '/uploads/' + viewVote.image_4"
+                            style="width: 242px; height: 202px"
+                          />
+                        </div>
+                        <div
+                          class="img-drop-box mt-2 mr-2 profile-image"
+                          v-else
+                        ></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div v-if="orders != ''">
           <nav aria-label="Page navigation example">
             <paginate
@@ -503,6 +643,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       orders: [],
       order: {
         id: "",
@@ -521,6 +662,18 @@ export default {
       flagShowLoader: false,
 
       evaluate: {
+        id: "",
+        user_id: "",
+        order_id: "",
+        star_vote: 1,
+        content: "",
+        image_1: "",
+        image_2: "",
+        image_3: "",
+        image_4: "",
+      },
+
+      viewVote: {
         id: "",
         user_id: "",
         order_id: "",
@@ -868,6 +1021,34 @@ export default {
             });
         }
       });
+    },
+
+    viewVoted(order) {
+      let that = this;
+      this.flagShowLoader = true;
+      let formData = new FormData();
+      formData.append("order_id", order.id);
+      axios
+        .post(`get-view-voted`, formData)
+        .then(function (response) {
+          that.viewVote = response.data; //show data ra
+          that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
     },
   },
 };

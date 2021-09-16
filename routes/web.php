@@ -216,6 +216,9 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
 
     Route::post('customer-reviews', [App\Http\Controllers\Sale\CustomerReviewController::class, 'customerReview'])->name('sale.evaluate.customerReview');
+    Route::post('get-view-voted', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getViewVoted'])->name('sale.evaluate.getViewVoted');
+
+    
 
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order

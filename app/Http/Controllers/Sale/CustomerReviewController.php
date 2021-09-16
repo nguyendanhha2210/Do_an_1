@@ -83,4 +83,14 @@ class CustomerReviewController extends Controller
             }
         }
     }
+
+    public function getViewVoted(Request $request)
+    {
+        try{
+            $evaluate = Evaluate::where('order_id',$request->order_id)->first();
+            return response()->json($evaluate,StatusCode::OK);
+        }catch(\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
 }
