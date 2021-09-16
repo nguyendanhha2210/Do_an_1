@@ -57,6 +57,10 @@
                         Mua Lại
                       </button>
                     </td>
+                    <td v-else-if="order.order_status == 5">
+                      <b style="color: red">Đã đánh giá !</b> <br />
+                      <button class="btn btn-success button-mualai">Xem</button>
+                    </td>
 
                     <td>
                       <a :href="`order-detail/${order.order_code}/view`">
@@ -831,7 +835,9 @@ export default {
                   icon: "success",
                   confirmButtonText: "OK!",
                 })
-                .then(function (confirm) {});
+                .then(function (confirm) {
+                  window.location.reload();
+                });
             })
             .catch((err) => {
               switch (err.response.status) {

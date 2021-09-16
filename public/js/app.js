@@ -7132,6 +7132,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -7425,7 +7429,9 @@ __webpack_require__.r(__webpack_exports__);
               title: "Successful Evaluation!",
               icon: "success",
               confirmButtonText: "OK!"
-            }).then(function (confirm) {});
+            }).then(function (confirm) {
+              window.location.reload();
+            });
           })["catch"](function (err) {
             switch (err.response.status) {
               case 422:
@@ -107506,6 +107512,22 @@ var render = function() {
                                     "\n                      Mua Lại\n                    "
                                   )
                                 ]
+                              )
+                            ])
+                          : order.order_status == 5
+                          ? _c("td", [
+                              _c("b", { staticStyle: { color: "red" } }, [
+                                _vm._v("Đã đánh giá !")
+                              ]),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success button-mualai"
+                                },
+                                [_vm._v("Xem")]
                               )
                             ])
                           : _vm._e(),

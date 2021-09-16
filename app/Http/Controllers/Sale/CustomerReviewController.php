@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sale;
 
+use App\Enums\OrderStatus;
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
@@ -9,20 +10,23 @@ use App\Http\Requests\Admin\ProductRequest;
 use App\Http\Requests\Sale\CustmerReviewRequest;
 use App\Models\Description;
 use App\Models\Evaluate;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
 use App\Models\Weight;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerReviewController extends Controller
 {
     public function customerReview(CustmerReviewRequest $request)
     {
-        if (!Auth::guard('admin')->check()) {
+        if (!Auth::guard('sales')->check()) {
             return view('admin.users.login');
         } else {
+            DB::beginTransaction();
             try {
                 $evaluate = new  Evaluate();
                 $evaluate->user_id = Auth::guard('sales')->id();
@@ -65,10 +69,16 @@ class CustomerReviewController extends Controller
                 } else {
                     $evaluate->image_4 = '';
                 }
-
                 $evaluate->save();
+
+                $order = Order::find($request->order_id);
+                $order->order_status = OrderStatus::EVALUATED;
+                $order->update();
+                DB::commit();
+
                 return response()->json(StatusCode::OK);
             } catch (\Exception $e) {
+                DB::rollBack();
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }

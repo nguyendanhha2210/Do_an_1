@@ -15,4 +15,5 @@ final class OrderStatus extends Enum
     const SHIPPING = 2;
     const SUCCESS  = 3;
     const FAILURE = 4;
+    const EVALUATED = 5;
 }

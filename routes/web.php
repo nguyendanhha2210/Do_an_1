@@ -144,8 +144,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/admin/{id}/update', [App\Http\Controllers\Admin\User\AdminController::class, 'update'])->name('admin.update'); //Sửa
     Route::get('/admin/{id}/delete', [App\Http\Controllers\Admin\User\AdminController::class, 'destroy'])->name('admin.delete'); //Xóa
 
-
-
 });
 
 
@@ -161,7 +159,6 @@ Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'ind
 
 // Route::post('/autocomplete-ajax', [App\Http\Controllers\Sale\HomeController::class, 'autoCompleteSearch'])->name('sale.autoCompleteSearch');
 
-
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
 Route::post('add-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'store'])->name('admin.comment.store'); //thêm comment
@@ -172,7 +169,6 @@ Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController:
 Route::get('/get-commentReply/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getCommentReply'])->name('admin.comment.getCommentReply'); //Show data comment
 Route::post('reply-comment-second/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyCommentSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
 Route::post('/fill-image', [App\Http\Controllers\Sale\CommentController::class, 'fillImage'])->name('sale.users.fillImage');
-
 
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product
 Route::get('/get-type-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getTypeProduct'])->name('admin.shop.getTypeProduct'); //Show data type product
@@ -189,14 +185,10 @@ Route::get('/unset-coupon',  [App\Http\Controllers\Sale\CartController::class, '
 Route::post('/update-cart',  [App\Http\Controllers\Sale\CartController::class, 'updateCart'])->name('admin.cart.updateCart'); //update giỏ
 Route::post('/check-coupon',  [App\Http\Controllers\Sale\CartController::class, 'checkCoupon'])->name('admin.cart.checkCoupon'); //update giỏ
 
-
 Route::post('/add-to-favorite',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'addFavorite'])->name('admin.cart.addCart'); //thêm sp yêu thích
 Route::get('/del-favorite-product/{session_id}',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'delProductFavorite'])->name('admin.cart.delProductFavorite'); //thêm sp yêu thích
 Route::get('/del-viewed-product/{session_id}',  [App\Http\Controllers\Sale\ShopController::class, 'delViewedProduct'])->name('admin.viewd.delViewedProduct'); //thêm sp yêu thích
 Route::get('/register-confirm/{email}', [App\Http\Controllers\Sale\User\AccountController::class, 'registerConfirm'])->name('sale.users.registerConfirm');
-
-
-
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\Sale\User\AccountController::class, 'loginForm'])->name('sale.users.login');
 Route::match(['get', 'post'], '/register', [App\Http\Controllers\Sale\User\AccountController::class, 'registerForm'])->name('sale.users.register');
@@ -216,18 +208,14 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal
     Route::get('/success-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'successPay'])->name('admin.checkout.successPay'); //thanh toán paypal
 
-
     Route::post('/checkout-onepay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutOnepay'])->name('admin.checkout.checkoutOnepay'); //thanh toán paypal
     Route::post('/checkout-momo', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutMomo'])->name('admin.checkout.checkoutMomo'); //thanh toán paypal
-
 
     Route::get('/profile', [App\Http\Controllers\Sale\ProfileController::class, 'index'])->name('sale.profile.index');
     Route::get('/get-user', [App\Http\Controllers\Sale\ProfileController::class, 'getUser'])->name('sale.profile.getUser');
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
 
-
     Route::post('customer-reviews', [App\Http\Controllers\Sale\CustomerReviewController::class, 'customerReview'])->name('sale.evaluate.customerReview');
-
 
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order
