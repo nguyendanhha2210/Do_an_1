@@ -7373,6 +7373,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7382,6 +7418,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       baseUrl: Laravel.baseUrl,
       //Gọi thay cho đg dẫn http://127.0.0.1:8000
+      show_corfirm: false,
+      show_deliver: false,
+      show_receive: false,
+      show_evaluat: false,
+      show_cancel: false,
+      show_return: false,
       orders: [],
       order: {
         id: "",
@@ -7435,27 +7477,179 @@ __webpack_require__.r(__webpack_exports__);
     StarRating: (vue_star_rating__WEBPACK_IMPORTED_MODULE_0___default())
   },
   methods: {
+    showCorfirm: function showCorfirm() {
+      this.show_corfirm = !this.show_corfirm;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showDeliver: function showDeliver() {
+      this.show_deliver = !this.show_deliver;
+      this.show_corfirm = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showRecive: function showRecive() {
+      this.show_receive = !this.show_receive;
+      this.show_deliver = false;
+      this.show_corfirm = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showEvaluat: function showEvaluat() {
+      this.show_evaluat = !this.show_evaluat;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_corfirm = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showCancel: function showCancel() {
+      this.show_cancel = !this.show_cancel;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_corfirm = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showReturn: function showReturn() {
+      this.show_return = !this.show_return;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_corfirm = false;
+      this.fetchData();
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("get-order").then(function (response) {
-        that.orders = response.data; //show data ra
 
-        that.flagShowLoader = false;
-      })["catch"](function (err) {
-        switch (err.response.status) {
-          case 500:
-            that.$swal({
-              title: "Error loading data !",
-              icon: "warning",
-              confirmButtonText: "Ok"
-            }).then(function (confirm) {});
-            break;
+      if (that.show_corfirm == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-confirm").then(function (response) {
+          that.orders = response.data; //show data ra
 
-          default:
-            break;
-        }
-      });
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else if (that.show_deliver == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-deliver").then(function (response) {
+          that.orders = response.data; //show data ra
+
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else if (that.show_receive == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-receive").then(function (response) {
+          that.orders = response.data; //show data ra
+
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else if (that.show_evaluat == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-evaluat").then(function (response) {
+          that.orders = response.data; //show data ra
+
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else if (that.show_cancel == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-cancel").then(function (response) {
+          that.orders = response.data; //show data ra
+
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      } else if (that.show_return == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("get-order-return").then(function (response) {
+          that.orders = response.data; //show data ra
+
+          that.flagShowLoader = false;
+        })["catch"](function (err) {
+          switch (err.response.status) {
+            case 500:
+              that.$swal({
+                title: "Error loading data !",
+                icon: "warning",
+                confirmButtonText: "Ok"
+              }).then(function (confirm) {});
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
     },
     prev: function prev() {
       if (this.orders.prev_page_url) {
@@ -7679,9 +7873,8 @@ __webpack_require__.r(__webpack_exports__);
               title: "Successful Evaluation!",
               icon: "success",
               confirmButtonText: "OK!"
-            }).then(function (confirm) {
-              window.location.reload();
-            });
+            }).then(function (confirm) {});
+            that.fetchData();
           })["catch"](function (err) {
             switch (err.response.status) {
               case 422:
@@ -107678,176 +107871,310 @@ var render = function() {
     "div",
     [
       _c("div", { staticClass: "container" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showCorfirm()
+                }
+              }
+            },
+            [_vm._m(0)]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showDeliver()
+                }
+              }
+            },
+            [_vm._m(1)]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showRecive()
+                }
+              }
+            },
+            [_vm._m(2)]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showEvaluat()
+                }
+              }
+            },
+            [_vm._m(3)]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showCancel()
+                }
+              }
+            },
+            [_vm._m(4)]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-2",
+              staticStyle: { border: "dotted 1px #c0c0c0" },
+              on: {
+                click: function($event) {
+                  return _vm.showReturn()
+                }
+              }
+            },
+            [_vm._m(5)]
+          )
+        ]),
         _vm._v(" "),
         _c("br"),
+        _c("br"),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-12" }, [
-            _c("div", { staticClass: "cart-table" }, [
-              _c("table", { staticClass: "table table-condensed" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.orders.data, function(order, index) {
-                    return _c("tr", { key: order.id }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
+        this.show_corfirm ||
+        this.show_deliver ||
+        this.show_receive ||
+        this.show_evaluat ||
+        this.show_cancel ||
+        this.show_return
+          ? _c("div", [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c("div", { staticClass: "cart-table" }, [
+                    _c("table", { staticClass: "table table-condensed" }, [
+                      _vm._m(6),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.user.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.shipping.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.total_bill) + " vnđ")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.order_date))]),
-                      _vm._v(" "),
-                      order.order_status == 1
-                        ? _c("td", [
-                            _c("b", { staticStyle: { color: "blue" } }, [
-                              _vm._v("Đang xử lý !")
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.orders.data, function(order, index) {
+                          return _c("tr", { key: order.id }, [
+                            _c("td", [_vm._v(_vm._s(index + 1))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(order.user.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(order.shipping.name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(order.total_bill) + " vnđ")
                             ]),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#myModal",
-                                  "data-whatever": "@getbootstrap"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.updateProduct(order.id)
+                            _c("td", [_vm._v(_vm._s(order.order_date))]),
+                            _vm._v(" "),
+                            order.order_status == 1
+                              ? _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      attrs: {
+                                        "data-toggle": "modal",
+                                        "data-target": "#myModal",
+                                        "data-whatever": "@getbootstrap"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.updateProduct(order.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Hủy Đơn\n                    "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : order.order_status == 2
+                              ? _c("td", [
+                                  _c("b", { staticStyle: { color: "blue" } }, [
+                                    _vm._v("Đang Giao !")
+                                  ])
+                                ])
+                              : order.order_status == 3
+                              ? _c("td", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "data-toggle": "modal",
+                                        "data-target": "#myModalVote"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.voteProduct(order)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        { staticClass: "btn btn-warning" },
+                                        [_vm._v("Evaluate")]
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : order.order_status == 4
+                              ? _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-success button-mualai",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.muaLai(order.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Mua Lại\n                    "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : order.order_status == 5
+                              ? _c("td", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "data-toggle": "modal",
+                                        "data-target": "#myModalViewVote"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.viewVoted(order)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        { staticClass: "btn btn-warning" },
+                                        [
+                                          _vm._v(
+                                            "\n                        Xem Đánh Giá\n                      "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : order.order_status == 6
+                              ? _c("td", [
+                                  _c("b", { staticStyle: { color: "red" } }, [
+                                    _vm._v("Trả Lại !")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("br")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      "order-detail/" +
+                                      order.order_code +
+                                      "/view"
                                   }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    Hủy Đơn\n                  "
-                                )
-                              ]
-                            )
-                          ])
-                        : order.order_status == 2
-                        ? _c("td", [
-                            _c("b", { staticStyle: { color: "blue" } }, [
-                              _vm._v("Shipper Đang Giao !")
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa fa-pencil-square-o text-success text-active",
+                                    staticStyle: { "font-size": "25px" }
+                                  })
+                                ]
+                              )
                             ])
                           ])
-                        : order.order_status == 3
-                        ? _c("td", [
-                            _c("b", { staticStyle: { color: "#00cc00" } }, [
-                              _vm._v("Đã Nhận Hàng !")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#myModalVote"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.voteProduct(order)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "button",
-                                  { staticClass: "btn btn-warning" },
-                                  [_vm._v("Evaluate")]
-                                )
-                              ]
-                            )
-                          ])
-                        : order.order_status == 4
-                        ? _c("td", [
-                            _c("b", { staticStyle: { color: "red" } }, [
-                              _vm._v("Đã hủy !")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success button-mualai",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.muaLai(order.id)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    Mua Lại\n                  "
-                                )
-                              ]
-                            )
-                          ])
-                        : order.order_status == 5
-                        ? _c("td", [
-                            _c("b", { staticStyle: { color: "red" } }, [
-                              _vm._v("Đã đánh giá !")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#myModalViewVote"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.viewVoted(order)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "button",
-                                  { staticClass: "btn btn-warning" },
-                                  [_vm._v("Xem")]
-                                )
-                              ]
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "order-detail/" + order.order_code + "/view"
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-pencil-square-o text-success text-active",
-                              staticStyle: { "font-size": "25px" }
-                            })
-                          ]
-                        )
-                      ])
+                        }),
+                        0
+                      )
                     ])
-                  }),
-                  0
-                )
-              ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.orders != ""
+                ? _c("div", [
+                    _c(
+                      "nav",
+                      { attrs: { "aria-label": "Page navigation example" } },
+                      [
+                        _c("paginate", {
+                          attrs: {
+                            "page-count": parseInt(_vm.orders.last_page),
+                            "page-range": 5,
+                            "margin-pages": 2,
+                            "click-handler": _vm.changePage,
+                            "prev-text": "<<",
+                            "next-text": ">>",
+                            "container-class":
+                              "pagination justify-content-center",
+                            "page-class": "page-item",
+                            "prev-class": "page-item",
+                            "next-class": "page-item",
+                            "page-link-class": "page-link bg-info text-light",
+                            "next-link-class": "page-link bg-info text-light",
+                            "prev-link-class": "page-link bg-info text-light"
+                          },
+                          model: {
+                            value: _vm.page,
+                            callback: function($$v) {
+                              _vm.page = $$v
+                            },
+                            expression: "page"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                : _c(
+                    "div",
+                    {
+                      staticClass: "text-center",
+                      staticStyle: { color: "red" }
+                    },
+                    [_vm._v("\n        There is no data !\n      ")]
+                  )
             ])
-          ])
-        ]),
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "div",
@@ -107867,7 +108194,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(2),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c(
@@ -107959,7 +108286,7 @@ var render = function() {
                             : _vm._e()
                         ]),
                         _vm._v(" "),
-                        _vm._m(3)
+                        _vm._m(8)
                       ]
                     )
                   ])
@@ -107987,7 +108314,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(4),
+                  _vm._m(9),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c(
@@ -108573,7 +108900,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(5)
+                        _vm._m(10)
                       ]
                     )
                   ])
@@ -108601,7 +108928,7 @@ var render = function() {
               { staticClass: "modal-dialog", attrs: { role: "document" } },
               [
                 _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(6),
+                  _vm._m(11),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -108854,47 +109181,7 @@ var render = function() {
               ]
             )
           ]
-        ),
-        _vm._v(" "),
-        _vm.orders != ""
-          ? _c("div", [
-              _c(
-                "nav",
-                { attrs: { "aria-label": "Page navigation example" } },
-                [
-                  _c("paginate", {
-                    attrs: {
-                      "page-count": parseInt(_vm.orders.last_page),
-                      "page-range": 5,
-                      "margin-pages": 2,
-                      "click-handler": _vm.changePage,
-                      "prev-text": "<<",
-                      "next-text": ">>",
-                      "container-class": "pagination justify-content-center",
-                      "page-class": "page-item",
-                      "prev-class": "page-item",
-                      "next-class": "page-item",
-                      "page-link-class": "page-link bg-info text-light",
-                      "next-link-class": "page-link bg-info text-light",
-                      "prev-link-class": "page-link bg-info text-light"
-                    },
-                    model: {
-                      value: _vm.page,
-                      callback: function($$v) {
-                        _vm.page = $$v
-                      },
-                      expression: "page"
-                    }
-                  })
-                ],
-                1
-              )
-            ])
-          : _c(
-              "div",
-              { staticClass: "text-center", staticStyle: { color: "red" } },
-              [_vm._v("\n      There is no data !\n    ")]
-            )
+        )
       ]),
       _vm._v(" "),
       _c("Loader", { attrs: { "flag-show": _vm.flagShowLoader } }),
@@ -108909,156 +109196,120 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/icon-2.png", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Confirming")])
-            ])
-          ])
-        ]
-      ),
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/icon-2.png", alt: "" }
+        })
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/icon-1.png", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Delivering")])
-            ])
-          ])
-        ]
-      ),
+      _c("br"),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/status-payment-3.jpg", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Received")])
-            ])
-          ])
-        ]
-      ),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Confirming")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/icon-1.png", alt: "" }
+        })
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/status-payment-1.jpg", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Evaluated")])
-            ])
-          ])
-        ]
-      ),
+      _c("br"),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/status-payment-2.jpg", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Cancelled")])
-            ])
-          ])
-        ]
-      ),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Delivering")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/status-payment-3.jpg", alt: "" }
+        })
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-2",
-          staticStyle: { border: "dotted 1px #c0c0c0" }
-        },
-        [
-          _c("div", { staticClass: "single-benefit" }, [
-            _c("div", { staticClass: "sb-icon text-center" }, [
-              _c("img", {
-                staticClass: "pt-2",
-                staticStyle: { height: "66px", width: "81px" },
-                attrs: { src: "/frontend/images/status-payment-4.jpg", alt: "" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "sb-text text-center pb-2" }, [
-              _c("h6", [_vm._v("Returns")])
-            ])
-          ])
-        ]
-      )
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Received")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/status-payment-1.jpg", alt: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Evaluated")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/status-payment-2.jpg", alt: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Cancelled")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "single-benefit" }, [
+      _c("div", { staticClass: "sb-icon text-center" }, [
+        _c("img", {
+          staticClass: "pt-2",
+          staticStyle: { height: "66px", width: "81px" },
+          attrs: { src: "/frontend/images/status-payment-4.jpg", alt: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "sb-text text-center pb-2" }, [
+        _c("h6", [_vm._v("Returns")])
+      ])
     ])
   },
   function() {

@@ -16,4 +16,5 @@ final class OrderStatus extends Enum
     const SUCCESS  = 3;
     const FAILURE = 4;
     const EVALUATED = 5;
+    const RETURNS = 6;
 }

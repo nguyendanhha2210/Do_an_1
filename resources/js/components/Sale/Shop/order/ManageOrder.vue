@@ -2,7 +2,11 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showCorfirm()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -18,7 +22,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showDeliver()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -34,7 +42,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showRecive()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -50,7 +62,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showEvaluat()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -66,7 +82,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showCancel()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -82,7 +102,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+        <div
+          class="col-lg-2"
+          style="border: dotted 1px #c0c0c0"
+          @click="showReturn()"
+        >
           <div class="single-benefit">
             <div class="sb-icon text-center">
               <img
@@ -99,89 +123,125 @@
           </div>
         </div>
       </div>
+      <br /><br />
 
-      <br />
-
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="cart-table">
-            <table class="table table-condensed">
-              <thead>
-                <tr class="cart_menu">
-                  <td>ID</td>
-                  <td>Orderer</td>
-                  <td>Receivern</td>
-                  <td>Total Money</td>
-                  <td>Order Date</td>
-                  <td>Status</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(order, index) in orders.data" :key="order.id">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ order.user.name }}</td>
-                  <td>{{ order.shipping.name }}</td>
-                  <td>{{ order.total_bill }} vnđ</td>
-                  <td>{{ order.order_date }}</td>
-                  <td v-if="order.order_status == 1">
-                    <b style="color: blue">Đang xử lý !</b>
-                    <button
-                      data-toggle="modal"
-                      data-target="#myModal"
-                      data-whatever="@getbootstrap"
-                      class="btn btn-danger"
-                      @click="updateProduct(order.id)"
-                    >
-                      Hủy Đơn
-                    </button>
-                  </td>
-                  <td v-else-if="order.order_status == 2">
-                    <b style="color: blue">Shipper Đang Giao !</b>
-                  </td>
-                  <td v-else-if="order.order_status == 3">
-                    <b style="color: #00cc00">Đã Nhận Hàng !</b> <br />
-                    <a
-                      data-toggle="modal"
-                      data-target="#myModalVote"
-                      @click="voteProduct(order)"
-                      ><button class="btn btn-warning">Evaluate</button></a
-                    >
-                  </td>
-                  <td v-else-if="order.order_status == 4">
-                    <b style="color: red">Đã hủy !</b> <br />
-                    <button
-                      class="btn btn-success button-mualai"
-                      @click="muaLai(order.id)"
-                    >
-                      Mua Lại
-                    </button>
-                  </td>
-                  <td v-else-if="order.order_status == 5">
-                    <b style="color: red">Đã đánh giá !</b> <br />
-                    <a
-                      data-toggle="modal"
-                      data-target="#myModalViewVote"
-                      @click="viewVoted(order)"
-                      ><button class="btn btn-warning">Xem</button></a
-                    >
-                  </td>
-
-                  <td>
-                    <a :href="`order-detail/${order.order_code}/view`">
-                      <i
-                        class="fa fa-pencil-square-o text-success text-active"
-                        style="font-size: 25px"
+      <div
+        v-if="
+          this.show_corfirm ||
+          this.show_deliver ||
+          this.show_receive ||
+          this.show_evaluat ||
+          this.show_cancel ||
+          this.show_return
+        "
+      >
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="cart-table">
+              <table class="table table-condensed">
+                <thead>
+                  <tr class="cart_menu">
+                    <td>ID</td>
+                    <td>Orderer</td>
+                    <td>Receivern</td>
+                    <td>Total Money</td>
+                    <td>Order Date</td>
+                    <td>Status</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(order, index) in orders.data" :key="order.id">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ order.user.name }}</td>
+                    <td>{{ order.shipping.name }}</td>
+                    <td>{{ order.total_bill }} vnđ</td>
+                    <td>{{ order.order_date }}</td>
+                    <td v-if="order.order_status == 1">
+                      <button
+                        data-toggle="modal"
+                        data-target="#myModal"
+                        data-whatever="@getbootstrap"
+                        class="btn btn-danger"
+                        @click="updateProduct(order.id)"
                       >
-                      </i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                        Hủy Đơn
+                      </button>
+                    </td>
+                    <td v-else-if="order.order_status == 2">
+                      <b style="color: blue">Đang Giao !</b>
+                    </td>
+                    <td v-else-if="order.order_status == 3">
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalVote"
+                        @click="voteProduct(order)"
+                        ><button class="btn btn-warning">Evaluate</button></a
+                      >
+                    </td>
+                    <td v-else-if="order.order_status == 4">
+                      <button
+                        class="btn btn-success button-mualai"
+                        @click="muaLai(order.id)"
+                      >
+                        Mua Lại
+                      </button>
+                    </td>
+                    <td v-else-if="order.order_status == 5">
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalViewVote"
+                        @click="viewVoted(order)"
+                        ><button class="btn btn-warning">
+                          Xem Đánh Giá
+                        </button></a
+                      >
+                    </td>
+                    <td v-else-if="order.order_status == 6">
+                      <b style="color: red">Trả Lại !</b> <br />
+                    </td>
+
+                    <td>
+                      <a :href="`order-detail/${order.order_code}/view`">
+                        <i
+                          class="fa fa-pencil-square-o text-success text-active"
+                          style="font-size: 25px"
+                        >
+                        </i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+        <div v-if="orders != ''">
+          <nav aria-label="Page navigation example">
+            <paginate
+              v-model="page"
+              :page-count="parseInt(orders.last_page)"
+              :page-range="5"
+              :margin-pages="2"
+              :click-handler="changePage"
+              :prev-text="'<<'"
+              :next-text="'>>'"
+              :container-class="'pagination justify-content-center'"
+              :page-class="'page-item'"
+              :prev-class="'page-item'"
+              :next-class="'page-item'"
+              :page-link-class="'page-link bg-info text-light'"
+              :next-link-class="'page-link bg-info text-light'"
+              :prev-link-class="'page-link bg-info text-light'"
+            >
+            </paginate>
+          </nav>
+        </div>
+        <div v-else class="text-center" style="color: red">
+          There is no data !
+        </div>
       </div>
+
       <div
         class="modal fade"
         id="myModal"
@@ -694,30 +754,6 @@
           </div>
         </div>
       </div>
-      <div v-if="orders != ''">
-        <nav aria-label="Page navigation example">
-          <paginate
-            v-model="page"
-            :page-count="parseInt(orders.last_page)"
-            :page-range="5"
-            :margin-pages="2"
-            :click-handler="changePage"
-            :prev-text="'<<'"
-            :next-text="'>>'"
-            :container-class="'pagination justify-content-center'"
-            :page-class="'page-item'"
-            :prev-class="'page-item'"
-            :next-class="'page-item'"
-            :page-link-class="'page-link bg-info text-light'"
-            :next-link-class="'page-link bg-info text-light'"
-            :prev-link-class="'page-link bg-info text-light'"
-          >
-          </paginate>
-        </nav>
-      </div>
-      <div v-else class="text-center" style="color: red">
-        There is no data !
-      </div>
     </div>
     <Loader :flag-show="flagShowLoader"></Loader>
     <FlashMessage :position="'left bottom'"></FlashMessage>
@@ -741,6 +777,14 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
+
+      show_corfirm: false,
+      show_deliver: false,
+      show_receive: false,
+      show_evaluat: false,
+      show_cancel: false,
+      show_return: false,
+
       orders: [],
       order: {
         id: "",
@@ -796,30 +840,198 @@ export default {
     StarRating,
   },
   methods: {
+    showCorfirm() {
+      this.show_corfirm = !this.show_corfirm;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showDeliver() {
+      this.show_deliver = !this.show_deliver;
+      this.show_corfirm = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showRecive() {
+      this.show_receive = !this.show_receive;
+      this.show_deliver = false;
+      this.show_corfirm = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showEvaluat() {
+      this.show_evaluat = !this.show_evaluat;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_corfirm = false;
+      this.show_cancel = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showCancel() {
+      this.show_cancel = !this.show_cancel;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_corfirm = false;
+      this.show_return = false;
+      this.fetchData();
+    },
+    showReturn() {
+      this.show_return = !this.show_return;
+      this.show_deliver = false;
+      this.show_receive = false;
+      this.show_evaluat = false;
+      this.show_cancel = false;
+      this.show_corfirm = false;
+      this.fetchData();
+    },
+
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
-      axios
-        .get(`get-order`)
-        .then(function (response) {
-          that.orders = response.data; //show data ra
-          that.flagShowLoader = false;
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 500:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
+
+      if (that.show_corfirm == true) {
+        axios
+          .post(`get-order-confirm`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.show_deliver == true) {
+        axios
+          .post(`get-order-deliver`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.show_receive == true) {
+        axios
+          .post(`get-order-receive`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.show_evaluat == true) {
+        axios
+          .post(`get-order-evaluat`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.show_cancel == true) {
+        axios
+          .post(`get-order-cancel`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.show_return == true) {
+        axios
+          .post(`get-order-return`)
+          .then(function (response) {
+            that.orders = response.data; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      }
     },
 
     prev() {
@@ -1085,9 +1297,8 @@ export default {
                   icon: "success",
                   confirmButtonText: "OK!",
                 })
-                .then(function (confirm) {
-                  window.location.reload();
-                });
+                .then(function (confirm) {});
+              that.fetchData();
             })
             .catch((err) => {
               switch (err.response.status) {

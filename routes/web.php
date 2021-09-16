@@ -218,8 +218,16 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('customer-reviews', [App\Http\Controllers\Sale\CustomerReviewController::class, 'customerReview'])->name('sale.evaluate.customerReview');
     Route::post('get-view-voted', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getViewVoted'])->name('sale.evaluate.getViewVoted');
 
-    
 
+    Route::post('get-order-confirm', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderConfirm'])->name('sale.orderStatus.getOrderConfirm');
+    Route::post('get-order-deliver', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderDeliver'])->name('sale.orderStatus.getOrderDeliver');
+    Route::post('get-order-receive', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReceive'])->name('sale.orderStatus.getOrderReceive');
+    Route::post('get-order-evaluat', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderEvaluat'])->name('sale.orderStatus.getOrderEvaluat');
+    Route::post('get-order-cancel', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderCancel'])->name('sale.orderStatus.getOrderCancel');
+    Route::post('get-order-return', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReturn'])->name('sale.orderStatus.getOrderReturn');
+   
+    
+   
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order
     Route::get('/get-order', [App\Http\Controllers\Sale\OrderController::class, 'getData'])->name('sale.order.getData'); //lấy ra data
