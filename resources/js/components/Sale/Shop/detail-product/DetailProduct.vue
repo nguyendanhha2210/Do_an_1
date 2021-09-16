@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-4">
+  <div style="padding-top:16px">
     <ProductInfo :infoProduct="productinfo"></ProductInfo>
     <ProductDecrip :decripProduct="productdecrip"></ProductDecrip><br>
     <ProductRelated :relatedProduct="productrelated"></ProductRelated>

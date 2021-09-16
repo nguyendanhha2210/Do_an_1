@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-4">
+  <div class="pt-4" style="min-height: 100%; position: relative">
     <div class="product-show-option" v-if="products != ''">
       <div class="row">
         <div class="col-lg-2 col-md-2 col-3">
@@ -78,7 +78,11 @@
         </div>
       </div>
     </div>
-    <div class="loading-more" v-if="products != ''">
+    <div
+      class="loading-more"
+      v-if="products != ''"
+      style="position: absolute; bottom: 1px; left: 50%; right: 50%"
+    >
       <nav aria-label="Page navigation example">
         <paginate
           v-model="page"

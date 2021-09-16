@@ -1995,18 +1995,18 @@ ol {
 .filter-widget .fw-size-choose .sc-item label {
     font-size: 16px;
     color: #252525;
-    font-weight: 700;
+    /* font-weight: 700; */
     height: 40px;
     width: 47px;
     border: 1px solid #ebebeb;
     text-align: center;
     line-height: 40px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     cursor: pointer;
 }
 
 .filter-widget .fw-size-choose .sc-item label.active {
-    background: #252525;
+    background: #e9edf0;
     color: #ffffff;
 }
 

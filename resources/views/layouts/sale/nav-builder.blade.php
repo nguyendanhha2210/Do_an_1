@@ -1,9 +1,14 @@
-<div class="filter-widget" style="margin-top: 15px; margin-bottom: 10px;">
-    <img src="{{ '/frontend/images/sale-logo-1.jpg' }}" style="height: 86px;width: 100%;" alt="">
+<div class="filter-widget" style="margin-top: 16px; margin-bottom: 10px;">
+    <div style="width:100%" class="fb-page" data-href="https://www.facebook.com/Mekhoebexinh02/"
+        data-tabs="timeline" data-width="" data-height="40px" data-small-header="false"
+        data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/Mekhoebexinh02/" class="fb-xfbml-parse-ignore"><a
+                href="https://www.facebook.com/Mekhoebexinh02/">Fresh Mama - Nguồn dinh dưỡng tự nhiên</a></blockquote>
+    </div>
 </div>
 <hr>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
+<div class="filter-widget" style="background-color: white; margin-bottom: 20px;">
     <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Categories Product</h4>
     <ul class="filter-catagories c-sidebar-nav">
         @foreach ($type as $key => $dataType)
@@ -14,7 +19,7 @@
     </ul>
 </div>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
+<div class="filter-widget" style="background-color: white; margin-bottom: 20px;">
     <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Descriptions Product</h4>
     <ul class="filter-catagories c-sidebar-nav">
         @foreach ($description as $key => $dataDescription)
@@ -25,26 +30,44 @@
     </ul>
 </div>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 38px;">
-    <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Weights Product</h4>
-    <ul class="filter-catagories c-sidebar-nav">
+<div class="filter-widget" style="background-color: white; margin-bottom: 20px;">
+    <h4 class="fw-title" style="margin-bottom: 16px;font-size:26px;">Weights Product</h4>
+    <div class="fw-size-choose">
         @foreach ($weight as $key => $dataWeight)
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                    href="{{ URL::to('/choose-weight/' . $dataWeight->id) }}">{{ $dataWeight->weight }}</a>
-            </li>
+            <div class="sc-item">
+                <label for="s-size"><a style="color: black"
+                        href="{{ URL::to('/choose-weight/' . $dataWeight->id) }}">{{ $dataWeight->weight }}</a></label>
+            </div>
         @endforeach
-    </ul>
+    </div>
 </div>
 <hr>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 10px;text-align: center;">
+<div class="filter-widget" style="background-color: white; margin-bottom: 12px;text-align: center;">
     <img src="{{ '/frontend/images/phone.png' }}" style="height: 91px;width: 42%;" alt=""> <br><br>
     <b style="font-weight: 900;">HOTLINE</b> <br>
     <b style="font-weight: 900;color:red;font-size: 21px;">091 2345 678</b>
 </div>
 <hr>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 10px;text-align: center;">
-
-    <div class="fb-page" data-href="https://www.facebook.com/Mekhoebexinh02/" data-tabs="timeline" data-width="" data-height="40px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Mekhoebexinh02/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Mekhoebexinh02/">Fresh Mama - Nguồn dinh dưỡng tự nhiên</a></blockquote></div>
+<div class="filter-widget" style="background-color: white; margin-bottom: 10px;">
+    <div class="recent-post">
+        <table>
+            <tbody>
+                @foreach ($post as $key => $data)
+                    <tr class="overflow">
+                        <td class="si-pic"><img style="width: 90px;
+                            height: 74px;padding-right:10px;" src="{{ URL::to('uploads/' . $data->images) }}" alt="">
+                        <td class="si-text">
+                            <div class="product-selected">
+                                <h5><b>{{ $data->title }}</b></h5>
+                                <h6 style="color:#e7ab3c"> {{ $data->categorypost->name }}</h6>
+                                <i style="font-size: 14px;">_{{ $data->created_at->format('d/m/Y') }}_</i>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
