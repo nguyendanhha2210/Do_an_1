@@ -7276,6 +7276,103 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -107580,1252 +107677,1224 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("section", { staticClass: "shopping-cart spad" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-12" }, [
-              _c("div", { staticClass: "cart-table" }, [
-                _c("table", { staticClass: "table table-condensed" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.orders.data, function(order, index) {
-                      return _c("tr", { key: order.id }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.user.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.shipping.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.total_bill) + " vnđ")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.order_date))]),
-                        _vm._v(" "),
-                        order.order_status == 1
-                          ? _c("td", [
-                              _c("b", { staticStyle: { color: "blue" } }, [
-                                _vm._v("Đang xử lý !")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModal",
-                                    "data-whatever": "@getbootstrap"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.updateProduct(order.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                      Hủy Đơn\n                    "
-                                  )
-                                ]
-                              )
-                            ])
-                          : order.order_status == 2
-                          ? _c("td", [
-                              _c("b", { staticStyle: { color: "blue" } }, [
-                                _vm._v("Shipper Đang Giao !")
-                              ])
-                            ])
-                          : order.order_status == 3
-                          ? _c("td", [
-                              _c("b", { staticStyle: { color: "#00cc00" } }, [
-                                _vm._v("Đã Nhận Hàng !")
-                              ]),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModalVote"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.voteProduct(order)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "button",
-                                    { staticClass: "btn btn-warning" },
-                                    [_vm._v("Evaluate")]
-                                  )
-                                ]
-                              )
-                            ])
-                          : order.order_status == 4
-                          ? _c("td", [
-                              _c("b", { staticStyle: { color: "red" } }, [
-                                _vm._v("Đã hủy !")
-                              ]),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-success button-mualai",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.muaLai(order.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                      Mua Lại\n                    "
-                                  )
-                                ]
-                              )
-                            ])
-                          : order.order_status == 5
-                          ? _c("td", [
-                              _c("b", { staticStyle: { color: "red" } }, [
-                                _vm._v("Đã đánh giá !")
-                              ]),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModalViewVote"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.viewVoted(order)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "button",
-                                    { staticClass: "btn btn-warning" },
-                                    [_vm._v("Xem")]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href:
-                                  "order-detail/" + order.order_code + "/view"
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass:
-                                  "fa fa-pencil-square-o text-success text-active",
-                                staticStyle: { "font-size": "25px" }
-                              })
-                            ]
-                          )
-                        ])
-                      ])
-                    }),
-                    0
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "myModal",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "exampleModalLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c(
-                        "form",
-                        {
-                          attrs: {
-                            role: "form",
-                            enctype: "multipart/form-data"
-                          },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.cancelOrder()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.order.id,
-                                  expression: "order.id"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                hidden: "",
-                                id: "exampleInputEmail1",
-                                name: "id"
-                              },
-                              domProps: { value: _vm.order.id },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(_vm.order, "id", $event.target.value)
-                                }
-                              }
-                            }),
+      _c("div", { staticClass: "container" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "cart-table" }, [
+              _c("table", { staticClass: "table table-condensed" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.orders.data, function(order, index) {
+                    return _c("tr", { key: order.id }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.user.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.shipping.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.total_bill) + " vnđ")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.order_date))]),
+                      _vm._v(" "),
+                      order.order_status == 1
+                        ? _c("td", [
+                            _c("b", { staticStyle: { color: "blue" } }, [
+                              _vm._v("Đang xử lý !")
+                            ]),
                             _vm._v(" "),
                             _c(
-                              "label",
-                              { attrs: { for: "exampleInputEmail1" } },
-                              [_vm._v("Content")]
-                            ),
-                            _vm._v(" "),
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.order.order_destroy,
-                                  expression: "order.order_destroy"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "order_destroy",
-                                id: "message-text"
-                              },
-                              domProps: { value: _vm.order.order_destroy },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.order,
-                                    "order_destroy",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errorBackEnd_HuyDon.order_destroy
-                              ? _c("div", { staticStyle: { color: "red" } }, [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(
-                                        _vm.errorBackEnd_HuyDon.order_destroy[0]
-                                      ) +
-                                      "\n                  "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(2)
-                        ]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "myModalVote",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "exampleModalLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c(
-                        "form",
-                        {
-                          attrs: {
-                            role: "form",
-                            enctype: "multipart/form-data"
-                          },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.customerReviews()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.evaluate.id,
-                                  expression: "evaluate.id"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                hidden: "",
-                                type: "text",
-                                id: "exampleInputEmail1",
-                                name: "id"
-                              },
-                              domProps: { value: _vm.evaluate.id },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.evaluate,
-                                    "id",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "div",
+                              "button",
                               {
-                                staticStyle: {
-                                  margin: "auto",
-                                  display: "table"
+                                staticClass: "btn btn-danger",
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModal",
+                                  "data-whatever": "@getbootstrap"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.updateProduct(order.id)
+                                  }
                                 }
                               },
                               [
-                                _c("star-rating", {
-                                  attrs: { "star-size": 45, increment: 0.5 },
-                                  model: {
-                                    value: _vm.evaluate.star_vote,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.evaluate, "star_vote", $$v)
-                                    },
-                                    expression: "evaluate.star_vote"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.evaluate.star_vote,
-                                      expression: "evaluate.star_vote"
-                                    }
-                                  ],
-                                  attrs: {
-                                    hidden: "",
-                                    type: "text",
-                                    name: "star_vote"
-                                  },
-                                  domProps: { value: _vm.evaluate.star_vote },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.evaluate,
-                                        "star_vote",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            ),
+                                _vm._v(
+                                  "\n                    Hủy Đơn\n                  "
+                                )
+                              ]
+                            )
+                          ])
+                        : order.order_status == 2
+                        ? _c("td", [
+                            _c("b", { staticStyle: { color: "blue" } }, [
+                              _vm._v("Shipper Đang Giao !")
+                            ])
+                          ])
+                        : order.order_status == 3
+                        ? _c("td", [
+                            _c("b", { staticStyle: { color: "#00cc00" } }, [
+                              _vm._v("Đã Nhận Hàng !")
+                            ]),
                             _vm._v(" "),
                             _c("br"),
                             _vm._v(" "),
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.evaluate.content,
-                                  expression: "evaluate.content"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { height: "130px" },
-                              attrs: {
-                                type: "text",
-                                placeholder:
-                                  "Điều bạn muốn nói về sản phẩm ...",
-                                name: "content"
-                              },
-                              domProps: { value: _vm.evaluate.content },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.evaluate,
-                                    "content",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errorBackEnd.content
-                              ? _c("div", { staticStyle: { color: "red" } }, [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(_vm.errorBackEnd.content[0]) +
-                                      "\n                  "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
                             _c(
-                              "div",
+                              "a",
                               {
-                                staticClass: "form-group col-md-6 text-center"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "position-relative d-inline-block"
-                                  },
-                                  [
-                                    _c(
-                                      "label",
-                                      { attrs: { for: "file_img_banner1" } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2 profile-image",
-                                            staticStyle: {
-                                              border: "dotted 1px #c0c0c0",
-                                              width: "225px",
-                                              height: "205px"
-                                            }
-                                          },
-                                          [
-                                            _c("img", {
-                                              ref: "imageDispaly_1",
-                                              staticClass:
-                                                "img-thumbnail profile-image",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px",
-                                                display: "none"
-                                              },
-                                              attrs: { src: "" }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "svg",
-                                              {
-                                                ref: "iconFile_1",
-                                                staticStyle: {
-                                                  "margin-top": "34%",
-                                                  "margin-left": "38%",
-                                                  "margin-right": "38%"
-                                                },
-                                                attrs: {
-                                                  width: "45",
-                                                  height: "45",
-                                                  viewBox: "0 0 45 45"
-                                                }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/images/Group_1287.svg#Group_1287"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "validate",
-                                              rawName: "v-validate",
-                                              value: "required",
-                                              expression: "'required'"
-                                            }
-                                          ],
-                                          ref: "image_1",
-                                          staticStyle: { display: "none" },
-                                          attrs: {
-                                            type: "file",
-                                            id: "file_img_banner1",
-                                            name: "image_1",
-                                            accept: "image_1/*"
-                                          },
-                                          on: { change: _vm.attachImage_1 }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        ref: "iconClose_1",
-                                        on: { click: _vm.deleteImage_1 }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-times",
-                                          staticStyle: {
-                                            transform: "translate(523%, -932%)",
-                                            "font-size": "25px",
-                                            color: "red",
-                                            "font-weight": "600"
-                                          },
-                                          attrs: { "aria-hidden": "true" }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-group col-md-6 text-center"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "position-relative d-inline-block"
-                                  },
-                                  [
-                                    _c(
-                                      "label",
-                                      { attrs: { for: "file_img_banner2" } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2",
-                                            staticStyle: {
-                                              border: "dotted 1px #c0c0c0",
-                                              width: "225px",
-                                              height: "205px"
-                                            }
-                                          },
-                                          [
-                                            _c("img", {
-                                              ref: "imageDispaly_2",
-                                              staticClass: "img-thumbnail",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px",
-                                                display: "none"
-                                              },
-                                              attrs: { src: "" }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "svg",
-                                              {
-                                                ref: "iconFile_2",
-                                                staticStyle: {
-                                                  "margin-top": "34%",
-                                                  "margin-left": "38%",
-                                                  "margin-right": "38%"
-                                                },
-                                                attrs: {
-                                                  width: "45",
-                                                  height: "45",
-                                                  viewBox: "0 0 45 45"
-                                                }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/images/Group_1287.svg#Group_1287"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "validate",
-                                              rawName: "v-validate",
-                                              value: "required",
-                                              expression: "'required'"
-                                            }
-                                          ],
-                                          ref: "image_2",
-                                          staticStyle: { display: "none" },
-                                          attrs: {
-                                            type: "file",
-                                            id: "file_img_banner2",
-                                            name: "image_2",
-                                            accept: "image_2/*"
-                                          },
-                                          on: { change: _vm.attachImage_2 }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        ref: "iconClose_2",
-                                        on: { click: _vm.deleteImage_2 }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-times",
-                                          staticStyle: {
-                                            transform: "translate(523%, -932%)",
-                                            "font-size": "25px",
-                                            color: "red",
-                                            "font-weight": "600"
-                                          },
-                                          attrs: { "aria-hidden": "true" }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-group col-md-6 text-center"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "position-relative d-inline-block"
-                                  },
-                                  [
-                                    _c(
-                                      "label",
-                                      { attrs: { for: "file_img_banner3" } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2",
-                                            staticStyle: {
-                                              border: "dotted 1px #c0c0c0",
-                                              width: "225px",
-                                              height: "205px"
-                                            }
-                                          },
-                                          [
-                                            _c("img", {
-                                              ref: "imageDispaly_3",
-                                              staticClass: "img-thumbnail",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px",
-                                                display: "none"
-                                              },
-                                              attrs: { src: "" }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "svg",
-                                              {
-                                                ref: "iconFile_3",
-                                                staticStyle: {
-                                                  "margin-top": "34%",
-                                                  "margin-left": "38%",
-                                                  "margin-right": "38%"
-                                                },
-                                                attrs: {
-                                                  width: "45",
-                                                  height: "45",
-                                                  viewBox: "0 0 45 45"
-                                                }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/images/Group_1287.svg#Group_1287"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "validate",
-                                              rawName: "v-validate",
-                                              value: "required",
-                                              expression: "'required'"
-                                            }
-                                          ],
-                                          ref: "image_3",
-                                          staticStyle: { display: "none" },
-                                          attrs: {
-                                            type: "file",
-                                            id: "file_img_banner3",
-                                            name: "image_3",
-                                            accept: "image_3/*"
-                                          },
-                                          on: { change: _vm.attachImage_3 }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        ref: "iconClose_3",
-                                        on: { click: _vm.deleteImage_3 }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-times",
-                                          staticStyle: {
-                                            transform: "translate(523%, -932%)",
-                                            "font-size": "25px",
-                                            color: "red",
-                                            "font-weight": "600"
-                                          },
-                                          attrs: { "aria-hidden": "true" }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-group col-md-6 text-center"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "position-relative d-inline-block"
-                                  },
-                                  [
-                                    _c(
-                                      "label",
-                                      { attrs: { for: "file_img_banner4" } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2",
-                                            staticStyle: {
-                                              border: "dotted 1px #c0c0c0",
-                                              width: "225px",
-                                              height: "205px"
-                                            }
-                                          },
-                                          [
-                                            _c("img", {
-                                              ref: "imageDispaly_4",
-                                              staticClass: "img-thumbnail",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px",
-                                                display: "none"
-                                              },
-                                              attrs: { src: "" }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "svg",
-                                              {
-                                                ref: "iconFile_4",
-                                                staticStyle: {
-                                                  "margin-top": "34%",
-                                                  "margin-left": "38%",
-                                                  "margin-right": "38%"
-                                                },
-                                                attrs: {
-                                                  width: "45",
-                                                  height: "45",
-                                                  viewBox: "0 0 45 45"
-                                                }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/images/Group_1287.svg#Group_1287"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "validate",
-                                              rawName: "v-validate",
-                                              value: "required",
-                                              expression: "'required'"
-                                            }
-                                          ],
-                                          ref: "image_4",
-                                          staticStyle: { display: "none" },
-                                          attrs: {
-                                            type: "file",
-                                            id: "file_img_banner4",
-                                            name: "image_4",
-                                            accept: "image_4/*"
-                                          },
-                                          on: { change: _vm.attachImage_4 }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        ref: "iconClose_4",
-                                        on: { click: _vm.deleteImage_4 }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-times",
-                                          staticStyle: {
-                                            transform: "translate(523%, -932%)",
-                                            "font-size": "25px",
-                                            color: "red",
-                                            "font-weight": "600"
-                                          },
-                                          attrs: { "aria-hidden": "true" }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(4)
-                        ]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "myModalViewVote",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "exampleModalLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c(
-                          "div",
-                          { staticStyle: { margin: "auto", display: "table" } },
-                          [
-                            _c("star-rating", {
-                              attrs: { "star-size": 45, increment: 0.5 },
-                              model: {
-                                value: _vm.viewVote.star_vote,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.viewVote, "star_vote", $$v)
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModalVote"
                                 },
-                                expression: "viewVote.star_vote"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.viewVote.content,
-                              expression: "viewVote.content"
+                                on: {
+                                  click: function($event) {
+                                    return _vm.voteProduct(order)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-warning" },
+                                  [_vm._v("Evaluate")]
+                                )
+                              ]
+                            )
+                          ])
+                        : order.order_status == 4
+                        ? _c("td", [
+                            _c("b", { staticStyle: { color: "red" } }, [
+                              _vm._v("Đã hủy !")
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success button-mualai",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.muaLai(order.id)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    Mua Lại\n                  "
+                                )
+                              ]
+                            )
+                          ])
+                        : order.order_status == 5
+                        ? _c("td", [
+                            _c("b", { staticStyle: { color: "red" } }, [
+                              _vm._v("Đã đánh giá !")
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModalViewVote"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.viewVoted(order)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-warning" },
+                                  [_vm._v("Xem")]
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "order-detail/" + order.order_code + "/view"
                             }
-                          ],
-                          staticClass: "form-control",
-                          staticStyle: { height: "130px" },
-                          attrs: {
-                            readonly: "",
-                            type: "text",
-                            placeholder: "Điều bạn muốn nói về sản phẩm ...",
-                            name: "content"
                           },
-                          domProps: { value: _vm.viewVote.content },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.viewVote,
-                                "content",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-row" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-md-6 text-center" },
                           [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "position-relative d-inline-block"
-                              },
-                              [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "file_img_banner1" } },
-                                  [
-                                    _vm.viewVote.image_1 != ""
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2 profile-image"
-                                          },
-                                          [
-                                            _c("img", {
-                                              staticClass:
-                                                "img-thumbnail profile-image",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px"
-                                              },
-                                              attrs: {
-                                                src:
-                                                  _vm.baseUrl +
-                                                  "/uploads/" +
-                                                  _vm.viewVote.image_1
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _c("div", {
-                                          staticClass:
-                                            "img-drop-box mt-2 mr-2 profile-image"
-                                        })
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-md-6 text-center" },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "position-relative d-inline-block"
-                              },
-                              [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "file_img_banner2" } },
-                                  [
-                                    _vm.viewVote.image_2 != ""
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2 profile-image"
-                                          },
-                                          [
-                                            _c("img", {
-                                              staticClass:
-                                                "img-thumbnail profile-image",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px"
-                                              },
-                                              attrs: {
-                                                src:
-                                                  _vm.baseUrl +
-                                                  "/uploads/" +
-                                                  _vm.viewVote.image_2
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _c("div", {
-                                          staticClass:
-                                            "img-drop-box mt-2 mr-2 profile-image"
-                                        })
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-row" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-md-6 text-center" },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "position-relative d-inline-block"
-                              },
-                              [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "file_img_banner3" } },
-                                  [
-                                    _vm.viewVote.image_3 != ""
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2 profile-image"
-                                          },
-                                          [
-                                            _c("img", {
-                                              staticClass:
-                                                "img-thumbnail profile-image",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px"
-                                              },
-                                              attrs: {
-                                                src:
-                                                  _vm.baseUrl +
-                                                  "/uploads/" +
-                                                  _vm.viewVote.image_3
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _c("div", {
-                                          staticClass:
-                                            "img-drop-box mt-2 mr-2 profile-image"
-                                        })
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-md-6 text-center" },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "position-relative d-inline-block"
-                              },
-                              [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "file_img_banner4" } },
-                                  [
-                                    _vm.viewVote.image_4 != ""
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "img-drop-box mt-2 mr-2 profile-image"
-                                          },
-                                          [
-                                            _c("img", {
-                                              staticClass:
-                                                "img-thumbnail profile-image",
-                                              staticStyle: {
-                                                width: "242px",
-                                                height: "202px"
-                                              },
-                                              attrs: {
-                                                src:
-                                                  _vm.baseUrl +
-                                                  "/uploads/" +
-                                                  _vm.viewVote.image_4
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _c("div", {
-                                          staticClass:
-                                            "img-drop-box mt-2 mr-2 profile-image"
-                                        })
-                                  ]
-                                )
-                              ]
-                            )
+                            _c("i", {
+                              staticClass:
+                                "fa fa-pencil-square-o text-success text-active",
+                              staticStyle: { "font-size": "25px" }
+                            })
                           ]
                         )
                       ])
                     ])
-                  ])
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _vm.orders != ""
-            ? _c("div", [
-                _c(
-                  "nav",
-                  { attrs: { "aria-label": "Page navigation example" } },
-                  [
-                    _c("paginate", {
-                      attrs: {
-                        "page-count": parseInt(_vm.orders.last_page),
-                        "page-range": 5,
-                        "margin-pages": 2,
-                        "click-handler": _vm.changePage,
-                        "prev-text": "<<",
-                        "next-text": ">>",
-                        "container-class": "pagination justify-content-center",
-                        "page-class": "page-item",
-                        "prev-class": "page-item",
-                        "next-class": "page-item",
-                        "page-link-class": "page-link bg-info text-light",
-                        "next-link-class": "page-link bg-info text-light",
-                        "prev-link-class": "page-link bg-info text-light"
-                      },
-                      model: {
-                        value: _vm.page,
-                        callback: function($$v) {
-                          _vm.page = $$v
-                        },
-                        expression: "page"
-                      }
-                    })
-                  ],
-                  1
+                  }),
+                  0
                 )
               ])
-            : _c(
-                "div",
-                { staticClass: "text-center", staticStyle: { color: "red" } },
-                [_vm._v("\n        There is no data !\n      ")]
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "myModal",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: { role: "form", enctype: "multipart/form-data" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.cancelOrder()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.order.id,
+                                expression: "order.id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              hidden: "",
+                              id: "exampleInputEmail1",
+                              name: "id"
+                            },
+                            domProps: { value: _vm.order.id },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.order, "id", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleInputEmail1" } },
+                            [_vm._v("Content")]
+                          ),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.order.order_destroy,
+                                expression: "order.order_destroy"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "order_destroy",
+                              id: "message-text"
+                            },
+                            domProps: { value: _vm.order.order_destroy },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.order,
+                                  "order_destroy",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errorBackEnd_HuyDon.order_destroy
+                            ? _c("div", { staticStyle: { color: "red" } }, [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(
+                                      _vm.errorBackEnd_HuyDon.order_destroy[0]
+                                    ) +
+                                    "\n                "
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(3)
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "myModalVote",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: { role: "form", enctype: "multipart/form-data" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.customerReviews()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.evaluate.id,
+                                expression: "evaluate.id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              hidden: "",
+                              type: "text",
+                              id: "exampleInputEmail1",
+                              name: "id"
+                            },
+                            domProps: { value: _vm.evaluate.id },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.evaluate,
+                                  "id",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticStyle: { margin: "auto", display: "table" }
+                            },
+                            [
+                              _c("star-rating", {
+                                attrs: { "star-size": 45, increment: 0.5 },
+                                model: {
+                                  value: _vm.evaluate.star_vote,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.evaluate, "star_vote", $$v)
+                                  },
+                                  expression: "evaluate.star_vote"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.evaluate.star_vote,
+                                    expression: "evaluate.star_vote"
+                                  }
+                                ],
+                                attrs: {
+                                  hidden: "",
+                                  type: "text",
+                                  name: "star_vote"
+                                },
+                                domProps: { value: _vm.evaluate.star_vote },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.evaluate,
+                                      "star_vote",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.evaluate.content,
+                                expression: "evaluate.content"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { height: "130px" },
+                            attrs: {
+                              type: "text",
+                              placeholder: "Điều bạn muốn nói về sản phẩm ...",
+                              name: "content"
+                            },
+                            domProps: { value: _vm.evaluate.content },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.evaluate,
+                                  "content",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errorBackEnd.content
+                            ? _c("div", { staticStyle: { color: "red" } }, [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(_vm.errorBackEnd.content[0]) +
+                                    "\n                "
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6 text-center" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "position-relative d-inline-block"
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner1" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "img-drop-box mt-2 mr-2 profile-image",
+                                          staticStyle: {
+                                            border: "dotted 1px #c0c0c0",
+                                            width: "225px",
+                                            height: "205px"
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_1",
+                                            staticClass:
+                                              "img-thumbnail profile-image",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px",
+                                              display: "none"
+                                            },
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_1",
+                                              staticStyle: {
+                                                "margin-top": "34%",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required",
+                                            expression: "'required'"
+                                          }
+                                        ],
+                                        ref: "image_1",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner1",
+                                          name: "image_1",
+                                          accept: "image_1/*"
+                                        },
+                                        on: { change: _vm.attachImage_1 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      ref: "iconClose_1",
+                                      on: { click: _vm.deleteImage_1 }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-times",
+                                        staticStyle: {
+                                          transform: "translate(523%, -932%)",
+                                          "font-size": "25px",
+                                          color: "red",
+                                          "font-weight": "600"
+                                        },
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6 text-center" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "position-relative d-inline-block"
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner2" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "img-drop-box mt-2 mr-2",
+                                          staticStyle: {
+                                            border: "dotted 1px #c0c0c0",
+                                            width: "225px",
+                                            height: "205px"
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_2",
+                                            staticClass: "img-thumbnail",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px",
+                                              display: "none"
+                                            },
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_2",
+                                              staticStyle: {
+                                                "margin-top": "34%",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required",
+                                            expression: "'required'"
+                                          }
+                                        ],
+                                        ref: "image_2",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner2",
+                                          name: "image_2",
+                                          accept: "image_2/*"
+                                        },
+                                        on: { change: _vm.attachImage_2 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      ref: "iconClose_2",
+                                      on: { click: _vm.deleteImage_2 }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-times",
+                                        staticStyle: {
+                                          transform: "translate(523%, -932%)",
+                                          "font-size": "25px",
+                                          color: "red",
+                                          "font-weight": "600"
+                                        },
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6 text-center" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "position-relative d-inline-block"
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner3" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "img-drop-box mt-2 mr-2",
+                                          staticStyle: {
+                                            border: "dotted 1px #c0c0c0",
+                                            width: "225px",
+                                            height: "205px"
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_3",
+                                            staticClass: "img-thumbnail",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px",
+                                              display: "none"
+                                            },
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_3",
+                                              staticStyle: {
+                                                "margin-top": "34%",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required",
+                                            expression: "'required'"
+                                          }
+                                        ],
+                                        ref: "image_3",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner3",
+                                          name: "image_3",
+                                          accept: "image_3/*"
+                                        },
+                                        on: { change: _vm.attachImage_3 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      ref: "iconClose_3",
+                                      on: { click: _vm.deleteImage_3 }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-times",
+                                        staticStyle: {
+                                          transform: "translate(523%, -932%)",
+                                          "font-size": "25px",
+                                          color: "red",
+                                          "font-weight": "600"
+                                        },
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6 text-center" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "position-relative d-inline-block"
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "file_img_banner4" } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "img-drop-box mt-2 mr-2",
+                                          staticStyle: {
+                                            border: "dotted 1px #c0c0c0",
+                                            width: "225px",
+                                            height: "205px"
+                                          }
+                                        },
+                                        [
+                                          _c("img", {
+                                            ref: "imageDispaly_4",
+                                            staticClass: "img-thumbnail",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px",
+                                              display: "none"
+                                            },
+                                            attrs: { src: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "svg",
+                                            {
+                                              ref: "iconFile_4",
+                                              staticStyle: {
+                                                "margin-top": "34%",
+                                                "margin-left": "38%",
+                                                "margin-right": "38%"
+                                              },
+                                              attrs: {
+                                                width: "45",
+                                                height: "45",
+                                                viewBox: "0 0 45 45"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/images/Group_1287.svg#Group_1287"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required",
+                                            expression: "'required'"
+                                          }
+                                        ],
+                                        ref: "image_4",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          id: "file_img_banner4",
+                                          name: "image_4",
+                                          accept: "image_4/*"
+                                        },
+                                        on: { change: _vm.attachImage_4 }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      ref: "iconClose_4",
+                                      on: { click: _vm.deleteImage_4 }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-times",
+                                        staticStyle: {
+                                          transform: "translate(523%, -932%)",
+                                          "font-size": "25px",
+                                          color: "red",
+                                          "font-weight": "600"
+                                        },
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(5)
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "myModalViewVote",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "div",
+                        { staticStyle: { margin: "auto", display: "table" } },
+                        [
+                          _c("star-rating", {
+                            attrs: { "star-size": 45, increment: 0.5 },
+                            model: {
+                              value: _vm.viewVote.star_vote,
+                              callback: function($$v) {
+                                _vm.$set(_vm.viewVote, "star_vote", $$v)
+                              },
+                              expression: "viewVote.star_vote"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.viewVote.content,
+                            expression: "viewVote.content"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        staticStyle: { height: "130px" },
+                        attrs: {
+                          readonly: "",
+                          type: "text",
+                          placeholder: "Điều bạn muốn nói về sản phẩm ...",
+                          name: "content"
+                        },
+                        domProps: { value: _vm.viewVote.content },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.viewVote,
+                              "content",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-6 text-center" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "position-relative d-inline-block" },
+                            [
+                              _c(
+                                "label",
+                                { attrs: { for: "file_img_banner1" } },
+                                [
+                                  _vm.viewVote.image_1 != ""
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "img-drop-box mt-2 mr-2 profile-image"
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass:
+                                              "img-thumbnail profile-image",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px"
+                                            },
+                                            attrs: {
+                                              src:
+                                                _vm.baseUrl +
+                                                "/uploads/" +
+                                                _vm.viewVote.image_1
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _c("div", {
+                                        staticClass:
+                                          "img-drop-box mt-2 mr-2 profile-image"
+                                      })
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-6 text-center" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "position-relative d-inline-block" },
+                            [
+                              _c(
+                                "label",
+                                { attrs: { for: "file_img_banner2" } },
+                                [
+                                  _vm.viewVote.image_2 != ""
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "img-drop-box mt-2 mr-2 profile-image"
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass:
+                                              "img-thumbnail profile-image",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px"
+                                            },
+                                            attrs: {
+                                              src:
+                                                _vm.baseUrl +
+                                                "/uploads/" +
+                                                _vm.viewVote.image_2
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _c("div", {
+                                        staticClass:
+                                          "img-drop-box mt-2 mr-2 profile-image"
+                                      })
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-6 text-center" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "position-relative d-inline-block" },
+                            [
+                              _c(
+                                "label",
+                                { attrs: { for: "file_img_banner3" } },
+                                [
+                                  _vm.viewVote.image_3 != ""
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "img-drop-box mt-2 mr-2 profile-image"
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass:
+                                              "img-thumbnail profile-image",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px"
+                                            },
+                                            attrs: {
+                                              src:
+                                                _vm.baseUrl +
+                                                "/uploads/" +
+                                                _vm.viewVote.image_3
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _c("div", {
+                                        staticClass:
+                                          "img-drop-box mt-2 mr-2 profile-image"
+                                      })
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-6 text-center" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "position-relative d-inline-block" },
+                            [
+                              _c(
+                                "label",
+                                { attrs: { for: "file_img_banner4" } },
+                                [
+                                  _vm.viewVote.image_4 != ""
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "img-drop-box mt-2 mr-2 profile-image"
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass:
+                                              "img-thumbnail profile-image",
+                                            staticStyle: {
+                                              width: "242px",
+                                              height: "202px"
+                                            },
+                                            attrs: {
+                                              src:
+                                                _vm.baseUrl +
+                                                "/uploads/" +
+                                                _vm.viewVote.image_4
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _c("div", {
+                                        staticClass:
+                                          "img-drop-box mt-2 mr-2 profile-image"
+                                      })
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.orders != ""
+          ? _c("div", [
+              _c(
+                "nav",
+                { attrs: { "aria-label": "Page navigation example" } },
+                [
+                  _c("paginate", {
+                    attrs: {
+                      "page-count": parseInt(_vm.orders.last_page),
+                      "page-range": 5,
+                      "margin-pages": 2,
+                      "click-handler": _vm.changePage,
+                      "prev-text": "<<",
+                      "next-text": ">>",
+                      "container-class": "pagination justify-content-center",
+                      "page-class": "page-item",
+                      "prev-class": "page-item",
+                      "next-class": "page-item",
+                      "page-link-class": "page-link bg-info text-light",
+                      "next-link-class": "page-link bg-info text-light",
+                      "prev-link-class": "page-link bg-info text-light"
+                    },
+                    model: {
+                      value: _vm.page,
+                      callback: function($$v) {
+                        _vm.page = $$v
+                      },
+                      expression: "page"
+                    }
+                  })
+                ],
+                1
               )
-        ])
+            ])
+          : _c(
+              "div",
+              { staticClass: "text-center", staticStyle: { color: "red" } },
+              [_vm._v("\n      There is no data !\n    ")]
+            )
       ]),
       _vm._v(" "),
       _c("Loader", { attrs: { "flag-show": _vm.flagShowLoader } }),
@@ -108836,6 +108905,162 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/icon-2.png", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Confirming")])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/icon-1.png", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Delivering")])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/status-payment-3.jpg", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Received")])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/status-payment-1.jpg", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Evaluated")])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/status-payment-2.jpg", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Cancelled")])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-2",
+          staticStyle: { border: "dotted 1px #c0c0c0" }
+        },
+        [
+          _c("div", { staticClass: "single-benefit" }, [
+            _c("div", { staticClass: "sb-icon text-center" }, [
+              _c("img", {
+                staticClass: "pt-2",
+                staticStyle: { height: "66px", width: "81px" },
+                attrs: { src: "/frontend/images/status-payment-4.jpg", alt: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "sb-text text-center pb-2" }, [
+              _c("h6", [_vm._v("Returns")])
+            ])
+          ])
+        ]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -108868,7 +109093,7 @@ var staticRenderFns = [
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [
           _vm._v(
-            "\n                Why do you want to cancel the order?\n              "
+            "\n              Why do you want to cancel the order?\n            "
           )
         ]
       ),
@@ -108909,7 +109134,7 @@ var staticRenderFns = [
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [
           _vm._v(
-            "\n                What are your thoughts on the product?\n              "
+            "\n              What are your thoughts on the product?\n            "
           )
         ]
       ),
@@ -108948,7 +109173,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("\n                Your review !\n              ")]
+        [_vm._v("Your review !")]
       ),
       _vm._v(" "),
       _c(

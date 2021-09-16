@@ -1,509 +1,312 @@
 <template>
   <div>
-    <section class="shopping-cart spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="cart-table">
-              <table class="table table-condensed">
-                <thead>
-                  <tr class="cart_menu">
-                    <td>ID</td>
-                    <td>Orderer</td>
-                    <td>Receivern</td>
-                    <td>Total Money</td>
-                    <td>Order Date</td>
-                    <td>Status</td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(order, index) in orders.data" :key="order.id">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ order.user.name }}</td>
-                    <td>{{ order.shipping.name }}</td>
-                    <td>{{ order.total_bill }} vnđ</td>
-                    <td>{{ order.order_date }}</td>
-                    <td v-if="order.order_status == 1">
-                      <b style="color: blue">Đang xử lý !</b>
-                      <button
-                        data-toggle="modal"
-                        data-target="#myModal"
-                        data-whatever="@getbootstrap"
-                        class="btn btn-danger"
-                        @click="updateProduct(order.id)"
-                      >
-                        Hủy Đơn
-                      </button>
-                    </td>
-                    <td v-else-if="order.order_status == 2">
-                      <b style="color: blue">Shipper Đang Giao !</b>
-                    </td>
-                    <td v-else-if="order.order_status == 3">
-                      <b style="color: #00cc00">Đã Nhận Hàng !</b> <br />
-                      <a
-                        data-toggle="modal"
-                        data-target="#myModalVote"
-                        @click="voteProduct(order)"
-                        ><button class="btn btn-warning">Evaluate</button></a
-                      >
-                    </td>
-                    <td v-else-if="order.order_status == 4">
-                      <b style="color: red">Đã hủy !</b> <br />
-                      <button
-                        class="btn btn-success button-mualai"
-                        @click="muaLai(order.id)"
-                      >
-                        Mua Lại
-                      </button>
-                    </td>
-                    <td v-else-if="order.order_status == 5">
-                      <b style="color: red">Đã đánh giá !</b> <br />
-                      <a
-                        data-toggle="modal"
-                        data-target="#myModalViewVote"
-                        @click="viewVoted(order)"
-                        ><button class="btn btn-warning">Xem</button></a
-                      >
-                    </td>
-
-                    <td>
-                      <a :href="`order-detail/${order.order_code}/view`">
-                        <i
-                          class="fa fa-pencil-square-o text-success text-active"
-                          style="font-size: 25px"
-                        >
-                        </i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/icon-2.png"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Confirming</h6>
             </div>
           </div>
         </div>
-        <div
-          class="modal fade"
-          id="myModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Why do you want to cancel the order?
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form
-                  role="form"
-                  @submit.prevent="cancelOrder()"
-                  enctype="multipart/form-data"
-                >
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      hidden
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      name="id"
-                      v-model="order.id"
-                    />
-                    <label for="exampleInputEmail1">Content</label>
-                    <textarea
-                      type="text"
-                      class="form-control"
-                      name="order_destroy"
-                      id="message-text"
-                      v-model="order.order_destroy"
-                    ></textarea>
-                    <div
-                      style="color: red"
-                      v-if="errorBackEnd_HuyDon.order_destroy"
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/icon-1.png"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Delivering</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/status-payment-3.jpg"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Received</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/status-payment-1.jpg"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Evaluated</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/status-payment-2.jpg"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Cancelled</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2" style="border: dotted 1px #c0c0c0">
+          <div class="single-benefit">
+            <div class="sb-icon text-center">
+              <img
+                class="pt-2"
+                src="/frontend/images/status-payment-4.jpg"
+                style="height: 66px; width: 81px"
+                alt=""
+              />
+            </div>
+            <br />
+            <div class="sb-text text-center pb-2">
+              <h6>Returns</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="cart-table">
+            <table class="table table-condensed">
+              <thead>
+                <tr class="cart_menu">
+                  <td>ID</td>
+                  <td>Orderer</td>
+                  <td>Receivern</td>
+                  <td>Total Money</td>
+                  <td>Order Date</td>
+                  <td>Status</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(order, index) in orders.data" :key="order.id">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ order.user.name }}</td>
+                  <td>{{ order.shipping.name }}</td>
+                  <td>{{ order.total_bill }} vnđ</td>
+                  <td>{{ order.order_date }}</td>
+                  <td v-if="order.order_status == 1">
+                    <b style="color: blue">Đang xử lý !</b>
+                    <button
+                      data-toggle="modal"
+                      data-target="#myModal"
+                      data-whatever="@getbootstrap"
+                      class="btn btn-danger"
+                      @click="updateProduct(order.id)"
                     >
-                      {{ errorBackEnd_HuyDon.order_destroy[0] }}
-                    </div>
-                  </div>
+                      Hủy Đơn
+                    </button>
+                  </td>
+                  <td v-else-if="order.order_status == 2">
+                    <b style="color: blue">Shipper Đang Giao !</b>
+                  </td>
+                  <td v-else-if="order.order_status == 3">
+                    <b style="color: #00cc00">Đã Nhận Hàng !</b> <br />
+                    <a
+                      data-toggle="modal"
+                      data-target="#myModalVote"
+                      @click="voteProduct(order)"
+                      ><button class="btn btn-warning">Evaluate</button></a
+                    >
+                  </td>
+                  <td v-else-if="order.order_status == 4">
+                    <b style="color: red">Đã hủy !</b> <br />
+                    <button
+                      class="btn btn-success button-mualai"
+                      @click="muaLai(order.id)"
+                    >
+                      Mua Lại
+                    </button>
+                  </td>
+                  <td v-else-if="order.order_status == 5">
+                    <b style="color: red">Đã đánh giá !</b> <br />
+                    <a
+                      data-toggle="modal"
+                      data-target="#myModalViewVote"
+                      @click="viewVoted(order)"
+                      ><button class="btn btn-warning">Xem</button></a
+                    >
+                  </td>
 
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+                  <td>
+                    <a :href="`order-detail/${order.order_code}/view`">
+                      <i
+                        class="fa fa-pencil-square-o text-success text-active"
+                        style="font-size: 25px"
+                      >
+                      </i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div
-          class="modal fade"
-          id="myModalVote"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  What are your thoughts on the product?
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form
-                  role="form"
-                  @submit.prevent="customerReviews()"
-                  enctype="multipart/form-data"
-                >
-                  <div class="form-group">
-                    <input
-                      hidden
-                      type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      name="id"
-                      v-model="evaluate.id"
-                    />
-                    <div style="margin: auto; display: table">
-                      <star-rating
-                        :star-size="45"
-                        :increment="0.5"
-                        v-model="evaluate.star_vote"
-                      ></star-rating>
-                      <input
-                        hidden
-                        type="text"
-                        name="star_vote"
-                        v-model="evaluate.star_vote"
-                      />
-                    </div>
-                    <br />
-                    <textarea
-                      type="text"
-                      placeholder="Điều bạn muốn nói về sản phẩm ..."
-                      style="height: 130px"
-                      class="form-control"
-                      name="content"
-                      v-model="evaluate.content"
-                    ></textarea>
-                    <div style="color: red" v-if="errorBackEnd.content">
-                      {{ errorBackEnd.content[0] }}
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6 text-center">
-                      <div class="position-relative d-inline-block">
-                        <label for="file_img_banner1">
-                          <div
-                            class="img-drop-box mt-2 mr-2 profile-image"
-                            style="
-                              border: dotted 1px #c0c0c0;
-                              width: 225px;
-                              height: 205px;
-                            "
-                          >
-                            <img
-                              src
-                              ref="imageDispaly_1"
-                              class="img-thumbnail profile-image"
-                              style="width: 242px; height: 202px; display: none"
-                            />
-                            <svg
-                              width="45"
-                              height="45"
-                              viewBox="0 0 45 45"
-                              style="
-                                margin-top: 34%;
-                                margin-left: 38%;
-                                margin-right: 38%;
-                              "
-                              ref="iconFile_1"
-                            >
-                              <use
-                                xlink:href="/images/Group_1287.svg#Group_1287"
-                              ></use>
-                            </svg>
-                          </div>
-                          <input
-                            type="file"
-                            id="file_img_banner1"
-                            v-validate="'required'"
-                            name="image_1"
-                            ref="image_1"
-                            v-on:change="attachImage_1"
-                            accept="image_1/*"
-                            style="display: none"
-                          />
-                        </label>
-
-                        <a ref="iconClose_1" @click="deleteImage_1"
-                          ><i
-                            class="fa fa-times"
-                            aria-hidden="true"
-                            style="
-                              transform: translate(523%, -932%);
-                              font-size: 25px;
-                              color: red;
-                              font-weight: 600;
-                            "
-                          >
-                          </i>
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-6 text-center">
-                      <div class="position-relative d-inline-block">
-                        <label for="file_img_banner2">
-                          <div
-                            class="img-drop-box mt-2 mr-2"
-                            style="
-                              border: dotted 1px #c0c0c0;
-                              width: 225px;
-                              height: 205px;
-                            "
-                          >
-                            <img
-                              src
-                              ref="imageDispaly_2"
-                              class="img-thumbnail"
-                              style="width: 242px; height: 202px; display: none"
-                            />
-                            <svg
-                              width="45"
-                              height="45"
-                              viewBox="0 0 45 45"
-                              style="
-                                margin-top: 34%;
-                                margin-left: 38%;
-                                margin-right: 38%;
-                              "
-                              ref="iconFile_2"
-                            >
-                              <use
-                                xlink:href="/images/Group_1287.svg#Group_1287"
-                              ></use>
-                            </svg>
-                          </div>
-                          <input
-                            type="file"
-                            id="file_img_banner2"
-                            v-validate="'required'"
-                            name="image_2"
-                            ref="image_2"
-                            v-on:change="attachImage_2"
-                            accept="image_2/*"
-                            style="display: none"
-                          />
-                        </label>
-                        <a ref="iconClose_2" @click="deleteImage_2"
-                          ><i
-                            class="fa fa-times"
-                            aria-hidden="true"
-                            style="
-                              transform: translate(523%, -932%);
-                              font-size: 25px;
-                              color: red;
-                              font-weight: 600;
-                            "
-                          >
-                          </i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group col-md-6 text-center">
-                      <div class="position-relative d-inline-block">
-                        <label for="file_img_banner3">
-                          <div
-                            class="img-drop-box mt-2 mr-2"
-                            style="
-                              border: dotted 1px #c0c0c0;
-                              width: 225px;
-                              height: 205px;
-                            "
-                          >
-                            <img
-                              src
-                              ref="imageDispaly_3"
-                              class="img-thumbnail"
-                              style="width: 242px; height: 202px; display: none"
-                            />
-                            <svg
-                              width="45"
-                              height="45"
-                              viewBox="0 0 45 45"
-                              style="
-                                margin-top: 34%;
-                                margin-left: 38%;
-                                margin-right: 38%;
-                              "
-                              ref="iconFile_3"
-                            >
-                              <use
-                                xlink:href="/images/Group_1287.svg#Group_1287"
-                              ></use>
-                            </svg>
-                          </div>
-                          <input
-                            type="file"
-                            id="file_img_banner3"
-                            v-validate="'required'"
-                            name="image_3"
-                            ref="image_3"
-                            v-on:change="attachImage_3"
-                            accept="image_3/*"
-                            style="display: none"
-                          />
-                        </label>
-                        <a ref="iconClose_3" @click="deleteImage_3"
-                          ><i
-                            class="fa fa-times"
-                            aria-hidden="true"
-                            style="
-                              transform: translate(523%, -932%);
-                              font-size: 25px;
-                              color: red;
-                              font-weight: 600;
-                            "
-                          >
-                          </i>
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-6 text-center">
-                      <div class="position-relative d-inline-block">
-                        <label for="file_img_banner4">
-                          <div
-                            class="img-drop-box mt-2 mr-2"
-                            style="
-                              border: dotted 1px #c0c0c0;
-                              width: 225px;
-                              height: 205px;
-                            "
-                          >
-                            <img
-                              src
-                              ref="imageDispaly_4"
-                              class="img-thumbnail"
-                              style="width: 242px; height: 202px; display: none"
-                            />
-                            <svg
-                              width="45"
-                              height="45"
-                              viewBox="0 0 45 45"
-                              style="
-                                margin-top: 34%;
-                                margin-left: 38%;
-                                margin-right: 38%;
-                              "
-                              ref="iconFile_4"
-                            >
-                              <use
-                                xlink:href="/images/Group_1287.svg#Group_1287"
-                              ></use>
-                            </svg>
-                          </div>
-                          <input
-                            type="file"
-                            id="file_img_banner4"
-                            v-validate="'required'"
-                            name="image_4"
-                            ref="image_4"
-                            v-on:change="attachImage_4"
-                            accept="image_4/*"
-                            style="display: none"
-                          />
-                        </label>
-                        <a ref="iconClose_4" @click="deleteImage_4"
-                          ><i
-                            class="fa fa-times"
-                            aria-hidden="true"
-                            style="
-                              transform: translate(523%, -932%);
-                              font-size: 25px;
-                              color: red;
-                              font-weight: 600;
-                            "
-                          >
-                          </i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                  </div>
-                </form>
-              </div>
+      </div>
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Why do you want to cancel the order?
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          </div>
-        </div>
-
-        <div
-          class="modal fade"
-          id="myModalViewVote"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Your review !
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
+            <div class="modal-body">
+              <form
+                role="form"
+                @submit.prevent="cancelOrder()"
+                enctype="multipart/form-data"
+              >
                 <div class="form-group">
+                  <input
+                    type="text"
+                    hidden
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="id"
+                    v-model="order.id"
+                  />
+                  <label for="exampleInputEmail1">Content</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    name="order_destroy"
+                    id="message-text"
+                    v-model="order.order_destroy"
+                  ></textarea>
+                  <div
+                    style="color: red"
+                    v-if="errorBackEnd_HuyDon.order_destroy"
+                  >
+                    {{ errorBackEnd_HuyDon.order_destroy[0] }}
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="myModalVote"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                What are your thoughts on the product?
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form
+                role="form"
+                @submit.prevent="customerReviews()"
+                enctype="multipart/form-data"
+              >
+                <div class="form-group">
+                  <input
+                    hidden
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="id"
+                    v-model="evaluate.id"
+                  />
                   <div style="margin: auto; display: table">
                     <star-rating
                       :star-size="45"
                       :increment="0.5"
-                      v-model="viewVote.star_vote"
+                      v-model="evaluate.star_vote"
                     ></star-rating>
+                    <input
+                      hidden
+                      type="text"
+                      name="star_vote"
+                      v-model="evaluate.star_vote"
+                    />
                   </div>
                   <br />
                   <textarea
-                    readonly
                     type="text"
                     placeholder="Điều bạn muốn nói về sản phẩm ..."
                     style="height: 130px"
                     class="form-control"
                     name="content"
-                    v-model="viewVote.content"
+                    v-model="evaluate.content"
                   ></textarea>
+                  <div style="color: red" v-if="errorBackEnd.content">
+                    {{ errorBackEnd.content[0] }}
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6 text-center">
@@ -511,19 +314,59 @@
                       <label for="file_img_banner1">
                         <div
                           class="img-drop-box mt-2 mr-2 profile-image"
-                          v-if="viewVote.image_1 != ''"
+                          style="
+                            border: dotted 1px #c0c0c0;
+                            width: 225px;
+                            height: 205px;
+                          "
                         >
                           <img
+                            src
+                            ref="imageDispaly_1"
                             class="img-thumbnail profile-image"
-                            :src="baseUrl + '/uploads/' + viewVote.image_1"
-                            style="width: 242px; height: 202px"
+                            style="width: 242px; height: 202px; display: none"
                           />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 34%;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_1"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
                         </div>
-                        <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-else
-                        ></div>
+                        <input
+                          type="file"
+                          id="file_img_banner1"
+                          v-validate="'required'"
+                          name="image_1"
+                          ref="image_1"
+                          v-on:change="attachImage_1"
+                          accept="image_1/*"
+                          style="display: none"
+                        />
                       </label>
+
+                      <a ref="iconClose_1" @click="deleteImage_1"
+                        ><i
+                          class="fa fa-times"
+                          aria-hidden="true"
+                          style="
+                            transform: translate(523%, -932%);
+                            font-size: 25px;
+                            color: red;
+                            font-weight: 600;
+                          "
+                        >
+                        </i>
+                      </a>
                     </div>
                   </div>
 
@@ -531,20 +374,59 @@
                     <div class="position-relative d-inline-block">
                       <label for="file_img_banner2">
                         <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-if="viewVote.image_2 != ''"
+                          class="img-drop-box mt-2 mr-2"
+                          style="
+                            border: dotted 1px #c0c0c0;
+                            width: 225px;
+                            height: 205px;
+                          "
                         >
                           <img
-                            class="img-thumbnail profile-image"
-                            :src="baseUrl + '/uploads/' + viewVote.image_2"
-                            style="width: 242px; height: 202px"
+                            src
+                            ref="imageDispaly_2"
+                            class="img-thumbnail"
+                            style="width: 242px; height: 202px; display: none"
                           />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 34%;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_2"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
                         </div>
-                        <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-else
-                        ></div>
+                        <input
+                          type="file"
+                          id="file_img_banner2"
+                          v-validate="'required'"
+                          name="image_2"
+                          ref="image_2"
+                          v-on:change="attachImage_2"
+                          accept="image_2/*"
+                          style="display: none"
+                        />
                       </label>
+                      <a ref="iconClose_2" @click="deleteImage_2"
+                        ><i
+                          class="fa fa-times"
+                          aria-hidden="true"
+                          style="
+                            transform: translate(523%, -932%);
+                            font-size: 25px;
+                            color: red;
+                            font-weight: 600;
+                          "
+                        >
+                        </i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -554,20 +436,59 @@
                     <div class="position-relative d-inline-block">
                       <label for="file_img_banner3">
                         <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-if="viewVote.image_3 != ''"
+                          class="img-drop-box mt-2 mr-2"
+                          style="
+                            border: dotted 1px #c0c0c0;
+                            width: 225px;
+                            height: 205px;
+                          "
                         >
                           <img
-                            class="img-thumbnail profile-image"
-                            :src="baseUrl + '/uploads/' + viewVote.image_3"
-                            style="width: 242px; height: 202px"
+                            src
+                            ref="imageDispaly_3"
+                            class="img-thumbnail"
+                            style="width: 242px; height: 202px; display: none"
                           />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 34%;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_3"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
                         </div>
-                        <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-else
-                        ></div>
+                        <input
+                          type="file"
+                          id="file_img_banner3"
+                          v-validate="'required'"
+                          name="image_3"
+                          ref="image_3"
+                          v-on:change="attachImage_3"
+                          accept="image_3/*"
+                          style="display: none"
+                        />
                       </label>
+                      <a ref="iconClose_3" @click="deleteImage_3"
+                        ><i
+                          class="fa fa-times"
+                          aria-hidden="true"
+                          style="
+                            transform: translate(523%, -932%);
+                            font-size: 25px;
+                            color: red;
+                            font-weight: 600;
+                          "
+                        >
+                        </i>
+                      </a>
                     </div>
                   </div>
 
@@ -575,53 +496,229 @@
                     <div class="position-relative d-inline-block">
                       <label for="file_img_banner4">
                         <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-if="viewVote.image_4 != ''"
+                          class="img-drop-box mt-2 mr-2"
+                          style="
+                            border: dotted 1px #c0c0c0;
+                            width: 225px;
+                            height: 205px;
+                          "
                         >
                           <img
-                            class="img-thumbnail profile-image"
-                            :src="baseUrl + '/uploads/' + viewVote.image_4"
-                            style="width: 242px; height: 202px"
+                            src
+                            ref="imageDispaly_4"
+                            class="img-thumbnail"
+                            style="width: 242px; height: 202px; display: none"
                           />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="
+                              margin-top: 34%;
+                              margin-left: 38%;
+                              margin-right: 38%;
+                            "
+                            ref="iconFile_4"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
                         </div>
-                        <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          v-else
-                        ></div>
+                        <input
+                          type="file"
+                          id="file_img_banner4"
+                          v-validate="'required'"
+                          name="image_4"
+                          ref="image_4"
+                          v-on:change="attachImage_4"
+                          accept="image_4/*"
+                          style="display: none"
+                        />
                       </label>
+                      <a ref="iconClose_4" @click="deleteImage_4"
+                        ><i
+                          class="fa fa-times"
+                          aria-hidden="true"
+                          style="
+                            transform: translate(523%, -932%);
+                            font-size: 25px;
+                            color: red;
+                            font-weight: 600;
+                          "
+                        >
+                        </i>
+                      </a>
                     </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="myModalViewVote"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Your review !</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div style="margin: auto; display: table">
+                  <star-rating
+                    :star-size="45"
+                    :increment="0.5"
+                    v-model="viewVote.star_vote"
+                  ></star-rating>
+                </div>
+                <br />
+                <textarea
+                  readonly
+                  type="text"
+                  placeholder="Điều bạn muốn nói về sản phẩm ..."
+                  style="height: 130px"
+                  class="form-control"
+                  name="content"
+                  v-model="viewVote.content"
+                ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6 text-center">
+                  <div class="position-relative d-inline-block">
+                    <label for="file_img_banner1">
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-if="viewVote.image_1 != ''"
+                      >
+                        <img
+                          class="img-thumbnail profile-image"
+                          :src="baseUrl + '/uploads/' + viewVote.image_1"
+                          style="width: 242px; height: 202px"
+                        />
+                      </div>
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-else
+                      ></div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 text-center">
+                  <div class="position-relative d-inline-block">
+                    <label for="file_img_banner2">
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-if="viewVote.image_2 != ''"
+                      >
+                        <img
+                          class="img-thumbnail profile-image"
+                          :src="baseUrl + '/uploads/' + viewVote.image_2"
+                          style="width: 242px; height: 202px"
+                        />
+                      </div>
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-else
+                      ></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6 text-center">
+                  <div class="position-relative d-inline-block">
+                    <label for="file_img_banner3">
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-if="viewVote.image_3 != ''"
+                      >
+                        <img
+                          class="img-thumbnail profile-image"
+                          :src="baseUrl + '/uploads/' + viewVote.image_3"
+                          style="width: 242px; height: 202px"
+                        />
+                      </div>
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-else
+                      ></div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 text-center">
+                  <div class="position-relative d-inline-block">
+                    <label for="file_img_banner4">
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-if="viewVote.image_4 != ''"
+                      >
+                        <img
+                          class="img-thumbnail profile-image"
+                          :src="baseUrl + '/uploads/' + viewVote.image_4"
+                          style="width: 242px; height: 202px"
+                        />
+                      </div>
+                      <div
+                        class="img-drop-box mt-2 mr-2 profile-image"
+                        v-else
+                      ></div>
+                    </label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div v-if="orders != ''">
-          <nav aria-label="Page navigation example">
-            <paginate
-              v-model="page"
-              :page-count="parseInt(orders.last_page)"
-              :page-range="5"
-              :margin-pages="2"
-              :click-handler="changePage"
-              :prev-text="'<<'"
-              :next-text="'>>'"
-              :container-class="'pagination justify-content-center'"
-              :page-class="'page-item'"
-              :prev-class="'page-item'"
-              :next-class="'page-item'"
-              :page-link-class="'page-link bg-info text-light'"
-              :next-link-class="'page-link bg-info text-light'"
-              :prev-link-class="'page-link bg-info text-light'"
-            >
-            </paginate>
-          </nav>
-        </div>
-        <div v-else class="text-center" style="color: red">
-          There is no data !
-        </div>
       </div>
-    </section>
+      <div v-if="orders != ''">
+        <nav aria-label="Page navigation example">
+          <paginate
+            v-model="page"
+            :page-count="parseInt(orders.last_page)"
+            :page-range="5"
+            :margin-pages="2"
+            :click-handler="changePage"
+            :prev-text="'<<'"
+            :next-text="'>>'"
+            :container-class="'pagination justify-content-center'"
+            :page-class="'page-item'"
+            :prev-class="'page-item'"
+            :next-class="'page-item'"
+            :page-link-class="'page-link bg-info text-light'"
+            :next-link-class="'page-link bg-info text-light'"
+            :prev-link-class="'page-link bg-info text-light'"
+          >
+          </paginate>
+        </nav>
+      </div>
+      <div v-else class="text-center" style="color: red">
+        There is no data !
+      </div>
+    </div>
     <Loader :flag-show="flagShowLoader"></Loader>
     <FlashMessage :position="'left bottom'"></FlashMessage>
   </div>
