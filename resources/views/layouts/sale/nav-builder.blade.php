@@ -56,7 +56,7 @@
             <tbody>
                 @foreach ($post as $key => $data)
                     <tr class="overflow">
-                        <td class="si-pic"><img style="width: 90px;
+                        <td class="si-pic"><img style="width: 90px;max-width:100%;
                             height: 74px;padding-right:10px;" src="{{ URL::to('uploads/' . $data->images) }}" alt="">
                         <td class="si-text">
                             <div class="product-selected">

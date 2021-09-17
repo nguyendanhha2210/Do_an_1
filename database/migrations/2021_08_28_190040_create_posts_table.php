@@ -17,10 +17,10 @@ class CreatePostsTable extends Migration
             $table->Increments('id');
             $table->string('title');
             $table->integer('id_category_post');
-            $table->string('desc');
+            $table->text('desc');
             $table->string('images');
             $table->integer('status');
-            $table->string('content');
+            $table->text('content');
             $table->integer('views');
             $table->timestamps();
             $table->softDeletes();
