@@ -80,8 +80,8 @@
             <span>(5)</span>
           </div>
           <div class="pd-desc">
-            <p>
-              {{ info[0].content }}
+            <p style="color:#AAAAAA"> Đã bán :
+              {{ info[0].product_sold }}
             </p>
             <h4>{{ info[0].price }} vnđ</h4>
           </div>

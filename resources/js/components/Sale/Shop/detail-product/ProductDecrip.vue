@@ -36,7 +36,11 @@
             <div class="product-content">
               <div class="row">
                 <div class="col-lg-7">
-                  <textarea
+                  <div style="overflow-y: scroll; height: 100px">
+                    {{ decrip[0].content }}
+                  </div>
+
+                  <!-- <textarea
                     style="
                       padding-left: 10px;
                       border: none;
@@ -46,8 +50,7 @@
                     cols="51"
                     rows="11"
                   >
-                    
-                  </textarea>
+                  </textarea> -->
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
@@ -60,7 +63,7 @@
           </div>
           <div class="tab-pane fade" id="tab-2" role="tabpanel">
             <div class="specification-table">
-              <table>
+              <table style="background-color: #e9edf0">
                 <tr>
                   <td class="p-catagory">Customer Rating</td>
                   <td>
@@ -390,10 +393,20 @@
 
             <div class="customer-review-option">
               <div class="leave-comment">
-                <h4>Leave A Comment</h4>
-                <form @submit.prevent="addComment()" class="comment-form">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="section-title">
+                      <h2>Leave A Comment</h2>
+                    </div>
+                  </div>
+                </div>
+                <form
+                  @submit.prevent="addComment()"
+                  class="comment-form"
+                  style="background-color: #e9edf0"
+                >
                   <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-lg-1" style="transform: translate(20%, 7%)">
                       <img
                         class="rounded-circle"
                         :src="baseUrl + '/uploads/' + showImage"
@@ -408,7 +421,7 @@
                         height="40px"
                       />
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-11" style="padding: 17px">
                       <textarea
                         placeholder="Messages"
                         name="content"

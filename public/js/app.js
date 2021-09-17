@@ -5893,6 +5893,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8356,6 +8369,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8417,6 +8446,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
@@ -106904,7 +106937,24 @@ var render = function() {
               [
                 _c("div", { staticClass: "product-content" }, [
                   _c("div", { staticClass: "row" }, [
-                    _vm._m(2),
+                    _c("div", { staticClass: "col-lg-7" }, [
+                      _c(
+                        "div",
+                        {
+                          staticStyle: {
+                            "overflow-y": "scroll",
+                            height: "100px"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(_vm.decrip[0].content) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -106938,57 +106988,61 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "specification-table" }, [
-                  _c("table", [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "p-catagory" }, [
-                        _vm._v("Price")
+                  _c(
+                    "table",
+                    { staticStyle: { "background-color": "#e9edf0" } },
+                    [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { staticClass: "p-catagory" }, [
+                          _vm._v("Price")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "p-price" }, [
+                            _vm._v(_vm._s(_vm.decrip[0].price) + " vnđ")
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "p-price" }, [
-                          _vm._v(_vm._s(_vm.decrip[0].price) + " vnđ")
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { staticClass: "p-catagory" }, [
+                          _vm._v("Availability")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "p-stock" }, [
+                            _vm._v(_vm._s(_vm.decrip[0].quantity) + " in stock")
+                          ])
                         ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "p-catagory" }, [
-                        _vm._v("Availability")
                       ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "p-stock" }, [
-                          _vm._v(_vm._s(_vm.decrip[0].quantity) + " in stock")
+                      _c("tr", [
+                        _c("td", { staticClass: "p-catagory" }, [
+                          _vm._v("Weight")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "p-weight" }, [
+                            _vm._v(_vm._s(_vm.decrip[0].weight.weight))
+                          ])
                         ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "p-catagory" }, [
-                        _vm._v("Weight")
                       ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "p-weight" }, [
-                          _vm._v(_vm._s(_vm.decrip[0].weight.weight))
+                      _c("tr", [
+                        _c("td", { staticClass: "p-catagory" }, [_vm._v("Id")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "p-code" }, [
+                            _vm._v("000" + _vm._s(_vm.decrip[0].id))
+                          ])
                         ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "p-catagory" }, [_vm._v("Id")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "p-code" }, [
-                          _vm._v("000" + _vm._s(_vm.decrip[0].id))
-                        ])
-                      ])
-                    ])
-                  ])
+                    ]
+                  )
                 ])
               ]
             ),
@@ -107099,7 +107153,7 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _vm._m(5, true),
+                                    _vm._m(4, true),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -107441,7 +107495,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _vm._m(6, true),
+                                  _vm._m(5, true),
                                   _vm._v(" "),
                                   _vm.codeFormReplySecond ==
                                     commentReply.code &&
@@ -107671,12 +107725,13 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "customer-review-option" }, [
                   _c("div", { staticClass: "leave-comment" }, [
-                    _c("h4", [_vm._v("Leave A Comment")]),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c(
                       "form",
                       {
                         staticClass: "comment-form",
+                        staticStyle: { "background-color": "#e9edf0" },
                         on: {
                           submit: function($event) {
                             $event.preventDefault()
@@ -107686,106 +107741,121 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-lg-1" }, [
-                            _c("img", {
-                              staticClass: "rounded-circle",
-                              attrs: {
-                                src: _vm.baseUrl + "/uploads/" + _vm.showImage,
-                                width: "40px",
-                                height: "40px",
-                                alt: ""
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("img", {
-                              staticClass: "rounded-circle",
-                              attrs: {
-                                src: "/frontend/images/flag-1.jpg",
-                                width: "40",
-                                height: "40px"
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-lg-11" }, [
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                },
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.comment.content,
-                                  expression: "comment.content"
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-lg-1",
+                              staticStyle: { transform: "translate(20%, 7%)" }
+                            },
+                            [
+                              _c("img", {
+                                staticClass: "rounded-circle",
+                                attrs: {
+                                  src:
+                                    _vm.baseUrl + "/uploads/" + _vm.showImage,
+                                  width: "40px",
+                                  height: "40px",
+                                  alt: ""
                                 }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                placeholder: "Messages",
-                                name: "content"
-                              },
-                              domProps: { value: _vm.comment.content },
-                              on: {
-                                input: [
-                                  function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.comment,
-                                      "content",
-                                      $event.target.value
-                                    )
+                              }),
+                              _vm._v(" "),
+                              _c("img", {
+                                staticClass: "rounded-circle",
+                                attrs: {
+                                  src: "/frontend/images/flag-1.jpg",
+                                  width: "40",
+                                  height: "40px"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-lg-11",
+                              staticStyle: { padding: "17px" }
+                            },
+                            [
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
                                   },
-                                  function($event) {
-                                    return _vm.changeInput()
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.comment.content,
+                                    expression: "comment.content"
                                   }
-                                ]
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticStyle: { color: "red" },
-                                attrs: { role: "alert" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(_vm.errors.first("content")) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm.errorBackEnd.content
-                              ? _c("div", { staticStyle: { color: "red" } }, [
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  placeholder: "Messages",
+                                  name: "content"
+                                },
+                                domProps: { value: _vm.comment.content },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.comment,
+                                        "content",
+                                        $event.target.value
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.changeInput()
+                                    }
+                                  ]
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticStyle: { color: "red" },
+                                  attrs: { role: "alert" }
+                                },
+                                [
                                   _vm._v(
                                     "\n                      " +
-                                      _vm._s(_vm.errorBackEnd.content[0]) +
+                                      _vm._s(_vm.errors.first("content")) +
                                       "\n                    "
                                   )
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "site-btn",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                      Send message\n                    "
-                                )
-                              ]
-                            )
-                          ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.errorBackEnd.content
+                                ? _c("div", { staticStyle: { color: "red" } }, [
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(_vm.errorBackEnd.content[0]) +
+                                        "\n                    "
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "site-btn",
+                                  attrs: { type: "submit" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                      Send message\n                    "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
                         ])
                       ]
                     )
@@ -107833,21 +107903,6 @@ var staticRenderFns = [
         },
         [_vm._v("SPECIFICATIONS")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-7" }, [
-      _c("textarea", {
-        staticStyle: {
-          "padding-left": "10px",
-          border: "none",
-          transform: "translate(4%, -6%)"
-        },
-        attrs: { readonly: "", cols: "51", rows: "11" }
-      })
     ])
   },
   function() {
@@ -107913,6 +107968,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "bg-white p-2" }, [
       _c("div", { staticClass: "d-flex flex-row fs-12" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "section-title" }, [
+          _c("h2", [_vm._v("Leave A Comment")])
+        ])
+      ])
     ])
   }
 ]
@@ -108098,10 +108165,10 @@ var render = function() {
             _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "pd-desc" }, [
-              _c("p", [
+              _c("p", { staticStyle: { color: "#AAAAAA" } }, [
                 _vm._v(
-                  "\n            " +
-                    _vm._s(_vm.info[0].content) +
+                  " Đã bán :\n            " +
+                    _vm._s(_vm.info[0].product_sold) +
                     "\n          "
                 )
               ]),
@@ -110617,61 +110684,83 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "pi-text" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "catagory-name",
-                            staticStyle: { transform: "translate(0%, -108%)" }
-                          },
-                          [_c("i", [_vm._v(_vm._s(product.type.type))])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticStyle: {
-                              transform: "translate(0%, -64%)",
-                              "font-size": "21px"
-                            },
-                            attrs: { href: "#" }
-                          },
-                          [
-                            _c(
-                              "h5",
-                              {
-                                staticStyle: {
-                                  color: "#008000",
-                                  "font-weight": "700"
-                                }
+                      _c(
+                        "div",
+                        {
+                          staticClass: "pi-text",
+                          staticStyle: {
+                            "padding-top": "19px !important",
+                            border: "0.5px solid #e9edf0"
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticStyle: {
+                                transform: "translate(0%, -34%)",
+                                "font-size": "21px"
                               },
-                              [
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("h5", {}, [
                                 _vm._v(
                                   "\n                " +
                                     _vm._s(product.name) +
                                     "\n              "
                                 )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "product-price",
-                            staticStyle: { color: "red" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.price) +
-                                "\n              "
-                            ),
-                            _c("span", [_vm._v("$35.00")])
-                          ]
-                        )
-                      ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                color: "red",
+                                transform: "translate(-27%, 53%)"
+                              }
+                            },
+                            [
+                              _c(
+                                "u",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    display: "-webkit-inline-box",
+                                    transform: "translate(0%, -13%)"
+                                  }
+                                },
+                                [_vm._v("đ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticStyle: { "font-size": "19px" } },
+                                [_vm._v(_vm._s(_vm.formatPrice(product.price)))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "da-ban",
+                              staticStyle: {
+                                transform: "translate(32%, -47%)",
+                                "font-size": "14px",
+                                color: "dimgray"
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _vm._v("Đã bán " + _vm._s(product.product_sold))
+                              ])
+                            ]
+                          )
+                        ]
+                      )
                     ]
                   )
                 ]
