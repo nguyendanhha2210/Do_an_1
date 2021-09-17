@@ -56,12 +56,18 @@
             <tbody>
                 @foreach ($post as $key => $data)
                     <tr class="overflow">
-                        <td class="si-pic"><img style="width: 90px;max-width:100%;
-                            height: 74px;padding-right:10px;" src="{{ URL::to('uploads/' . $data->images) }}" alt="">
+                        <td class="si-pic">
+                            <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}"><img style="width: 90px;max-width:100%;
+                      height: 74px;padding-right:10px;" src="{{ URL::to('uploads/' . $data->images) }}" alt=""></a>
+
                         <td class="si-text">
                             <div class="product-selected">
-                                <h5><b>{{ $data->title }}</b></h5>
-                                <h6 style="color:#e7ab3c"> {{ $data->categorypost->name }}</h6>
+                                <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}">
+                                    <h5><b>{{ $data->title }}</b></h5>
+                                </a>
+                                <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}">
+                                    <h6 style="color:#e7ab3c"> {{ $data->categorypost->name }}</h6>
+                                </a>
                                 <i style="font-size: 14px;">_{{ $data->created_at->format('d/m/Y') }}_</i>
                             </div>
                         </td>

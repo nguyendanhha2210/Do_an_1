@@ -36,14 +36,17 @@
                     :key="post.id"
                   >
                     <div class="rb-pic">
-                      <img
-                        style="height: 70px"
-                        :src="baseUrl + '/uploads/' + post.images"
-                        alt=""
-                      />
+                      <a :href="`blog/${post.id}/detail`"
+                        ><img
+                          style="height: 70px"
+                          :src="baseUrl + '/uploads/' + post.images"
+                          alt=""
+                      /></a>
                     </div>
                     <div class="rb-text">
-                      <h6>{{ post.title }}</h6>
+                      <a :href="`blog/${post.id}/detail`"
+                        ><h6>{{ post.title }}</h6></a
+                      >
                       <p>
                         {{ post.categorypost.name
                         }}<span>- {{ post.created_at | formatDate }}</span>

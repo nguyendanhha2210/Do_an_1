@@ -2243,6 +2243,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -102423,17 +102426,32 @@ var render = function() {
                           },
                           [
                             _c("div", { staticClass: "rb-pic" }, [
-                              _c("img", {
-                                staticStyle: { height: "70px" },
-                                attrs: {
-                                  src: _vm.baseUrl + "/uploads/" + post.images,
-                                  alt: ""
-                                }
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "blog/" + post.id + "/detail" }
+                                },
+                                [
+                                  _c("img", {
+                                    staticStyle: { height: "70px" },
+                                    attrs: {
+                                      src:
+                                        _vm.baseUrl + "/uploads/" + post.images,
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              )
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "rb-text" }, [
-                              _c("h6", [_vm._v(_vm._s(post.title))]),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "blog/" + post.id + "/detail" }
+                                },
+                                [_c("h6", [_vm._v(_vm._s(post.title))])]
+                              ),
                               _vm._v(" "),
                               _c("p", [
                                 _vm._v(
@@ -109963,7 +109981,7 @@ var render = function() {
               staticClass: "loading-more",
               staticStyle: {
                 position: "absolute",
-                bottom: "1px",
+                bottom: "0px",
                 left: "50%",
                 right: "50%"
               }

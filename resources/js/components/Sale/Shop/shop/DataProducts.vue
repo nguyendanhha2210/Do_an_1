@@ -113,7 +113,7 @@
     <div
       class="loading-more"
       v-if="products != ''"
-      style="position: absolute; bottom: 1px; left: 50%; right: 50%"
+      style="position: absolute; bottom: 0px; left: 50%; right: 50%"
     >
       <nav aria-label="Page navigation example">
         <paginate
