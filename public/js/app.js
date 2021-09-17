@@ -106904,26 +106904,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "product-content" }, [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-lg-7" }, [
-                      _c(
-                        "textarea",
-                        {
-                          staticStyle: {
-                            "padding-left": "10px",
-                            border: "none",
-                            transform: "translate(4%, -6%)"
-                          },
-                          attrs: { readonly: "", cols: "51", rows: "11" }
-                        },
-                        [
-                          _vm._v(
-                            "                    " +
-                              _vm._s(_vm.decrip[0].content) +
-                              "\n                "
-                          )
-                        ]
-                      )
-                    ]),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -106958,7 +106939,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "specification-table" }, [
                   _c("table", [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("tr", [
                       _c("td", { staticClass: "p-catagory" }, [
@@ -106972,7 +106953,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("tr", [
                       _c("td", { staticClass: "p-catagory" }, [
@@ -107118,7 +107099,7 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _vm._m(4, true),
+                                    _vm._m(5, true),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -107460,7 +107441,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _vm._m(5, true),
+                                  _vm._m(6, true),
                                   _vm._v(" "),
                                   _vm.codeFormReplySecond ==
                                     commentReply.code &&
@@ -107852,6 +107833,21 @@ var staticRenderFns = [
         },
         [_vm._v("SPECIFICATIONS")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-7" }, [
+      _c("textarea", {
+        staticStyle: {
+          "padding-left": "10px",
+          border: "none",
+          transform: "translate(4%, -6%)"
+        },
+        attrs: { readonly: "", cols: "51", rows: "11" }
+      })
     ])
   },
   function() {
