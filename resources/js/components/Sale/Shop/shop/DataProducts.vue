@@ -49,14 +49,14 @@
       </div>
     </div>
 
-    <div class="product-list">
+    <div class="product-list" style="background-color:#e9edf0">
       <div class="row">
         <div
           class="col-lg-4 col-sm-6"
           v-for="product in products.data"
           :key="product.id"
         >
-          <div class="product-item">
+          <div class="product-item" style="background-color: white">
             <div class="pi-pic">
               <img
                 style="height: 250px"
@@ -97,11 +97,21 @@
               </ul>
             </div>
             <div class="pi-text">
-              <div class="catagory-name">{{ product.type.type }}</div>
-              <a href="#">
-                <h5>{{ product.name }}</h5>
+              <div
+                class="catagory-name"
+                style="transform: translate(0%, -108%)"
+              >
+                <i>{{ product.type.type }}</i>
+              </div>
+              <a
+                href="#"
+                style="transform: translate(0%, -64%); font-size: 21px"
+              >
+                <h5 style="color: #008000; font-weight: 700">
+                  {{ product.name }}
+                </h5>
               </a>
-              <div class="product-price">
+              <div class="product-price" style="color: red">
                 {{ product.price }}
                 <span>$35.00</span>
               </div>
@@ -113,7 +123,7 @@
     <div
       class="loading-more"
       v-if="products != ''"
-      style="position: absolute; bottom: 0px; left: 50%; right: 50%"
+      style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
       <nav aria-label="Page navigation example">
         <paginate
