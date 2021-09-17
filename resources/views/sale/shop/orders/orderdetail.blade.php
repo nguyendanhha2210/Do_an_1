@@ -1,8 +1,9 @@
 @extends('layouts.sale.layout')
 @section('content')
-        <div class="container mt-3">
-            <div class="row">
-                <div class="col-lg-12">
+    <div style="background-color: #e9edf0">
+        <div class="container pt-4">
+            <div class="row" style="background-color: white">
+                <div class="col-lg-12 pt-5">
                     <div class="cart-table">
                         <table class="table table-condensed">
                             <thead>
@@ -34,9 +35,9 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="cart-table">
+            <div class="row" >
+                <div class="col-lg-12 mt-4 pt-5 mb-4" style="background-color: white">
+                    <div class="cart-table" style="background-color: white">
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
@@ -71,10 +72,10 @@
                                                 Không mã
                                             @endif
                                         </td>
-                                        <td>{{ number_format($details->product_feeship, 0, ',', '.') }}đ</td>
-                                        <td>{{ number_format($details->product_price, 0, ',', '.') }}đ</td>
+                                        <td>{{ number_format($details->product_feeship, 0, ',', '.') }} đ</td>
+                                        <td>{{ number_format($details->product_price, 0, ',', '.') }} đ</td>
                                         <td>{{ $details->product_sales_quantity }} </td>
-                                        <td>{{ number_format($subtotal, 0, ',', '.') }}đ</td>
+                                        <td>{{ number_format($subtotal, 0, ',', '.')}} đ</td>
                                     </tr>
                                 @endforeach
                                 <tr>
@@ -90,13 +91,13 @@
                                             @endphp
                                         @else
                                             @php
-                                                echo 'Tổng giảm :' . number_format($coupon_number, 0, ',', '.') . 'k' . '</br>';
+                                                echo 'Tổng giảm :' . number_format($coupon_number, 0, ',', '.') . ' k' . '</br>';
                                                 $total_coupon = $total + $details->product_feeship - $coupon_number;
                                                 
                                             @endphp
                                         @endif
-                                        Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }}đ</br>
-                                        Thanh toán: {{ number_format($total_coupon, 0, ',', '.') }}đ
+                                        Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }} đ</br>
+                                        Thanh toán: {{ number_format($total_coupon, 0, ',', '.') }} đ
                                     </td>
                                 </tr>
                             </tbody>
@@ -105,4 +106,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @endsection

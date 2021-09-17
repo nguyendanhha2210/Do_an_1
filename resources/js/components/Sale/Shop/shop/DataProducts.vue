@@ -141,7 +141,7 @@
       v-if="products != ''"
       style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
-      <nav aria-label="Page navigation example" style="height: 16px">
+      <nav aria-label="Page navigation example" style="height: 44px;">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"

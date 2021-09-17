@@ -7781,6 +7781,10 @@ __webpack_require__.r(__webpack_exports__);
     StarRating: (vue_star_rating__WEBPACK_IMPORTED_MODULE_0___default())
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     showCorfirm: function showCorfirm() {
       this.show_corfirm = !this.show_corfirm;
       this.show_deliver = false;
@@ -105652,7 +105656,7 @@ var render = function() {
               _c(
                 "nav",
                 {
-                  staticStyle: { height: "16px" },
+                  staticStyle: { height: "44px" },
                   attrs: { "aria-label": "Page navigation example" }
                 },
                 [
@@ -106272,7 +106276,7 @@ var render = function() {
               _c(
                 "nav",
                 {
-                  staticStyle: { height: "16px" },
+                  staticStyle: { height: "44px" },
                   attrs: { "aria-label": "Page navigation example" }
                 },
                 [
@@ -106892,7 +106896,7 @@ var render = function() {
               _c(
                 "nav",
                 {
-                  staticStyle: { height: "16px" },
+                  staticStyle: { height: "44px" },
                   attrs: { "aria-label": "Page navigation example" }
                 },
                 [
@@ -109145,93 +109149,101 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      staticClass: "pt-4 pb-4",
+      staticStyle: { "background-color": "#e9edf0" }
+    },
     [
       _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showCorfirm()
+        _c(
+          "div",
+          { staticClass: "row", staticStyle: { "background-color": "white" } },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showCorfirm()
+                  }
                 }
-              }
-            },
-            [_vm._m(0)]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showDeliver()
+              },
+              [_vm._m(0)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showDeliver()
+                  }
                 }
-              }
-            },
-            [_vm._m(1)]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showRecive()
+              },
+              [_vm._m(1)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showRecive()
+                  }
                 }
-              }
-            },
-            [_vm._m(2)]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showEvaluat()
+              },
+              [_vm._m(2)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showEvaluat()
+                  }
                 }
-              }
-            },
-            [_vm._m(3)]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showCancel()
+              },
+              [_vm._m(3)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showCancel()
+                  }
                 }
-              }
-            },
-            [_vm._m(4)]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-lg-2",
-              staticStyle: { border: "dotted 1px #c0c0c0" },
-              on: {
-                click: function($event) {
-                  return _vm.showReturn()
+              },
+              [_vm._m(4)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-2",
+                staticStyle: { border: "dotted 1px #c0c0c0" },
+                on: {
+                  click: function($event) {
+                    return _vm.showReturn()
+                  }
                 }
-              }
-            },
-            [_vm._m(5)]
-          )
-        ]),
+              },
+              [_vm._m(5)]
+            )
+          ]
+        ),
         _vm._v(" "),
         _c("br"),
         _c("br"),
@@ -109243,171 +109255,183 @@ var render = function() {
         this.show_cancel ||
         this.show_return
           ? _c("div", [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-lg-12" }, [
-                  _c("div", { staticClass: "cart-table" }, [
-                    _c("table", { staticClass: "table table-condensed" }, [
-                      _vm._m(6),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.orders.data, function(order, index) {
-                          return _c("tr", { key: order.id }, [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(order.user.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(order.shipping.name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(order.total_bill) + " vnđ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(order.order_date))]),
-                            _vm._v(" "),
-                            order.order_status == 1
-                              ? _c("td", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger",
-                                      attrs: {
-                                        "data-toggle": "modal",
-                                        "data-target": "#myModal",
-                                        "data-whatever": "@getbootstrap"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.updateProduct(order.id)
+              _c(
+                "div",
+                {
+                  staticClass: "row pt-5 pb-1",
+                  staticStyle: { "background-color": "white" }
+                },
+                [
+                  _c("div", { staticClass: "col-lg-12" }, [
+                    _c("div", { staticClass: "cart-table" }, [
+                      _c("table", { staticClass: "table table-condensed" }, [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.orders.data, function(order, index) {
+                            return _c("tr", { key: order.id }, [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(order.user.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(order.shipping.name))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(_vm.formatPrice(order.total_bill)) +
+                                    " đ"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(order.order_date))]),
+                              _vm._v(" "),
+                              order.order_status == 1
+                                ? _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        attrs: {
+                                          "data-toggle": "modal",
+                                          "data-target": "#myModal",
+                                          "data-whatever": "@getbootstrap"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.updateProduct(order.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                      Hủy Đơn\n                    "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : order.order_status == 2
-                              ? _c("td", [
-                                  _c("b", { staticStyle: { color: "blue" } }, [
-                                    _vm._v("Đang Giao !")
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                      Hủy Đơn\n                    "
+                                        )
+                                      ]
+                                    )
                                   ])
-                                ])
-                              : order.order_status == 3
-                              ? _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        "data-toggle": "modal",
-                                        "data-target": "#myModalVote"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.voteProduct(order)
+                                : order.order_status == 2
+                                ? _c("td", [
+                                    _c(
+                                      "b",
+                                      { staticStyle: { color: "blue" } },
+                                      [_vm._v("Đang Giao !")]
+                                    )
+                                  ])
+                                : order.order_status == 3
+                                ? _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          "data-toggle": "modal",
+                                          "data-target": "#myModalVote"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.voteProduct(order)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        { staticClass: "btn btn-warning" },
-                                        [_vm._v("Evaluate")]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : order.order_status == 4
-                              ? _c("td", [
-                                  _c(
-                                    "button",
-                                    {
+                                      },
+                                      [
+                                        _c(
+                                          "button",
+                                          { staticClass: "btn btn-warning" },
+                                          [_vm._v("Evaluate")]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : order.order_status == 4
+                                ? _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-success button-mualai",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.muaLai(order.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                      Mua Lại\n                    "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : order.order_status == 5
+                                ? _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          "data-toggle": "modal",
+                                          "data-target": "#myModalViewVote"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewVoted(order)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "button",
+                                          { staticClass: "btn btn-warning" },
+                                          [
+                                            _vm._v(
+                                              "\n                        Xem Đánh Giá\n                      "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : order.order_status == 6
+                                ? _c("td", [
+                                    _c("b", { staticStyle: { color: "red" } }, [
+                                      _vm._v("Trả Lại !")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("br")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href:
+                                        "order-detail/" +
+                                        order.order_code +
+                                        "/view"
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
                                       staticClass:
-                                        "btn btn-success button-mualai",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.muaLai(order.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                      Mua Lại\n                    "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : order.order_status == 5
-                              ? _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        "data-toggle": "modal",
-                                        "data-target": "#myModalViewVote"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.viewVoted(order)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        { staticClass: "btn btn-warning" },
-                                        [
-                                          _vm._v(
-                                            "\n                        Xem Đánh Giá\n                      "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : order.order_status == 6
-                              ? _c("td", [
-                                  _c("b", { staticStyle: { color: "red" } }, [
-                                    _vm._v("Trả Lại !")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("br")
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href:
-                                      "order-detail/" +
-                                      order.order_code +
-                                      "/view"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "fa fa-pencil-square-o text-success text-active",
-                                    staticStyle: { "font-size": "25px" }
-                                  })
-                                ]
-                              )
+                                        "fa fa-pencil-square-o text-success text-active",
+                                      staticStyle: { "font-size": "25px" }
+                                    })
+                                  ]
+                                )
+                              ])
                             ])
-                          ])
-                        }),
-                        0
-                      )
+                          }),
+                          0
+                        )
+                      ])
                     ])
                   ])
-                ])
-              ]),
+                ]
+              ),
               _vm._v(" "),
               _vm.orders != ""
-                ? _c("div", [
+                ? _c("div", { staticClass: "pt-4" }, [
                     _c(
                       "nav",
                       { attrs: { "aria-label": "Page navigation example" } },
@@ -110594,17 +110618,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "cart_menu" }, [
-        _c("td", [_vm._v("ID")]),
+        _c("td", [_c("b", [_vm._v("ID")])]),
         _vm._v(" "),
-        _c("td", [_vm._v("Orderer")]),
+        _c("td", [_c("b", [_vm._v("Orderer")])]),
         _vm._v(" "),
-        _c("td", [_vm._v("Receivern")]),
+        _c("td", [_c("b", [_vm._v("Receiver")])]),
         _vm._v(" "),
-        _c("td", [_vm._v("Total Money")]),
+        _c("td", [_c("b", [_vm._v("Total Money")])]),
         _vm._v(" "),
-        _c("td", [_vm._v("Order Date")]),
+        _c("td", [_c("b", [_vm._v("Order Date")])]),
         _vm._v(" "),
-        _c("td", [_vm._v("Status")]),
+        _c("td", [_c("b", [_vm._v("Status")])]),
         _vm._v(" "),
         _c("td")
       ])
@@ -111117,7 +111141,7 @@ var render = function() {
               _c(
                 "nav",
                 {
-                  staticStyle: { height: "16px" },
+                  staticStyle: { height: "44px" },
                   attrs: { "aria-label": "Page navigation example" }
                 },
                 [

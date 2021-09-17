@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="pt-4 pb-4" style="background-color: #e9edf0">
     <div class="container">
-      <div class="row">
+      <div class="row" style="background-color: white">
         <div
           class="col-lg-2"
           style="border: dotted 1px #c0c0c0"
@@ -135,18 +135,18 @@
           this.show_return
         "
       >
-        <div class="row">
+        <div class="row pt-5 pb-1" style="background-color: white">
           <div class="col-lg-12">
             <div class="cart-table">
               <table class="table table-condensed">
                 <thead>
                   <tr class="cart_menu">
-                    <td>ID</td>
-                    <td>Orderer</td>
-                    <td>Receivern</td>
-                    <td>Total Money</td>
-                    <td>Order Date</td>
-                    <td>Status</td>
+                    <td><b>ID</b></td>
+                    <td><b>Orderer</b></td>
+                    <td><b>Receiver</b></td>
+                    <td><b>Total Money</b></td>
+                    <td><b>Order Date</b></td>
+                    <td><b>Status</b></td>
                     <td></td>
                   </tr>
                 </thead>
@@ -155,7 +155,7 @@
                     <td>{{ index + 1 }}</td>
                     <td>{{ order.user.name }}</td>
                     <td>{{ order.shipping.name }}</td>
-                    <td>{{ order.total_bill }} vnđ</td>
+                    <td>{{ formatPrice(order.total_bill) }} đ</td>
                     <td>{{ order.order_date }}</td>
                     <td v-if="order.order_status == 1">
                       <button
@@ -216,7 +216,7 @@
             </div>
           </div>
         </div>
-        <div v-if="orders != ''">
+        <div v-if="orders != ''" class="pt-4">
           <nav aria-label="Page navigation example">
             <paginate
               v-model="page"
@@ -840,6 +840,10 @@ export default {
     StarRating,
   },
   methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     showCorfirm() {
       this.show_corfirm = !this.show_corfirm;
       this.show_deliver = false;
