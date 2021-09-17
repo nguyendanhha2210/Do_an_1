@@ -46,7 +46,7 @@
                     cols="51"
                     rows="11"
                   >
-                      {{ decrip[0].content }} 
+                    
                   </textarea>
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
