@@ -4,12 +4,19 @@
       <div class="tab-item">
         <ul class="nav" role="tablist">
           <li>
-            <a class="active" data-toggle="tab" href="#tab-1" role="tab"
+            <a
+              style="width: 260px"
+              class="active tab-description"
+              data-toggle="tab"
+              href="#tab-1"
+              role="tab"
               >DESCRIPTION</a
             >
           </li>
           <li>
-            <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+            <a style="width: 270px" data-toggle="tab" href="#tab-2" role="tab"
+              >SPECIFICATIONS</a
+            >
           </li>
           <li>
             <a data-toggle="tab" href="#tab-3" role="tab"
@@ -20,17 +27,31 @@
       </div>
       <div class="tab-item-content">
         <div class="tab-content">
-          <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+          <div
+            class="tab-pane fade-in active"
+            id="tab-1"
+            role="tabpanel"
+            style="background-color: #e9edf0"
+          >
             <div class="product-content">
               <div class="row">
                 <div class="col-lg-7">
-                  <p>
-                    {{ decrip[0].content }}
-                  </p>
+                  <textarea
+                    style="
+                      padding-left: 10px;
+                      border: none;
+                      transform: translate(4%, -6%);
+                    "
+                    readonly
+                    cols="51"
+                    rows="11"
+                  >
+                      {{ decrip[0].content }}
+                  </textarea>
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
-                    style="height: 250px"
+                    style="height: 268px; transform: translate(0%, -6%)"
                     :src="baseUrl + '/uploads/' + decrip[0].images"
                   />
                 </div>

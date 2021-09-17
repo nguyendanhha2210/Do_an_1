@@ -8,13 +8,14 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="background-color:#e9edf0;margin-bottom:15px">
         <div
+        style="padding-top:29px;"
           class="col-lg-4 col-sm-6"
           v-for="product in products"
           :key="product.id"
         >
-          <div class="product-item">
+          <div class="product-item" style="background-color: white;">
             <div class="pi-pic">
               <img
                 style="height: 250px"
@@ -47,11 +48,11 @@
               </ul>
             </div>
             <div class="pi-text">
-              <div class="catagory-name">Coat</div>
-              <a href="#">
-                <h5>{{ product.name }}</h5>
+              <div class="catagory-name"  style="transform: translate(0%, -108%)">{{ product.type.type }}</div>
+              <a href="#"  style="transform: translate(0%, -64%); font-size: 21px">
+                <h5 style="color: #008000; font-weight: 700">{{ product.name }}</h5>
               </a>
-              <div class="product-price">{{ product.price }} vnđ</div>
+              <div class="product-price" style="color: red">{{ product.price }} vnđ</div>
             </div>
           </div>
         </div>

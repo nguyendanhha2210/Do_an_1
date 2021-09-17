@@ -5872,6 +5872,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6504,6 +6525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -106876,19 +106898,31 @@ var render = function() {
               "div",
               {
                 staticClass: "tab-pane fade-in active",
+                staticStyle: { "background-color": "#e9edf0" },
                 attrs: { id: "tab-1", role: "tabpanel" }
               },
               [
                 _c("div", { staticClass: "product-content" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-lg-7" }, [
-                      _c("p", [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.decrip[0].content) +
-                            "\n                "
-                        )
-                      ])
+                      _c(
+                        "textarea",
+                        {
+                          staticStyle: {
+                            "padding-left": "10px",
+                            border: "none",
+                            transform: "translate(4%, -6%)"
+                          },
+                          attrs: { readonly: "", cols: "51", rows: "11" }
+                        },
+                        [
+                          _vm._v(
+                            "                    " +
+                              _vm._s(_vm.decrip[0].content) +
+                              "\n                "
+                          )
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
                     _c(
@@ -106899,7 +106933,10 @@ var render = function() {
                       },
                       [
                         _c("img", {
-                          staticStyle: { height: "250px" },
+                          staticStyle: {
+                            height: "268px",
+                            transform: "translate(0%, -6%)"
+                          },
                           attrs: {
                             src:
                               _vm.baseUrl + "/uploads/" + _vm.decrip[0].images
@@ -107794,7 +107831,8 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "active",
+          staticClass: "active tab-description",
+          staticStyle: { width: "260px" },
           attrs: { "data-toggle": "tab", href: "#tab-1", role: "tab" }
         },
         [_vm._v("DESCRIPTION")]
@@ -107808,7 +107846,10 @@ var staticRenderFns = [
     return _c("li", [
       _c(
         "a",
-        { attrs: { "data-toggle": "tab", href: "#tab-2", role: "tab" } },
+        {
+          staticStyle: { width: "270px" },
+          attrs: { "data-toggle": "tab", href: "#tab-2", role: "tab" }
+        },
         [_vm._v("SPECIFICATIONS")]
       )
     ])
@@ -108325,84 +108366,130 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "row" },
+          {
+            staticClass: "row",
+            staticStyle: {
+              "background-color": "#e9edf0",
+              "margin-bottom": "15px"
+            }
+          },
           _vm._l(_vm.products, function(product) {
             return _c(
               "div",
-              { key: product.id, staticClass: "col-lg-4 col-sm-6" },
+              {
+                key: product.id,
+                staticClass: "col-lg-4 col-sm-6",
+                staticStyle: { "padding-top": "29px" }
+              },
               [
-                _c("div", { staticClass: "product-item" }, [
-                  _c("div", { staticClass: "pi-pic" }, [
-                    _c("img", {
-                      staticStyle: { height: "250px" },
-                      attrs: {
-                        src: _vm.baseUrl + "/uploads/" + product.images,
-                        alt: ""
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "sale" }, [_vm._v("Sale")]),
-                    _vm._v(" "),
-                    _vm._m(1, true),
-                    _vm._v(" "),
-                    _c("ul", [
-                      _c("li", { staticClass: "w-icon active" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.addCartProduct(product)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-shopping-basket" })]
-                        )
-                      ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "product-item",
+                    staticStyle: { "background-color": "white" }
+                  },
+                  [
+                    _c("div", { staticClass: "pi-pic" }, [
+                      _c("img", {
+                        staticStyle: { height: "250px" },
+                        attrs: {
+                          src: _vm.baseUrl + "/uploads/" + product.images,
+                          alt: ""
+                        }
+                      }),
                       _vm._v(" "),
-                      _c("li", { staticClass: "quick-view" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "modal",
-                              "data-target": "#myModal",
-                              href: "#"
+                      _c("div", { staticClass: "sale" }, [_vm._v("Sale")]),
+                      _vm._v(" "),
+                      _vm._m(1, true),
+                      _vm._v(" "),
+                      _c("ul", [
+                        _c("li", { staticClass: "w-icon active" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.addCartProduct(product)
+                                }
+                              }
                             },
-                            on: {
-                              click: function($event) {
-                                return _vm.showQuickView(product)
+                            [_c("i", { staticClass: "fa fa-shopping-basket" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "quick-view" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#myModal",
+                                href: "#"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.showQuickView(product)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("+ Quick View")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "w-icon" }, [
-                        _c("a", { attrs: { href: "" + product.id } }, [
-                          _c("i", { staticClass: "fa fa-eye" })
+                            },
+                            [_vm._v("+ Quick View")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "w-icon" }, [
+                          _c("a", { attrs: { href: "" + product.id } }, [
+                            _c("i", { staticClass: "fa fa-eye" })
+                          ])
                         ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pi-text" }, [
-                    _c("div", { staticClass: "catagory-name" }, [
-                      _vm._v("Coat")
                     ]),
                     _vm._v(" "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("h5", [_vm._v(_vm._s(product.name))])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-price" }, [
-                      _vm._v(_vm._s(product.price) + " vnđ")
+                    _c("div", { staticClass: "pi-text" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "catagory-name",
+                          staticStyle: { transform: "translate(0%, -108%)" }
+                        },
+                        [_vm._v(_vm._s(product.type.type))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticStyle: {
+                            transform: "translate(0%, -64%)",
+                            "font-size": "21px"
+                          },
+                          attrs: { href: "#" }
+                        },
+                        [
+                          _c(
+                            "h5",
+                            {
+                              staticStyle: {
+                                color: "#008000",
+                                "font-weight": "700"
+                              }
+                            },
+                            [_vm._v(_vm._s(product.name))]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "product-price",
+                          staticStyle: { color: "red" }
+                        },
+                        [_vm._v(_vm._s(product.price) + " vnđ")]
+                      )
                     ])
-                  ])
-                ])
+                  ]
+                )
               ]
             )
           }),

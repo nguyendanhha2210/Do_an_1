@@ -1,7 +1,7 @@
 <template>
   <div class="pt-3" style="min-height: 100%; position: relative">
     <div
-      style="background-color: #e9edf0; height: 54px"
+      style="background-color: #e9edf0; height: 54px;"
       class="product-show-option"
       v-if="products != ''"
     >
