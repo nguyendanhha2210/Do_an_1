@@ -358,8 +358,8 @@
                                         {{ date($key->created_at) }}
                                     </div>
                                     <div class="tag-item">
-                                        <i class="fa fa-comment-o"></i>
-                                        5
+                                        <i class="fa fa-eye"></i>
+                                        {{ $key->views }}
                                     </div>
                                 </div>
 
