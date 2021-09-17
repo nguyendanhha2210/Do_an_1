@@ -4236,6 +4236,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4286,6 +4309,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
@@ -4649,6 +4676,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4699,6 +4742,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
@@ -5063,6 +5110,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5113,6 +5176,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData: function fetchData() {
       var that = this;
       this.flagShowLoader = true;
@@ -5977,6 +6044,10 @@ __webpack_require__.r(__webpack_exports__);
     console.log("ANC", this.showImage);
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     codeReplySecond: function codeReplySecond(code) {
       this.codeFormReplySecond = code;
       this.statusReplySecond == true;
@@ -6387,6 +6458,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6415,9 +6489,12 @@ __webpack_require__.r(__webpack_exports__);
     Modal: _Modal_Modal_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: ["infoProduct"],
-  mounted: function mounted() {// console.log("ABC", this.info[0]);
-  },
+  mounted: function mounted() {},
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     addCartProduct: function addCartProduct() {
       if (this.info[0].quantity < this.qualityOrder) {
         this.$swal({
@@ -6694,6 +6771,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6726,6 +6832,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.fetchData();
   },
   methods: {
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData: function fetchData() {
       var that = this;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get("/get-related-product/".concat(this.related[0].id)).then(function (response) {
@@ -105319,55 +105429,83 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "pi-text" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "catagory-name",
-                            staticStyle: { transform: "translate(0%, -108%)" }
-                          },
-                          [_vm._v(_vm._s(product.type.type))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticStyle: {
-                              transform: "translate(0%, -64%)",
-                              "font-size": "21px"
-                            },
-                            attrs: { href: "#" }
-                          },
-                          [
-                            _c(
-                              "h5",
-                              {
-                                staticStyle: {
-                                  color: "#008000",
-                                  "font-weight": "700"
-                                }
+                      _c(
+                        "div",
+                        {
+                          staticClass: "pi-text",
+                          staticStyle: {
+                            "padding-top": "19px !important",
+                            border: "0.5px solid #e9edf0"
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticStyle: {
+                                transform: "translate(0%, -34%)",
+                                "font-size": "21px"
                               },
-                              [_vm._v(_vm._s(product.name))]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "product-price",
-                            staticStyle: { color: "red" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.price) +
-                                "\n              "
-                            ),
-                            _c("span", [_vm._v("$35.00")])
-                          ]
-                        )
-                      ])
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("h5", {}, [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(product.name) +
+                                    "\n              "
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                color: "red",
+                                transform: "translate(-27%, 53%)"
+                              }
+                            },
+                            [
+                              _c(
+                                "u",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    display: "-webkit-inline-box",
+                                    transform: "translate(0%, -13%)"
+                                  }
+                                },
+                                [_vm._v("đ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticStyle: { "font-size": "19px" } },
+                                [_vm._v(_vm._s(_vm.formatPrice(product.price)))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "da-ban",
+                              staticStyle: {
+                                transform: "translate(32%, -47%)",
+                                "font-size": "14px",
+                                color: "dimgray"
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _vm._v("Đã bán " + _vm._s(product.product_sold))
+                              ])
+                            ]
+                          )
+                        ]
+                      )
                     ]
                   )
                 ]
@@ -105911,67 +106049,83 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "pi-text" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "catagory-name",
-                            staticStyle: { transform: "translate(0%, -108%)" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.type.type) +
-                                "\n            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticStyle: {
-                              transform: "translate(0%, -64%)",
-                              "font-size": "21px"
-                            },
-                            attrs: { href: "#" }
-                          },
-                          [
-                            _c(
-                              "h5",
-                              {
-                                staticStyle: {
-                                  color: "#008000",
-                                  "font-weight": "700"
-                                }
+                      _c(
+                        "div",
+                        {
+                          staticClass: "pi-text",
+                          staticStyle: {
+                            "padding-top": "19px !important",
+                            border: "0.5px solid #e9edf0"
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticStyle: {
+                                transform: "translate(0%, -34%)",
+                                "font-size": "21px"
                               },
-                              [
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("h5", {}, [
                                 _vm._v(
                                   "\n                " +
                                     _vm._s(product.name) +
                                     "\n              "
                                 )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "product-price",
-                            staticStyle: { color: "red" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.price) +
-                                "\n              "
-                            ),
-                            _c("span", [_vm._v("$35.00")])
-                          ]
-                        )
-                      ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                color: "red",
+                                transform: "translate(-27%, 53%)"
+                              }
+                            },
+                            [
+                              _c(
+                                "u",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    display: "-webkit-inline-box",
+                                    transform: "translate(0%, -13%)"
+                                  }
+                                },
+                                [_vm._v("đ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticStyle: { "font-size": "19px" } },
+                                [_vm._v(_vm._s(_vm.formatPrice(product.price)))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "da-ban",
+                              staticStyle: {
+                                transform: "translate(32%, -47%)",
+                                "font-size": "14px",
+                                color: "dimgray"
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _vm._v("Đã bán " + _vm._s(product.product_sold))
+                              ])
+                            ]
+                          )
+                        ]
+                      )
                     ]
                   )
                 ]
@@ -106515,67 +106669,83 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "pi-text" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "catagory-name",
-                            staticStyle: { transform: "translate(0%, -108%)" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.type.type) +
-                                "\n            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticStyle: {
-                              transform: "translate(0%, -64%)",
-                              "font-size": "21px"
-                            },
-                            attrs: { href: "#" }
-                          },
-                          [
-                            _c(
-                              "h5",
-                              {
-                                staticStyle: {
-                                  color: "#008000",
-                                  "font-weight": "700"
-                                }
+                      _c(
+                        "div",
+                        {
+                          staticClass: "pi-text",
+                          staticStyle: {
+                            "padding-top": "19px !important",
+                            border: "0.5px solid #e9edf0"
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticStyle: {
+                                transform: "translate(0%, -34%)",
+                                "font-size": "21px"
                               },
-                              [
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("h5", {}, [
                                 _vm._v(
                                   "\n                " +
                                     _vm._s(product.name) +
                                     "\n              "
                                 )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "product-price",
-                            staticStyle: { color: "red" }
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(product.price) +
-                                "\n              "
-                            ),
-                            _c("span", [_vm._v("$35.00")])
-                          ]
-                        )
-                      ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                color: "red",
+                                transform: "translate(-27%, 53%)"
+                              }
+                            },
+                            [
+                              _c(
+                                "u",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    display: "-webkit-inline-box",
+                                    transform: "translate(0%, -13%)"
+                                  }
+                                },
+                                [_vm._v("đ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticStyle: { "font-size": "19px" } },
+                                [_vm._v(_vm._s(_vm.formatPrice(product.price)))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "da-ban",
+                              staticStyle: {
+                                transform: "translate(32%, -47%)",
+                                "font-size": "14px",
+                                color: "dimgray"
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _vm._v("Đã bán " + _vm._s(product.product_sold))
+                              ])
+                            ]
+                          )
+                        ]
+                      )
                     ]
                   )
                 ]
@@ -107001,7 +107171,10 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _c("div", { staticClass: "p-price" }, [
-                            _vm._v(_vm._s(_vm.decrip[0].price) + " vnđ")
+                            _vm._v(
+                              _vm._s(_vm.formatPrice(_vm.decrip[0].price)) +
+                                " đ"
+                            )
                           ])
                         ])
                       ]),
@@ -108139,7 +108312,7 @@ var render = function() {
         _c("div", { staticClass: "col-lg-6" }, [
           _c("div", { staticClass: "product-details" }, [
             _c("div", { staticClass: "pd-title" }, [
-              _c("span", [_vm._v("oranges")]),
+              _c("span", [_vm._v("Genuine")]),
               _vm._v(" "),
               _c("h3", [_vm._v(_vm._s(_vm.info[0].name))]),
               _vm._v(" "),
@@ -108165,15 +108338,17 @@ var render = function() {
             _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "pd-desc" }, [
-              _c("p", { staticStyle: { color: "#AAAAAA" } }, [
+              _c("p", { staticStyle: { color: "#aaaaaa" } }, [
                 _vm._v(
-                  " Đã bán :\n            " +
+                  "\n            Đã bán :\n            " +
                     _vm._s(_vm.info[0].product_sold) +
                     "\n          "
                 )
               ]),
               _vm._v(" "),
-              _c("h4", [_vm._v(_vm._s(_vm.info[0].price) + " vnđ")])
+              _c("h4", [
+                _vm._v(_vm._s(_vm.formatPrice(_vm.info[0].price)) + " đ")
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "pd-size-choose" }, [
@@ -108509,48 +108684,83 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "pi-text" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "catagory-name",
-                          staticStyle: { transform: "translate(0%, -108%)" }
-                        },
-                        [_vm._v(_vm._s(product.type.type))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticStyle: {
-                            transform: "translate(0%, -64%)",
-                            "font-size": "21px"
-                          },
-                          attrs: { href: "#" }
-                        },
-                        [
-                          _c(
-                            "h5",
-                            {
-                              staticStyle: {
-                                color: "#008000",
-                                "font-weight": "700"
-                              }
+                    _c(
+                      "div",
+                      {
+                        staticClass: "pi-text",
+                        staticStyle: {
+                          "padding-top": "19px !important",
+                          border: "0.5px solid #e9edf0"
+                        }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticStyle: {
+                              transform: "translate(0%, -34%)",
+                              "font-size": "21px"
                             },
-                            [_vm._v(_vm._s(product.name))]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "product-price",
-                          staticStyle: { color: "red" }
-                        },
-                        [_vm._v(_vm._s(product.price) + " vnđ")]
-                      )
-                    ])
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _c("h5", {}, [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(product.name) +
+                                  "\n              "
+                              )
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticStyle: {
+                              color: "red",
+                              transform: "translate(-27%, 53%)"
+                            }
+                          },
+                          [
+                            _c(
+                              "u",
+                              {
+                                staticStyle: {
+                                  "font-size": "13px",
+                                  display: "-webkit-inline-box",
+                                  transform: "translate(0%, -13%)"
+                                }
+                              },
+                              [_vm._v("đ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticStyle: { "font-size": "19px" } },
+                              [_vm._v(_vm._s(_vm.formatPrice(product.price)))]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "da-ban",
+                            staticStyle: {
+                              transform: "translate(32%, -47%)",
+                              "font-size": "14px",
+                              color: "dimgray"
+                            }
+                          },
+                          [
+                            _c("span", [
+                              _vm._v("Đã bán " + _vm._s(product.product_sold))
+                            ])
+                          ]
+                        )
+                      ]
+                    )
                   ]
                 )
               ]

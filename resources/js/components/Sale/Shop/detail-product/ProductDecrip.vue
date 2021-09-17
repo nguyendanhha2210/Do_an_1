@@ -80,7 +80,7 @@
                 <tr>
                   <td class="p-catagory">Price</td>
                   <td>
-                    <div class="p-price">{{ decrip[0].price }} vnđ</div>
+                    <div class="p-price">{{ formatPrice(decrip[0].price) }} đ</div>
                   </td>
                 </tr>
                 <tr>
@@ -682,6 +682,10 @@ export default {
     console.log("ANC", this.showImage);
   },
   methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     codeReplySecond(code) {
       this.codeFormReplySecond = code;
       this.statusReplySecond == true;

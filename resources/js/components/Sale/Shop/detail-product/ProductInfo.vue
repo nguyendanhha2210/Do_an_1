@@ -65,7 +65,7 @@
       <div class="col-lg-6">
         <div class="product-details">
           <div class="pd-title">
-            <span>oranges</span>
+            <span>Genuine</span>
             <h3>{{ info[0].name }}</h3>
             <a class="heart-icon" @click="addFavorite(info[0])"
               ><i class="icon_heart_alt" style="color: red; font-size: 22px"></i
@@ -80,10 +80,12 @@
             <span>(5)</span>
           </div>
           <div class="pd-desc">
-            <p style="color:#AAAAAA"> Đã bán :
+            <p style="color: #aaaaaa">
+              Đã bán :
               {{ info[0].product_sold }}
             </p>
-            <h4>{{ info[0].price }} vnđ</h4>
+            <h4>{{ formatPrice(info[0].price) }} đ</h4>
+            
           </div>
           <div class="pd-size-choose">
             <div class="sc-item">
@@ -112,7 +114,7 @@
               <span>DECRIPTIONS</span>: {{ info[0].description.description }}
             </li>
           </ul>
-          <div class="pd-share" style="transform: translate(0%, -81%);">
+          <div class="pd-share" style="transform: translate(0%, -81%)">
             <div class="p-code"><b>Id</b>: 000{{ info[0].id }}</div>
             <div class="pd-social">
               <a
@@ -138,11 +140,12 @@
               /></a>
             </div>
           </div>
-          <div><img
-                  style="width: 401px; height: 92px"
-                  src="/frontend/images/sale-logo.jpg"
-                  alt=""
-              />
+          <div>
+            <img
+              style="width: 401px; height: 92px"
+              src="/frontend/images/sale-logo.jpg"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -191,9 +194,12 @@ export default {
   },
   props: ["infoProduct"],
   mounted() {
-    // console.log("ABC", this.info[0]);
   },
   methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     addCartProduct() {
       if (this.info[0].quantity < this.qualityOrder) {
         this.$swal({

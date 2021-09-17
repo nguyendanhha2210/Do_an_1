@@ -1,7 +1,7 @@
 <template>
   <div class="pt-3" style="min-height: 100%; position: relative">
     <div
-      style="background-color: #e9edf0; height: 54px;"
+      style="background-color: #e9edf0; height: 54px"
       class="product-show-option"
       v-if="products != ''"
     >
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div class="product-list" style="background-color: #e9edf0;">
+    <div class="product-list" style="background-color: #e9edf0">
       <div class="row" style="padding-top: 25px">
         <div
           class="col-lg-4 col-sm-6"
@@ -90,24 +90,40 @@
                 </li>
               </ul>
             </div>
-            <div class="pi-text">
-              <div
-                style="transform: translate(0%, -108%)"
-                class="catagory-name"
-              >
-                {{ product.type.type }}
-              </div>
+            <div
+              class="pi-text"
+              style="padding-top: 19px !important; border: 0.5px solid #e9edf0"
+            >
               <a
                 href="#"
-                style="transform: translate(0%, -64%); font-size: 21px"
+                style="transform: translate(0%, -34%); font-size: 21px"
               >
-                <h5 style="color: #008000; font-weight: 700">
+                <h5 style="">
                   {{ product.name }}
                 </h5>
               </a>
-              <div class="product-price" style="color: red">
-                {{ product.price }}
-                <span>$35.00</span>
+              <div style="color: red; transform: translate(-27%, 53%)">
+                <u
+                  style="
+                    font-size: 13px;
+                    display: -webkit-inline-box;
+                    transform: translate(0%, -13%);
+                  "
+                  >đ</u
+                >
+                <span style="font-size: 19px">{{
+                  formatPrice(product.price)
+                }}</span>
+              </div>
+              <div
+                class="da-ban"
+                style="
+                  transform: translate(32%, -47%);
+                  font-size: 14px;
+                  color: dimgray;
+                "
+              >
+                <span>Đã bán {{ product.product_sold }}</span>
               </div>
             </div>
           </div>
@@ -276,6 +292,10 @@ export default {
     },
   },
   methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     fetchData() {
       let that = this;
       this.flagShowLoader = true;

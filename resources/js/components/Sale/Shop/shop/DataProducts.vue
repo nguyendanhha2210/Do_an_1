@@ -56,10 +56,7 @@
           v-for="product in products.data"
           :key="product.id"
         >
-          <div
-            class="product-item"
-            style="background-color: white;"
-          >
+          <div class="product-item" style="background-color: white">
             <div class="pi-pic">
               <img
                 style="height: 250px"
@@ -99,7 +96,10 @@
                 </li>
               </ul>
             </div>
-            <div class="pi-text" style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+            <div
+              class="pi-text"
+              style="padding-top: 19px !important; border: 0.5px solid #e9edf0"
+            >
               <a
                 href="#"
                 style="transform: translate(0%, -34%); font-size: 21px"
