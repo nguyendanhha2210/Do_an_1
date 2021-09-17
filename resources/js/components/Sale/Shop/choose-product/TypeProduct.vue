@@ -1,7 +1,11 @@
 <template>
   <div class="pt-3" style="min-height: 100%; position: relative">
-    <div  style="background-color: #e9edf0; height: 54px" class="product-show-option" v-if="products != ''">
-       <div class="row">
+    <div
+      style="background-color: #e9edf0; height: 54px"
+      class="product-show-option"
+      v-if="products != ''"
+    >
+      <div class="row">
         <div
           class="col-lg-2 col-md-2 col-3"
           style="transform: translate(10%, 23%)"
@@ -44,14 +48,14 @@
         </div>
       </div>
     </div>
-    <div class="product-list">
-      <div class="row">
+    <div class="product-list" style="background-color: #e9edf0;">
+      <div class="row" style="padding-top: 25px">
         <div
           class="col-lg-4 col-sm-6"
           v-for="product in products.data"
           :key="product.id"
         >
-          <div class="product-item">
+          <div class="product-item" style="background-color: white">
             <div class="pi-pic">
               <img
                 style="height: 250px"
@@ -87,11 +91,21 @@
               </ul>
             </div>
             <div class="pi-text">
-              <div class="catagory-name">{{ product.type.type }}</div>
-              <a href="#">
-                <h5>{{ product.name }}</h5>
+              <div
+                style="transform: translate(0%, -108%)"
+                class="catagory-name"
+              >
+                {{ product.type.type }}
+              </div>
+              <a
+                href="#"
+                style="transform: translate(0%, -64%); font-size: 21px"
+              >
+                <h5 style="color: #008000; font-weight: 700">
+                  {{ product.name }}
+                </h5>
               </a>
-              <div class="product-price">
+              <div class="product-price" style="color: red">
                 {{ product.price }}
                 <span>$35.00</span>
               </div>
@@ -103,9 +117,9 @@
     <div
       class="loading-more"
       v-if="products != ''"
-      style="position: absolute; bottom: 1px; left: 50%; right: 50%"
+      style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
-      <nav aria-label="Page navigation example">
+      <nav aria-label="Page navigation example" style="height: 16px">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"
@@ -257,7 +271,7 @@ export default {
     search: function (value) {
       this.fetchData();
     },
-     statusView: function (value) {
+    statusView: function (value) {
       this.fetchData();
     },
   },
@@ -273,14 +287,13 @@ export default {
         "&paginate=" +
         this.paginate +
         "&search=" +
-        this.search+
-         "&statusView=" +
-            that.statusView
+        this.search +
+        "&statusView=" +
+        that.statusView;
       axios
         .get(url)
         .then(function (response) {
           that.products = response.data;
-          // console.log("products", that.products.data);
           that.flagShowLoader = false;
         })
         .catch((err) => {

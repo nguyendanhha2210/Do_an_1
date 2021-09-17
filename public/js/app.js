@@ -4635,6 +4635,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4690,8 +4704,7 @@ __webpack_require__.r(__webpack_exports__);
       this.flagShowLoader = true;
       var url = "/get-type-product/" + this.typ[0].type_id + "?page=" + this.page + "&paginate=" + this.paginate + "&search=" + this.search + "&statusView=" + that.statusView;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url).then(function (response) {
-        that.products = response.data; // console.log("products", that.products.data);
-
+        that.products = response.data;
         that.flagShowLoader = false;
       })["catch"](function (err) {
         switch (err.response.status) {
@@ -4823,6 +4836,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Common/loader.vue */ "./resources/js/components/Common/loader.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -105152,102 +105175,153 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "product-list" }, [
-        _c(
-          "div",
-          { staticClass: "row" },
-          _vm._l(_vm.products.data, function(product) {
-            return _c(
-              "div",
-              { key: product.id, staticClass: "col-lg-4 col-sm-6" },
-              [
-                _c("div", { staticClass: "product-item" }, [
-                  _c("div", { staticClass: "pi-pic" }, [
-                    _c("img", {
-                      staticStyle: { height: "250px" },
-                      attrs: {
-                        src: _vm.baseUrl + "/uploads/" + product.images,
-                        alt: ""
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "sale pp-sale" }, [
-                      _vm._v("Sale")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("ul", [
-                      _c("li", { staticClass: "w-icon active" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.addCartProduct(product)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-shopping-basket" })]
-                        )
+      _c(
+        "div",
+        {
+          staticClass: "product-list",
+          staticStyle: { "background-color": "#e9edf0" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "row", staticStyle: { "padding-top": "25px" } },
+            _vm._l(_vm.products.data, function(product) {
+              return _c(
+                "div",
+                { key: product.id, staticClass: "col-lg-4 col-sm-6" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "product-item",
+                      staticStyle: { "background-color": "white" }
+                    },
+                    [
+                      _c("div", { staticClass: "pi-pic" }, [
+                        _c("img", {
+                          staticStyle: { height: "250px" },
+                          attrs: {
+                            src: _vm.baseUrl + "/uploads/" + product.images,
+                            alt: ""
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "sale pp-sale" }, [
+                          _vm._v("Sale")
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c("ul", [
+                          _c("li", { staticClass: "w-icon active" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addCartProduct(product)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-shopping-basket"
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "quick-view" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModal",
+                                  href: "#"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showQuickView(product)
+                                  }
+                                }
+                              },
+                              [_vm._v("+ Quick View")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "w-icon" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "/product-detail/" + product.id }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            )
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "quick-view" }, [
+                      _c("div", { staticClass: "pi-text" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "catagory-name",
+                            staticStyle: { transform: "translate(0%, -108%)" }
+                          },
+                          [_vm._v(_vm._s(product.type.type))]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "a",
                           {
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "modal",
-                              "data-target": "#myModal",
-                              href: "#"
+                            staticStyle: {
+                              transform: "translate(0%, -64%)",
+                              "font-size": "21px"
                             },
-                            on: {
-                              click: function($event) {
-                                return _vm.showQuickView(product)
-                              }
-                            }
+                            attrs: { href: "#" }
                           },
-                          [_vm._v("+ Quick View")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "w-icon" }, [
+                          [
+                            _c(
+                              "h5",
+                              {
+                                staticStyle: {
+                                  color: "#008000",
+                                  "font-weight": "700"
+                                }
+                              },
+                              [_vm._v(_vm._s(product.name))]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
-                          "a",
-                          { attrs: { href: "/product-detail/" + product.id } },
-                          [_c("i", { staticClass: "fa fa-eye" })]
+                          "div",
+                          {
+                            staticClass: "product-price",
+                            staticStyle: { color: "red" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(product.price) +
+                                "\n              "
+                            ),
+                            _c("span", [_vm._v("$35.00")])
+                          ]
                         )
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pi-text" }, [
-                    _c("div", { staticClass: "catagory-name" }, [
-                      _vm._v(_vm._s(product.type.type))
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("h5", [_vm._v(_vm._s(product.name))])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-price" }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(product.price) +
-                          "\n              "
-                      ),
-                      _c("span", [_vm._v("$35.00")])
-                    ])
-                  ])
-                ])
-              ]
-            )
-          }),
-          0
-        )
-      ]),
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      ),
       _vm._v(" "),
       _vm.products != ""
         ? _c(
@@ -105264,7 +105338,10 @@ var render = function() {
             [
               _c(
                 "nav",
-                { attrs: { "aria-label": "Page navigation example" } },
+                {
+                  staticStyle: { height: "16px" },
+                  attrs: { "aria-label": "Page navigation example" }
+                },
                 [
                   _c("paginate", {
                     attrs: {
@@ -105690,102 +105767,165 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "product-list" }, [
-        _c(
-          "div",
-          { staticClass: "row" },
-          _vm._l(_vm.products.data, function(product) {
-            return _c(
-              "div",
-              { key: product.id, staticClass: "col-lg-4 col-sm-6" },
-              [
-                _c("div", { staticClass: "product-item" }, [
-                  _c("div", { staticClass: "pi-pic" }, [
-                    _c("img", {
-                      staticStyle: { height: "250px" },
-                      attrs: {
-                        src: _vm.baseUrl + "/uploads/" + product.images,
-                        alt: ""
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "sale pp-sale" }, [
-                      _vm._v("Sale")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("ul", [
-                      _c("li", { staticClass: "w-icon active" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.addCartProduct(product)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-shopping-basket" })]
-                        )
+      _c(
+        "div",
+        {
+          staticClass: "product-list",
+          staticStyle: { "background-color": "#e9edf0" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "row", staticStyle: { "padding-top": "25px" } },
+            _vm._l(_vm.products.data, function(product) {
+              return _c(
+                "div",
+                { key: product.id, staticClass: "col-lg-4 col-sm-6" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "product-item",
+                      staticStyle: { "background-color": "white" }
+                    },
+                    [
+                      _c("div", { staticClass: "pi-pic" }, [
+                        _c("img", {
+                          staticStyle: { height: "250px" },
+                          attrs: {
+                            src: _vm.baseUrl + "/uploads/" + product.images,
+                            alt: ""
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "sale pp-sale" }, [
+                          _vm._v("Sale")
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c("ul", [
+                          _c("li", { staticClass: "w-icon active" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addCartProduct(product)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-shopping-basket"
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "quick-view" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModal",
+                                  href: "#"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showQuickView(product)
+                                  }
+                                }
+                              },
+                              [_vm._v("+ Quick View")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "w-icon" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "/product-detail/" + product.id }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            )
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "quick-view" }, [
+                      _c("div", { staticClass: "pi-text" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "catagory-name",
+                            staticStyle: { transform: "translate(0%, -108%)" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(product.type.type) +
+                                "\n            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "a",
                           {
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "modal",
-                              "data-target": "#myModal",
-                              href: "#"
+                            staticStyle: {
+                              transform: "translate(0%, -64%)",
+                              "font-size": "21px"
                             },
-                            on: {
-                              click: function($event) {
-                                return _vm.showQuickView(product)
-                              }
-                            }
+                            attrs: { href: "#" }
                           },
-                          [_vm._v("+ Quick View")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "w-icon" }, [
+                          [
+                            _c(
+                              "h5",
+                              {
+                                staticStyle: {
+                                  color: "#008000",
+                                  "font-weight": "700"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(product.name) +
+                                    "\n              "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
-                          "a",
-                          { attrs: { href: "/product-detail/" + product.id } },
-                          [_c("i", { staticClass: "fa fa-eye" })]
+                          "div",
+                          {
+                            staticClass: "product-price",
+                            staticStyle: { color: "red" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(product.price) +
+                                "\n              "
+                            ),
+                            _c("span", [_vm._v("$35.00")])
+                          ]
                         )
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pi-text" }, [
-                    _c("div", { staticClass: "catagory-name" }, [
-                      _vm._v(_vm._s(product.type.type))
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("h5", [_vm._v(_vm._s(product.name))])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-price" }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(product.price) +
-                          "\n              "
-                      ),
-                      _c("span", [_vm._v("$35.00")])
-                    ])
-                  ])
-                ])
-              ]
-            )
-          }),
-          0
-        )
-      ]),
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      ),
       _vm._v(" "),
       _vm.products != ""
         ? _c(
@@ -105794,7 +105934,7 @@ var render = function() {
               staticClass: "loading-more",
               staticStyle: {
                 position: "absolute",
-                bottom: "1px",
+                bottom: "9px",
                 left: "50%",
                 right: "50%"
               }
@@ -105802,7 +105942,10 @@ var render = function() {
             [
               _c(
                 "nav",
-                { attrs: { "aria-label": "Page navigation example" } },
+                {
+                  staticStyle: { height: "16px" },
+                  attrs: { "aria-label": "Page navigation example" }
+                },
                 [
                   _c("paginate", {
                     attrs: {
@@ -106228,102 +106371,165 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "product-list" }, [
-        _c(
-          "div",
-          { staticClass: "row" },
-          _vm._l(_vm.products.data, function(product) {
-            return _c(
-              "div",
-              { key: product.id, staticClass: "col-lg-4 col-sm-6" },
-              [
-                _c("div", { staticClass: "product-item" }, [
-                  _c("div", { staticClass: "pi-pic" }, [
-                    _c("img", {
-                      staticStyle: { height: "250px" },
-                      attrs: {
-                        src: _vm.baseUrl + "/uploads/" + product.images,
-                        alt: ""
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "sale pp-sale" }, [
-                      _vm._v("Sale")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("ul", [
-                      _c("li", { staticClass: "w-icon active" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.addCartProduct(product)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-shopping-basket" })]
-                        )
+      _c(
+        "div",
+        {
+          staticClass: "product-list",
+          staticStyle: { "background-color": "#e9edf0" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "row", staticStyle: { "padding-top": "25px" } },
+            _vm._l(_vm.products.data, function(product) {
+              return _c(
+                "div",
+                { key: product.id, staticClass: "col-lg-4 col-sm-6" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "product-item",
+                      staticStyle: { "background-color": "white" }
+                    },
+                    [
+                      _c("div", { staticClass: "pi-pic" }, [
+                        _c("img", {
+                          staticStyle: { height: "250px" },
+                          attrs: {
+                            src: _vm.baseUrl + "/uploads/" + product.images,
+                            alt: ""
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "sale pp-sale" }, [
+                          _vm._v("Sale")
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c("ul", [
+                          _c("li", { staticClass: "w-icon active" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addCartProduct(product)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-shopping-basket"
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "quick-view" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#myModal",
+                                  href: "#"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showQuickView(product)
+                                  }
+                                }
+                              },
+                              [_vm._v("+ Quick View")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "w-icon" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "/product-detail/" + product.id }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            )
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "quick-view" }, [
+                      _c("div", { staticClass: "pi-text" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "catagory-name",
+                            staticStyle: { transform: "translate(0%, -108%)" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(product.type.type) +
+                                "\n            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "a",
                           {
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "modal",
-                              "data-target": "#myModal",
-                              href: "#"
+                            staticStyle: {
+                              transform: "translate(0%, -64%)",
+                              "font-size": "21px"
                             },
-                            on: {
-                              click: function($event) {
-                                return _vm.showQuickView(product)
-                              }
-                            }
+                            attrs: { href: "#" }
                           },
-                          [_vm._v("+ Quick View")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "w-icon" }, [
+                          [
+                            _c(
+                              "h5",
+                              {
+                                staticStyle: {
+                                  color: "#008000",
+                                  "font-weight": "700"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(product.name) +
+                                    "\n              "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
-                          "a",
-                          { attrs: { href: "/product-detail/" + product.id } },
-                          [_c("i", { staticClass: "fa fa-eye" })]
+                          "div",
+                          {
+                            staticClass: "product-price",
+                            staticStyle: { color: "red" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(product.price) +
+                                "\n              "
+                            ),
+                            _c("span", [_vm._v("$35.00")])
+                          ]
                         )
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pi-text" }, [
-                    _c("div", { staticClass: "catagory-name" }, [
-                      _vm._v(_vm._s(product.type.type))
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("h5", [_vm._v(_vm._s(product.name))])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-price" }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(product.price) +
-                          "\n              "
-                      ),
-                      _c("span", [_vm._v("$35.00")])
-                    ])
-                  ])
-                ])
-              ]
-            )
-          }),
-          0
-        )
-      ]),
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      ),
       _vm._v(" "),
       _vm.products != ""
         ? _c(
@@ -106340,7 +106546,10 @@ var render = function() {
             [
               _c(
                 "nav",
-                { attrs: { "aria-label": "Page navigation example" } },
+                {
+                  staticStyle: { height: "16px" },
+                  attrs: { "aria-label": "Page navigation example" }
+                },
                 [
                   _c("paginate", {
                     attrs: {
@@ -110224,7 +110433,7 @@ var render = function() {
         [
           _c(
             "div",
-            { staticClass: "row" },
+            { staticClass: "row", staticStyle: { "padding-top": "25px" } },
             _vm._l(_vm.products.data, function(product) {
               return _c(
                 "div",
@@ -110405,7 +110614,10 @@ var render = function() {
             [
               _c(
                 "nav",
-                { attrs: { "aria-label": "Page navigation example" } },
+                {
+                  staticStyle: { height: "16px" },
+                  attrs: { "aria-label": "Page navigation example" }
+                },
                 [
                   _c("paginate", {
                     attrs: {

@@ -49,8 +49,8 @@
       </div>
     </div>
 
-    <div class="product-list" style="background-color:#e9edf0">
-      <div class="row">
+    <div class="product-list" style="background-color: #e9edf0">
+      <div class="row" style="padding-top: 25px">
         <div
           class="col-lg-4 col-sm-6"
           v-for="product in products.data"
@@ -125,7 +125,7 @@
       v-if="products != ''"
       style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
-      <nav aria-label="Page navigation example">
+      <nav aria-label="Page navigation example" style="height: 16px">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"
