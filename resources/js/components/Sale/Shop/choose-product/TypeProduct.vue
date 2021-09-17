@@ -1,8 +1,11 @@
 <template>
-  <div class="pt-4" style="min-height: 100%; position: relative">
-    <div class="product-show-option" v-if="products != ''">
-      <div class="row">
-        <div class="col-lg-2 col-md-2 col-3">
+  <div class="pt-3" style="min-height: 100%; position: relative">
+    <div  style="background-color: #e9edf0; height: 54px" class="product-show-option" v-if="products != ''">
+       <div class="row">
+        <div
+          class="col-lg-2 col-md-2 col-3"
+          style="transform: translate(10%, 23%)"
+        >
           <select v-model="paginate" class="form-control">
             <option value="10">10</option>
             <option value="20">20</option>
@@ -10,9 +13,28 @@
           </select>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-4"></div>
+        <div
+          class="col-lg-3 col-md-3 col-2"
+          style="transform: translate(10%, 23%)"
+        >
+          <select
+            v-model="statusView"
+            class="form-control w-sm inline v-middle text-center"
+          >
+            <option value="0">-- Mới nhất --</option>
+            <option value="1">-- Giá tăng dần --</option>
+            <option value="2">-- Giá giảm dần --</option>
+            <option value="3">-- Tên từ A -> Z --</option>
+            <option value="4">-- Tên từ Z -> A --</option>
+          </select>
+        </div>
 
-        <div class="col-lg-4 col-md-4 col-5 text-right">
+        <div class="col-lg-3 col-md-3 col-2"></div>
+
+        <div
+          class="col-lg-4 col-md-4 col-5 text-right"
+          style="transform: translate(-4%, 23%)"
+        >
           <input
             type="text"
             class="form-control"
@@ -213,7 +235,7 @@ export default {
       page: 1,
       paginate: 9,
       search: "",
-
+      statusView: 0,
       flagShowLoader: false,
     };
   },
@@ -235,6 +257,9 @@ export default {
     search: function (value) {
       this.fetchData();
     },
+     statusView: function (value) {
+      this.fetchData();
+    },
   },
   methods: {
     fetchData() {
@@ -248,7 +273,9 @@ export default {
         "&paginate=" +
         this.paginate +
         "&search=" +
-        this.search;
+        this.search+
+         "&statusView=" +
+            that.statusView
       axios
         .get(url)
         .then(function (response) {

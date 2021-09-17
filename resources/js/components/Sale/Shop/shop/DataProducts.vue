@@ -256,8 +256,6 @@ export default {
       paginate: 9,
       search: "",
       statusView: 0,
-      minPrice: 0,
-      maxPrice: 100,
 
       flagShowLoader: false,
       //Modal
@@ -311,7 +309,6 @@ export default {
         )
         .then(function (response) {
           that.products = response.data;
-          // console.log("products", that.products.data);
           that.flagShowLoader = false;
         })
         .catch((err) => {
