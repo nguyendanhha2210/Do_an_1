@@ -2087,6 +2087,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2116,6 +2118,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Common_loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Common/loader.vue */ "./resources/js/components/Common/loader.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -102455,37 +102471,49 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "map spad" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "map-inner" }, [
-            _c("iframe", {
-              staticStyle: { border: "0" },
-              attrs: {
-                src:
-                  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29786.53735057556!2d105.65036752910699!3d21.059990852076865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313456926dffe03b%3A0x603734b21af6b8f1!2zRMawxqFuZyBMaeG7hXUsIEhvw6BpIMSQ4bupYywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1624633251436!5m2!1svi!2s",
-                height: "610",
-                allowfullscreen: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "icon" }, [
-              _c("i", { staticClass: "fa fa-map-marker" })
+    return _c("div", { staticStyle: { "background-color": "#e9edf0" } }, [
+      _c("div", { staticClass: "pt-5 pb-5" }, [
+        _c(
+          "div",
+          {
+            staticClass: "container",
+            staticStyle: { "background-color": "white" }
+          },
+          [
+            _c("div", { staticClass: "map-inner" }, [
+              _c("iframe", {
+                staticStyle: { border: "0" },
+                attrs: {
+                  src:
+                    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29786.53735057556!2d105.65036752910699!3d21.059990852076865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313456926dffe03b%3A0x603734b21af6b8f1!2zRMawxqFuZyBMaeG7hXUsIEhvw6BpIMSQ4bupYywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1624633251436!5m2!1svi!2s",
+                  height: "610",
+                  allowfullscreen: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "icon" }, [
+                _c("i", { staticClass: "fa fa-map-marker" })
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "contact-section spad" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-5" }, [
+      _c("div", { staticClass: "container pb-5" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-5",
+              staticStyle: { "background-color": "white", padding: "15px 10px" }
+            },
+            [
               _c("div", { staticClass: "contact-title" }, [
                 _c("h4", [_vm._v("Contacts Us")]),
                 _vm._v(" "),
                 _c("p", [
                   _vm._v(
-                    "\n              Hãy liên hệ với chúng tôi nều bạn đang có nhưng băn khoăn và\n              chưa rõ về cách mua hàng .\n            "
+                    "\n            Hãy liên hệ với chúng tôi nều bạn đang có nhưng băn khoăn và chưa\n            rõ về cách mua hàng .\n          "
                   )
                 ])
               ]),
@@ -102523,13 +102551,20 @@ var staticRenderFns = [
                   _c("div", { staticClass: "ci-text" }, [
                     _c("span", [_vm._v("Email:")]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("danhha@gmail.com")])
+                    _c("p", [_vm._v("danhha221020@gmail.com")])
                   ])
                 ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-6 offset-lg-1" }, [
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-6 offset-lg-1",
+              staticStyle: { "background-color": "white", padding: "15px 10px" }
+            },
+            [
               _c("div", { staticClass: "contact-form" }, [
                 _c("div", { staticClass: "leave-comment" }, [
                   _c("h4", [_vm._v("Leave A Comment")]),
@@ -102557,7 +102592,7 @@ var staticRenderFns = [
                           })
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-12" }, [
+                        _c("div", { staticClass: "col-lg-12 text-center" }, [
                           _c("textarea", {
                             attrs: { placeholder: "Your message" }
                           }),
@@ -102568,11 +102603,7 @@ var staticRenderFns = [
                               staticClass: "site-btn",
                               attrs: { type: "submit" }
                             },
-                            [
-                              _vm._v(
-                                "\n                      Send message\n                    "
-                              )
-                            ]
+                            [_vm._v("Send message")]
                           )
                         ])
                       ])
@@ -102580,8 +102611,8 @@ var staticRenderFns = [
                   )
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
@@ -102611,115 +102642,220 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      staticStyle: {
+        "background-color": "#e9edf0",
+        "min-height": "100%",
+        position: "relative"
+      }
+    },
     [
-      _c("section", { staticClass: "blog-section spad" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1" },
-              [
-                _c("div", { staticClass: "blog-sidebar" }, [
-                  _c("div", { staticClass: "search-form" }, [
-                    _c("h4", [_vm._v("Search")]),
-                    _vm._v(" "),
-                    _c("form", { attrs: { action: "#" } }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.search,
-                            expression: "search"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.search },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+      _c("section", { staticClass: "pt-5 pb-5" }, [
+        _c(
+          "div",
+          {
+            staticClass: "container",
+            staticStyle: { "background-color": "white" }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1",
+                  staticStyle: { "border-right": "1px solid #e9edf0" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "blog-sidebar",
+                      staticStyle: { "margin-top": "12px" }
+                    },
+                    [
+                      _c("div", { staticClass: "search-form" }, [
+                        _c("form", { attrs: { action: "#" } }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.search,
+                                expression: "search"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", placeholder: "Search" },
+                            domProps: { value: _vm.search },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.search = $event.target.value
+                              }
                             }
-                            _vm.search = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "blog-catagory" }, [
-                    _c("h4", [_vm._v("Categories")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.id_category,
-                            expression: "id_category"
-                          }
-                        ],
-                        staticClass: "form-control w-sm inline v-middle",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.id_category = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.categoryPosts, function(post) {
-                        return _c(
-                          "option",
-                          { key: post.id, domProps: { value: post.id } },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(post.name) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "recent-post" }, [
-                    _c("h4", [_vm._v("Recent Post")]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "recent-blog" },
-                      _vm._l(_vm.recentPosts, function(post) {
-                        return _c(
-                          "a",
-                          {
-                            key: post.id,
-                            staticClass: "rb-item",
-                            attrs: { href: "#" }
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.id_category,
+                                expression: "id_category"
+                              }
+                            ],
+                            staticClass: "form-control w-sm inline v-middle",
+                            staticStyle: {
+                              height: "46px",
+                              "margin-top": "27px"
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.id_category = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
                           },
                           [
-                            _c("div", { staticClass: "rb-pic" }, [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Filter By Category")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.categoryPosts, function(post) {
+                              return _c(
+                                "option",
+                                { key: post.id, domProps: { value: post.id } },
+                                [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(post.name) +
+                                      "\n                "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "recent-post" }, [
+                        _c("h4", [_vm._v("Recent Post")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "recent-blog" },
+                          _vm._l(_vm.recentPosts, function(post) {
+                            return _c(
+                              "a",
+                              {
+                                key: post.id,
+                                staticClass: "rb-item",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c("div", { staticClass: "rb-pic" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "blog/" + post.id + "/detail"
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticStyle: { height: "70px" },
+                                        attrs: {
+                                          src:
+                                            _vm.baseUrl +
+                                            "/uploads/" +
+                                            post.images,
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "rb-text" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "blog/" + post.id + "/detail"
+                                      }
+                                    },
+                                    [_c("h6", [_vm._v(_vm._s(post.title))])]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(post.categorypost.name)
+                                    ),
+                                    _c("span", [
+                                      _vm._v(
+                                        "- " +
+                                          _vm._s(
+                                            _vm._f("formatDate")(
+                                              post.created_at
+                                            )
+                                          )
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-9 order-1 order-lg-2" }, [
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  [
+                    _vm._l(_vm.posts.data, function(post) {
+                      return _c(
+                        "div",
+                        { key: post.id, staticClass: "col-lg-6 col-sm-6" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "blog-item",
+                              staticStyle: { "background-color": "#e9edf0" }
+                            },
+                            [
                               _c(
-                                "a",
+                                "div",
                                 {
-                                  attrs: { href: "blog/" + post.id + "/detail" }
+                                  staticClass: "bi-pic",
+                                  staticStyle: { "margin-top": "14px" }
                                 },
                                 [
                                   _c("img", {
-                                    staticStyle: { height: "70px" },
+                                    staticStyle: { height: "300px" },
                                     attrs: {
                                       src:
                                         _vm.baseUrl + "/uploads/" + post.images,
@@ -102727,135 +102863,115 @@ var render = function() {
                                     }
                                   })
                                 ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "rb-text" }, [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "blog/" + post.id + "/detail" }
-                                },
-                                [_c("h6", [_vm._v(_vm._s(post.title))])]
                               ),
                               _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(post.categorypost.name)
-                                ),
-                                _c("span", [
-                                  _vm._v(
-                                    "- " +
-                                      _vm._s(
-                                        _vm._f("formatDate")(post.created_at)
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "bi-text",
+                                  staticStyle: {
+                                    "padding-left": "15px",
+                                    "padding-bottom": "15px"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "blog/" + post.id + "/detail"
+                                      }
+                                    },
+                                    [_c("h4", [_vm._v(_vm._s(post.title))])]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(post.categorypost.name)
+                                    ),
+                                    _c("span", [
+                                      _vm._v(
+                                        "- " +
+                                          _vm._s(
+                                            _vm._f("formatDate")(
+                                              post.created_at
+                                            )
+                                          )
                                       )
-                                  )
-                                ])
-                              ])
-                            ])
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-9 order-1 order-lg-2" }, [
-              _c(
-                "div",
-                { staticClass: "row" },
-                [
-                  _vm._l(_vm.posts.data, function(post) {
-                    return _c(
-                      "div",
-                      { key: post.id, staticClass: "col-lg-6 col-sm-6" },
-                      [
-                        _c("div", { staticClass: "blog-item" }, [
-                          _c("div", { staticClass: "bi-pic" }, [
-                            _c("img", {
-                              staticStyle: { height: "300px" },
-                              attrs: {
-                                src: _vm.baseUrl + "/uploads/" + post.images,
-                                alt: ""
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "bi-text" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "blog/" + post.id + "/detail" }
-                              },
-                              [_c("h4", [_vm._v(_vm._s(post.title))])]
-                            ),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                    " +
-                                  _vm._s(post.categorypost.name)
-                              ),
-                              _c("span", [
-                                _vm._v(
-                                  "- " +
-                                    _vm._s(
-                                      _vm._f("formatDate")(post.created_at)
-                                    )
-                                )
-                              ])
-                            ])
-                          ])
-                        ])
-                      ]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-12" }, [
-                    _c("div", { staticClass: "loading-more" }, [
-                      _c(
-                        "nav",
-                        { attrs: { "aria-label": "Page navigation example" } },
-                        [
-                          _c("paginate", {
-                            attrs: {
-                              "page-count": parseInt(_vm.posts.last_page),
-                              "page-range": 5,
-                              "margin-pages": 2,
-                              "click-handler": _vm.changePage,
-                              "prev-text": "<<",
-                              "next-text": ">>",
-                              "container-class":
-                                "pagination justify-content-center",
-                              "page-class": "page-item",
-                              "prev-class": "page-item",
-                              "next-class": "page-item",
-                              "page-link-class": "page-link bg-info text-light",
-                              "next-link-class": "page-link bg-info text-light",
-                              "prev-link-class": "page-link bg-info text-light"
-                            },
-                            model: {
-                              value: _vm.page,
-                              callback: function($$v) {
-                                _vm.page = $$v
-                              },
-                              expression: "page"
-                            }
-                          })
-                        ],
-                        1
+                                    ])
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]
                       )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-12" }, [
+                      _vm.posts != ""
+                        ? _c("div", { staticClass: "loading-more" }, [
+                            _c(
+                              "nav",
+                              {
+                                attrs: {
+                                  "aria-label": "Page navigation example"
+                                }
+                              },
+                              [
+                                _c("paginate", {
+                                  attrs: {
+                                    "page-count": parseInt(_vm.posts.last_page),
+                                    "page-range": 5,
+                                    "margin-pages": 2,
+                                    "click-handler": _vm.changePage,
+                                    "prev-text": "<<",
+                                    "next-text": ">>",
+                                    "container-class":
+                                      "pagination justify-content-center",
+                                    "page-class": "page-item",
+                                    "prev-class": "page-item",
+                                    "next-class": "page-item",
+                                    "page-link-class":
+                                      "page-link bg-info text-light",
+                                    "next-link-class":
+                                      "page-link bg-info text-light",
+                                    "prev-link-class":
+                                      "page-link bg-info text-light"
+                                  },
+                                  model: {
+                                    value: _vm.page,
+                                    callback: function($$v) {
+                                      _vm.page = $$v
+                                    },
+                                    expression: "page"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        : _c(
+                            "div",
+                            {
+                              staticClass: "text-center",
+                              staticStyle: { color: "red" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                There is no data !\n              "
+                              )
+                            ]
+                          )
                     ])
-                  ])
-                ],
-                2
-              )
+                  ],
+                  2
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ]),
       _vm._v(" "),
       _vm.modalShow
@@ -102903,13 +103019,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticStyle: { "background-color": "#e9edf0" } },
     [
-      _c("section", { staticClass: "blog-details spad" }, [
+      _c("section", { staticClass: "pt-5 pb-5" }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c(
               "div",
-              { staticClass: "col-lg-12" },
+              {
+                staticClass: "col-lg-12",
+                staticStyle: { "background-color": "white" }
+              },
               _vm._l(_vm.postDetails, function(post) {
                 return _c(
                   "div",

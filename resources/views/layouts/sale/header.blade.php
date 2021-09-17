@@ -61,7 +61,8 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="{{ URL::to('/') }}">
-                                <img style="width: 100%;height: 24px;" src="{{ '/frontend/images/logoweb.png' }}" alt="">
+                                <img style="width: 100%;height: 24px;" src="{{ '/frontend/images/logoweb.png' }}"
+                                    alt="">
                             </a>
                         </div>
                     </div>
@@ -103,15 +104,14 @@
                                     ?>
                                 </a>
                                 @if (Session::get('viewed') == true)
-                                    <div class="cart-hover cart-hover-1">
-                                        <div class="select-items ">
-                                            <h5 class="text-center" style="color:red">Viewed Products</h5>
-                                            <hr style="max-width:100%">
+                                    <div class="cart-hover cart-hover-1" style="background-color: #e9edf0">
+                                        <div class="select-items">
                                             <table>
                                                 <tbody>
                                                     @foreach (Session::get('viewed') as $key => $viewed)
-                                                        <tr class="overflow">
-                                                            <td class="si-pic"><img width="40px;" height="50px;"
+                                                        <tr class="overflow"
+                                                            style="background-color: white;border: 1px solid #e9edf0;">
+                                                            <td class="si-pic pt-4"><img width="80px;" height="80px;"
                                                                     src="{{ URL::to('uploads/' . $viewed['product_image']) }}"
                                                                     alt=""></td>
                                                             <td class="si-text">
@@ -146,17 +146,16 @@
                                     <?php }
                                     ?>
                                 </a>
+
                                 @if (Session::get('favorite') == true)
-                                    <div class="cart-hover cart-hover-1">
-                                        <div class="select-items ">
-                                            <h5 class="text-center" style="color:red">
-                                                Favorite Products</h5>
-                                            <hr style="max-width:100%">
+                                    <div class="cart-hover cart-hover-1" style="background-color: #e9edf0">
+                                        <div class="select-items">
                                             <table>
                                                 <tbody>
                                                     @foreach (Session::get('favorite') as $key => $favorite)
-                                                        <tr class="overflow">
-                                                            <td class="si-pic"><img width="40px;" height="50px;"
+                                                        <tr class="overflow"
+                                                            style="background-color: white;border: 1px solid #e9edf0;">
+                                                            <td class="si-pic"><img width="80px;" height="80px;"
                                                                     src="{{ URL::to('uploads/' . $favorite['product_image']) }}"
                                                                     alt=""></td>
                                                             <td class="si-text">
@@ -176,6 +175,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </div>
                                 @endif
                             </li>

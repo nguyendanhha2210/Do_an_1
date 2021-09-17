@@ -81,7 +81,7 @@
                         <a href="{{ URL::to('/shop') }}">Discover More</a>
                     </div>
                 </div>
-                <div class="col-lg-8 offset-lg-1">
+                <div class="col-lg-8 offset-lg-1" style="background-color: #e9edf0">
                     <div class="filter-control">
                         <ul>
                             <li class="active">Sản Phẩm Nổi Bật</li>
@@ -113,7 +113,7 @@
                                     href="{{ URL::to('/product-detail/' . $key->id) }}"></a>
                                 {{-- Lấy cho sp yêu thích --}}
 
-                                <div class="product-item">
+                                <div class="product-item" style="background-color:white">
                                     <div class="pi-pic">
                                         <img height="320px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
@@ -133,13 +133,27 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">{{ $key->type->type }}</div>
-                                        <a href="#">
-                                            <h5>{{ $key->name }}</h5>
+                                    <div class="pi-text"
+                                        style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+                                        <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
+                                            <h5 style="">
+                                                {{ $key->name }}
+                                            </h5>
                                         </a>
-                                        <div class="product-price">
-                                            {{ number_format($key->price) . ' đ' }}
+                                        <div style="color: red; transform: translate(-27%, 53%)">
+                                            <u style="
+                                                  font-size: 13px;
+                                                  display: -webkit-inline-box;
+                                                  transform: translate(0%, -13%);
+                                                ">đ</u>
+                                            <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                        </div>
+                                        <div class="da-ban" style="
+                                                transform: translate(32%, -47%);
+                                                font-size: 14px;
+                                                color: dimgray;
+                                              ">
+                                            <span>Đã bán {{ $key->product_sold }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +208,7 @@
     <section class="man-banner spad">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8" style="background-color: #e9edf0">
                     <div class="filter-control">
                         <ul>
                             <li class="active">Sản Phẩm Bán Chạy</li>
@@ -215,7 +229,7 @@
                                     class="cart_product_price_{{ $key->id }}">
                                 <input type="hidden" value="1" class="cart_product_qty_{{ $key->id }}">
 
-                                <div class="product-item">
+                                <div class="product-item" style="background-color:white">
                                     <div class="pi-pic">
                                         <img height="320px;" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
@@ -237,13 +251,27 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">{{ $key->type->type }}</div>
-                                        <a href="#">
-                                            <h5>{{ $key->name }}</h5>
+                                    <div class="pi-text"
+                                        style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+                                        <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
+                                            <h5 style="">
+                                                {{ $key->name }}
+                                            </h5>
                                         </a>
-                                        <div class="product-price">
-                                            {{ number_format($key->price) . ' đ' }}
+                                        <div style="color: red; transform: translate(-27%, 53%)">
+                                            <u style="
+                                                  font-size: 13px;
+                                                  display: -webkit-inline-box;
+                                                  transform: translate(0%, -13%);
+                                                ">đ</u>
+                                            <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                        </div>
+                                        <div class="da-ban" style="
+                                                transform: translate(32%, -47%);
+                                                font-size: 14px;
+                                                color: dimgray;
+                                              ">
+                                            <span>Đã bán {{ $key->product_sold }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -314,15 +342,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="background-color: #e9edf0">
                 @foreach ($post as $key)
                     <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-blog">
+                        <div class="single-latest-blog" style="background-color: white;margin-top: 27px;">
                             <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
                                 <img style="height: 260px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
                             </a>
 
-                            <div class="latest-text">
+                            <div class="latest-text" style="padding-left: 16px;
+                                padding-bottom: 5px;">
                                 <div class="tag-list">
                                     <div class="tag-item">
                                         <i class="fa fa-calendar-o"></i>
@@ -342,7 +371,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
             <div class="benefit-items">
                 <div class="row">

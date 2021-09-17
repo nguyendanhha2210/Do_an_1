@@ -1,22 +1,29 @@
 <template>
-  <div>
-    <section class="blog-section spad">
-      <div class="container">
+  <div style="background-color: #e9edf0; min-height: 100%; position: relative">
+    <section class="pt-5 pb-5">
+      <div class="container" style="background-color: white">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1">
-            <div class="blog-sidebar">
+          <div
+            class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1"
+            style="border-right: 1px solid #e9edf0"
+          >
+            <div class="blog-sidebar" style="margin-top: 12px">
               <div class="search-form">
-                <h4>Search</h4>
                 <form action="#">
-                  <input type="text" class="form-control" v-model="search" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    class="form-control"
+                    v-model="search"
+                  />
                 </form>
-              </div>
-              <div class="blog-catagory">
-                <h4>Categories</h4>
+
                 <select
+                  style="height: 46px; margin-top: 27px"
                   v-model="id_category"
                   class="form-control w-sm inline v-middle"
                 >
+                  <option value="">Filter By Category</option>
                   <option
                     v-for="post in categoryPosts"
                     :key="post.id"
@@ -26,6 +33,7 @@
                   </option>
                 </select>
               </div>
+
               <div class="recent-post">
                 <h4>Recent Post</h4>
                 <div class="recent-blog">
@@ -64,15 +72,18 @@
                 v-for="post in posts.data"
                 :key="post.id"
               >
-                <div class="blog-item">
-                  <div class="bi-pic">
+                <div class="blog-item" style="background-color: #e9edf0">
+                  <div class="bi-pic" style="margin-top: 14px">
                     <img
                       style="height: 300px"
                       :src="baseUrl + '/uploads/' + post.images"
                       alt=""
                     />
                   </div>
-                  <div class="bi-text">
+                  <div
+                    class="bi-text"
+                    style="padding-left: 15px; padding-bottom: 15px"
+                  >
                     <a :href="`blog/${post.id}/detail`"
                       ><h4>{{ post.title }}</h4></a
                     >
@@ -85,7 +96,7 @@
               </div>
 
               <div class="col-lg-12">
-                <div class="loading-more">
+                <div class="loading-more" v-if="posts != ''">
                   <nav aria-label="Page navigation example">
                     <paginate
                       v-model="page"
@@ -105,6 +116,9 @@
                     >
                     </paginate>
                   </nav>
+                </div>
+                <div class="text-center" v-else style="color: red">
+                  There is no data !
                 </div>
               </div>
             </div>

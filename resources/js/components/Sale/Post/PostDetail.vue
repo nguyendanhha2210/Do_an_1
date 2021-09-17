@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <section class="blog-details spad">
+  <div style="background-color: #e9edf0">
+    <section class="pt-5 pb-5">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12" style="background-color: white">
             <div
               class="blog-details-inner"
               v-for="post in postDetails"
