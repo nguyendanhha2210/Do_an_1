@@ -118,7 +118,7 @@
             <div class="p-code"><b>Id</b>: 000{{ info[0].id }}</div>
             <div class="pd-social">
               <a
-                href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"
+                href="https://www.facebook.com/Mekhoebexinh02"
                 ><img
                   style="width: 34px; height: 31px"
                   src="/frontend/images/fb.png"

@@ -86,24 +86,23 @@
             </div>
 
             <div class="top-social mt-5 text-center">
-              <a
-                href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"
+              <a href="https://www.facebook.com/Mekhoebexinh02"
                 ><img
-                  style="width: 92px; height: 81px ;margin-right: 27px;"
+                  style="width: 92px; height: 81px; margin-right: 27px"
                   :src="'/frontend/images/fb.png'"
                   alt=""
               /></a>
               <a
                 href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"
                 ><img
-                  style="width: 92px; height: 81px ;margin-right: 27px;"
+                  style="width: 92px; height: 81px; margin-right: 27px"
                   :src="'/frontend/images/sendo.png'"
                   alt=""
               /></a>
               <a
                 href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"
                 ><img
-                  style="width: 92px; height: 81px ;"
+                  style="width: 92px; height: 81px"
                   :src="'/frontend/images/shoppee.jpg'"
                   alt=""
               /></a>
