@@ -673,8 +673,7 @@ export default {
       let that = this;
       this.flagShowLoader = true;
       var url =
-        "/get-exchange-review/" +
-        "?page=" +
+        "/get-exchange-review?page=" +
         this.page +
         "&paginate=" +
         this.paginate;
