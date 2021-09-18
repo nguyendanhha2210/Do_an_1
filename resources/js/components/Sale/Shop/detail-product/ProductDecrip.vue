@@ -117,8 +117,7 @@
             <div
               class="d-flex justify-content-center row"
               v-for="comment in comments.data"
-              :key="comment.id"
-            >
+              :key="comment.id">
               <div class="col-md-12">
                 <div class="d-flex flex-column comment-section" id="myGroup">
                   <div class="bg-white p-2">
@@ -469,92 +468,6 @@
                 </form>
               </div>
             </div>
-
-            <!-- <div class="customer-review-option">
-              <h4>{{ this.count }} Comments</h4>
-              <div class="comment-option">
-                <div
-                  class="co-item"
-                  v-for="comment in comments.data"
-                  :key="comment.id"
-                >
-                  <div class="avatar-pic">
-                    <img src="img/product-single/avatar-1.png" alt="" />
-                  </div>
-                  <div class="avatar-text">
-                    <h5>
-                      {{ comment.name }}
-                      <span>{{ comment.created_at | formatDate }}</span>
-                    </h5>
-                    <div class="at-reply">{{ comment.content }}</div>
-                  </div>
-                </div>
-                <nav aria-label="Page navigation example">
-                  <paginate
-                    v-model="page"
-                    :page-count="parseInt(comments.last_page)"
-                    :page-range="5"
-                    :margin-pages="2"
-                    :click-handler="changePage"
-                    :prev-text="'<<'"
-                    :next-text="'>>'"
-                    :container-class="'pagination justify-content-center'"
-                    :page-class="'page-item'"
-                    :prev-class="'page-item'"
-                    :next-class="'page-item'"
-                    :page-link-class="'page-link bg-info text-light'"
-                    :next-link-class="'page-link bg-info text-light'"
-                    :prev-link-class="'page-link bg-info text-light'"
-                  >
-                  </paginate>
-                </nav>
-              </div>
-
-              <div class="leave-comment">
-                <h4>Leave A Comment</h4>
-                <form @submit.prevent="addComment()" class="comment-form">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <input
-                        type="text"
-                        placeholder="Name"
-                        name="name"
-                        class="form-control"
-                        v-validate="'required'"
-                        @input="changeInput()"
-                        v-model="comment.name"
-                      />
-                      <div style="color: red" role="alert">
-                        {{ errors.first("name") }}
-                      </div>
-                      <div style="color: red" v-if="errorBackEnd.name">
-                        {{ errorBackEnd.name[0] }}
-                      </div>
-                    </div>
-                    <div class="col-lg-6"></div>
-                    <div class="col-lg-12">
-                      <textarea
-                        placeholder="Messages"
-                        name="content"
-                        class="form-control"
-                        v-validate="'required'"
-                        @input="changeInput()"
-                        v-model="comment.content"
-                      ></textarea>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("content") }}
-                      </div>
-                      <div style="color: red" v-if="errorBackEnd.content">
-                        {{ errorBackEnd.content[0] }}
-                      </div>
-                      <button type="submit" class="site-btn">
-                        Send message
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

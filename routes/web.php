@@ -161,16 +161,25 @@ Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'ind
 
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
-Route::post('add-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'store'])->name('admin.comment.store'); //thêm comment
-Route::get('/get-comment/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getComment'])->name('admin.comment.getComment'); //Show data comment
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
 
-Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
-Route::get('/get-commentReply/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getCommentReply'])->name('admin.comment.getCommentReply'); //Show data comment
-Route::post('reply-comment-second/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyCommentSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
-Route::post('/comment/delete', [App\Http\Controllers\Sale\CommentController::class, 'commentDelete'])->name('admin.comment.commentDelete'); //Xóa
 
-Route::post('/fill-image', [App\Http\Controllers\Sale\CommentController::class, 'fillImage'])->name('sale.users.fillImage');
+// Route::post('add-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'store'])->name('admin.comment.store'); //thêm comment
+// Route::get('/get-comment/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getComment'])->name('admin.comment.getComment'); //Show data comment
+// Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
+// Route::get('/get-commentReply/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getCommentReply'])->name('admin.comment.getCommentReply'); //Show data comment
+// Route::post('reply-comment-second/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyCommentSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
+// Route::post('/comment/delete', [App\Http\Controllers\Sale\CommentController::class, 'commentDelete'])->name('admin.comment.commentDelete'); //Xóa
+// Route::post('/fill-image', [App\Http\Controllers\Sale\CommentController::class, 'fillImage'])->name('sale.users.fillImage');
+
+Route::post('/contact/add-exchange-review',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'store'])->name('admin.comment.store'); //thêm comment
+Route::get('/get-exchange-review', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'getExchangeReview'])->name('admin.comment.getExchangeReview'); //Show data comment
+Route::post('reply-exchange-review/{id}',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'replyExchangeReview'])->name('admin.comment.replyComment'); //thêm comment
+Route::get('/get-exchangeReviewReply/{id}', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'getExchangeReviewReply'])->name('admin.comment.getExchangeReviewReply'); //Show data comment
+Route::post('reply-exchange-review-second/{id}',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'replyExchangeReviewSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
+Route::post('/exchangeReview/delete', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'exchangeReviewDelete'])->name('admin.comment.exchangeReviewDelete'); //Xóa
+Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
+
 
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product
 Route::get('/get-type-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getTypeProduct'])->name('admin.shop.getTypeProduct'); //Show data type product
