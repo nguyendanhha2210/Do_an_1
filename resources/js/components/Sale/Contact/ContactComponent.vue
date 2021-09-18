@@ -62,6 +62,52 @@
                 <p>danhha221020@gmail.com</p>
               </div>
             </div>
+
+            <div
+              style="width: 100%"
+              class="fb-page text-center"
+              data-href="https://www.facebook.com/Mekhoebexinh02/"
+              data-tabs="timeline"
+              data-width=""
+              data-height="40px"
+              data-small-header="false"
+              data-adapt-container-width="true"
+              data-hide-cover="false"
+              data-show-facepile="true"
+            >
+              <blockquote
+                cite="https://www.facebook.com/Mekhoebexinh02/"
+                class="fb-xfbml-parse-ignore"
+              >
+                <a href="https://www.facebook.com/Mekhoebexinh02/"
+                  >Fresh Mama - Nguồn dinh dưỡng tự nhiên</a
+                >
+              </blockquote>
+            </div>
+
+            <div class="top-social mt-5 text-center">
+              <a
+                href="https://www.facebook.com/Hoa-Qu%E1%BA%A3-S%E1%BA%A5y-109767304754230"
+                ><img
+                  style="width: 92px; height: 81px ;margin-right: 27px;"
+                  :src="'/frontend/images/fb.png'"
+                  alt=""
+              /></a>
+              <a
+                href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"
+                ><img
+                  style="width: 92px; height: 81px ;margin-right: 27px;"
+                  :src="'/frontend/images/sendo.png'"
+                  alt=""
+              /></a>
+              <a
+                href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"
+                ><img
+                  style="width: 92px; height: 81px ;"
+                  :src="'/frontend/images/shoppee.jpg'"
+                  alt=""
+              /></a>
+            </div>
           </div>
         </div>
 
@@ -82,7 +128,7 @@
                       class="d-flex flex-column comment-section"
                       id="myGroup"
                     >
-                      <div class="bg-white p-2">
+                      <div class="bg-white pr-2">
                         <div class="d-flex flex-row user-info">
                           <img
                             class="rounded-circle"
@@ -114,8 +160,8 @@
                         </div>
                       </div>
                       <div
-                        class="bg-white p-2"
-                        style="transform: translate(-1%, -45%)"
+                        class="bg-white pr-2"
+                        style="transform: translate(-1%, -90%)"
                       >
                         <div
                           class="d-flex flex-row fs-12"
@@ -148,7 +194,7 @@
                             href="#collapse-2"
                           >
                             <i class="fa fa-commenting-o"></i
-                            ><span class="ml-1">Comment (...)</span>
+                            ><span class="ml-1">Comment</span>
                           </div>
                           <div
                             @click="
@@ -168,7 +214,7 @@
                         "
                         id="collapse-1"
                         class="bg-light collapse"
-                        style="transform: translate(1%, -24%)"
+                        style="transform: translate(1%, -32%)"
                         data-parent="#myGroup"
                       >
                         <form
@@ -186,6 +232,7 @@
                             <textarea
                               placeholder="Messages"
                               name="content"
+                              style="height: 60px; margin-bottom: 0px"
                               class="form-control ml-1 shadow-none textarea"
                               v-validate="'required'"
                               @input="changeInput()"
@@ -232,7 +279,10 @@
                       v-for="exchangeReviewReply in exchangeReviewReplys"
                       :key="exchangeReviewReply.id"
                     >
-                      <div class="bg-white p-2">
+                      <div
+                        class="bg-white"
+                        style="transform: translate(2%, -21%)"
+                      >
                         <div class="d-flex flex-row user-info">
                           <img
                             class="rounded-circle"
@@ -260,14 +310,14 @@
                           </div>
                         </div>
                         <div class="mt-2">
-                          <p class="comment-text">
+                          <p>
                             {{ exchangeReviewReply.content }}
                           </p>
                         </div>
                       </div>
                       <div
-                        class="bg-white p-2"
-                        style="transform: translate(-1%, -45%)"
+                        class="bg-white pr-2"
+                        style="transform: translate(-1%, -215%)"
                       >
                         <div class="d-flex flex-row fs-12">
                           <div
@@ -276,7 +326,7 @@
                               idReplySecond(exchangeReviewReply.id);
                               statusReplySecond = !statusReplySecond;
                             "
-                            class="like p-2 cursor action-collapse"
+                            class="like pr-3 pl-3 cursor action-collapse"
                             data-toggle="collapse"
                             aria-expanded="true"
                             aria-controls="collapse-1"
@@ -292,7 +342,7 @@
                                 exchangeReviewReply.id
                               )
                             "
-                            class="like p-2 cursor action-collapse"
+                            class="like pr-2 cursor action-collapse"
                             style="color: red"
                           >
                             <i class="fa fa-close"></i
@@ -302,7 +352,7 @@
                       </div>
 
                       <!-- Show Comment Reply -->
-                      <div class="bg-white p-2">
+                      <div class="bg-white pr-2">
                         <div class="d-flex flex-row fs-12"></div>
                       </div>
 
@@ -314,7 +364,7 @@
                         "
                         id="collapse-1"
                         class="bg-light collapse"
-                        style="transform: translate(1%, -24%)"
+                        style="transform: translate(1%, -54%)"
                         data-parent="#myGroup"
                       >
                         <form
@@ -342,6 +392,7 @@
                             <textarea
                               placeholder="Messages"
                               name="content"
+                              style="height: 60px; margin-bottom: 0px"
                               class="form-control ml-1 shadow-none textarea"
                               v-validate="'required'"
                               @input="changeInput()"
@@ -399,7 +450,7 @@
                   There is no data !
                 </div>
 
-                <div class="customer-review-option">
+                <div class="customer-review-option" style="padding-top: 10px">
                   <div class="leave-comment">
                     <form
                       @submit.prevent="addExchangeReview()"
@@ -407,7 +458,7 @@
                     >
                       <div class="row">
                         <div
-                          class="col-lg-1"
+                          class="col-lg-2"
                           style="transform: translate(20%, 7%)"
                         >
                           <!-- <img
@@ -424,10 +475,11 @@
                             height="40px"
                           />
                         </div>
-                        <div class="col-lg-11" style="padding: 17px">
+                        <div class="col-lg-10">
                           <textarea
                             placeholder="Messages"
                             name="content"
+                            style="height: 92px; margin-bottom: 16px"
                             class="form-control"
                             v-validate="'required'"
                             @input="changeInput()"
