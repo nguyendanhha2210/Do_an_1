@@ -106,7 +106,7 @@
                              Hà</a>
                      </div>
                      <div class="payment-pic">
-                         <img src="{{ 'sale/image/payment-method.png' }}" alt="">
+                         <img src="{{ '/frontend/images/payment-method.png' }}" alt="">
                      </div>
                  </div>
              </div>

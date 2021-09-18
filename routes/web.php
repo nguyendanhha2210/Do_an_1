@@ -168,6 +168,8 @@ Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopControlle
 Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
 Route::get('/get-commentReply/{id}', [App\Http\Controllers\Sale\CommentController::class, 'getCommentReply'])->name('admin.comment.getCommentReply'); //Show data comment
 Route::post('reply-comment-second/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyCommentSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
+Route::post('/comment/delete', [App\Http\Controllers\Sale\CommentController::class, 'commentDelete'])->name('admin.comment.commentDelete'); //Xóa
+
 Route::post('/fill-image', [App\Http\Controllers\Sale\CommentController::class, 'fillImage'])->name('sale.users.fillImage');
 
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product

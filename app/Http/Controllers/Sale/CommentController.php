@@ -52,7 +52,6 @@ class CommentController extends Controller
         try {
             $idUser = Auth::guard('sales')->id();
             $user = User::find($idUser);
-
             $commentCode = Comment::find($id);
             $comment = new Comment();
             $comment->name = $user->name;
@@ -89,7 +88,6 @@ class CommentController extends Controller
         try {
             $idUser = Auth::guard('sales')->id();
             $user = User::find($idUser);
-
             $comment = new Comment();
             $comment->name = $user->name;
             $comment->images = $user->images;
@@ -106,12 +104,32 @@ class CommentController extends Controller
         }
     }
 
+    public function commentDelete(Request $request)
+    {
+        $codeComment = $request->codeComment;
+        $idComment = $request->idComment;
+
+        $comment = Comment::where('code', '=', $codeComment)->where('id', '=', $idComment)->first();
+        if ($comment->rank == CommentRank::FIRSTRANK) {
+            $comments = Comment::where('code', '=', $codeComment)->get();
+            foreach ($comments as $key) {
+                if ($key->code = $codeComment) {
+                    $key->delete();
+                }
+            }
+        } else {
+            Comment::where('code', '=', $codeComment)->where('id', '=', $idComment)->delete();
+        }
+    }
+
     public function fillImage()
     {
         try {
             $idUser = Auth::guard('sales')->id();
-            $user = User::find($idUser);
-            return response()->json(["image" => $user->images], StatusCode::OK);
+            $user = User::where('id', $idUser)->first();
+
+            return view('admin.types.index', ['user' => $user->images]);
+            // return response()->json(["image" => $user->images], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }

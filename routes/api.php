@@ -3,6 +3,8 @@
 use App\Http\Middleware\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Sale;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +44,10 @@ use Illuminate\Support\Facades\Route;
 //     Route::resource('descriptions', 'Admin\DescriptionController');
 //     // Route::get('show', [AuthController::class, 'show']);
 //     // Route::get('changePassWord', [AuthController::class, 'changePassWord']);
+// });
+
+
+// Route::middleware([Sale::class])->prefix('/sale')->group(function () {
+//     Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
+
 // });

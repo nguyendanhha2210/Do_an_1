@@ -5989,6 +5989,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6005,7 +6030,8 @@ __webpack_require__.r(__webpack_exports__);
         content: ""
       },
       idProduct: "",
-      showImage: "",
+      objectName: "",
+      // showImage: "",
       commentReplys: [],
       commentReply: {
         nameRep: "",
@@ -6047,19 +6073,51 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
     this.$validator.localize("en", messError);
-    this.fetchData();
-    this.fillImage();
+    this.fetchData(); // this.fillImage();
   },
   components: {
     Loader: _Common_loader_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: ["decripProduct"],
   mounted: function mounted() {
-    this.fetchData();
-    this.fillImage();
-    console.log("ANC", this.showImage);
+    this.fetchData(); // this.fillImage();
   },
   methods: {
+    deleteComment: function deleteComment(code, id) {
+      var _this = this;
+
+      var that = this;
+      var formData = new FormData();
+      formData.append("codeComment", code);
+      formData.append("idComment", id);
+      this.$swal({
+        title: "Do you want to delete ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!"
+      }).then(function (result) {
+        if (result.value) {
+          axios__WEBPACK_IMPORTED_MODULE_1___default().post("/comment/delete", formData).then(function (response) {
+            _this.$swal({
+              title: "Delete successfully!",
+              icon: "success",
+              confirmButtonText: "OK!"
+            }).then(function (confirm) {});
+
+            that.fetchData();
+          })["catch"](function (error) {
+            that.flashMessage.error({
+              message: "Delete Failure!",
+              icon: "/backend/icon/error.svg",
+              blockClass: "text-centet"
+            });
+          });
+        }
+      });
+    },
     formatPrice: function formatPrice(value) {
       var val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -6147,28 +6205,28 @@ __webpack_require__.r(__webpack_exports__);
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
     },
     addComment: function addComment() {
-      var _this = this;
+      var _this2 = this;
 
       this.$validator.validateAll().then(function (valid) {
         if (valid) {
-          axios__WEBPACK_IMPORTED_MODULE_1___default().post("/add-comment/".concat(_this.decrip[0].id), _this.comment).then(function (response) {
-            _this.$swal({
+          axios__WEBPACK_IMPORTED_MODULE_1___default().post("/add-comment/".concat(_this2.decrip[0].id), _this2.comment).then(function (response) {
+            _this2.$swal({
               title: response.data,
               icon: "success",
               confirmButtonText: "OK!"
             });
 
-            _this.comment.content = "";
+            _this2.comment.content = "";
 
-            _this.fetchData();
+            _this2.fetchData();
           })["catch"](function (err) {
             switch (err.response.status) {
               case 422:
-                _this.errorBackEnd = err.response.data.errors;
+                _this2.errorBackEnd = err.response.data.errors;
                 break;
 
               case 404:
-                _this.$swal({
+                _this2.$swal({
                   title: "Comment Error !",
                   icon: "warning",
                   confirmButtonText: "Cancle !"
@@ -6177,7 +6235,7 @@ __webpack_require__.r(__webpack_exports__);
                 break;
 
               case 500:
-                _this.$swal({
+                _this2.$swal({
                   title: "Comment Error !",
                   icon: "warning",
                   confirmButtonText: "Cancle !"
@@ -6193,12 +6251,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     repCommentFirst: function repCommentFirst(id) {
-      var _this2 = this;
+      var _this3 = this;
 
-      // this.$validator.validateAll().then((valid) => {
-      //   if (valid) {
       var that = this;
       var formData = new FormData();
+      formData.append("name", this.comment.name);
+      console.log("Tên", this.comment.name);
       formData.append("repComment", this.commentReply.contentRep);
       formData.append("idProduct", this.decrip[0].id);
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("/reply-comment/".concat(id), formData).then(function (response) {
@@ -6208,7 +6266,7 @@ __webpack_require__.r(__webpack_exports__);
           confirmButtonText: "OK!"
         });
         that.commentReply.contentRep = "";
-        that.statusCommentFirst = !_this2.statusCommentFirst;
+        that.statusCommentFirst = !_this3.statusCommentFirst;
         that.fetchData();
       })["catch"](function (err) {
         switch (err.response.status) {
@@ -6235,36 +6293,32 @@ __webpack_require__.r(__webpack_exports__);
           default:
             break;
         }
-      }); //   }
-      // });
+      });
     },
     repCommentSecond: function repCommentSecond(id) {
-      var _this3 = this;
+      var _this4 = this;
 
-      // this.$validator.validateAll().then((valid) => {
-      //   if (valid) {
       var formData = new FormData();
       formData.append("repComment", this.replySecond.contentRep);
       formData.append("idProduct", this.decrip[0].id);
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("/reply-comment-second/".concat(id), formData).then(function (response) {
-        _this3.$swal({
+        _this4.$swal({
           title: response.data,
           icon: "success",
           confirmButtonText: "OK!"
         });
 
-        _this3.replySecond.contentRep = "";
-        _this3.statusCommentFirst = !_this3.statusCommentFirst;
+        _this4.replySecond.contentRep = ""; // this.statusCommentFirst = !this.statusCommentFirst;
 
-        _this3.fetchData();
+        _this4.fetchData();
       })["catch"](function (err) {
         switch (err.response.status) {
           case 422:
-            _this3.errorBackEnd = err.response.data.errors;
+            _this4.errorBackEnd = err.response.data.errors;
             break;
 
           case 404:
-            _this3.$swal({
+            _this4.$swal({
               title: "Comment Error !",
               icon: "warning",
               confirmButtonText: "Cancle !"
@@ -6273,7 +6327,7 @@ __webpack_require__.r(__webpack_exports__);
             break;
 
           case 500:
-            _this3.$swal({
+            _this4.$swal({
               title: "Comment Error !",
               icon: "warning",
               confirmButtonText: "Cancle !"
@@ -6284,12 +6338,12 @@ __webpack_require__.r(__webpack_exports__);
           default:
             break;
         }
-      }); //   }
-      // });
+      });
     },
     fillImage: function fillImage() {
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("/fill-image").then(function (response) {
-        this.showImage = response.data.image; //show data ra
+        this.showImage = response.data.image;
+        console.log("ẢNh", this.showImage);
       });
     }
   }
@@ -107296,8 +107350,9 @@ var render = function() {
                         _c("td", [
                           _c("div", { staticClass: "p-price" }, [
                             _vm._v(
-                              _vm._s(_vm.formatPrice(_vm.decrip[0].price)) +
-                                " đ"
+                              "\n                    " +
+                                _vm._s(_vm.formatPrice(_vm.decrip[0].price)) +
+                                " đ\n                  "
                             )
                           ])
                         ])
@@ -107479,6 +107534,29 @@ var render = function() {
                                           _vm._v("Comment (...)")
                                         ])
                                       ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "like p-2 cursor action-collapse",
+                                        staticStyle: { color: "red" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteComment(
+                                              comment.code,
+                                              comment.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-close" }),
+                                        _c("span", { staticClass: "ml-1" }, [
+                                          _vm._v("Delete")
+                                        ])
+                                      ]
                                     )
                                   ]
                                 )
@@ -107514,6 +107592,34 @@ var render = function() {
                                         }
                                       },
                                       [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: comment.name,
+                                              expression: "comment.name"
+                                            }
+                                          ],
+                                          attrs: {
+                                            type: "text",
+                                            name: "nameRep"
+                                          },
+                                          domProps: { value: comment.name },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                comment,
+                                                "name",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
                                         _c(
                                           "div",
                                           {
@@ -107784,6 +107890,33 @@ var render = function() {
                                                 "span",
                                                 { staticClass: "ml-1" },
                                                 [_vm._v("Reply")]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "like p-2 cursor action-collapse",
+                                              staticStyle: { color: "red" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.deleteComment(
+                                                    commentReply.code,
+                                                    commentReply.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa fa-close"
+                                              }),
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-1" },
+                                                [_vm._v("Delete")]
                                               )
                                             ]
                                           )

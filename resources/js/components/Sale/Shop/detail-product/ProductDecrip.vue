@@ -80,7 +80,9 @@
                 <tr>
                   <td class="p-catagory">Price</td>
                   <td>
-                    <div class="p-price">{{ formatPrice(decrip[0].price) }} đ</div>
+                    <div class="p-price">
+                      {{ formatPrice(decrip[0].price) }} đ
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -181,6 +183,14 @@
                         <i class="fa fa-commenting-o"></i
                         ><span class="ml-1">Comment (...)</span>
                       </div>
+                      <div
+                        @click="deleteComment(comment.code, comment.id)"
+                        class="like p-2 cursor action-collapse"
+                        style="color: red"
+                      >
+                        <i class="fa fa-close"></i
+                        ><span class="ml-1">Delete</span>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -194,6 +204,11 @@
                       @submit.prevent="repCommentFirst(comment.id)"
                       class="comment-form"
                     >
+                      <input
+                        type="text"
+                        name="nameRep"
+                        v-model="comment.name"
+                      />
                       <div class="d-flex flex-row align-items-start">
                         <img
                           class="rounded-circle"
@@ -293,6 +308,16 @@
                       >
                         <i class="fa fa-reply"></i
                         ><span class="ml-1">Reply</span>
+                      </div>
+                      <div
+                        @click="
+                          deleteComment(commentReply.code, commentReply.id)
+                        "
+                        class="like p-2 cursor action-collapse"
+                        style="color: red"
+                      >
+                        <i class="fa fa-close"></i
+                        ><span class="ml-1">Delete</span>
                       </div>
                     </div>
                   </div>
@@ -620,9 +645,11 @@ export default {
         product_id: "",
         content: "",
       },
-      idProduct: "",
 
-      showImage: "",
+      idProduct: "",
+      objectName: "",
+
+      // showImage: "",
 
       commentReplys: [],
       commentReply: {
@@ -670,7 +697,7 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
-    this.fillImage();
+    // this.fillImage();
   },
   components: {
     Loader,
@@ -678,10 +705,44 @@ export default {
   props: ["decripProduct"],
   mounted() {
     this.fetchData();
-    this.fillImage();
-    console.log("ANC", this.showImage);
+    // this.fillImage();
   },
   methods: {
+    deleteComment(code, id) {
+      let that = this;
+      let formData = new FormData();
+      formData.append("codeComment", code);
+      formData.append("idComment", id);
+      this.$swal({
+        title: "Do you want to delete ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post(`/comment/delete`, formData)
+            .then((response) => {
+              this.$swal({
+                title: "Delete successfully!",
+                icon: "success",
+                confirmButtonText: "OK!",
+              }).then(function (confirm) {});
+              that.fetchData();
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Delete Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
+    },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -828,10 +889,11 @@ export default {
     },
 
     repCommentFirst(id) {
-      // this.$validator.validateAll().then((valid) => {
-      //   if (valid) {
       let that = this;
       let formData = new FormData();
+      formData.append("name", this.comment.name);
+      console.log("Tên", this.comment.name);
+
       formData.append("repComment", this.commentReply.contentRep);
       formData.append("idProduct", this.decrip[0].id);
       axios
@@ -873,12 +935,8 @@ export default {
               break;
           }
         });
-      //   }
-      // });
     },
     repCommentSecond(id) {
-      // this.$validator.validateAll().then((valid) => {
-      //   if (valid) {
       let formData = new FormData();
       formData.append("repComment", this.replySecond.contentRep);
       formData.append("idProduct", this.decrip[0].id);
@@ -891,7 +949,7 @@ export default {
             confirmButtonText: "OK!",
           });
           this.replySecond.contentRep = "";
-          this.statusCommentFirst = !this.statusCommentFirst;
+          // this.statusCommentFirst = !this.statusCommentFirst;
           this.fetchData();
         })
         .catch((err) => {
@@ -917,13 +975,12 @@ export default {
               break;
           }
         });
-      //   }
-      // });
     },
 
     fillImage() {
-      axios.post("/fill-image").then(function (response) {
-        this.showImage = response.data.image; //show data ra
+      axios.post(`/fill-image`).then(function (response) {
+        this.showImage = response.data.image;
+        console.log("ẢNh", this.showImage);
       });
     },
   },
