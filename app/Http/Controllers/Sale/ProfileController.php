@@ -66,6 +66,8 @@ class ProfileController extends Controller
                     $fileName = $file->getClientOriginalName();
                     $file->move('uploads', $fileName);
                     $user->images = $fileName;
+                }else {
+                    $user->images = "avata-3.jpg";
                 }
                 $user->save();
                 return response()->json(["result" => route('sale.profile.index')], StatusCode::OK);

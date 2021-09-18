@@ -29,7 +29,11 @@ class ExchangeReviewController extends Controller
             $user = User::find($idUser);
             $ExchangeReview = new ExchangeReview();
             $ExchangeReview->name = $user->name;
-            $ExchangeReview->images = $user->images;
+            if ($user->images == '') {
+                $ExchangeReview->images == "avata-3.jpg";
+            } else {
+                $ExchangeReview->images = $user->images;
+            }
             $ExchangeReview->content = $request->content;
             $ExchangeReview->rank = CommentRank::FIRSTRANK;
             $code = substr(md5(microtime()), rand(0, 26), 5); //tạo rundle chữ và số xong lấy 5 kí tự
@@ -51,7 +55,12 @@ class ExchangeReviewController extends Controller
             $ExchangeReviewCode = ExchangeReview::find($id);
             $ExchangeReview = new ExchangeReview();
             $ExchangeReview->name = $user->name;
-            $ExchangeReview->images =  $user->images;
+            // $ExchangeReview->images =  $user->images;
+            if ($user->images == '') {
+                $ExchangeReview->images == "avata-3.jpg";
+            } else {
+                $ExchangeReview->images = $user->images;
+            }
             $ExchangeReview->content = $request->repExchangeReview;
             $ExchangeReview->rank = CommentRank::SECONDRANK;
             $ExchangeReview->code = $ExchangeReviewCode->code;
@@ -85,7 +94,12 @@ class ExchangeReviewController extends Controller
             $user = User::find($idUser);
             $ExchangeReview = new ExchangeReview();
             $ExchangeReview->name = $user->name;
-            $ExchangeReview->images = $user->images;
+            // $ExchangeReview->images = $user->images;
+            if ($user->images == '') {
+                $ExchangeReview->images == "avata-3.jpg";
+            } else {
+                $ExchangeReview->images = $user->images;
+            }
             $ExchangeReview->content = $request->repExchangeReview;
             $ExchangeReview->rank = CommentRank::SECONDRANK;
             $ExchangeReview->code = $code;
