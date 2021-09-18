@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'customer_id',  'shipping_id',  'order_code', 'order_status', 'order_date', 'order_destroy', 'total_bill'
+        'id', 'customer_id',  'shipping_id',  'order_code', 'order_status', 'order_date', 'order_destroy', 'total_bill','payments'
     ];
 
     public function user()

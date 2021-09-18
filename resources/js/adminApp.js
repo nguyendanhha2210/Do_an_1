@@ -111,7 +111,7 @@ new Vue({
         });
         this.$validator.extend("image_format", {
             validate: function(value) {
-                return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
+                return /\.(gif|jpe?g|tiff?|png|jpg|webp|bmp)$/i.test(value);
             }
         });
     }

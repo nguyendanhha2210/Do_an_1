@@ -673,31 +673,26 @@ export default {
       let that = this;
       this.flagShowLoader = true;
       var url =
-        "/get-exchange-review?page=" +
-        this.page +
-        "&paginate=" +
-        this.paginate;
-      axios
-        .get(url)
-        .then(function (response) {
-          that.exchangeReviews = response.data.exchangeReviews; //show data ra
-          that.flagShowLoader = false;
-        })
-        // .catch((err) => {
-        //   switch (err.response.status) {
-        //     case 500:
-        //       that
-        //         .$swal({
-        //           title: "Error loading data !",
-        //           icon: "warning",
-        //           confirmButtonText: "Ok",
-        //         })
-        //         .then(function (confirm) {});
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        // });
+        "/get-exchange-review?page=" + this.page + "&paginate=" + this.paginate;
+      axios.get(url).then(function (response) {
+        that.exchangeReviews = response.data.exchangeReviews; //show data ra
+        that.flagShowLoader = false;
+      });
+      // .catch((err) => {
+      //   switch (err.response.status) {
+      //     case 500:
+      //       that
+      //         .$swal({
+      //           title: "Error loading data !",
+      //           icon: "warning",
+      //           confirmButtonText: "Ok",
+      //         })
+      //         .then(function (confirm) {});
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      // });
     },
 
     prev() {

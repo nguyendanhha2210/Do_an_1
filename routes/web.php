@@ -114,14 +114,9 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
     Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
 
-    //Warehouse 
     Route::get('/comment', [App\Http\Controllers\Admin\CommentController::class, 'index'])->name('admin.comment.list'); //gọi form list
     Route::get('/get-comment', [App\Http\Controllers\Admin\CommentController::class, 'getData'])->name('admin.comment.getData'); //trả dữ liệu ra form list
-    // Route::get('/warehouse/add',  [App\Http\Controllers\Admin\WareHouseController::class, 'create'])->name('admin.warehouse.create'); //thêm
-    // Route::post('/warehouse/warehouse-add',  [App\Http\Controllers\Admin\WareHouseController::class, 'store'])->name('admin.warehouse.store'); //thêm
-    // Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
-    // Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
-
+   
     //Profit 
     Route::get('/profit', [App\Http\Controllers\Admin\ProfitController::class, 'index'])->name('admin.profit.list'); //gọi form list
     Route::post('/get-profit', [App\Http\Controllers\Admin\ProfitController::class, 'getData'])->name('admin.profit.getData'); //trả dữ liệu ra form list
@@ -180,7 +175,6 @@ Route::post('reply-exchange-review-second/{id}',  [App\Http\Controllers\Sale\Exc
 Route::post('/exchangeReview/delete', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'exchangeReviewDelete'])->name('admin.comment.exchangeReviewDelete'); //Xóa
 Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
 
-
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product
 Route::get('/get-type-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getTypeProduct'])->name('admin.shop.getTypeProduct'); //Show data type product
 Route::get('/choose-description/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseDescription'])->name('admin.shop.chooseDescription'); //Show view type product
@@ -214,8 +208,7 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('/logout', [App\Http\Controllers\Sale\User\AccountController::class, 'logout'])->name('sale.users.logout');
     Route::post('/order-place', [App\Http\Controllers\Sale\CheckoutController::class, 'checkOut'])->name('sale.checkout.checkOut'); //Chọn hình thức thanh toán
     Route::post('/checkout-cart',  [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutCart'])->name('admin.checkout.checkoutCart'); //thanh toán khi nhận tiền
-    Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
-    Route::get('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
+    Route::post('/checkout-paypal', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutPaypal'])->name('admin.checkout.checkoutPaypal'); //thanh toán paypal
     Route::post('/checkout-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutVnpay'])->name('admin.checkout.checkoutVnpay'); //thanh toán paypal
     Route::get('/success-vnpay', [App\Http\Controllers\Sale\CheckoutController::class, 'successPay'])->name('admin.checkout.successPay'); //thanh toán paypal
 
@@ -226,9 +219,9 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('/get-user', [App\Http\Controllers\Sale\ProfileController::class, 'getUser'])->name('sale.profile.getUser');
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
 
+    Route::post('get-vote-product', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getVoteProduct'])->name('sale.evaluate.getVoteProduct');
     Route::post('customer-reviews', [App\Http\Controllers\Sale\CustomerReviewController::class, 'customerReview'])->name('sale.evaluate.customerReview');
     Route::post('get-view-voted', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getViewVoted'])->name('sale.evaluate.getViewVoted');
-
 
     Route::post('get-order-confirm', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderConfirm'])->name('sale.orderStatus.getOrderConfirm');
     Route::post('get-order-deliver', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderDeliver'])->name('sale.orderStatus.getOrderDeliver');
@@ -237,8 +230,7 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('get-order-cancel', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderCancel'])->name('sale.orderStatus.getOrderCancel');
     Route::post('get-order-return', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReturn'])->name('sale.orderStatus.getOrderReturn');
    
-    
-   
+
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order
     Route::get('/get-order', [App\Http\Controllers\Sale\OrderController::class, 'getData'])->name('sale.order.getData'); //lấy ra data
@@ -247,7 +239,6 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('order/{id}/repurchase', [App\Http\Controllers\Sale\OrderController::class, 'repurchase'])->name('sale.order.repurchase'); //mua lại
     Route::get('order-detail/{order_code}/view', [App\Http\Controllers\Sale\OrderController::class, 'orderDetail'])->name('sale.order.orderDetail'); //gọi trang chi tiết order
 });
-
 
 Route::match(['get', 'post'], 'ship/login', [App\Http\Controllers\Ship\User\AccountController::class, 'loginForm'])->name('ship.users.login');
 Route::middleware([Ship::class])->prefix('/ship')->group(function () {

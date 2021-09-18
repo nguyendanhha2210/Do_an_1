@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sale;
 
+use App\Enums\OrderDetailVote;
 use App\Enums\OrderStatus;
 use App\Enums\Payments;
 use App\Enums\RoleStateType;
@@ -106,6 +107,7 @@ class CheckoutController extends Controller
         $order->order_date = now();
         $order->order_destroy = "";
         $order->total_bill = $totalBill;
+        $order->payments = "Thanh toán khi nhận hàng !";
         $flag_order = $order->save();
 
         if (Session::get('cart') == true) {
@@ -117,10 +119,10 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
+                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
-
 
         //send mail confirm
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
@@ -145,7 +147,6 @@ class CheckoutController extends Controller
         //   }else{
         //     $fee = '25k';
         //   }
-
 
         $shipping_array = array(
             // 'fee' =>  $fee,
@@ -206,10 +207,10 @@ class CheckoutController extends Controller
         }
 
         $shipping = new Shipping();
-        $shipping->name = $request->shipping_name;
-        $shipping->email = $request->shipping_email;
-        $shipping->address = $request->shipping_address;
-        $shipping->phone = $request->shipping_phone;
+        $shipping->name = $request->name;
+        $shipping->email = $request->email;
+        $shipping->address = $request->address;
+        $shipping->phone = $request->phone;
         $flag_shipping = $shipping->save();
 
         $shipping_id = $shipping->id;
@@ -217,13 +218,14 @@ class CheckoutController extends Controller
 
         $order = new Order();
         $order->customer_id = Auth::guard('sales')->id();
-        // $order->shipping_id = $shipping_id;
+        $order->shipping_id = $shipping_id;
         $order->order_status = OrderStatus::ORDER;
         $order->order_code = $checkout_code;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->order_date = now();
         $order->order_destroy = "";
         $order->total_bill = $totalBill;
+        $order->payments = "Thanh toán Paypal !";
         $flag_order = $order->save();
 
         if (Session::get('cart') == true) {
@@ -235,6 +237,7 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
+                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -334,6 +337,7 @@ class CheckoutController extends Controller
         $order->order_date = now();
         $order->order_destroy = "";
         $order->total_bill = $totalBill;
+        $order->payments = "Thanh toán VnPay !";
         $flag_order = $order->save();
 
         if (Session::get('cart') == true) {
@@ -345,6 +349,7 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
+                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -602,6 +607,7 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
+                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -989,6 +995,7 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
+                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -1042,12 +1049,12 @@ class CheckoutController extends Controller
         $accessKey = "jzM0ArXzU6XhoJUd";
         $serectkey = "OJ7L1nR5X5BBvNsMUHGhAODDMP7vjySv";
         $orderInfo = "Thanh toán qua MoMo";
-        $amount = "10000";  
-        $orderId = (time() + (10 * 24 * 60 * 60))."";
+        $amount = "10000";
+        $orderId = (time() + (10 * 24 * 60 * 60)) . "";
         $returnUrl = "";
         $notifyurl = "";
         $bankCode = "SML";
-        $requestId = (time() + (7 * 24 * 60 * 60))."";
+        $requestId = (time() + (7 * 24 * 60 * 60)) . "";
         $extraData = "";
         $requestType = "payWithMoMoATM";
 
@@ -1065,7 +1072,7 @@ class CheckoutController extends Controller
         //     'requestType' => $requestType
         // );
 
-        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId. "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
+        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
         $signature = hash_hmac("sha256", $rawHash, $serectkey);
 
         $data =  array(

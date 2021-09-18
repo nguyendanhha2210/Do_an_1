@@ -284,7 +284,7 @@ export default {
                     that.$validator.validateAll().then((valid) => {
                       if (valid) {
                         axios
-                          .post(`/sale/checkout-cart`, that.shipping)
+                          .post(`/sale/checkout-paypal`, that.shipping)
                           .then((response) => {
                             that
                               .$swal({
@@ -293,7 +293,7 @@ export default {
                                 confirmButtonText: "Ok",
                               })
                               .then(function (confirm) {
-                                window.location.href = "sale/manage-order";
+                                window.location.href = "/sale/manage-order";
                               });
                           });
                       }

@@ -171,14 +171,22 @@
                     <td v-else-if="order.order_status == 2">
                       <b style="color: blue">Đang Giao !</b>
                     </td>
-                    <td v-else-if="order.order_status == 3">
+                    <!-- <td v-else-if="order.order_status == 3">
                       <a
                         data-toggle="modal"
                         data-target="#myModalVote"
                         @click="voteProduct(order)"
                         ><button class="btn btn-warning">Evaluate</button></a
                       >
+                    </td> -->
+                    <td v-else-if="order.order_status == 3">
+                      <a @click="detailProduct(order.order_code)"
+                        ><button class="btn btn-warning">
+                          View Evaluate
+                        </button></a
+                      >
                     </td>
+
                     <td v-else-if="order.order_status == 4">
                       <button
                         class="btn btn-success button-mualai"
@@ -239,6 +247,59 @@
         </div>
         <div v-else class="text-center" style="color: red">
           There is no data !
+        </div>
+
+        <div
+          v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
+          class="row mt-3 pt-5 pb-1"
+          style="background-color: white"
+        >
+          <div class="col-lg-12">
+            <div class="cart-table">
+              <table class="table table-condensed">
+                <thead>
+                  <tr class="cart_menu">
+                    <td><b>STT</b></td>
+                    <td><b>Sản Phẩm</b></td>
+                    <td><b>Ảnh</b></td>
+                    <td><b>Đơn Giá</b></td>
+                    <td><b>Số lượng</b></td>
+                    <td><b>Status</b></td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(voteDetail, index) in voteDetails"
+                    :key="voteDetail.id"
+                  >
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ voteDetail.product_name }}</td>
+                    <td>
+                      <img
+                        style="height: 50px; width: 50px"
+                        :src="baseUrl + '/uploads/' + voteDetail.product.images"
+                        alt=""
+                      />
+                    </td>
+                    <td>{{ formatPrice(voteDetail.product_price) }} đ</td>
+                    <td>{{ voteDetail.product_sales_quantity }}</td>
+                    <td v-if="voteDetail.status_vote == 1">
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalVote"
+                        @click="voteProduct(voteDetail)"
+                        ><button class="btn btn-warning">Evaluate</button></a
+                      >
+                    </td>
+                    <td v-else>
+                      <button class="btn btn-success">Have evaluated</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -304,6 +365,7 @@
           </div>
         </div>
       </div>
+
       <div
         class="modal fade"
         id="myModalVote"
@@ -339,9 +401,19 @@
                     type="text"
                     class="form-control"
                     id="exampleInputEmail1"
-                    name="id"
-                    v-model="evaluate.id"
+                    name="order_code "
+                    v-model="evaluate.order_code"
                   />
+
+                  <input
+                    hidden
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="product_id"
+                    v-model="evaluate.product_id"
+                  />
+
                   <div style="margin: auto; display: table">
                     <star-rating
                       :star-size="45"
@@ -812,6 +884,8 @@ export default {
         image_2: "",
         image_3: "",
         image_4: "",
+        order_code: "",
+        product_id: "",
       },
 
       viewVote: {
@@ -824,6 +898,16 @@ export default {
         image_2: "",
         image_3: "",
         image_4: "",
+      },
+
+      view_vote: false,
+      voteDetails: [],
+      voteDetail: {
+        product_id: "",
+        product_name: "",
+        product_price: "",
+        product_sales_quantity: 1,
+        created_at: "",
       },
     };
   },
@@ -851,6 +935,7 @@ export default {
       this.show_evaluat = false;
       this.show_cancel = false;
       this.show_return = false;
+      this.view_vote = false;
       this.fetchData();
     },
     showDeliver() {
@@ -860,6 +945,7 @@ export default {
       this.show_evaluat = false;
       this.show_cancel = false;
       this.show_return = false;
+      this.view_vote = false;
       this.fetchData();
     },
     showRecive() {
@@ -878,6 +964,7 @@ export default {
       this.show_corfirm = false;
       this.show_cancel = false;
       this.show_return = false;
+      this.view_vote = false;
       this.fetchData();
     },
     showCancel() {
@@ -887,6 +974,7 @@ export default {
       this.show_evaluat = false;
       this.show_corfirm = false;
       this.show_return = false;
+      this.view_vote = false;
       this.fetchData();
     },
     showReturn() {
@@ -896,6 +984,7 @@ export default {
       this.show_evaluat = false;
       this.show_cancel = false;
       this.show_corfirm = false;
+      this.view_vote = false;
       this.fetchData();
     },
 
@@ -1050,12 +1139,10 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     changeInput() {
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
     },
@@ -1168,7 +1255,8 @@ export default {
     },
 
     voteProduct(order) {
-      this.evaluate.id = order.id;
+      this.evaluate.order_code = order.order_code;
+      this.evaluate.product_id = order.product_id;
     },
 
     attachImage_1() {
@@ -1268,7 +1356,6 @@ export default {
 
     customerReviews() {
       let that = this;
-
       this.$swal({
         title: "Are you sure with the above review ？",
         icon: "question",
@@ -1280,7 +1367,8 @@ export default {
       }).then((result) => {
         if (result.value) {
           let formData = new FormData();
-          formData.append("order_id", this.evaluate.id);
+          formData.append("order_code", this.evaluate.order_code);
+          formData.append("product_id", this.evaluate.product_id);
           formData.append("star_vote", this.evaluate.star_vote);
           formData.append("content", this.evaluate.content);
           formData.append("image_1", this.evaluate.image_1);
@@ -1301,7 +1389,15 @@ export default {
                   icon: "success",
                   confirmButtonText: "OK!",
                 })
-                .then(function (confirm) {});
+                .then(function (confirm) {
+                  that.evaluate.star_vote = 1;
+                  that.evaluate.content = "";
+                  that.evaluate.image_1 = "";
+                  that.evaluate.image_2 = "";
+                  that.evaluate.image_3 = "";
+                  that.evaluate.image_4 = "";
+                });
+              that.viewDetailProduct();
               that.fetchData();
             })
             .catch((err) => {
@@ -1345,6 +1441,38 @@ export default {
         .then(function (response) {
           that.viewVote = response.data; //show data ra
           that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    detailProduct(order_code) {
+      this.view_vote = !this.view_vote;
+      this.viewDetailProduct(order_code);
+    },
+
+    viewDetailProduct(order_code) {
+      let that = this;
+      this.flagShowLoader = true;
+      let formData = new FormData();
+      formData.append("orderCode", order_code);
+      axios
+        .post("get-vote-product", formData)
+        .then(function (response) {
+          that.voteDetails = response.data; //show data ra
         })
         .catch((err) => {
           switch (err.response.status) {

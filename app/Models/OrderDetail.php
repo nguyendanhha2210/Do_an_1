@@ -10,7 +10,7 @@ class OrderDetail extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'order_code',  'product_id',  'product_name', 'product_price','product_sales_quantity','product_coupon'
+        'id', 'order_code',  'product_id',  'product_name', 'product_price','product_sales_quantity','product_coupon','status_vote'
     ];
 
     public function product()

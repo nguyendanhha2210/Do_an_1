@@ -12,8 +12,6 @@
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
-                                    <th>Ghi chú</th>
-                                    <th>Thanh toán</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -22,12 +20,6 @@
                                     <td>{{ $shipping->address }}</td>
                                     <td>{{ $shipping->phone }}</td>
                                     <td>{{ $shipping->email }}</td>
-                                    <td>{{ $shipping->shipping_notes }}</td>
-                                    <td>
-                                        @if ($shipping->shipping_method == 0) Chuyển khoản
-                                        @else
-                                            Tiền mặt @endif
-                                    </td>
                                 </tr>
                         </table>
                     </div>
