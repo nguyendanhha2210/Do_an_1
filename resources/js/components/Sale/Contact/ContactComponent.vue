@@ -684,21 +684,21 @@ export default {
           that.exchangeReviews = response.data.exchangeReviews; //show data ra
           that.flagShowLoader = false;
         })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 500:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
+        // .catch((err) => {
+        //   switch (err.response.status) {
+        //     case 500:
+        //       that
+        //         .$swal({
+        //           title: "Error loading data !",
+        //           icon: "warning",
+        //           confirmButtonText: "Ok",
+        //         })
+        //         .then(function (confirm) {});
+        //       break;
+        //     default:
+        //       break;
+        //   }
+        // });
     },
 
     prev() {
