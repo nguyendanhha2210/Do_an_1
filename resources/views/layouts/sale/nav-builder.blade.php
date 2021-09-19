@@ -63,7 +63,15 @@
                         <td class="si-text">
                             <div class="product-selected">
                                 <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}">
-                                    <h5><b>{{ $data->title }}</b></h5>
+                                    <h5><b style="
+                                        width:166px;
+                                        white-space: pre-wrap; 
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        -webkit-line-clamp: 1;
+                                        -webkit-box-orient: vertical;
+                                         display: -webkit-box;
+                                         ">{{ $data->title }}</b></h5>
                                 </a>
                                 <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}">
                                     <h6 style="color:#e7ab3c"> {{ $data->categorypost->name }}</h6>

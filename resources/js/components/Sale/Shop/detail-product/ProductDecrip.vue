@@ -35,22 +35,42 @@
           >
             <div class="product-content">
               <div class="row">
-                <div class="col-lg-7">
-                  <div style="overflow-y: scroll; height: 100px">
+                <div class="col-lg-7" style="transform: translate(0%, -8%)">
+                  <!-- <div
+                    style="
+                      overflow: hidden;
+                      position: relative;
+                      line-height: 18px;
+                      height: 270px;
+                      -ms-hyphens: auto;
+                      -webkit-hyphens: auto;
+                      hyphens: auto;
+                      word-wrap: break-word;
+                      text-overflow: ellipsis;
+                      padding-left: 16px;
+                    "
+                  >
+                    {{ decrip[0].content }}
+                  </div> -->
+                  <div
+                    style="
+                      height: 270px;
+                      position: relative;
+                      width: 100%;
+                      -ms-hyphens: auto;
+                      -webkit-hyphens: auto;
+                      hyphens: auto;
+                      word-wrap: break-word;
+                      text-overflow: ellipsis;
+                      padding-left: 16px;
+                      overflow: hidden;
+                      -webkit-line-clamp: 11;
+                      -webkit-box-orient: vertical;
+                      display: -webkit-box;
+                    "
+                  >
                     {{ decrip[0].content }}
                   </div>
-
-                  <!-- <textarea
-                    style="
-                      padding-left: 10px;
-                      border: none;
-                      transform: translate(4%, -6%);
-                    "
-                    readonly
-                    cols="51"
-                    rows="11"
-                  >
-                  </textarea> -->
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
@@ -147,42 +167,42 @@
                       </div>
                     </div>
                     <div class="mt-2 ml-5">
-                      <p class="comment-text" style="font-size: 17px;">
+                      <p class="comment-text" style="font-size: 17px">
                         {{ evaluate.content }}
                       </p>
                     </div>
                     <div class="mt-2 ml-5">
-                        <img
+                      <img
                         :src="baseUrl + '/uploads/' + evaluate.image_1"
                         width="85px"
                         height="80px"
                         alt=""
                       />
-                       <img
+                      <img
                         :src="baseUrl + '/uploads/' + evaluate.image_2"
                         width="85px"
                         height="80px"
                         alt=""
                       />
-                       <img
+                      <img
                         :src="baseUrl + '/uploads/' + evaluate.image_3"
                         width="85px"
                         height="80px"
                         alt=""
                       />
-                       <img
+                      <img
                         :src="baseUrl + '/uploads/' + evaluate.image_4"
                         width="85px"
                         height="80px"
                         alt=""
                       />
                     </div>
-                     <div class="mt-2 ml-5">
-                      <p class="comment-text" style="font-size: 12px;">
-                        {{ evaluate.created_at | formatDate}}
+                    <div class="mt-2 ml-5">
+                      <p class="comment-text" style="font-size: 12px">
+                        {{ evaluate.created_at | formatDate }}
                       </p>
                     </div>
-                    <hr>
+                    <hr />
                   </div>
                 </div>
               </div>
