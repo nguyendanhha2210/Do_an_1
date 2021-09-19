@@ -141,4 +141,17 @@ class CustomerReviewController extends Controller
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
+
+    public function getEvaluated(Request $request)
+    {
+        if (!Auth::guard('sales')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $evaluates = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->with(['product','user'])->orderBy('created_at', 'desc')->paginate(5);
+            return response()->json(["evaluates" => $evaluates], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
 }

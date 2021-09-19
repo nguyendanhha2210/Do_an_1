@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
     }
+
+    public function evaluates()
+    {
+        return $this->hasMany('App\Models\Evaluate', 'product_id', 'id');
+    }
 }

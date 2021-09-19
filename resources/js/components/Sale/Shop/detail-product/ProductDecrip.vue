@@ -116,15 +116,16 @@
           <div class="tab-pane fade" id="tab-3" role="tabpanel">
             <div
               class="d-flex justify-content-center row"
-              v-for="comment in comments.data"
-              :key="comment.id">
+              v-for="evaluate in evaluates.data"
+              :key="evaluate.id"
+            >
               <div class="col-md-12">
                 <div class="d-flex flex-column comment-section" id="myGroup">
                   <div class="bg-white p-2">
                     <div class="d-flex flex-row user-info">
                       <img
                         class="rounded-circle"
-                        :src="baseUrl + '/uploads/' + comment.images"
+                        :src="baseUrl + '/uploads/' + evaluate.user.images"
                         width="40px"
                         height="40px"
                         alt=""
@@ -133,268 +134,64 @@
                         class="d-flex flex-column justify-content-start ml-2"
                       >
                         <span class="d-block font-weight-bold name">{{
-                          comment.name
+                          evaluate.user.name
                         }}</span
-                        ><span class="date text-black-50">{{
-                          comment.created_at | formatDate
-                        }}</span>
+                        ><span class="date text-black-50">
+                          <star-rating
+                            read-only
+                            :star-size="15"
+                            :increment="0.5"
+                            v-model="evaluate.star_vote"
+                          ></star-rating>
+                        </span>
                       </div>
                     </div>
-                    <div class="mt-2">
-                      <p class="comment-text">
-                        {{ comment.content }}
+                    <div class="mt-2 ml-5">
+                      <p class="comment-text" style="font-size: 17px;">
+                        {{ evaluate.content }}
                       </p>
                     </div>
-                  </div>
-                  <div
-                    class="bg-white p-2"
-                    style="transform: translate(-1%, -45%)"
-                  >
-                    <div
-                      class="d-flex flex-row fs-12"
-                      @click="
-                        replyFirst(comment.id);
-                        statusReplyFirst = !statusReplyFirst;
-                      "
-                    >
-                      <div
-                        class="like p-2 cursor action-collapse"
-                        data-toggle="collapse"
-                        aria-expanded="true"
-                        aria-controls="collapse-1"
-                        href="#collapse-1"
-                      >
-                        <i class="fa fa-reply"></i
-                        ><span class="ml-1">Reply</span>
-                      </div>
-                      <div
-                        @click="
-                          commentFirst(comment.id);
-                          statusCommentFirst = !statusCommentFirst;
-                          statusReplyFirst = !statusReplyFirst;
-                        "
-                        class="like p-2 cursor action-collapse"
-                        data-toggle="collapse"
-                        aria-expanded="true"
-                        aria-controls="collapse-2"
-                        href="#collapse-2"
-                      >
-                        <i class="fa fa-commenting-o"></i
-                        ><span class="ml-1">Comment (...)</span>
-                      </div>
-                      <div
-                        @click="deleteComment(comment.code, comment.id)"
-                        class="like p-2 cursor action-collapse"
-                        style="color: red"
-                      >
-                        <i class="fa fa-close"></i
-                        ><span class="ml-1">Delete</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="idFormReplyFirst == comment.id && statusReplyFirst"
-                    id="collapse-1"
-                    class="bg-light collapse"
-                    style="transform: translate(1%, -24%)"
-                    data-parent="#myGroup"
-                  >
-                    <form
-                      @submit.prevent="repCommentFirst(comment.id)"
-                      class="comment-form"
-                    >
-                      <input
-                        type="text"
-                        name="nameRep"
-                        v-model="comment.name"
-                      />
-                      <div class="d-flex flex-row align-items-start">
+                    <div class="mt-2 ml-5">
                         <img
-                          class="rounded-circle"
-                          :src="baseUrl + '/uploads/' + comment.images"
-                          width="40px"
-                          height="40px"
-                          alt=""
-                        />
-                        <textarea
-                          placeholder="Messages"
-                          name="content"
-                          class="form-control ml-1 shadow-none textarea"
-                          v-validate="'required'"
-                          @input="changeInput()"
-                          v-model="commentReply.contentRep"
-                        ></textarea>
-                        <div style="color: red" role="alert">
-                          {{ errors.first("contentRep") }}
-                        </div>
-                      </div>
-                      <div class="mt-2 text-right">
-                        <button
-                          class="btn btn-primary btn-sm shadow-none"
-                          type="submit"
-                        >
-                          Post comment</button
-                        ><button
-                          @click="statusReplyFirst = !statusReplyFirst"
-                          class="
-                            btn btn-outline-primary btn-sm
-                            ml-1
-                            shadow-none
-                          "
-                          type="button"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="col-md-12"
-                style="padding-left: 58px"
-                v-if="idFormCommentFirst == comment.id && statusCommentFirst"
-              >
-                <div
-                  class="d-flex flex-column comment-section"
-                  id="myGroup"
-                  v-for="commentReply in commentReplys"
-                  :key="commentReply.id"
-                >
-                  <div class="bg-white p-2">
-                    <div class="d-flex flex-row user-info">
-                      <img
-                        class="rounded-circle"
-                        :src="baseUrl + '/uploads/' + commentReply.images"
-                        width="40px"
-                        height="40px"
+                        :src="baseUrl + '/uploads/' + evaluate.image_1"
+                        width="85px"
+                        height="80px"
                         alt=""
                       />
-                      <div
-                        class="d-flex flex-column justify-content-start ml-2"
-                      >
-                        <span class="d-block font-weight-bold name">{{
-                          commentReply.name
-                        }}</span
-                        ><span class="date text-black-50">{{
-                          commentReply.created_at | formatDate
-                        }}</span>
-                      </div>
+                       <img
+                        :src="baseUrl + '/uploads/' + evaluate.image_2"
+                        width="85px"
+                        height="80px"
+                        alt=""
+                      />
+                       <img
+                        :src="baseUrl + '/uploads/' + evaluate.image_3"
+                        width="85px"
+                        height="80px"
+                        alt=""
+                      />
+                       <img
+                        :src="baseUrl + '/uploads/' + evaluate.image_4"
+                        width="85px"
+                        height="80px"
+                        alt=""
+                      />
                     </div>
-                    <div class="mt-2">
-                      <p class="comment-text">
-                        {{ commentReply.content }}
+                     <div class="mt-2 ml-5">
+                      <p class="comment-text" style="font-size: 12px;">
+                        {{ evaluate.created_at | formatDate}}
                       </p>
                     </div>
-                  </div>
-                  <div
-                    class="bg-white p-2"
-                    style="transform: translate(-1%, -45%)"
-                  >
-                    <div class="d-flex flex-row fs-12">
-                      <div
-                        @click="
-                          codeReplySecond(commentReply.code);
-                          idReplySecond(commentReply.id);
-                          statusReplySecond = !statusReplySecond;
-                        "
-                        class="like p-2 cursor action-collapse"
-                        data-toggle="collapse"
-                        aria-expanded="true"
-                        aria-controls="collapse-1"
-                        href="#collapse-1"
-                      >
-                        <i class="fa fa-reply"></i
-                        ><span class="ml-1">Reply</span>
-                      </div>
-                      <div
-                        @click="
-                          deleteComment(commentReply.code, commentReply.id)
-                        "
-                        class="like p-2 cursor action-collapse"
-                        style="color: red"
-                      >
-                        <i class="fa fa-close"></i
-                        ><span class="ml-1">Delete</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Show Comment Reply -->
-                  <div class="bg-white p-2">
-                    <div class="d-flex flex-row fs-12"></div>
-                  </div>
-
-                  <div
-                    v-if="
-                      codeFormReplySecond == commentReply.code &&
-                      idFormReplySecond == commentReply.id &&
-                      statusReplySecond
-                    "
-                    id="collapse-1"
-                    class="bg-light collapse"
-                    style="transform: translate(1%, -24%)"
-                    data-parent="#myGroup"
-                  >
-                    <form
-                      @submit.prevent="repCommentSecond(commentReply.code)"
-                      class="comment-form"
-                    >
-                      <div class="d-flex flex-row align-items-start">
-                        <img
-                          class="rounded-circle"
-                          :src="baseUrl + '/uploads/' + comments.images"
-                          width="40px"
-                          height="40px"
-                          alt=""
-                        />
-                        <!-- <img
-                          class="rounded-circle"
-                          src="/frontend/images/flag-1.jpg"
-                          width="40"
-                          height="40px"
-                        /> -->
-                        <textarea
-                          placeholder="Messages"
-                          name="content"
-                          class="form-control ml-1 shadow-none textarea"
-                          v-validate="'required'"
-                          @input="changeInput()"
-                          v-model="replySecond.contentRep"
-                        ></textarea>
-                        <div style="color: red" role="alert">
-                          {{ errors.first("contentRep") }}
-                        </div>
-                      </div>
-                      <div class="mt-2 text-right">
-                        <button
-                          class="btn btn-primary btn-sm shadow-none"
-                          type="submit"
-                        >
-                          Post comment</button
-                        ><button
-                          @click="statusReplySecond = !statusReplySecond"
-                          class="
-                            btn btn-outline-primary btn-sm
-                            ml-1
-                            shadow-none
-                          "
-                          type="button"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
+                    <hr>
                   </div>
                 </div>
               </div>
             </div>
-            <div v-if="comments != ''">
+            <div v-if="evaluates != ''">
               <nav aria-label="Page navigation example">
                 <paginate
                   v-model="page"
-                  :page-count="parseInt(comments.last_page)"
+                  :page-count="parseInt(evaluates.last_page)"
                   :page-range="3"
                   :margin-pages="2"
                   :click-handler="changePage"
@@ -413,60 +210,6 @@
             </div>
             <div class="text-center" v-else style="color: red">
               There is no data !
-            </div>
-
-            <div class="customer-review-option">
-              <div class="leave-comment">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="section-title">
-                      <h2>Leave A Comment</h2>
-                    </div>
-                  </div>
-                </div>
-                <form
-                  @submit.prevent="addComment()"
-                  class="comment-form"
-                  style="background-color: #e9edf0"
-                >
-                  <div class="row">
-                    <div class="col-lg-1" style="transform: translate(20%, 7%)">
-                      <img
-                        class="rounded-circle"
-                        :src="baseUrl + '/uploads/' + showImage"
-                        width="40px"
-                        height="40px"
-                        alt=""
-                      />
-                      <img
-                        class="rounded-circle"
-                        src="/frontend/images/flag-1.jpg"
-                        width="40"
-                        height="40px"
-                      />
-                    </div>
-                    <div class="col-lg-11" style="padding: 17px">
-                      <textarea
-                        placeholder="Messages"
-                        name="content"
-                        class="form-control"
-                        v-validate="'required'"
-                        @input="changeInput()"
-                        v-model="comment.content"
-                      ></textarea>
-                      <div style="color: red" role="alert">
-                        {{ errors.first("content") }}
-                      </div>
-                      <div style="color: red" v-if="errorBackEnd.content">
-                        {{ errorBackEnd.content[0] }}
-                      </div>
-                      <button type="submit" class="site-btn">
-                        Send message
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>
@@ -543,6 +286,7 @@ body {
 </style>
 
 <script>
+import StarRating from "vue-star-rating";
 import Loader from "../../../Common/loader.vue";
 import Vue from "vue";
 import axios from "axios";
@@ -552,49 +296,28 @@ export default {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       decrip: this.decripProduct,
 
-      comments: [],
-      comment: {
-        images: "",
+      evaluates: [],
+      evaluates: {
+        user_id: "",
+        order_code: "",
         product_id: "",
+        star_vote: "",
         content: "",
+        rank: "",
+        reply_code: "",
+        image_1: "",
+        image_2: "",
+        image_3: "",
+        image_4: "",
       },
 
       idProduct: "",
-      objectName: "",
-
-      // showImage: "",
-
-      commentReplys: [],
-      commentReply: {
-        nameRep: "",
-        images: "",
-        product_id: "",
-        contentRep: "",
-      },
-
-      replySecond: {
-        nameRep: "",
-        images: "",
-        product_id: "",
-        contentRep: "",
-      },
 
       errorBackEnd: {}, //Lỗi bên backend laravel
       count: "",
-      countReply: "",
       page: 1,
       paginate: 5,
       flagShowLoader: false,
-
-      idFormReplyFirst: "",
-      statusReplyFirst: false,
-
-      idFormCommentFirst: "",
-      statusCommentFirst: false,
-
-      codeFormReplySecond: "",
-      idFormReplySecond: "",
-      statusReplySecond: false,
     };
   },
   created() {
@@ -610,10 +333,10 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
-    // this.fillImage();
   },
   components: {
     Loader,
+    StarRating,
   },
   props: ["decripProduct"],
   mounted() {
@@ -621,104 +344,105 @@ export default {
     // this.fillImage();
   },
   methods: {
-    deleteComment(code, id) {
-      let that = this;
-      let formData = new FormData();
-      formData.append("codeComment", code);
-      formData.append("idComment", id);
-      this.$swal({
-        title: "Do you want to delete ？",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-      }).then((result) => {
-        if (result.value) {
-          axios
-            .post(`/comment/delete`, formData)
-            .then((response) => {
-              this.$swal({
-                title: "Delete successfully!",
-                icon: "success",
-                confirmButtonText: "OK!",
-              }).then(function (confirm) {});
-              that.fetchData();
-            })
-            .catch((error) => {
-              that.flashMessage.error({
-                message: "Delete Failure!",
-                icon: "/backend/icon/error.svg",
-                blockClass: "text-centet",
-              });
-            });
-        }
-      });
-    },
+    // deleteComment(code, id) {
+    //   let that = this;
+    //   let formData = new FormData();
+    //   formData.append("codeComment", code);
+    //   formData.append("idComment", id);
+    //   this.$swal({
+    //     title: "Do you want to delete ？",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes, delete it!",
+    //     cancelButtonText: "No, cancel!",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       axios
+    //         .post(`/comment/delete`, formData)
+    //         .then((response) => {
+    //           this.$swal({
+    //             title: "Delete successfully!",
+    //             icon: "success",
+    //             confirmButtonText: "OK!",
+    //           }).then(function (confirm) {});
+    //           that.fetchData();
+    //         })
+    //         .catch((error) => {
+    //           that.flashMessage.error({
+    //             message: "Delete Failure!",
+    //             icon: "/backend/icon/error.svg",
+    //             blockClass: "text-centet",
+    //           });
+    //         });
+    //     }
+    //   });
+    // },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    codeReplySecond(code) {
-      this.codeFormReplySecond = code;
-      this.statusReplySecond == true;
-    },
+    // codeReplySecond(code) {
+    //   this.codeFormReplySecond = code;
+    //   this.statusReplySecond == true;
+    // },
 
-    idReplySecond(id) {
-      this.idFormReplySecond = id;
-    },
+    // idReplySecond(id) {
+    //   this.idFormReplySecond = id;
+    // },
 
-    replyFirst(id) {
-      this.idFormReplyFirst = id;
-      this.statusReplyFirst == true;
-    },
-    commentFirst(id) {
-      this.idFormCommentFirst = id;
-      this.statusCommentFirst == true;
+    // replyFirst(id) {
+    //   this.idFormReplyFirst = id;
+    //   this.statusReplyFirst == true;
+    // },
+    // commentFirst(id) {
+    //   this.idFormCommentFirst = id;
+    //   this.statusCommentFirst == true;
 
-      let that = this;
-      this.flagShowLoader = true;
-      var url = `/get-commentReply/${id}`;
-      axios
-        .get(url)
-        .then(function (response) {
-          that.commentReplys = response.data.comments; //show data ra
-          that.countReply = response.data.countReply; //show data ra
-          that.flagShowLoader = false;
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 500:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+    //   let that = this;
+    //   this.flagShowLoader = true;
+    //   var url = `/get-commentReply/${id}`;
+    //   axios
+    //     .get(url)
+    //     .then(function (response) {
+    //       that.commentReplys = response.data.comments; //show data ra
+    //       that.countReply = response.data.countReply; //show data ra
+    //       that.flagShowLoader = false;
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 500:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
+
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
       var url =
-        "/get-comment/" +
-        this.decrip[0].id +
-        "?page=" +
+        `/sale/get-evaluated?page=` +
         this.page +
         "&paginate=" +
-        this.paginate;
+        this.paginate +
+        "&product_id=" +
+        this.decrip[0].id;
       axios
-        //   `/get-comment/${this.decrip[0].id}` +
         .get(url)
         .then(function (response) {
-          that.comments = response.data.comments; //show data ra
-          that.count = response.data.count; //show data ra
+          // console.log(response.data);
+          that.evaluates = response.data.evaluates; //show data ra
+          // that.count = response.data.count; //show data ra
           that.flagShowLoader = false;
         })
         .catch((err) => {

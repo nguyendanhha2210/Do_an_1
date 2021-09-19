@@ -224,8 +224,8 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('get-view-voted', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getViewVoted'])->name('sale.evaluate.getViewVoted');  //Trả ra các sp chưa được voted
     Route::post('get-voted-product', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getVotedProduct'])->name('sale.evaluate.getVotedProduct');  //Trả ra các sp đã được voted
 
-
-
+    //show đánh giá ra chi tiết sp
+    Route::get('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
 
     Route::post('get-order-confirm', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderConfirm'])->name('sale.orderStatus.getOrderConfirm');
     Route::post('get-order-deliver', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderDeliver'])->name('sale.orderStatus.getOrderDeliver');

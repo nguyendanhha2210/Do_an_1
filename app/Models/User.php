@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Coupon', 'user_coupons', 'user_id', 'coupon_id');
     }
+
+    public function evaluates()
+    {
+        return $this->hasMany('App\Models\Evaluate', 'user_id', 'id');
+    }
 }
