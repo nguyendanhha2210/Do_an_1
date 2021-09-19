@@ -53,7 +53,19 @@
                     </div>
                     <div class="rb-text">
                       <a :href="`blog/${post.id}/detail`"
-                        ><h6>{{ post.title }}</h6></a
+                        ><h6
+                          style="
+                            width: 165px;
+                            white-space: pre-wrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            display: -webkit-box;
+                          "
+                        >
+                          {{ post.title }}
+                        </h6></a
                       >
                       <p>
                         {{ post.categorypost.name
@@ -85,7 +97,19 @@
                     style="padding-left: 15px; padding-bottom: 15px"
                   >
                     <a :href="`blog/${post.id}/detail`"
-                      ><h4>{{ post.title }}</h4></a
+                      ><h4
+                        style="
+                          width: 391px;
+                          white-space: pre-wrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          -webkit-line-clamp: 2;
+                          -webkit-box-orient: vertical;
+                          display: -webkit-box;
+                        "
+                      >
+                        {{ post.title }}
+                      </h4></a
                     >
                     <p>
                       {{ post.categorypost.name
