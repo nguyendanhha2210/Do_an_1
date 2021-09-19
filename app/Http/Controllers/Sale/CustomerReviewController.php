@@ -118,9 +118,25 @@ class CustomerReviewController extends Controller
 
     public function getViewVoted(Request $request)
     {
+        if (!Auth::guard('sales')->check()) {
+            return view('admin.users.login');
+        }
         try {
-            $evaluate = Evaluate::where('order_id', $request->order_id)->first();
+            $evaluate = Evaluate::where('order_code', $request->order_code)->where('product_id', $request->product_id)->first();
             return response()->json($evaluate, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    public function getVotedProduct(Request $request)
+    {
+        if (!Auth::guard('sales')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $orderDetails = OrderDetail::where('order_code', $request->orderCode)->where('status_vote', OrderDetailVote::VOTED)->with('product')->get();
+            return response()->json($orderDetails, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }

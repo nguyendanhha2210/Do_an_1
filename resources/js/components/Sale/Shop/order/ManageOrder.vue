@@ -196,10 +196,15 @@
                       </button>
                     </td>
                     <td v-else-if="order.order_status == 5">
-                      <a
+                      <!-- <a
                         data-toggle="modal"
                         data-target="#myModalViewVote"
                         @click="viewVoted(order)"
+                        ><button class="btn btn-warning">
+                          Xem Đánh Giá
+                        </button></a
+                      > -->
+                      <a @click="detaulVotedProduct(order.order_code)"
                         ><button class="btn btn-warning">
                           Xem Đánh Giá
                         </button></a
@@ -249,6 +254,7 @@
           There is no data !
         </div>
 
+        <!-- Show màn hình từng sp chưa được vote -->
         <div
           v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
           class="row mt-3 pt-5 pb-1"
@@ -294,6 +300,69 @@
                     </td>
                     <td v-else>
                       <button class="btn btn-success">Have evaluated</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Show màn hình từng sp đã được vote -->
+        <div
+          v-if="
+            this.detail_voted &&
+            this.show_evaluat &&
+            this.votedProductDetail != ''
+          "
+          class="row mt-3 pt-5 pb-1"
+          style="background-color: white"
+        >
+          <div class="col-lg-12">
+            <div class="cart-table">
+              <table class="table table-condensed">
+                <thead>
+                  <tr class="cart_menu">
+                    <td><b>STT</b></td>
+                    <td><b>Sản Phẩm</b></td>
+                    <td><b>Ảnh</b></td>
+                    <td><b>Đơn Giá</b></td>
+                    <td><b>Số lượng</b></td>
+                    <td><b>Status</b></td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(votedProductDetail, index) in votedProductDetails"
+                    :key="votedProductDetail.id"
+                  >
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ votedProductDetail.product_name }}</td>
+                    <td>
+                      <img
+                        style="height: 50px; width: 50px"
+                        :src="
+                          baseUrl +
+                          '/uploads/' +
+                          votedProductDetail.product.images
+                        "
+                        alt=""
+                      />
+                    </td>
+                    <td>
+                      {{ formatPrice(votedProductDetail.product_price) }} đ
+                    </td>
+                    <td>{{ votedProductDetail.product_sales_quantity }}</td>
+                    <td>
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalViewVote"
+                        @click="yourReview(votedProductDetail)"
+                        ><button class="btn btn-warning">
+                          Your review !
+                        </button></a
+                      >
                     </td>
                   </tr>
                 </tbody>
@@ -888,10 +957,19 @@ export default {
         product_id: "",
       },
 
+      detail_voted: false,
+      votedProductDetails: [],
+      votedProductDetail: {
+        product_id: "",
+        product_name: "",
+        product_price: "",
+        product_sales_quantity: 1,
+        created_at: "",
+      },
       viewVote: {
         id: "",
         user_id: "",
-        order_id: "",
+        // order_id: "",
         star_vote: 1,
         content: "",
         image_1: "",
@@ -936,6 +1014,7 @@ export default {
       this.show_cancel = false;
       this.show_return = false;
       this.view_vote = false;
+      this.detail_voted = false;
       this.fetchData();
     },
     showDeliver() {
@@ -946,6 +1025,7 @@ export default {
       this.show_cancel = false;
       this.show_return = false;
       this.view_vote = false;
+      this.detail_voted = false;
       this.fetchData();
     },
     showRecive() {
@@ -955,6 +1035,7 @@ export default {
       this.show_evaluat = false;
       this.show_cancel = false;
       this.show_return = false;
+      this.detail_voted = false;
       this.fetchData();
     },
     showEvaluat() {
@@ -965,6 +1046,7 @@ export default {
       this.show_cancel = false;
       this.show_return = false;
       this.view_vote = false;
+      this.detail_voted = false;
       this.fetchData();
     },
     showCancel() {
@@ -975,6 +1057,7 @@ export default {
       this.show_corfirm = false;
       this.show_return = false;
       this.view_vote = false;
+      this.detail_voted = false;
       this.fetchData();
     },
     showReturn() {
@@ -985,6 +1068,7 @@ export default {
       this.show_cancel = false;
       this.show_corfirm = false;
       this.view_vote = false;
+      this.detail_voted = false;
       this.fetchData();
     },
 
@@ -1431,11 +1515,45 @@ export default {
       });
     },
 
-    viewVoted(order) {
+    //Xem chi tiết sp đã vote
+    detaulVotedProduct(order_code) {
+      this.detail_voted = !this.detail_voted;
+      this.viewVotedProduct(order_code);
+    },
+
+    viewVotedProduct(order_code) {
       let that = this;
       this.flagShowLoader = true;
       let formData = new FormData();
-      formData.append("order_id", order.id);
+      formData.append("orderCode", order_code);
+      axios
+        .post("get-voted-product", formData)
+        .then(function (response) {
+          that.votedProductDetails = response.data; //show data ra
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    yourReview(votedProductDetail) {
+      let that = this;
+      this.flagShowLoader = true;
+      let formData = new FormData();
+      formData.append("order_code", votedProductDetail.order_code);
+      formData.append("product_id", votedProductDetail.product_id);
       axios
         .post(`get-view-voted`, formData)
         .then(function (response) {
@@ -1459,6 +1577,35 @@ export default {
         });
     },
 
+    // viewVoted(order) {
+    //   let that = this;
+    //   this.flagShowLoader = true;
+    //   let formData = new FormData();
+    //   formData.append("order_id", order.id);
+    //   axios
+    //     .post(`get-view-voted`, formData)
+    //     .then(function (response) {
+    //       that.viewVote = response.data; //show data ra
+    //       that.flagShowLoader = false;
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 500:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
+
+    //Xem chi tiết sp để vote
     detailProduct(order_code) {
       this.view_vote = !this.view_vote;
       this.viewDetailProduct(order_code);
