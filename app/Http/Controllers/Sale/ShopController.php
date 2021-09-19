@@ -28,7 +28,7 @@ class ShopController extends Controller
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
-            })->orderBy('created_at', 'desc')->take(6)->get();
+            })->orderBy('created_at', 'desc')->take(3)->get();
 
         return view("sale.shop.shop", ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'post'));
     }

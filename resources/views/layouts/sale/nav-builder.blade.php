@@ -1,3 +1,7 @@
+{{-- <div style="margin-top: 16px;text-align: center;">
+    <a href="#"><img src="{{ '/frontend/images/logo-sale.jpg' }}" style="height: 91px;width: 88%;" alt=""></a>
+</div> --}}
+
 <div class="filter-widget" style="margin-top: 16px; margin-bottom: 10px;">
     <div style="width:100%" class="fb-page" data-href="https://www.facebook.com/Mekhoebexinh02/"
         data-tabs="timeline" data-width="" data-height="40px" data-small-header="false"
