@@ -19,9 +19,7 @@
             >
           </li>
           <li>
-            <a data-toggle="tab" href="#tab-3" role="tab"
-              >Customer Reviews ({{ this.count }})</a
-            >
+            <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews</a>
           </li>
         </ul>
       </div>
@@ -134,6 +132,71 @@
           </div>
 
           <div class="tab-pane fade" id="tab-3" role="tabpanel">
+            <div
+              class="mt-3 mb-3"
+              style="
+                padding: 40px;
+                border: 1px dotted #e9edf0;
+                background-color: #e9edf0;
+              "
+            >
+              <div class="row">
+                <div class="col-lg-3 col-3">
+                  <button class="btn btn-success mt-1">jajdad</button>
+                </div>
+                <div class="col-lg-9 col-9">
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    Tất Cả
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    5 sao()
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    4 sao()
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    3 sao()
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    2 sao()
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    1 sao()
+                  </button>
+                  <br />
+                  <button
+                    class="btn btn-success mt-1"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    Bình Luận()
+                  </button>
+                  <button
+                    class="btn btn-success mt-1"
+                    style="width: max-content; font-size: 17px"
+                  >
+                    Có Ảnh()
+                  </button>
+                </div>
+              </div>
+            </div>
             <div
               class="d-flex justify-content-center row"
               v-for="evaluate in evaluates.data"
