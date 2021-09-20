@@ -525,7 +525,7 @@
                             src
                             ref="imageDispaly_1"
                             class="img-thumbnail profile-image"
-                            style="width: 242px; height: 202px; display: none"
+                            style="width: 207; height: 185px; display: none"
                           />
                           <svg
                             width="45"
@@ -586,7 +586,7 @@
                             src
                             ref="imageDispaly_2"
                             class="img-thumbnail"
-                            style="width: 242px; height: 202px; display: none"
+                            style="width: 207; height: 185px; display: none"
                           />
                           <svg
                             width="45"
@@ -648,7 +648,7 @@
                             src
                             ref="imageDispaly_3"
                             class="img-thumbnail"
-                            style="width: 242px; height: 202px; display: none"
+                            style="width: 207; height: 185px; display: none"
                           />
                           <svg
                             width="45"
@@ -708,7 +708,7 @@
                             src
                             ref="imageDispaly_4"
                             class="img-thumbnail"
-                            style="width: 242px; height: 202px; display: none"
+                            style="width: 207; height: 185px; display: none"
                           />
                           <svg
                             width="45"
