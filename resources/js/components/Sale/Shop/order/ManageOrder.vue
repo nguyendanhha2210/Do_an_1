@@ -486,7 +486,7 @@
                   <div style="margin: auto; display: table">
                     <star-rating
                       :star-size="45"
-                      :increment="0.5"
+                      :increment="1"
                       v-model="evaluate.star_vote"
                     ></star-rating>
                     <input
