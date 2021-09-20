@@ -146,42 +146,47 @@
                 </div>
                 <div class="col-lg-9 col-9">
                   <button
-                    class="btn btn-success"
+                    @click="selectAll()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
                     Tất Cả
                   </button>
                   <button
-                    class="btn btn-success"
+                    @click="select5Star()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    5 sao()
+                    5 sao( {{ this.count5Stars }} )
                   </button>
                   <button
-                    class="btn btn-success"
+                    @click="select4Star()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    4 sao()
+                    4 sao( {{ this.count4Stars }} )
                   </button>
                   <button
-                    class="btn btn-success"
+                    @click="select3Star()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    3 sao()
+                    3 sao( {{ this.count3Stars }} )
                   </button>
                   <button
-                    class="btn btn-success"
+                    @click="select2Star()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    2 sao()
+                    2 sao( {{ this.count2Stars }} )
                   </button>
                   <button
-                    class="btn btn-success"
+                    @click="select1Star()"
+                    class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    1 sao()
+                    1 sao( {{ this.count1Stars }} )
                   </button>
-                  <br />
                   <button
                     class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
@@ -197,79 +202,82 @@
                 </div>
               </div>
             </div>
-            <div
-              class="d-flex justify-content-center row"
-              v-for="evaluate in evaluates.data"
-              :key="evaluate.id"
-            >
-              <div class="col-md-12">
-                <div class="d-flex flex-column comment-section" id="myGroup">
-                  <div class="bg-white p-2">
-                    <div class="d-flex flex-row user-info">
-                      <img
-                        class="rounded-circle"
-                        :src="baseUrl + '/uploads/' + evaluate.user.images"
-                        width="40px"
-                        height="40px"
-                        alt=""
-                      />
-                      <div
-                        class="d-flex flex-column justify-content-start ml-2"
-                      >
-                        <span class="d-block font-weight-bold name">{{
-                          evaluate.user.name
-                        }}</span
-                        ><span class="date text-black-50">
-                          <star-rating
-                            read-only
-                            :star-size="15"
-                            :increment="0.5"
-                            v-model="evaluate.star_vote"
-                          ></star-rating>
-                        </span>
+            <div>
+              <div
+                class="d-flex justify-content-center row"
+                v-for="evaluate in evaluates.data"
+                :key="evaluate.id"
+              >
+                <div class="col-md-12">
+                  <div class="d-flex flex-column comment-section" id="myGroup">
+                    <div class="bg-white p-2">
+                      <div class="d-flex flex-row user-info">
+                        <img
+                          class="rounded-circle"
+                          :src="baseUrl + '/uploads/' + evaluate.user.images"
+                          width="40px"
+                          height="40px"
+                          alt=""
+                        />
+                        <div
+                          class="d-flex flex-column justify-content-start ml-2"
+                        >
+                          <span class="d-block font-weight-bold name">{{
+                            evaluate.user.name
+                          }}</span
+                          ><span class="date text-black-50">
+                            <star-rating
+                              read-only
+                              :star-size="15"
+                              :increment="0.5"
+                              v-model="evaluate.star_vote"
+                            ></star-rating>
+                          </span>
+                        </div>
                       </div>
+                      <div class="mt-2 ml-5">
+                        <p class="comment-text" style="font-size: 17px">
+                          {{ evaluate.content }}
+                        </p>
+                      </div>
+                      <div class="mt-2 ml-5">
+                        <img v-if="evaluate.image_1 != ''"
+                          :src="baseUrl + '/uploads/' + evaluate.image_1"
+                          width="85px"
+                          height="80px"
+                          alt=""
+                        />
+                        <img v-if="evaluate.image_2 != ''"
+                          :src="baseUrl + '/uploads/' + evaluate.image_2"
+                          width="85px"
+                          height="80px"
+                          alt=""
+                        />
+                        <img v-if="evaluate.image_3 != ''"
+                          :src="baseUrl + '/uploads/' + evaluate.image_3"
+                          width="85px"
+                          height="80px"
+                          alt=""
+                        />
+                        <img v-if="evaluate.image_4 != ''"
+                          :src="baseUrl + '/uploads/' + evaluate.image_4"
+                          width="85px"
+                          height="80px"
+                          alt=""
+                        />
+                      </div>
+                      <div class="mt-2 ml-5">
+                        <p class="comment-text" style="font-size: 12px">
+                          {{ evaluate.created_at | formatDate }}
+                        </p>
+                      </div>
+                      <hr />
                     </div>
-                    <div class="mt-2 ml-5">
-                      <p class="comment-text" style="font-size: 17px">
-                        {{ evaluate.content }}
-                      </p>
-                    </div>
-                    <div class="mt-2 ml-5">
-                      <img
-                        :src="baseUrl + '/uploads/' + evaluate.image_1"
-                        width="85px"
-                        height="80px"
-                        alt=""
-                      />
-                      <img
-                        :src="baseUrl + '/uploads/' + evaluate.image_2"
-                        width="85px"
-                        height="80px"
-                        alt=""
-                      />
-                      <img
-                        :src="baseUrl + '/uploads/' + evaluate.image_3"
-                        width="85px"
-                        height="80px"
-                        alt=""
-                      />
-                      <img
-                        :src="baseUrl + '/uploads/' + evaluate.image_4"
-                        width="85px"
-                        height="80px"
-                        alt=""
-                      />
-                    </div>
-                    <div class="mt-2 ml-5">
-                      <p class="comment-text" style="font-size: 12px">
-                        {{ evaluate.created_at | formatDate }}
-                      </p>
-                    </div>
-                    <hr />
                   </div>
                 </div>
               </div>
             </div>
+
             <div v-if="evaluates != ''">
               <nav aria-label="Page navigation example">
                 <paginate
@@ -380,7 +388,7 @@ export default {
       decrip: this.decripProduct,
 
       evaluates: [],
-      evaluates: {
+      evaluate: {
         user_id: "",
         order_code: "",
         product_id: "",
@@ -401,6 +409,19 @@ export default {
       page: 1,
       paginate: 5,
       flagShowLoader: false,
+
+      select_all: false,
+      select_5star: false,
+      select_4star: false,
+      select_3star: false,
+      select_2star: false,
+      select_1star: false,
+
+      count5Stars: 0,
+      count4Stars: 0,
+      count3Stars: 0,
+      count2Stars: 0,
+      count1Stars: 0,
     };
   },
   created() {
@@ -416,6 +437,7 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
+    this.fetchCountStar();
   },
   components: {
     Loader,
@@ -424,109 +446,77 @@ export default {
   props: ["decripProduct"],
   mounted() {
     this.fetchData();
-    // this.fillImage();
   },
   methods: {
-    // deleteComment(code, id) {
-    //   let that = this;
-    //   let formData = new FormData();
-    //   formData.append("codeComment", code);
-    //   formData.append("idComment", id);
-    //   this.$swal({
-    //     title: "Do you want to delete ？",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete it!",
-    //     cancelButtonText: "No, cancel!",
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       axios
-    //         .post(`/comment/delete`, formData)
-    //         .then((response) => {
-    //           this.$swal({
-    //             title: "Delete successfully!",
-    //             icon: "success",
-    //             confirmButtonText: "OK!",
-    //           }).then(function (confirm) {});
-    //           that.fetchData();
-    //         })
-    //         .catch((error) => {
-    //           that.flashMessage.error({
-    //             message: "Delete Failure!",
-    //             icon: "/backend/icon/error.svg",
-    //             blockClass: "text-centet",
-    //           });
-    //         });
-    //     }
-    //   });
-    // },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    // codeReplySecond(code) {
-    //   this.codeFormReplySecond = code;
-    //   this.statusReplySecond == true;
-    // },
 
-    // idReplySecond(id) {
-    //   this.idFormReplySecond = id;
-    // },
+    selectAll() {
+      this.select_all = !this.select_all;
+      this.select_5star = false;
+      this.select_4star = false;
+      this.select_3star = false;
+      this.select_2star = false;
+      this.select_1star = false;
+      this.fetchData();
+    },
+    select5Star() {
+      this.select_5star = true;
+      this.select_all = false;
+      this.select_4star = false;
+      this.select_3star = false;
+      this.select_2star = false;
+      this.select_1star = false;
+      this.fetchData();
+    },
+    select4Star() {
+      this.select_4star = true;
+      this.select_5star = false;
+      this.select_3star = false;
+      this.select_2star = false;
+      this.select_1star = false;
+      this.fetchData();
+    },
+    select3Star() {
+      this.select_3star = !this.select_3star;
+      this.select_5star = false;
+      this.select_4star = false;
+      this.select_all = false;
+      this.select_2star = false;
+      this.select_1star = false;
+      this.fetchData();
+    },
+    select2Star() {
+      this.select_2star = !this.select_2star;
+      this.select_5star = false;
+      this.select_4star = false;
+      this.select_3star = false;
+      this.select_all = false;
+      this.select_1star = false;
+      this.fetchData();
+    },
+    select1Star() {
+      this.select_1star = !this.select_1star;
+      this.select_5star = false;
+      this.select_4star = false;
+      this.select_3star = false;
+      this.select_2star = false;
+      this.select_all = false;
+      this.fetchData();
+    },
 
-    // replyFirst(id) {
-    //   this.idFormReplyFirst = id;
-    //   this.statusReplyFirst == true;
-    // },
-    // commentFirst(id) {
-    //   this.idFormCommentFirst = id;
-    //   this.statusCommentFirst == true;
-
-    //   let that = this;
-    //   this.flagShowLoader = true;
-    //   var url = `/get-commentReply/${id}`;
-    //   axios
-    //     .get(url)
-    //     .then(function (response) {
-    //       that.commentReplys = response.data.comments; //show data ra
-    //       that.countReply = response.data.countReply; //show data ra
-    //       that.flagShowLoader = false;
-    //     })
-    //     .catch((err) => {
-    //       switch (err.response.status) {
-    //         case 500:
-    //           that
-    //             .$swal({
-    //               title: "Error loading data !",
-    //               icon: "warning",
-    //               confirmButtonText: "Ok",
-    //             })
-    //             .then(function (confirm) {});
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     });
-    // },
-
-    fetchData() {
+    fetchCountStar() {
       let that = this;
-      this.flagShowLoader = true;
-      var url =
-        `/sale/get-evaluated?page=` +
-        this.page +
-        "&paginate=" +
-        this.paginate +
-        "&product_id=" +
-        this.decrip[0].id;
       axios
-        .get(url)
+        .post(`/get-count-star?product_id=` + that.decrip[0].id)
         .then(function (response) {
-          // console.log(response.data);
-          that.evaluates = response.data.evaluates; //show data ra
-          // that.count = response.data.count; //show data ra
-          that.flagShowLoader = false;
+          that.count5Stars = response.data.count5Stars;
+          that.count4Stars = response.data.count4Stars;
+          that.count3Stars = response.data.count3Stars;
+          that.count2Stars = response.data.count2Stars;
+          that.count1Stars = response.data.count1Stars;
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -545,6 +535,186 @@ export default {
         });
     },
 
+    fetchData() {
+      let that = this;
+      this.flagShowLoader = true;
+      if (that.select_5star == true) {
+        axios
+          .post(
+            `/get-select-5star?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip[0].id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.evaluate5Stars; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.select_4star == true) {
+        axios
+          .post(
+            `/get-select-4star?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip[0].id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.evaluate4Stars; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.select_3star == true) {
+        axios
+          .post(
+            `/get-select-3star?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip[0].id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.evaluate3Stars; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.select_2star == true) {
+        axios
+          .post(
+            `/get-select-2star?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip[0].id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.evaluate2Stars; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else if (that.select_1star == true) {
+        axios
+          .post(
+            `/get-select-1star?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip[0].id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.evaluate1Stars; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      } else {
+        var url =
+          `/get-evaluated?page=` +
+          this.page +
+          "&paginate=" +
+          this.paginate +
+          "&product_id=" +
+          this.decrip[0].id;
+        axios
+          .post(url)
+          .then(function (response) {
+            that.evaluates = response.data.evaluates; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+      }
+    },
+
     prev() {
       if (this.types.prev_page_url) {
         this.page--;
@@ -557,151 +727,12 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     changeInput() {
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
-    },
-
-    addComment() {
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          axios
-            .post(`/add-comment/${this.decrip[0].id}`, this.comment)
-            .then((response) => {
-              this.$swal({
-                title: response.data,
-                icon: "success",
-                confirmButtonText: "OK!",
-              });
-              this.comment.content = "";
-              this.fetchData();
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  this.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  this.$swal({
-                    title: "Comment Error !",
-                    icon: "warning",
-                    confirmButtonText: "Cancle !",
-                  }).then(function (confirm) {});
-                  break;
-                case 500:
-                  this.$swal({
-                    title: "Comment Error !",
-                    icon: "warning",
-                    confirmButtonText: "Cancle !",
-                  }).then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
-            });
-        }
-      });
-    },
-
-    repCommentFirst(id) {
-      let that = this;
-      let formData = new FormData();
-      formData.append("name", this.comment.name);
-      console.log("Tên", this.comment.name);
-
-      formData.append("repComment", this.commentReply.contentRep);
-      formData.append("idProduct", this.decrip[0].id);
-      axios
-        .post(`/reply-comment/${id}`, formData)
-        .then((response) => {
-          that.$swal({
-            title: response.data,
-            icon: "success",
-            confirmButtonText: "OK!",
-          });
-          that.commentReply.contentRep = "";
-          that.statusCommentFirst = !this.statusCommentFirst;
-          that.fetchData();
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 422:
-              that.errorBackEnd = err.response.data.errors;
-              break;
-            case 404:
-              that
-                .$swal({
-                  title: "Comment Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
-                })
-                .then(function (confirm) {});
-              break;
-            case 500:
-              that
-                .$swal({
-                  title: "Comment Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
-    repCommentSecond(id) {
-      let formData = new FormData();
-      formData.append("repComment", this.replySecond.contentRep);
-      formData.append("idProduct", this.decrip[0].id);
-      axios
-        .post(`/reply-comment-second/${id}`, formData)
-        .then((response) => {
-          this.$swal({
-            title: response.data,
-            icon: "success",
-            confirmButtonText: "OK!",
-          });
-          this.replySecond.contentRep = "";
-          // this.statusCommentFirst = !this.statusCommentFirst;
-          this.fetchData();
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 422:
-              this.errorBackEnd = err.response.data.errors;
-              break;
-            case 404:
-              this.$swal({
-                title: "Comment Error !",
-                icon: "warning",
-                confirmButtonText: "Cancle !",
-              }).then(function (confirm) {});
-              break;
-            case 500:
-              this.$swal({
-                title: "Comment Error !",
-                icon: "warning",
-                confirmButtonText: "Cancle !",
-              }).then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
-
-    fillImage() {
-      axios.post(`/fill-image`).then(function (response) {
-        this.showImage = response.data.image;
-        console.log("ẢNh", this.showImage);
-      });
     },
   },
 };
