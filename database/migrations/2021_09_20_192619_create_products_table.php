@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->string('import_price');
             $table->integer('product_sold');
             $table->integer('ware_houses_id');
+            $table->double('star_vote')->nullable();
             $table->integer('views');
             $table->timestamps();
             $table->softDeletes();
