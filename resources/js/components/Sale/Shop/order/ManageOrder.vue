@@ -517,8 +517,8 @@
                           class="img-drop-box mt-2 mr-2 profile-image"
                           style="
                             border: dotted 1px #c0c0c0;
-                            width: 225px;
-                            height: 205px;
+                            width: 216px;
+                            height: 194px;
                           "
                         >
                           <img
@@ -578,8 +578,8 @@
                           class="img-drop-box mt-2 mr-2"
                           style="
                             border: dotted 1px #c0c0c0;
-                            width: 225px;
-                            height: 205px;
+                            width: 216px;
+                            height: 194px;
                           "
                         >
                           <img
@@ -640,8 +640,8 @@
                           class="img-drop-box mt-2 mr-2"
                           style="
                             border: dotted 1px #c0c0c0;
-                            width: 225px;
-                            height: 205px;
+                            width: 216px;
+                            height: 194px;
                           "
                         >
                           <img
@@ -700,8 +700,8 @@
                           class="img-drop-box mt-2 mr-2"
                           style="
                             border: dotted 1px #c0c0c0;
-                            width: 225px;
-                            height: 205px;
+                            width: 216px;
+                            height: 194px;
                           "
                         >
                           <img
