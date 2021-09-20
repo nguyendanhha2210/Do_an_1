@@ -8,6 +8,7 @@ import DataTable from 'laravel-vue-datatable'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
+import VueStarRating from 'vue-star-rating';
 
 import LoginComponent from './components/Amin/User/LoginComponent'
 import TypeComponent from './components/Amin/Type/TypeComponent.vue'
@@ -36,7 +37,7 @@ import CategoryPostAdd from './components/Amin/CategoryPost/CategoryAdd.vue'
 import CategoryPostComponent from './components/Amin/CategoryPost/CategoryComponent.vue'
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
 import PostComponent from './components/Amin/Post/PostComponent.vue'
-import CommentComponent from './components/Amin/Comment/CommentComponent.vue'
+import ReplyComment from './components/Amin/ReplyComment/ReplyComment.vue'
 import ProfitComponent from './components/Amin/Profit/ProfitComponent.vue'
 import UserComponent from './components/Amin/User/UserComponent.vue'
 import UserDetail from './components/Amin/User/UserDetail.vue'
@@ -45,7 +46,7 @@ import AdminComponent from './components/Amin/User/AdminComponent.vue'
 import ImageDetail from './components/Amin/Product/ImageDetail.vue'
 
 
-
+Vue.use(VueStarRating)
 Vue.use(VueSweetalert2);
 Vue.use(DataTable);
 Vue.component('paginate', Paginate)
@@ -90,7 +91,7 @@ new Vue({
         CategoryPostComponent,
         CategoryPostEdit,
         PostComponent,
-        CommentComponent,
+        ReplyComment,
         ProfitComponent,
         UserComponent,
         UserDetail,

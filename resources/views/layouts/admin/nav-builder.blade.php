@@ -20,9 +20,9 @@
                 </li>
 
                 <li class="sub-menu">
-                    <a href="{{ route('admin.comment.list') }}">
+                    <a href="{{ route('admin.replyComment.list') }}">
                         <i class="fa fa-book"></i>
-                        <span>Comment</span>
+                        <span>Reply Comment</span>
                     </a>
                 </li>
 

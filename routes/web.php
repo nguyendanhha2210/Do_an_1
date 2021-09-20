@@ -114,9 +114,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
     Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
 
-    Route::get('/comment', [App\Http\Controllers\Admin\CommentController::class, 'index'])->name('admin.comment.list'); //gọi form list
-    Route::get('/get-comment', [App\Http\Controllers\Admin\CommentController::class, 'getData'])->name('admin.comment.getData'); //trả dữ liệu ra form list
-
     //Profit 
     Route::get('/profit', [App\Http\Controllers\Admin\ProfitController::class, 'index'])->name('admin.profit.list'); //gọi form list
     Route::post('/get-profit', [App\Http\Controllers\Admin\ProfitController::class, 'getData'])->name('admin.profit.getData'); //trả dữ liệu ra form list
@@ -138,6 +135,11 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/admin-add',  [App\Http\Controllers\Admin\User\AdminController::class, 'store'])->name('admin.add'); //thêm
     Route::post('/admin/{id}/update', [App\Http\Controllers\Admin\User\AdminController::class, 'update'])->name('admin.update'); //Sửa
     Route::get('/admin/{id}/delete', [App\Http\Controllers\Admin\User\AdminController::class, 'destroy'])->name('admin.delete'); //Xóa
+
+    //ReplyComment
+    Route::get('/replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'index'])->name('admin.replyComment.list'); //gọi form list
+    Route::get('/get-replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'getData'])->name('admin.replyComment.getData'); //trả dữ liệu ra form list
+    Route::post('/single-send',  [App\Http\Controllers\Admin\ReplyCommentController::class, 'singleSend'])->name('admin.replyComment.singleSend');
 
 });
 
