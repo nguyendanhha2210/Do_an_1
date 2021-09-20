@@ -93,6 +93,13 @@ class CustomerReviewController extends Controller
                 }
                 $evaluate->save();
 
+                //Tính TB số sao mỗi lần KH đánh giá
+                $averageStars = Evaluate::where('product_id', $request->product_id)->avg('star_vote');
+                $abc = round($averageStars, 1);
+                $product = Product::where('id', $request->product_id)->first();
+                $product->star_vote = $abc;
+                $product->update();
+
                 //update trạng thái đã vote từng sp trong Order Detail
                 $orderDetail = OrderDetail::where('order_code', $request->order_code)->where('product_id', $request->product_id)->first();
                 $orderDetail->status_vote =  OrderDetailVote::VOTED;
@@ -217,8 +224,8 @@ class CustomerReviewController extends Controller
             $count4Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FOURSTARS)->count();
             $count5Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FIVESTARS)->count();
             $countAll = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->count();
-            $countAllImage = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('image_1','!=','')->orWhere('image_2','!=','')->orWhere('image_3','!=','')->orWhere('image_4','!=','')->count();
-            
+            $countAllImage = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('image_1', '!=', '')->orWhere('image_2', '!=', '')->orWhere('image_3', '!=', '')->orWhere('image_4', '!=', '')->count();
+
             return response()->json(
                 [
                     "count1Stars" => $count1Stars,

@@ -141,57 +141,65 @@
               "
             >
               <div class="row">
-                <div class="col-lg-3 col-3">
-                  <button class="btn btn-success mt-1">jajdad</button>
+                <div class="col-lg-3 col-5 ">
+                  <div style="font-size: 20px;color: #17a2b8"><b class="pl-4">{{decrip[0].star_vote}} </b>trên 5</div>
+                  <div > <star-rating
+                    read-only
+                    :star-size="27"
+                    :increment="0.1"
+                    :show-rating="false"
+                    style="margin: auto"
+                    v-model="decrip[0].star_vote"
+                  ></star-rating></div>
                 </div>
-                <div class="col-lg-9 col-9">
+                <div class="col-lg-9 col-7">
                   <button
                     @click="selectAll()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    Tất Cả ( {{ this.countAll }} )
+                    Tất Cả ({{this.countAll}})
                   </button>
                   <button
                     @click="select5Star()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    5 sao( {{ this.count5Stars }} )
+                    5 sao ({{this.count5Stars}})
                   </button>
                   <button
                     @click="select4Star()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    4 sao( {{ this.count4Stars }} )
+                    4 sao ({{this.count4Stars}})
                   </button>
                   <button
                     @click="select3Star()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    3 sao( {{ this.count3Stars }} )
+                    3 sao ({{this.count3Stars}})
                   </button>
                   <button
                     @click="select2Star()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    2 sao( {{ this.count2Stars }} )
+                    2 sao ({{this.count2Stars}})
                   </button>
                   <button
                     @click="select1Star()"
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    1 sao( {{ this.count1Stars }} )
+                    1 sao ({{this.count1Stars}})
                   </button>
                   <button
-                    class="btn btn-success mt-1"
+                    class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    Có Ảnh( {{ this.countAllImage }} )
+                    Có Ảnh ({{this.countAllImage}})
                   </button>
                 </div>
               </div>
