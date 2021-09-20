@@ -211,11 +211,14 @@ class CustomerReviewController extends Controller
     public function getCountStar(Request $request)
     {
         try {
-            $count1Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::ONESTAR)->with(['product', 'user'])->orderBy('created_at', 'desc')->count();
-            $count2Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::TWOSTARS)->with(['product', 'user'])->orderBy('created_at', 'desc')->count();
-            $count3Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::THREESTARS)->with(['product', 'user'])->orderBy('created_at', 'desc')->count();
-            $count4Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FOURSTARS)->with(['product', 'user'])->orderBy('created_at', 'desc')->count();
-            $count5Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FIVESTARS)->with(['product', 'user'])->orderBy('created_at', 'desc')->count();
+            $count1Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::ONESTAR)->count();
+            $count2Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::TWOSTARS)->count();
+            $count3Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::THREESTARS)->count();
+            $count4Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FOURSTARS)->count();
+            $count5Stars = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('star_vote', StatusStar::FIVESTARS)->count();
+            $countAll = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->count();
+            $countAllImage = Evaluate::where('product_id', $request->product_id)->where('rank', CommentRank::FIRSTRANK)->where('image_1','!=','')->orWhere('image_2','!=','')->orWhere('image_3','!=','')->orWhere('image_4','!=','')->count();
+            
             return response()->json(
                 [
                     "count1Stars" => $count1Stars,
@@ -223,6 +226,8 @@ class CustomerReviewController extends Controller
                     "count3Stars" => $count3Stars,
                     "count4Stars" => $count4Stars,
                     "count5Stars" => $count5Stars,
+                    "countAll" => $countAll,
+                    "countAllImage" => $countAllImage,
                 ],
                 StatusCode::OK
             );

@@ -150,7 +150,7 @@
                     class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    Tất Cả
+                    Tất Cả ( {{ this.countAll }} )
                   </button>
                   <button
                     @click="select5Star()"
@@ -191,13 +191,7 @@
                     class="btn btn-success mt-1"
                     style="width: max-content; font-size: 17px"
                   >
-                    Bình Luận()
-                  </button>
-                  <button
-                    class="btn btn-success mt-1"
-                    style="width: max-content; font-size: 17px"
-                  >
-                    Có Ảnh()
+                    Có Ảnh( {{ this.countAllImage }} )
                   </button>
                 </div>
               </div>
@@ -241,25 +235,29 @@
                         </p>
                       </div>
                       <div class="mt-2 ml-5">
-                        <img v-if="evaluate.image_1 != ''"
+                        <img
+                          v-if="evaluate.image_1 != ''"
                           :src="baseUrl + '/uploads/' + evaluate.image_1"
                           width="85px"
                           height="80px"
                           alt=""
                         />
-                        <img v-if="evaluate.image_2 != ''"
+                        <img
+                          v-if="evaluate.image_2 != ''"
                           :src="baseUrl + '/uploads/' + evaluate.image_2"
                           width="85px"
                           height="80px"
                           alt=""
                         />
-                        <img v-if="evaluate.image_3 != ''"
+                        <img
+                          v-if="evaluate.image_3 != ''"
                           :src="baseUrl + '/uploads/' + evaluate.image_3"
                           width="85px"
                           height="80px"
                           alt=""
                         />
-                        <img v-if="evaluate.image_4 != ''"
+                        <img
+                          v-if="evaluate.image_4 != ''"
                           :src="baseUrl + '/uploads/' + evaluate.image_4"
                           width="85px"
                           height="80px"
@@ -422,6 +420,8 @@ export default {
       count3Stars: 0,
       count2Stars: 0,
       count1Stars: 0,
+      countAll: 0,
+      countAllImage: 0,
     };
   },
   created() {
@@ -517,6 +517,8 @@ export default {
           that.count3Stars = response.data.count3Stars;
           that.count2Stars = response.data.count2Stars;
           that.count1Stars = response.data.count1Stars;
+          that.countAll = response.data.countAll;
+          that.countAllImage = response.data.countAllImage;
         })
         .catch((err) => {
           switch (err.response.status) {
