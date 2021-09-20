@@ -1475,6 +1475,7 @@ export default {
                 })
                 .then(function (confirm) {
                   that.evaluate.star_vote = 1;
+                  that.evaluate.content = "";
                   that.$refs.imageDispaly_1.src = "";
                   that.$refs.imageDispaly_2.src = "";
                   that.$refs.imageDispaly_3.src = "";
