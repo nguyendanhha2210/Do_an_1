@@ -1475,11 +1475,10 @@ export default {
                 })
                 .then(function (confirm) {
                   that.evaluate.star_vote = 1;
-                  that.evaluate.content = "";
-                  that.evaluate.image_1 = "";
-                  that.evaluate.image_2 = "";
-                  that.evaluate.image_3 = "";
-                  that.evaluate.image_4 = "";
+                  that.$refs.imageDispaly_1.src = "";
+                  that.$refs.imageDispaly_2.src = "";
+                  that.$refs.imageDispaly_3.src = "";
+                  that.$refs.imageDispaly_4.src = "";
                 });
               that.viewDetailProduct();
               that.fetchData();

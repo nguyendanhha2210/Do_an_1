@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="product-list" style="background-color: #e9edf0">
+    <div class="product-list" style="background-color: #e9edf0;margin-bottom: 60px;">
       <div class="row" style="padding-top: 25px">
         <div
           class="col-lg-4 col-sm-6"

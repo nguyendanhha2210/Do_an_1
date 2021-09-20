@@ -6,6 +6,7 @@
           <img
             class="product-big-img"
             style="height: 400px"
+            ref="image"
             :src="baseUrl + '/uploads/' + info[0].images"
             alt=""
           />
@@ -21,9 +22,11 @@
             >
               <img
                 class="product-big-img"
+                ref="images1"
                 height="150px"
                 :src="baseUrl + '/uploads/' + info[0].product_images[0].image_1"
                 alt=""
+                @click="changeImage(1)"
               />
             </div>
             <div
@@ -33,8 +36,10 @@
               <img
                 class="product-big-img"
                 height="150px"
+                ref="images2"
                 :src="baseUrl + '/uploads/' + info[0].product_images[0].image_2"
                 alt=""
+                @click="changeImage(2)"
               />
             </div>
             <div
@@ -44,8 +49,10 @@
               <img
                 class="product-big-img"
                 height="150px"
+                ref="images3"
                 :src="baseUrl + '/uploads/' + info[0].product_images[0].image_3"
                 alt=""
+                @click="changeImage(3)"
               />
             </div>
             <div
@@ -55,8 +62,10 @@
               <img
                 class="product-big-img"
                 height="150px"
+                ref="images4"
                 :src="baseUrl + '/uploads/' + info[0].product_images[0].image_4"
                 alt=""
+                @click="changeImage(4)"
               />
             </div>
           </div>
@@ -198,6 +207,10 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    changeImage(value) {
+      console.log(value);
+      this.$refs.image.src = this.$refs["images" + value].src;
     },
     addCartProduct() {
       if (this.info[0].quantity < this.qualityOrder) {
