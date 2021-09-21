@@ -214,7 +214,7 @@ export default {
       },
 
       contentReply:
-        "FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều BST mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️",
+        "FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️",
 
       page: 1,
       paginate: 5,

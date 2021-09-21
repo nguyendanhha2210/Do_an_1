@@ -125,6 +125,63 @@
       </div>
       <br /><br />
 
+      <!-- Show màn hình từng sp chưa được vote -->
+      <div
+        v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
+        class="row mt-3 pt-1 pb-1"
+        style="background-color: white"
+      >
+        <div class="col-lg-12">
+          <div class="cart-table text-center">
+            <b style="color: green; font-size: 26px">Evaluated</b>
+            <table class="table table-condensed">
+              <thead>
+                <tr class="cart_menu">
+                  <td><b>STT</b></td>
+                  <td><b>Sản Phẩm</b></td>
+                  <td><b>Ảnh</b></td>
+                  <td><b>Đơn Giá</b></td>
+                  <td><b>Số lượng</b></td>
+                  <td><b>Status</b></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(voteDetail, index) in voteDetails"
+                  :key="voteDetail.id"
+                >
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ voteDetail.product_name }}</td>
+                  <td>
+                    <img
+                      style="height: 50px; width: 50px"
+                      :src="baseUrl + '/uploads/' + voteDetail.product.images"
+                      alt=""
+                    />
+                  </td>
+                  <td>{{ formatPrice(voteDetail.product_price) }} đ</td>
+                  <td>{{ voteDetail.product_sales_quantity }}</td>
+                  <td v-if="voteDetail.status_vote == 1">
+                    <a
+                      data-toggle="modal"
+                      data-target="#myModalVote"
+                      @click="voteProduct(voteDetail)"
+                      ><button class="btn btn-warning">Evaluate</button></a
+                    >
+                  </td>
+                  <td v-else>
+                    <button class="btn btn-success">Have evaluated</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
       <div
         v-if="
           this.show_corfirm ||
@@ -252,60 +309,6 @@
         </div>
         <div v-else class="text-center" style="color: red">
           There is no data !
-        </div>
-
-        <!-- Show màn hình từng sp chưa được vote -->
-        <div
-          v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
-          class="row mt-3 pt-5 pb-1"
-          style="background-color: white"
-        >
-          <div class="col-lg-12">
-            <div class="cart-table">
-              <table class="table table-condensed">
-                <thead>
-                  <tr class="cart_menu">
-                    <td><b>STT</b></td>
-                    <td><b>Sản Phẩm</b></td>
-                    <td><b>Ảnh</b></td>
-                    <td><b>Đơn Giá</b></td>
-                    <td><b>Số lượng</b></td>
-                    <td><b>Status</b></td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(voteDetail, index) in voteDetails"
-                    :key="voteDetail.id"
-                  >
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ voteDetail.product_name }}</td>
-                    <td>
-                      <img
-                        style="height: 50px; width: 50px"
-                        :src="baseUrl + '/uploads/' + voteDetail.product.images"
-                        alt=""
-                      />
-                    </td>
-                    <td>{{ formatPrice(voteDetail.product_price) }} đ</td>
-                    <td>{{ voteDetail.product_sales_quantity }}</td>
-                    <td v-if="voteDetail.status_vote == 1">
-                      <a
-                        data-toggle="modal"
-                        data-target="#myModalVote"
-                        @click="voteProduct(voteDetail)"
-                        ><button class="btn btn-warning">Evaluate</button></a
-                      >
-                    </td>
-                    <td v-else>
-                      <button class="btn btn-success">Have evaluated</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
 
         <!-- Show màn hình từng sp đã được vote -->

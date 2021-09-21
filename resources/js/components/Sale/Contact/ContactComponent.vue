@@ -214,8 +214,7 @@
                         id="collapse-1"
                         class="bg-light collapse"
                         style="transform: translate(1%, -32%)"
-                        data-parent="#myGroup"
-                      >
+                        data-parent="#myGroup">
                         <form
                           @submit.prevent="repexchangeReviewFirst(comment.id)"
                           class="comment-form"

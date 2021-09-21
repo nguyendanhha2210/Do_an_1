@@ -143,7 +143,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
 
 });
 
-
 Route::get('/', [App\Http\Controllers\Sale\HomeController::class, 'index'])->name('sale.index');
 Route::get('/404', [App\Http\Controllers\Sale\HomeController::class, 'error404'])->name('sale.error404');
 Route::get('/500', [App\Http\Controllers\Sale\HomeController::class, 'error500'])->name('sale.error500');
