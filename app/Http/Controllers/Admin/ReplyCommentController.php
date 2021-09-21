@@ -29,8 +29,14 @@ class ReplyCommentController extends Controller
         }
         try {
             $paginate = $request->paginate;
-            $replyComments = Evaluate::orderBy('created_at', 'desc')->paginate($paginate);
-
+            $statusReply = $request->statusReply;
+            if ($statusReply == CommentRank::FIRSTRANK) {
+                $replyComments = Evaluate::where('rank', '=', CommentRank::FIRSTRANK)->orderBy('created_at', 'desc')->paginate($paginate);
+            } elseif ($statusReply == CommentRank::SECONDRANK) {
+                $replyComments = Evaluate::where('rank', '=', CommentRank::SECONDRANK)->orderBy('created_at', 'desc')->paginate($paginate);
+            } else {
+                $replyComments = Evaluate::orderBy('created_at', 'desc')->paginate($paginate);
+            }
             return response()->json($replyComments, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);

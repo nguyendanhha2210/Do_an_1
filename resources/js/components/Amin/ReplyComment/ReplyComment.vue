@@ -44,9 +44,17 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-2 col-sm-3 col-1" style="float: left"></div>
+        <div class="col-md-2 col-sm-3 col-1" style="float: left">
+        </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
-          <input type="text" class="form-control" v-model="search" />
+          <select
+            v-model="statusReply"
+            class="form-control w-sm inline v-middle"
+          >
+            <option value="">Status Reply</option>
+            <option value="1">Not answered</option>
+            <option value="2">Answered</option>
+          </select>
         </div>
       </div>
 
@@ -222,7 +230,7 @@ export default {
 
       page: 1,
       paginate: 5,
-      search: "",
+      statusReply: "",
       flagShowLoader: false,
       //Modal
       modalShow: false,
@@ -259,7 +267,7 @@ export default {
     paginate: function (value) {
       this.fetchData(1);
     },
-    search: function (value) {
+    statusReply: function (value) {
       this.fetchData(1);
     },
   },
@@ -370,7 +378,7 @@ export default {
           params: {
             page: page,
             paginate: this.paginate,
-            search: this.search,
+            statusReply: this.statusReply,
           },
         })
         .then(function (response) {
