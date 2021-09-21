@@ -32,7 +32,7 @@
         <!-- Custom styles for this template -->
 
     {{-- Buộc phải thêm khi dùng Vue JS --}}
-    {{-- <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" /> --}}
+    <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
     {{-- <script src="{{ asset('js/app.js') }}" type="text/javascript" defer></script> --}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
