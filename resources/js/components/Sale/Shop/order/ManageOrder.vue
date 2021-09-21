@@ -1077,9 +1077,8 @@ export default {
 
     fetchData() {
       let that = this;
-      this.flagShowLoader = true;
-
       if (that.show_corfirm == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-confirm`)
           .then(function (response) {
@@ -1102,6 +1101,7 @@ export default {
             }
           });
       } else if (that.show_deliver == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-deliver`)
           .then(function (response) {
@@ -1124,6 +1124,7 @@ export default {
             }
           });
       } else if (that.show_receive == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-receive`)
           .then(function (response) {
@@ -1146,6 +1147,7 @@ export default {
             }
           });
       } else if (that.show_evaluat == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-evaluat`)
           .then(function (response) {
@@ -1168,6 +1170,7 @@ export default {
             }
           });
       } else if (that.show_cancel == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-cancel`)
           .then(function (response) {
@@ -1190,6 +1193,7 @@ export default {
             }
           });
       } else if (that.show_return == true) {
+        this.flagShowLoader = true;
         axios
           .post(`get-order-return`)
           .then(function (response) {
@@ -1533,6 +1537,7 @@ export default {
         .post("get-voted-product", formData)
         .then(function (response) {
           that.votedProductDetails = response.data; //show data ra
+          that.flagShowLoader = false;
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -1623,6 +1628,7 @@ export default {
         .post("get-vote-product", formData)
         .then(function (response) {
           that.voteDetails = response.data; //show data ra
+          that.flagShowLoader = false;
         })
         .catch((err) => {
           switch (err.response.status) {
