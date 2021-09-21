@@ -94,6 +94,7 @@
 
               <td>
                 <star-rating
+                  read-only
                   :star-size="15"
                   :increment="1"
                   v-model="evaluate.star_vote"
