@@ -85,13 +85,13 @@
                 <tr>
                   <td class="p-catagory">Customer Rating</td>
                   <td>
-                    <div class="pd-rating" style="display: inline-flex;">
-                     <star-rating
-                      read-only
-                      :star-size="15"
-                      :increment="0.1"
-                      v-model="decrip[0].star_vote"
-                    ></star-rating>
+                    <div class="pd-rating" style="display: inline-flex">
+                      <star-rating
+                        read-only
+                        :star-size="15"
+                        :increment="0.1"
+                        v-model="decrip[0].star_vote"
+                      ></star-rating>
                     </div>
                   </td>
                 </tr>
