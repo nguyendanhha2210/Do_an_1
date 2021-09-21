@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
+    <meta name="msapplication-TileImage" content="uploads/title_web.png">
+
 
     {{-- <link href="/vnpay_php/assets/bootstrap.min.css" rel="stylesheet"/> --}}
         <!-- Custom styles for this template -->

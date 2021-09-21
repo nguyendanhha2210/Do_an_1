@@ -93,10 +93,7 @@ class WareHouseController extends Controller
 
             $productImage = new ProductImage();
             $productImage->product_id = $product->id;
-            $productImage->image_1 = $fileName;
-            $productImage->image_2 = '';
-            $productImage->image_3 = '';
-            $productImage->image_4 = '';
+            $productImage->url = $fileName;
             $flagProductImage = $productImage->save();
 
             if ($flagWarehouse && $flagProduct && $flagProductImage) {

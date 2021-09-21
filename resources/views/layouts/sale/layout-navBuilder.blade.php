@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
+    <meta name="msapplication-TileImage" content="uploads/title_web.png">
+
 
     {{-- Buộc phải thêm khi dùng Vue JS --}}
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />

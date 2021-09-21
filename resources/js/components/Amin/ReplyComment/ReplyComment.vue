@@ -44,8 +44,7 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-2 col-sm-3 col-1" style="float: left">
-        </div>
+        <div class="col-md-2 col-sm-3 col-1" style="float: left"></div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <select
             v-model="statusReply"
