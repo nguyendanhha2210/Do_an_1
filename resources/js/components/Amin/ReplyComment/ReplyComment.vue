@@ -32,9 +32,9 @@
               'btn-success': isBtnDeleteAll,
               disabled: !isBtnDeleteAll,
             }"
-            @click="deleteAll"
+            @click="sendAll"
           >
-            Delete
+            send
           </button>
         </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
@@ -78,7 +78,8 @@
                       v-model="selectedIds"
                       :id="`evaluate${index}`"
                       name="category"
-                      @change="updateCheckAll"
+                      @change="updateCheckAll(evaluate.id)"
+                      :disabled="evaluate.rank == 2"
                       :value="evaluate.id" />
                     <span class="checkmark"></span
                   ></label>
@@ -105,15 +106,16 @@
                 {{ evaluate.reply_comment }}
               </td>
               <td v-else>
-                <form role="form" @submit.prevent="sendReply(evaluate.id)">
+                <form role="form" @submit.prevent="singleReply(evaluate.id)">
                   <textarea
                     name="contentReply"
                     cols="30"
                     rows="4"
                     v-validate="'required'"
-                    @input="changeInput()"
-                    v-model="contentReply"
-                  ></textarea>
+                    :ref="`comment${evaluate.id}`"
+                  >
+FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️</textarea
+                  >
                   <div style="color: red" role="alert">
                     {{ errors.first("contentReply") }}
                   </div>
@@ -213,6 +215,7 @@ export default {
         reply_comment: "",
         created_at: "",
       },
+      update_comment: [],
 
       contentReply:
         "FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️",
@@ -271,13 +274,17 @@ export default {
     checkAll: function () {
       this.isInputAll = !this.isInputAll;
       this.selectedIds = [];
-      // this.contentIds = [];
+      this.update_comment = [];
       if (this.isInputAll) {
-        //Nếu check vào ô chon hết
         this.evaluates.forEach((item, index) => {
-          this.selectedIds.push(item.id);
-          // this.contentIds.push(item.contentReply);
-          // console.log(this.contentIds);
+          if (typeof this.$refs["comment" + item.id] != "undefined") {
+            var comment = {
+              id: item.id,
+              content: this.$refs["comment" + item.id][0].value,
+            };
+            this.selectedIds.push(item.id);
+            this.update_comment.push(comment);
+          }
           this.isBtnDeleteAll = true;
         });
       } else {
@@ -285,8 +292,17 @@ export default {
       }
     },
 
-    updateCheckAll: function () {
-      //Check từng ô trong ds sp
+    updateCheckAll: function (id) {
+      if (!this.selectedIds.includes(id)) {
+        this.update_comment = this.update_comment.filter(
+          (item) => item.id !== id
+        );
+      } else {
+        this.update_comment.push({
+          id: id,
+          content: this.$refs["comment" + id][0].value,
+        });
+      }
       if (this.selectedIds.length > 0) {
         this.isBtnDeleteAll = true;
         if (this.selectedIds.length == this.evaluates.length) {
@@ -300,37 +316,44 @@ export default {
       }
     },
 
-    deleteAll() {
+    sendAll() {
       let that = this;
-      this.$swal({
-        title: "Do you want to delete ？",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-      }).then((result) => {
-        if (result.value) {
-          axios
-            .post("/admin/evaluate/delete-all", this.selectedIds)
-            .then((response) => {
-              this.$swal({
-                title: "Delete successfully!",
-                icon: "success",
-                confirmButtonText: "OK!",
-              }).then(function (confirm) {});
-              that.fetchData(that.currentPage);
-              that.isBtnDeleteAll = false;
-              that.isInputAll = false;
-            })
-            .catch((error) => {
-              that.flashMessage.error({
-                message: "Delete Failure!",
-                icon: "/backend/icon/error.svg",
-                blockClass: "text-centet",
-              });
-            });
+      this.$validator.validateAll().then((valid) => {
+        if (valid) {
+          this.$swal({
+            title: "Do you want to Send ？",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+          }).then((result) => {
+            if (result.value) {
+              axios
+                .post(`all-send`, {
+                  comments: this.update_comment,
+                })
+                .then((response) => {
+                  that
+                    .$swal({
+                      title: "Reply successfully!",
+                      icon: "success",
+                      confirmButtonText: "OK!",
+                    })
+                    .then(function (confirm) {
+                      window.location.href = "/admin/replyComment";
+                    });
+                })
+                .catch((error) => {
+                  that.flashMessage.error({
+                    message: "Reply Failure!",
+                    icon: "/backend/icon/error.svg",
+                    blockClass: "text-centet",
+                  });
+                });
+            }
+          });
         }
       });
     },
@@ -380,7 +403,7 @@ export default {
       let that = this;
     },
 
-    sendReply(id) {
+    singleReply(id) {
       let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {

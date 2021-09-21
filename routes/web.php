@@ -140,6 +140,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'index'])->name('admin.replyComment.list'); //gọi form list
     Route::get('/get-replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'getData'])->name('admin.replyComment.getData'); //trả dữ liệu ra form list
     Route::post('/single-send',  [App\Http\Controllers\Admin\ReplyCommentController::class, 'singleSend'])->name('admin.replyComment.singleSend');
+    Route::post('/all-send',  [App\Http\Controllers\Admin\ReplyCommentController::class, 'allSend'])->name('admin.replyComment.allSend');
 
 });
 
@@ -179,7 +180,7 @@ Route::post('reply-exchange-review/{id}',  [App\Http\Controllers\Sale\ExchangeRe
 Route::get('/get-exchangeReviewReply/{id}', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'getExchangeReviewReply'])->name('admin.comment.getExchangeReviewReply'); //Show data comment
 Route::post('reply-exchange-review-second/{id}',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'replyExchangeReviewSecond'])->name('admin.comment.replyCommentSecond'); //thêm comment
 Route::post('/exchangeReview/delete', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'exchangeReviewDelete'])->name('admin.comment.exchangeReviewDelete'); //Xóa
-Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
+// Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
 
 Route::get('/choose-type/{id}', [App\Http\Controllers\Sale\ShopController::class, 'chooseType'])->name('admin.shop.chooseType'); //Show view type product
 Route::get('/get-type-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getTypeProduct'])->name('admin.shop.getTypeProduct'); //Show data type product
@@ -236,6 +237,8 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('get-order-evaluat', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderEvaluat'])->name('sale.orderStatus.getOrderEvaluat');
     Route::post('get-order-cancel', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderCancel'])->name('sale.orderStatus.getOrderCancel');
     Route::post('get-order-return', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReturn'])->name('sale.orderStatus.getOrderReturn');
+
+    Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
 
 
     //manage order

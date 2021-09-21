@@ -214,7 +214,8 @@
                         id="collapse-1"
                         class="bg-light collapse"
                         style="transform: translate(1%, -32%)"
-                        data-parent="#myGroup">
+                        data-parent="#myGroup"
+                      >
                         <form
                           @submit.prevent="repexchangeReviewFirst(comment.id)"
                           class="comment-form"
@@ -227,6 +228,13 @@
                               height="40px"
                               alt=""
                             />
+                            <!-- <img v-if="this.showImage"
+                            class="rounded-circle"
+                            :src="baseUrl + '/uploads/' + this.showImage"
+                            width="40px"
+                            height="40px"
+                            alt=""
+                          /> -->
                             <textarea
                               placeholder="Messages"
                               name="content"
@@ -291,6 +299,13 @@
                             height="40px"
                             alt=""
                           />
+                          <!-- <img v-if="this.showImage"
+                            class="rounded-circle"
+                            :src="baseUrl + '/uploads/' + this.showImage"
+                            width="40px"
+                            height="40px"
+                            alt=""
+                          /> -->
                           <div
                             class="
                               d-flex
@@ -381,12 +396,13 @@
                               height="40px"
                               alt=""
                             />
-                            <!-- <img
-                          class="rounded-circle"
-                          src="/frontend/images/flag-1.jpg"
-                          width="40"
-                          height="40px"
-                        /> -->
+                            <!-- <img v-if="this.showImage"
+                            class="rounded-circle"
+                            :src="baseUrl + '/uploads/' + this.showImage"
+                            width="40px"
+                            height="40px"
+                            alt=""
+                          /> -->
                             <textarea
                               placeholder="Messages"
                               name="content"
@@ -459,22 +475,25 @@
                           class="col-lg-2"
                           style="transform: translate(20%, 7%)"
                         >
-                          <!-- <img
-                        class="rounded-circle"
-                        :src="baseUrl + '/uploads/' + showImage"
-                        width="40px"
-                        height="40px"
-                        alt=""
-                      /> -->
                           <img
+                            v-if="this.showImage"
                             class="rounded-circle"
-                            src="/frontend/images/flag-1.jpg"
+                            :src="baseUrl + '/uploads/' + this.showImage"
+                            width="40px"
+                            height="40px"
+                            alt=""
+                          />
+                          <img
+                            v-else
+                            class="rounded-circle"
+                            src="/uploads/avata-3.jpg"
                             width="40"
                             height="40px"
                           />
                         </div>
                         <div class="col-lg-10">
                           <textarea
+                            v-if="this.showImage"
                             placeholder="Messages"
                             name="content"
                             style="height: 92px; margin-bottom: 16px"
@@ -483,15 +502,29 @@
                             @input="changeInput()"
                             v-model="comment.content"
                           ></textarea>
+                          <textarea
+                            v-else
+                            readonly
+                            placeholder="You need to log in to continue ..."
+                            name="content"
+                            style="height: 92px; margin-bottom: 16px"
+                            class="form-control"
+                          ></textarea>
                           <div style="color: red" role="alert">
                             {{ errors.first("content") }}
                           </div>
-                          <div style="color: red" v-if="errorBackEnd.content">
-                            <!-- {{ errorBackEnd.content[0] }} -->
-                          </div>
-                          <button type="submit" class="site-btn">
+                          <div
+                            style="color: red"
+                            v-if="errorBackEnd.content"
+                          ></div>
+                          <button
+                            v-if="this.showImage"
+                            type="submit"
+                            class="site-btn"
+                          >
                             Send message
                           </button>
+                          <a v-else href="/login" class="site-btn">Login</a>
                         </div>
                       </div>
                     </form>
@@ -532,7 +565,7 @@ export default {
       },
 
       idProduct: "",
-      // showImage: "",
+      showImage: "",
 
       exchangeReviewReplys: [],
       exchangeReviewReply: {
@@ -577,14 +610,14 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
-    // this.fillImage();
+    this.fillImage();
   },
   components: {
     Loader,
   },
   mounted() {
     this.fetchData();
-    // this.fillImage();
+    this.fillImage();
   },
   methods: {
     deltetExchangeReview(code, id) {
@@ -842,12 +875,12 @@ export default {
         });
     },
 
-    // fillImage() {
-    //   axios.post(`/fill-image`).then(function (response) {
-    //     this.showImage = response.data.image;
-    //     console.log("ẢNh", this.showImage);
-    //   });
-    // },
+    fillImage() {
+      axios.post(`/sale/fill-image`).then((response) => {
+        this.showImage = response.data.image;
+        console.log(this.showImage);
+      });
+    },
   },
 };
 </script>

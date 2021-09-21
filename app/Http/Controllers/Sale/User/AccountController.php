@@ -67,7 +67,7 @@ class AccountController extends Controller
                 $user->name = $request->name;
                 $user->phone = $request->phone;
                 $user->email = $request->email;
-                $user->images = '';
+                $user->images = 'avata-3.jpg';
                 $user->password = bcrypt($request->password_confirm);
                 $user->role_id = RoleStateType::CLIENT;
                 $flag = $user->save();

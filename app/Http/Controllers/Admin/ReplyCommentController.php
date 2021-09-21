@@ -51,4 +51,15 @@ class ReplyCommentController extends Controller
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
+
+    public function allSend(Request $request)
+    {
+        try {
+            foreach ($request->comments as $item) {
+                Evaluate::where('id', $item['id'])->update(['rank' => CommentRank::SECONDRANK, 'reply_comment' => $item['content']]);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
 }

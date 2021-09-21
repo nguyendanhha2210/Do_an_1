@@ -135,9 +135,7 @@ class ExchangeReviewController extends Controller
         try {
             $idUser = Auth::guard('sales')->id();
             $user = User::where('id', $idUser)->first();
-
-            return view('admin.types.index', ['user' => $user->images]);
-            // return response()->json(["image" => $user->images], StatusCode::OK);
+            return response()->json(["image" => $user->images], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
