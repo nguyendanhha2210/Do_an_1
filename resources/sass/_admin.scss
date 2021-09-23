@@ -245,3 +245,16 @@ th {
         width: 395px !important;
     }
 }
+
+.position-relative {
+    position: relative !important;
+    &>span {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 10px;
+    }
+    .c-avatar {
+        margin-top: 2px;
+    }
+}

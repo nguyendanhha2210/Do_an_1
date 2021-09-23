@@ -32,7 +32,7 @@ import OrderComponent from './components/Amin/Order/OrderComponent.vue'
 import WarehouseComponent from './components/Amin/WareHouse/WareHouseComponent.vue'
 import WarehouseAdd from './components/Amin/WareHouse/WareHouseAdd.vue'
 import WarehouseEdit from './components/Amin/WareHouse/WareHouseEdit.vue'
-import ProductImage from './components/Amin/Product/ProductImage.vue'
+// import ProductImage from './components/Amin/Product/ProductImage.vue'
 import CategoryPostAdd from './components/Amin/CategoryPost/CategoryAdd.vue'
 import CategoryPostComponent from './components/Amin/CategoryPost/CategoryComponent.vue'
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
@@ -43,7 +43,8 @@ import UserComponent from './components/Amin/User/UserComponent.vue'
 import UserDetail from './components/Amin/User/UserDetail.vue'
 import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
 import AdminComponent from './components/Amin/User/AdminComponent.vue'
-import ImageDetail from './components/Amin/Product/ImageDetail.vue'
+import ImageAdd from './components/Amin/Product/ImageAdd.vue'
+
 
 
 Vue.use(VueStarRating)
@@ -86,7 +87,7 @@ new Vue({
         WarehouseComponent,
         WarehouseAdd,
         WarehouseEdit,
-        ProductImage,
+        // ProductImage,
         CategoryPostAdd,
         CategoryPostComponent,
         CategoryPostEdit,
@@ -97,7 +98,7 @@ new Vue({
         UserDetail,
         ShipperComponent,
         AdminComponent,
-        ImageDetail,
+        ImageAdd,
     },
     created() {
         this.$validator.extend("number_phone", {

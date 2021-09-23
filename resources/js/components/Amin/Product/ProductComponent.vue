@@ -11,7 +11,7 @@
           </select>
         </div>
         <div class="col-md-4 col-sm-7 col-3" style="float: left">
-          <a href="product-image">
+          <!-- <a href="product-image">
             <button
               style="background-color: green; color: white; height: 36px"
               type="button"
@@ -20,7 +20,7 @@
               <span class="fa fa-plus"></span>
               Image
             </button></a
-          >
+          > -->
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input
@@ -258,6 +258,135 @@
         </div>
       </div>
 
+      <!-- <div
+        class="modal fade"
+        id="myModalImage"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Import product images
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form
+                @submit.prevent="AddProductImage()"
+                enctype="multipart/form-data"
+              >
+                <div class="row">
+                  <input type="text" v-model="productImage.product_id" hidden />
+                  <div class="col-md-9 px-0">
+                    <div
+                      class="position-relative float-left"
+                      v-for="(item, index) in listImages"
+                      :key="item.id"
+                    >
+                      <label :for="`file_img_banner${index}`">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img
+                            :src="item.src"
+                            :ref="`imageDisplay${index}`"
+                            class="mh-100 mw-100 mx-auto display-block"
+                          />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="margin-top: 30px"
+                            :ref="`imageIconPlus${index}`"
+                            class="display-none"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          :id="`file_img_banner${index}`"
+                          :ref="`image${index}`"
+                          v-on:change="attachImage('image', index)"
+                          accept="image/*"
+                          style="display: none"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-block"
+                        :ref="`imageIconClose${index}`"
+                        @click="deleteImage('image', index)"
+                      >
+                      </a>
+                    </div>
+                    <div class="position-relative float-left">
+                      <label :for="`file_img_banner${listImages.length}`">
+                        <div class="img-drop-box mt-2 mr-2">
+                          <img
+                            src
+                            :ref="`imageDisplay${listImages.length}`"
+                            class="mh-100 mw-100 mx-auto"
+                          />
+                          <svg
+                            width="45"
+                            height="45"
+                            viewBox="0 0 45 45"
+                            style="margin-top: 30px"
+                            :ref="`imageIconPlus${listImages.length}`"
+                          >
+                            <use
+                              xlink:href="/images/Group_1287.svg#Group_1287"
+                            ></use>
+                          </svg>
+                        </div>
+                        <input
+                          type="file"
+                          :id="`file_img_banner${listImages.length}`"
+                          :ref="`image${listImages.length}`"
+                          v-on:change="
+                            attachImageAdd('image', listImages.length)
+                          "
+                          accept="image/*"
+                          style="display: none"
+                        />
+                      </label>
+                      <a
+                        class="btn btn-light icon-close-white display-none"
+                        :ref="`imageIconClose${listImages.length}`"
+                        @click="deleteImageAdd('image', listImages.length)"
+                      >
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
       <div class="table-responsive">
         <table class="table table-striped b-t b-light text-center">
           <thead>
@@ -292,8 +421,21 @@
                   height="50px"
                   alt=""
                 />
-                <a :href="`detail-image/${product.id}/edit`"
-                  ><span class="fa fa-plus"></span
+                <a
+                  :href="`add-image/${product.id}`"
+                  style="font-size: 21px; transform: translate(-26%, -14%)"
+                  ><i
+                    style="color: green"
+                    class="fa fa-plus"
+                    aria-hidden="true"
+                  ></i
+                ></a>
+
+                <a 
+                  ><i
+                    style="font-size: 21px; transform: translate(29%, 3%)"
+                    class="fa fa-pencil-square-o text-success text-active"
+                  ></i
                 ></a>
               </td>
               <td>
@@ -385,7 +527,6 @@
       </nav>
     </div>
     <div class="text-center" v-else style="color: red">There is no data !</div>
-
     <loader :flag-show="flagShowLoader"></loader>
   </div>
 </template>
@@ -409,6 +550,15 @@ export default {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       buttonAdd: true,
+
+      productImages: [],
+      productImage: {
+        id: "",
+        product_id: "",
+        url: "",
+      },
+      listImages: [],
+
       products: [],
       product: {
         id: "",
@@ -426,6 +576,7 @@ export default {
         ware_houses_id: "",
         views: "",
       },
+
       errorBackEnd: {},
       edit: false,
       page: 1,
@@ -484,6 +635,113 @@ export default {
     },
   },
   methods: {
+    // updateProductImage(product) {
+    //   this.productImage.product_id = product.id;
+    // },
+    // attachImageAdd(type, value) {
+    //   var file = null;
+    //   if (type == "image") {
+    //     if (value < this.listImages.length) {
+    //       this.listImages[value].file = this.$refs[type + value][0].files[0];
+    //       file = this.$refs[type + value][0].files[0];
+    //       this.$refs[type + value][0].value = "";
+    //     } else {
+    //       this.listImages.push({
+    //         file_id: null,
+    //         file: this.$refs[type + value].files[0],
+    //         src: "",
+    //       });
+    //       file = this.$refs[type + value].files[0];
+    //       this.$refs[type + value].value = "";
+    //     }
+    //   }
+    //   let reader = new FileReader();
+    //   reader.addEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs[type + "Display" + value][0].style.setProperty(
+    //         "display",
+    //         "block",
+    //         "important"
+    //       );
+    //       this.$refs[type + "IconClose" + value][0].style.setProperty(
+    //         "display",
+    //         "block",
+    //         "important"
+    //       );
+    //       this.$refs[type + "Display" + value][0].src = reader.result;
+    //       if (type == "image") {
+    //         this.listImages[value].src = reader.result;
+    //       }
+    //       this.$refs[type + "IconPlus" + value][0].style.setProperty(
+    //         "display",
+    //         "none",
+    //         "important"
+    //       );
+    //     }.bind(this),
+    //     false
+    //   );
+    //   reader.readAsDataURL(file);
+    // },
+
+    // deleteImageAdd(type, value) {
+    //   var index = 0;
+    //   if (type == "image") {
+    //     index = this.listImages.length;
+    //     this.listImages.splice(value, 1);
+    //   }
+    //   this.$refs[type + index].value = "";
+    // },
+
+    // AddProductImage() {
+    //   let that = this;
+    //   let formData = new FormData();
+    //   this.listImages.forEach((item) => {
+    //     formData.append("images[]", item.file);
+    //   });
+
+    //   axios
+    //     .post(
+    //       `product-image/${that.productImage.product_id}/update`,
+    //       formData,
+    //       {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       }
+    //     )
+    //     .then((response) => {
+    //       that
+    //         .$swal({
+    //           title: "Update success!",
+    //           icon: "success",
+    //           confirmButtonText: "Yes !",
+    //           confirmButtonColor: "#3085d6",
+    //         })
+    //         .then(function (confirm) {
+    //           window.location.href = "/admin/product";
+    //         });
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 422:
+    //           that.errorBackEnd = err.response.data.errors;
+    //           break;
+    //         case 500:
+    //           that
+    //             .$swal({
+    //               title: "Update Failure Data!",
+    //               icon: "error",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
+
     activeStatus(product) {
       let that = this;
       let formData = new FormData();

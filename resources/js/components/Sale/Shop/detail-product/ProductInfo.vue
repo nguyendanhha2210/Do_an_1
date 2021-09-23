@@ -16,7 +16,19 @@
         </div>
         <div class="product-thumbs">
           <div class="product-thumbs-track ps-slider owl-carousel">
-            <div
+            <div v-for="(data, index) in info[0].product_images" :key="data.id">
+              <div class="pt active">
+                <img
+                  class="product-big-img"
+                  :ref="`images${data.id}`"
+                  height="150px"
+                  :src="baseUrl + '/uploads/' + data.url"
+                  alt=""
+                  @click="changeImage(data.id)"
+                />
+              </div>
+            </div>
+            <!-- <div
               class="pt active"
               :src="baseUrl + '/uploads/' + info[0].product_images[0].image_1"
             >
@@ -28,8 +40,8 @@
                 alt=""
                 @click="changeImage(1)"
               />
-            </div>
-            <div
+            </div> -->
+            <!-- <div
               class="pt"
               :src="baseUrl + '/uploads/' + info[0].product_images[0].image_2"
             >
@@ -67,7 +79,7 @@
                 alt=""
                 @click="changeImage(4)"
               />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -202,15 +214,19 @@ export default {
     StarRating,
   },
   props: ["infoProduct"],
-  mounted() {},
+  mounted() {
+    console.log(this.infoProduct);
+  },
   methods: {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     changeImage(value) {
-      console.log(value);
-      this.$refs.image.src = this.$refs["images" + value].src;
+      // console.log(this.$refs["images" + value]);
+      this.$refs.image.src = this.$refs["images" + value][0].src;
+      // console.log(this.$refs.image.src);
+      
     },
     addCartProduct() {
       if (this.info[0].quantity < this.qualityOrder) {

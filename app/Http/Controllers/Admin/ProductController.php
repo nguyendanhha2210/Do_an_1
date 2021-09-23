@@ -11,8 +11,10 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
 use App\Models\Weight;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -116,90 +118,77 @@ class ProductController extends Controller
         }
     }
 
-    public function productImage()
-    {
-        if (!Auth::guard('admin')->check()) {
-            return view('admin.users.login');
-        } else {
-            $breadcrumbs = ['Product Image'];
-            return view('admin.products.productimage', ['breadcrumbs' => $breadcrumbs]);
-        }
-    }
+    // public function productImage()
+    // {
+    //     if (!Auth::guard('admin')->check()) {
+    //         return view('admin.users.login');
+    //     } else {
+    //         $breadcrumbs = ['Product Image'];
+    //         return view('admin.products.productimage', ['breadcrumbs' => $breadcrumbs]);
+    //     }
+    // }
 
-    public function getProductImage(Request $request)
-    {
-        if (!Auth::guard('admin')->check()) {
-            return view('admin.users.login');
-        }
-        try {
-            $paginate = $request->paginate;
-            $search = $request->search;
-            $productImages =  ProductImage::where(function ($q) use ($search) {
-                if ($search) {
-                    $q->where('product_id', '=', $search);
-                }
-            })->with(['product'])
-                ->whereHas('product', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })->orderBy('created_at', 'desc')->paginate($paginate);
+    // public function getProductImage(Request $request)
+    // {
+    //     if (!Auth::guard('admin')->check()) {
+    //         return view('admin.users.login');
+    //     }
+    //     try {
+    //         $paginate = $request->paginate;
+    //         $search = $request->search;
+    //         $productImages =  ProductImage::where(function ($q) use ($search) {
+    //             if ($search) {
+    //                 $q->where('product_id', '=', $search);
+    //             }
+    //         })->with(['product'])
+    //             ->whereHas('product', function ($query) {
+    //                 $query->where('deleted_at', NULL);
+    //             })->orderBy('created_at', 'desc')->paginate($paginate);
 
-            return response()->json($productImages, StatusCode::OK);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-        }
-    }
+    //         return response()->json($productImages, StatusCode::OK);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+    //     }
+    // }
 
-    public function updateProductImage(Request $request, $id)
+    public function saveProductImage(Request $request)
     {
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         } else {
             try {
-                $productImage = ProductImage::where('product_id', $id)->firstOrFail();
-                $productImage->product_id = $id;
-                $file_1 = $request->image_1;
-                if ($file_1 != null) {
-                    $fileName_1 = $file_1->getClientOriginalName();
-                    $file_1->move('uploads', $fileName_1);
-                    $productImage->image_1 = $fileName_1;
-                }
+                DB::beginTransaction();
+                if (!empty($request->images)) {
+                    $insertDataImages = [];
+                    foreach ($request->images as $key => $file) {
+                        $fileName = $file->getClientOriginalName();
+                        $file->move('uploads', $fileName);
 
-                $file_2 = $request->image_2;
-                if ($file_2 != null) {
-                    $fileName_2 = $file_2->getClientOriginalName();
-                    $file_2->move('uploads', $fileName_2);
-                    $productImage->image_2 = $fileName_2;
+                        $insertDataImages[] = [
+                            'product_id' => $request->productId,
+                            'url' => $fileName,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ];
+                    }
+                    ProductImage::insert($insertDataImages);
                 }
-
-                $file_3 = $request->image_3;
-                if ($file_3 != null) {
-                    $fileName_3 = $file_3->getClientOriginalName();
-                    $file_3->move('uploads', $fileName_3);
-                    $productImage->image_3 = $fileName_3;
-                }
-
-                $file_4 = $request->image_4;
-                if ($file_4 != null) {
-                    $fileName_4 = $file_4->getClientOriginalName();
-                    $file_4->move('uploads', $fileName_4);
-                    $productImage->image_4 = $fileName_4;
-                }
-
-                $productImage->save();
-                return response()->json(route("admin.productImage.list"), StatusCode::OK);
+                DB::commit();
+                return response()->json(route("admin.product.list"), StatusCode::OK);
             } catch (\Exception $e) {
+                DB::rollBack();
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }
     }
 
-    public function detailProductImage()
+    public function addProductImage($id)
     {
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         } else {
-            $breadcrumbs = ['Product Image'];
-            return view('admin.products.imagedetail', ['breadcrumbs' => $breadcrumbs]);
+            $breadcrumbs = ['Add Product Image'];
+            return view('admin.products.imageadd', ['breadcrumbs' => $breadcrumbs, 'productId' => $id]);
         }
     }
 

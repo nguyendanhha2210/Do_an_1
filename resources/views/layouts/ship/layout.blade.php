@@ -41,6 +41,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/morris.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('backend/bootstrap-4.0.0-dist/css/bootstrap.min.css') }}"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="icon" href="uploads/title_web.ico"> {{-- logo tap web --}}
     <style>
         ._vue-flash-msg-body__text {
             position: absolute;
@@ -61,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script>
         window.Laravel = {
             csrfToken: '{{ csrf_token() }}',
-            baseUrl :"{{ url('/') }}" ,  //Gọi thay cho đg dẫn http://127.0.0.1:8000
+            baseUrl: "{{ url('/') }}", //Gọi thay cho đg dẫn http://127.0.0.1:8000
         }
     </script>
     {{-- Buộc phải thêm khi dùng Vue JS --}}

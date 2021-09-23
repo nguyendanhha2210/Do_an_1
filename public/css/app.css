@@ -296,6 +296,19 @@ th {
   }
 }
 
+.position-relative {
+  position: relative !important;
+}
+.position-relative > span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+}
+.position-relative .c-avatar {
+  margin-top: 2px;
+}
+
 .loader-img {
   margin: 100px auto;
   font-size: 25px;

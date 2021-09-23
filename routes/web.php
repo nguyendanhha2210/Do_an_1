@@ -75,10 +75,15 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/product/{id}/update', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update'); //Sửa
     Route::get('/product/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.product.delete'); //Xóa
 
-    Route::get('/product-image', [App\Http\Controllers\Admin\ProductController::class, 'productImage'])->name('admin.productImage.list'); //Sửa
-    Route::get('/get-product-image', [App\Http\Controllers\Admin\ProductController::class, 'getProductImage'])->name('admin.product.getProductImage'); //trả dữ liệu ra form list
-    Route::post('/product-image/{id}/update', [App\Http\Controllers\Admin\ProductController::class, 'updateProductImage'])->name('admin.product.updateProductImage'); //Sửa
-    Route::get('/detail-image/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
+    // Route::get('/product-image', [App\Http\Controllers\Admin\ProductController::class, 'productImage'])->name('admin.productImage.list'); //Sửa
+    // Route::get('/get-product-image', [App\Http\Controllers\Admin\ProductController::class, 'getProductImage'])->name('admin.product.getProductImage'); //trả dữ liệu ra form list
+    
+    //Thêm Ảnh
+    Route::get('/add-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'addProductImage'])->name('admin.productImage.AddProductImage'); //Sửa
+    Route::post('/product-image/save', [App\Http\Controllers\Admin\ProductController::class, 'saveProductImage'])->name('admin.productImage.saveProductImage'); //Sửa
+    //Thêm Ảnh
+
+    // Route::get('/detail-image/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
     Route::get('/detail-image/{id}/get-image', [App\Http\Controllers\Admin\ProductController::class, 'getDetailProductImage'])->name('admin.productImage.getDetailProductImage'); //Sửa
 
     Route::get('/description', [App\Http\Controllers\Admin\DescriptionController::class, 'index'])->name('admin.description.list'); //gọi form list
