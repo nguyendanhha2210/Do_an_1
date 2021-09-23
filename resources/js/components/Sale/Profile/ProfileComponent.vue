@@ -23,7 +23,7 @@
                     <td>
                       <img
                         style="width: 50px; height: 50px"
-                        :src="baseUrl + '/uploads/' + user.images"
+                        :src="baseUrl + '/uploads/users/' + user.images"
                         alt=""
                       />
                     </td>

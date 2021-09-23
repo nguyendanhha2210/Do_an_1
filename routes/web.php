@@ -80,6 +80,9 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     
     //Thêm Ảnh
     Route::get('/add-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'addProductImage'])->name('admin.productImage.AddProductImage'); //Sửa
+    Route::get('/detail-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
+
+   
     Route::post('/product-image/save', [App\Http\Controllers\Admin\ProductController::class, 'saveProductImage'])->name('admin.productImage.saveProductImage'); //Sửa
     //Thêm Ảnh
 

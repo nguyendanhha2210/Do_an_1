@@ -100,7 +100,7 @@ class ProductController extends Controller
             $file = $request->images;
             if ($file != null) {
                 $fileName = $file->getClientOriginalName();
-                $file->move('uploads', $fileName);
+                $file->move('uploads/products', $fileName);
                 $product->images = $fileName;
             }
 
@@ -162,7 +162,7 @@ class ProductController extends Controller
                     $insertDataImages = [];
                     foreach ($request->images as $key => $file) {
                         $fileName = $file->getClientOriginalName();
-                        $file->move('uploads', $fileName);
+                        $file->move('uploads/products', $fileName);
 
                         $insertDataImages[] = [
                             'product_id' => $request->productId,
@@ -191,6 +191,21 @@ class ProductController extends Controller
             return view('admin.products.imageadd', ['breadcrumbs' => $breadcrumbs, 'productId' => $id]);
         }
     }
+
+    public function detailProductImage($id)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        } else {
+            $breadcrumbs = ['Detail Product Image'];
+            $goBack = '/admin/product';
+            $productImages = ProductImage::where('product_id', $id)->get();
+            if ($productImages) {
+                return view('admin.products.imagedetail', ['breadcrumbs' => $breadcrumbs, 'data' => $productImages, 'goBack' => $goBack]);
+            }
+        }
+    }
+
 
     public function getDetailProductImage(Request $request, $id)
     {

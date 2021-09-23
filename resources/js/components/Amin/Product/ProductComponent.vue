@@ -416,7 +416,7 @@
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/' + product.images"
+                  :src="baseUrl + '/uploads/products/' + product.images"
                   width="50px"
                   height="50px"
                   alt=""
@@ -431,7 +431,7 @@
                   ></i
                 ></a>
 
-                <a 
+                <a :href="`detail-image/${product.id}`"
                   ><i
                     style="font-size: 21px; transform: translate(29%, 3%)"
                     class="fa fa-pencil-square-o text-success text-active"

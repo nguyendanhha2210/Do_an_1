@@ -73,7 +73,7 @@
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
                     style="height: 268px; transform: translate(0%, -6%)"
-                    :src="baseUrl + '/uploads/' + decrip[0].images"
+                    :src="baseUrl + '/uploads/products/' + decrip[0].images"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@
                       <div class="d-flex flex-row user-info">
                         <img
                           class="rounded-circle"
-                          :src="baseUrl + '/uploads/' + evaluate.user.images"
+                          :src="baseUrl + '/uploads/users/' + evaluate.user.images"
                           width="40px"
                           height="40px"
                           alt=""
@@ -249,28 +249,28 @@
                       <div class="mt-2 ml-5">
                         <img
                           v-if="evaluate.image_1 != ''"
-                          :src="baseUrl + '/uploads/' + evaluate.image_1"
+                          :src="baseUrl + '/uploads/comments/' + evaluate.image_1"
                           width="85px"
                           height="80px"
                           alt=""
                         />
                         <img
                           v-if="evaluate.image_2 != ''"
-                          :src="baseUrl + '/uploads/' + evaluate.image_2"
+                          :src="baseUrl + '/uploads/comments/' + evaluate.image_2"
                           width="85px"
                           height="80px"
                           alt=""
                         />
                         <img
                           v-if="evaluate.image_3 != ''"
-                          :src="baseUrl + '/uploads/' + evaluate.image_3"
+                          :src="baseUrl + '/uploads/comments/' + evaluate.image_3"
                           width="85px"
                           height="80px"
                           alt=""
                         />
                         <img
                           v-if="evaluate.image_4 != ''"
-                          :src="baseUrl + '/uploads/' + evaluate.image_4"
+                          :src="baseUrl + '/uploads/comments/' + evaluate.image_4"
                           width="85px"
                           height="80px"
                           alt=""

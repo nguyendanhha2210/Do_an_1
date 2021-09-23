@@ -47,7 +47,7 @@
                       <a :href="`blog/${post.id}/detail`"
                         ><img
                           style="height: 70px"
-                          :src="baseUrl + '/uploads/' + post.images"
+                          :src="baseUrl + '/uploads/posts/' + post.images"
                           alt=""
                       /></a>
                     </div>
@@ -88,7 +88,7 @@
                   <div class="bi-pic" style="margin-top: 14px">
                     <img
                       style="height: 300px"
-                      :src="baseUrl + '/uploads/' + post.images"
+                      :src="baseUrl + '/uploads/posts/' + post.images"
                       alt=""
                     />
                   </div>

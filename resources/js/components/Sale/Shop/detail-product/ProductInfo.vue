@@ -7,7 +7,7 @@
             class="product-big-img"
             style="height: 400px"
             ref="image"
-            :src="baseUrl + '/uploads/' + info[0].images"
+            :src="baseUrl + '/uploads/products/' + info[0].images"
             alt=""
           />
           <div class="zoom-icon">
@@ -22,7 +22,7 @@
                   class="product-big-img"
                   :ref="`images${data.id}`"
                   height="150px"
-                  :src="baseUrl + '/uploads/' + data.url"
+                  :src="baseUrl + '/uploads/products/' + data.url"
                   alt=""
                   @click="changeImage(data.id)"
                 />

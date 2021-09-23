@@ -103,19 +103,19 @@
                                 <input type="hidden" value="1" class="cart_product_qty_{{ $key->id }}">
 
                                 {{-- Lấy cho sp yêu thích --}}
-                                <input type="hidden" id="wishlist_productname{{ $key->id }}"
+                                {{-- <input type="hidden" id="wishlist_productname{{ $key->id }}"
                                     value="{{ $key->name }}">
                                 <input type="hidden" id="wishlist_productprice{{ $key->id }}"
                                     value="{{ number_format($key->price) . ' đ' }}">
                                 <input type="hidden" id="wishlist_productimage{{ $key->id }}"
-                                    src="{{ URL::to('uploads/' . $key->images) }}" value="{{ $key->images }}">
+                                    src="{{ URL::to('uploads/products/' . $key->images) }}" value="{{ $key->images }}">
                                 <a type="hidden" id="wishlist_producturl{{ $key->id }}"
-                                    href="{{ URL::to('/product-detail/' . $key->id) }}"></a>
+                                    href="{{ URL::to('/product-detail/' . $key->id) }}"></a> --}}
                                 {{-- Lấy cho sp yêu thích --}}
 
                                 <div class="product-item" style="background-color:white">
                                     <div class="pi-pic">
-                                        <img height="320px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
+                                        <img height="320px" src="{{ URL::to('uploads/products/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
                                         <div class="icon">
                                             <a class="btn btn-default" id="{{ $key->id }}"
@@ -231,7 +231,7 @@
 
                                 <div class="product-item" style="background-color:white">
                                     <div class="pi-pic">
-                                        <img height="320px;" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
+                                        <img height="320px;" src="{{ URL::to('uploads/products/' . $key->images) }}" alt="">
                                         <div class="sale">Sale</div>
                                         <div class="icon">
                                             <a class="btn btn-default add-to-favorite"
@@ -347,7 +347,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="single-latest-blog" style="background-color: white;margin-top: 27px;">
                             <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
-                                <img style="height: 260px" src="{{ URL::to('uploads/' . $key->images) }}" alt="">
+                                <img style="height: 260px" src="{{ URL::to('uploads/posts/' . $key->images) }}" alt="">
                             </a>
 
                             <div class="latest-text" style="padding-left: 16px;

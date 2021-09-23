@@ -66,7 +66,7 @@
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/' + warehouse.images"
+                  :src="baseUrl + '/uploads/products/' + warehouse.images"
                   width="50px"
                   height="50px"
                   alt=""

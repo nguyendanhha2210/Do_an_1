@@ -19,7 +19,7 @@
               <div class="blog-large-pic">
                 <img
                   style="height: 550px"
-                  :src="baseUrl + '/uploads/' + post.images"
+                  :src="baseUrl + '/uploads/posts/' + post.images"
                   alt=""
                 />
               </div>

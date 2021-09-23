@@ -9,6 +9,12 @@
     </div>
     <div class="nav notify-row" id="top_menu">
         <ul class="nav top-menu">
+            @if (isset($goBack))
+            <a class="d-flex align-items-center  btn btn-link pl-0" href="{{ $goBack }}">
+                <img src="/backend/icon/Back.svg" alt="">
+            </a>
+        @endif
+
             @if (isset($breadcrumbs))
                 @foreach ($breadcrumbs as $key => $breadcrumb)
                     @if ($key != count($breadcrumbs) - 1)

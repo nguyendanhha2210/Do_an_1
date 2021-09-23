@@ -80,7 +80,7 @@ class PostController extends Controller
 
             $file = $request->images;
             $fileName = $file->getClientOriginalName();
-            $file->move('uploads', $fileName);
+            $file->move('uploads/posts', $fileName);
             $product->images = $fileName;
 
             $product->id_category_post = $request->id_category_post;
@@ -104,7 +104,7 @@ class PostController extends Controller
             $file = $request->images;
             if ($file != null) {
                 $fileName = $file->getClientOriginalName();
-                $file->move('uploads', $fileName);
+                $file->move('uploads/posts', $fileName);
                 $product->images = $fileName;
             }
 

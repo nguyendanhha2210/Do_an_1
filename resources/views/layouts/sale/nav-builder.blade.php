@@ -62,7 +62,7 @@
                     <tr class="overflow">
                         <td class="si-pic">
                             <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}"><img style="width: 90px;max-width:100%;
-                      height: 74px;padding-right:10px;" src="{{ URL::to('uploads/' . $data->images) }}" alt=""></a>
+                      height: 74px;padding-right:10px;" src="{{ URL::to('uploads/posts/' . $data->images) }}" alt=""></a>
 
                         <td class="si-text">
                             <div class="product-selected">

@@ -131,7 +131,7 @@
                         <div class="d-flex flex-row user-info">
                           <img
                             class="rounded-circle"
-                            :src="baseUrl + '/uploads/' + comment.images"
+                            :src="baseUrl + '/uploads/users/' + comment.images"
                             width="40px"
                             height="40px"
                             alt=""
@@ -223,7 +223,9 @@
                           <div class="d-flex flex-row align-items-start">
                             <img
                               class="rounded-circle"
-                              :src="baseUrl + '/uploads/' + comment.images"
+                              :src="
+                                baseUrl + '/uploads/users/' + comment.images
+                              "
                               width="40px"
                               height="40px"
                               alt=""
@@ -293,7 +295,9 @@
                           <img
                             class="rounded-circle"
                             :src="
-                              baseUrl + '/uploads/' + exchangeReviewReply.images
+                              baseUrl +
+                              '/uploads/users/' +
+                              exchangeReviewReply.images
                             "
                             width="40px"
                             height="40px"
@@ -390,7 +394,9 @@
                             <img
                               class="rounded-circle"
                               :src="
-                                baseUrl + '/uploads/' + exchangeReviews.images
+                                baseUrl +
+                                '/uploads/users/' +
+                                exchangeReviews.images
                               "
                               width="40px"
                               height="40px"
@@ -478,7 +484,7 @@
                           <img
                             v-if="this.showImage"
                             class="rounded-circle"
-                            :src="baseUrl + '/uploads/' + this.showImage"
+                            :src="baseUrl + '/uploads/users/' + this.showImage"
                             width="40px"
                             height="40px"
                             alt=""
@@ -486,7 +492,7 @@
                           <img
                             v-else
                             class="rounded-circle"
-                            src="/uploads/avata-3.jpg"
+                            src="/uploads/users/avata-3.jpg"
                             width="40"
                             height="40px"
                           />

@@ -65,7 +65,7 @@ class WareHouseController extends Controller
             $warehouse->name = $request->name;
             $file = $request->images;
             $fileName = $file->getClientOriginalName();
-            $file->move('uploads', $fileName);
+            $file->move('uploads/products', $fileName);
             $warehouse->images = $fileName;
             $warehouse->import_price = $request->import_price;
             $warehouse->import_quantity = $request->import_quantity;
