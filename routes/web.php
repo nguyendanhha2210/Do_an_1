@@ -81,6 +81,8 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     //Thêm Ảnh
     Route::get('/add-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'addProductImage'])->name('admin.productImage.AddProductImage'); //Sửa
     Route::get('/detail-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
+    Route::get('/edit-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'editProductImage'])->name('admin.productImage.editProductImage'); //Sửa
+    Route::post('/update-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'updateProductImage'])->name('admin.productImage.updateProductImage'); //Sửa
 
    
     Route::post('/product-image/save', [App\Http\Controllers\Admin\ProductController::class, 'saveProductImage'])->name('admin.productImage.saveProductImage'); //Sửa
@@ -129,6 +131,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     //User
     Route::get('/user', [App\Http\Controllers\Admin\User\AccountController::class, 'index'])->name('admin.user.list'); //gọi form list
     Route::get('/get-user', [App\Http\Controllers\Admin\User\AccountController::class, 'getUser'])->name('admin.user.getUser'); //trả dữ liệu ra form list
+    Route::get('/user/{id}/delete', [App\Http\Controllers\Admin\User\AccountController::class, 'deleteUser'])->name('admin.user.deleteUser'); //trả dữ liệu ra form list
     Route::get('/account/{id}/detail', [App\Http\Controllers\Admin\User\AccountController::class, 'showViewUser'])->name('admin.user.showViewUser'); //gọi trang edit
     Route::get('/account/{id}/get-user-detail', [App\Http\Controllers\Admin\User\AccountController::class, 'getUserDetail'])->name('admin.user.getUserDetail'); //trả dữ liệu ra form list
 

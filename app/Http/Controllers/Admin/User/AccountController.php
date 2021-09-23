@@ -104,7 +104,8 @@ class AccountController extends Controller
     public function showViewUser($id)
     {
         $breadcrumbs = ['User Detail'];
-        return view('admin.users.detailuser', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/user';
+        return view('admin.users.detailuser', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function getUserDetail(Request $request, $id)
@@ -126,5 +127,11 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
     }
 }

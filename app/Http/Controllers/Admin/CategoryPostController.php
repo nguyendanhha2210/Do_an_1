@@ -44,7 +44,8 @@ class CategoryPostController extends Controller
     public function create()
     {
         $breadcrumbs = ['Add New Type'];
-        return view('admin.categoryposts.add', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/category-post';
+        return view('admin.categoryposts.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function store(CategoryPostRequest $request)
@@ -66,7 +67,8 @@ class CategoryPostController extends Controller
     {
         $category = CategoryPost::find($id);
         $breadcrumbs = ['Edit Type'];
-        return view('admin.categoryposts.edit', compact('category'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/category-post';
+        return view('admin.categoryposts.edit', compact('category'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(CategoryPostRequest $request, $id)

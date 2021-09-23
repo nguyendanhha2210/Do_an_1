@@ -15,8 +15,11 @@ use App\Models\WareHouse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 Barryvdh\DomPDF\ServiceProvider::class;
+
 use PDF;
+
 class OrderController extends Controller
 {
     public function index()
@@ -60,6 +63,8 @@ class OrderController extends Controller
             return view('admin.users.login');
         }
         $breadcrumbs = ['Order Detail'];
+        $goBack = '/admin/order';
+
         $order_details = OrderDetail::with('product')->where('order_code', $order_code)->get();
 
         $order = Order::where('order_code', $order_code)->get();
@@ -89,7 +94,7 @@ class OrderController extends Controller
             $coupon_number = 0;
         }
 
-        return view('admin.orders.detailorder')->with(compact('order_id', 'order_details', 'customer', 'shipping', 'Order_detail_product', 'coupon_condition', 'coupon_number', 'order', 'order_status', 'breadcrumbs'));
+        return view('admin.orders.detailorder')->with(compact('order_id', 'order_details', 'customer', 'shipping', 'Order_detail_product', 'coupon_condition', 'coupon_number', 'order', 'order_status', 'breadcrumbs', 'goBack'));
     }
 
     public function printOrder($checkout_code)

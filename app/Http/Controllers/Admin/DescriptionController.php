@@ -45,7 +45,8 @@ class DescriptionController extends Controller
     public function create()
     {
         $breadcrumbs = ['Add Description'];
-        return view('admin.descriptions.add', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/description';
+        return view('admin.descriptions.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function store(DescriptionRequest $request)
@@ -66,7 +67,8 @@ class DescriptionController extends Controller
     {
         $description = Description::find($id);
         $breadcrumbs = ['Edit Description'];
-        return view('admin.descriptions.edit', compact('description'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/description';
+        return view('admin.descriptions.edit', compact('description'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(DescriptionRequest $request, $id)

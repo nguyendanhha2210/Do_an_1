@@ -83,11 +83,10 @@
             </a>
           </div>
         </div>
-
-        <div class="row" style="margin-right: 3px">
-          <div class="col-md-12">
-            <button class="btn btn-success" type="submit">Save</button>
-          </div>
+        <div class="text-right mb-2">
+          <button class="btn btn-success" type="submit">
+            <i style="font-size: 21px" class="fa fa-plus"> Add</i>
+          </button>
         </div>
       </form>
 
@@ -178,7 +177,6 @@ export default {
     AddProductImage() {
       let that = this;
       this.$validator.validateAll().then((valid) => {
-        // console.log("id", that.productImage.image_1);
         let formData = new FormData();
         formData.append("productId", this.productIdP);
         this.listImages.forEach((item) => {

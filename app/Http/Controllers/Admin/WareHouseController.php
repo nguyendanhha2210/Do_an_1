@@ -15,6 +15,7 @@ use App\Models\Type;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class WareHouseController extends Controller
 {
     public function index(Request $request)
@@ -55,7 +56,8 @@ class WareHouseController extends Controller
     public function create()
     {
         $breadcrumbs = ['Import Goods'];
-        return view('admin.warehouses.add', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/warehouse';
+        return view('admin.warehouses.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function store(Request $request)
@@ -108,7 +110,8 @@ class WareHouseController extends Controller
     {
         $warehouse = WareHouse::find($id);
         $breadcrumbs = ['Import Add'];
-        return view('admin.warehouses.edit', compact('warehouse'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/warehouse';
+        return view('admin.warehouses.edit', compact('warehouse'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(Request $request, $id)

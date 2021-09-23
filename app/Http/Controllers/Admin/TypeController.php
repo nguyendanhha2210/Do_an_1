@@ -47,7 +47,8 @@ class TypeController extends Controller
     public function create()
     {
         $breadcrumbs = ['Add New Type'];
-        return view('admin.types.add', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/type';
+        return view('admin.types.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function store(TypeRequest $request)
@@ -68,7 +69,8 @@ class TypeController extends Controller
     {
         $type = Type::find($id);
         $breadcrumbs = ['Edit Type'];
-        return view('admin.types.edit', compact('type'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/type';
+        return view('admin.types.edit', compact('type'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(TypeRequest $request, $id)

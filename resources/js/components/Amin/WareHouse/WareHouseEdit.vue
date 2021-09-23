@@ -24,7 +24,7 @@
                 <label for="exampleInputEmail1">Images</label>
                 <div>
                   <img
-                    :src="baseUrl + '/uploads/' + fileImageDispaly"
+                    :src="baseUrl + '/uploads/products/' + fileImageDispaly"
                     width="100px"
                     height="100px"
                     alt=""

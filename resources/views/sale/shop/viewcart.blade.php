@@ -44,7 +44,7 @@
                                             <tr>
                                                 <td style="text-align: center" class="cart-pic first-row"><img width="70px"
                                                         height="80px"
-                                                        src="{{ URL::to('uploads/' . $cart['product_image']) }}" alt="">
+                                                        src="{{ URL::to('uploads/products/' . $cart['product_image']) }}" alt="">
                                                 </td>
                                                 <td style="text-align: center" class="cart-title first-row">
                                                     <h5>{{ $cart['product_name'] }}</h5>

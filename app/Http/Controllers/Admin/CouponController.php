@@ -72,7 +72,8 @@ class CouponController extends Controller
     public function create()
     {
         $breadcrumbs = ['Add New Coupon'];
-        return view('admin.coupons.add', ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/coupon';
+        return view('admin.coupons.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function store(CouponRequest $request)
@@ -100,7 +101,8 @@ class CouponController extends Controller
     {
         $coupon = Coupon::find($id);
         $breadcrumbs = ['Edit coupon'];
-        return view('admin.coupons.edit', compact('coupon'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/coupon';
+        return view('admin.coupons.edit', compact('coupon'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(CouponRequest $request, $id)

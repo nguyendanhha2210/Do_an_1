@@ -156,7 +156,11 @@
                   <td>
                     <img
                       style="height: 50px; width: 50px"
-                      :src="baseUrl + '/uploads/' + voteDetail.product.images"
+                      :src="
+                        baseUrl +
+                        '/uploads/comments/' +
+                        voteDetail.product.images
+                      "
                       alt=""
                     />
                   </td>
@@ -181,6 +185,68 @@
       </div>
 
       <br /><br />
+
+      <!-- Show màn hình từng sp đã được vote -->
+      <div
+        v-if="
+          this.detail_voted &&
+          this.show_evaluat &&
+          this.votedProductDetail != ''
+        "
+        class="row mt-1 pt-1 pb-1"
+        style="background-color: white"
+      >
+        <div class="col-lg-12">
+          <div class="cart-table text-center">
+            <b style="color: green; font-size: 26px">Your Review !</b>
+            <table class="table table-condensed">
+              <thead>
+                <tr class="cart_menu">
+                  <td><b>STT</b></td>
+                  <td><b>Sản Phẩm</b></td>
+                  <td><b>Ảnh</b></td>
+                  <td><b>Đơn Giá</b></td>
+                  <td><b>Số lượng</b></td>
+                  <td><b>Status</b></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(votedProductDetail, index) in votedProductDetails"
+                  :key="votedProductDetail.id"
+                >
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ votedProductDetail.product_name }}</td>
+                  <td>
+                    <img
+                      style="height: 50px; width: 50px"
+                      :src="
+                        baseUrl +
+                        '/uploads/comments/' +
+                        votedProductDetail.product.images
+                      "
+                      alt=""
+                    />
+                  </td>
+                  <td>{{ formatPrice(votedProductDetail.product_price) }} đ</td>
+                  <td>{{ votedProductDetail.product_sales_quantity }}</td>
+                  <td>
+                    <a
+                      data-toggle="modal"
+                      data-target="#myModalViewVote"
+                      @click="yourReview(votedProductDetail)"
+                      ><button class="btn btn-warning">Your review !</button></a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
 
       <div
         v-if="
@@ -309,69 +375,6 @@
         </div>
         <div v-else class="text-center" style="color: red">
           There is no data !
-        </div>
-
-        <!-- Show màn hình từng sp đã được vote -->
-        <div
-          v-if="
-            this.detail_voted &&
-            this.show_evaluat &&
-            this.votedProductDetail != ''
-          "
-          class="row mt-3 pt-5 pb-1"
-          style="background-color: white"
-        >
-          <div class="col-lg-12">
-            <div class="cart-table">
-              <table class="table table-condensed">
-                <thead>
-                  <tr class="cart_menu">
-                    <td><b>STT</b></td>
-                    <td><b>Sản Phẩm</b></td>
-                    <td><b>Ảnh</b></td>
-                    <td><b>Đơn Giá</b></td>
-                    <td><b>Số lượng</b></td>
-                    <td><b>Status</b></td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(votedProductDetail, index) in votedProductDetails"
-                    :key="votedProductDetail.id"
-                  >
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ votedProductDetail.product_name }}</td>
-                    <td>
-                      <img
-                        style="height: 50px; width: 50px"
-                        :src="
-                          baseUrl +
-                          '/uploads/' +
-                          votedProductDetail.product.images
-                        "
-                        alt=""
-                      />
-                    </td>
-                    <td>
-                      {{ formatPrice(votedProductDetail.product_price) }} đ
-                    </td>
-                    <td>{{ votedProductDetail.product_sales_quantity }}</td>
-                    <td>
-                      <a
-                        data-toggle="modal"
-                        data-target="#myModalViewVote"
-                        @click="yourReview(votedProductDetail)"
-                        ><button class="btn btn-warning">
-                          Your review !
-                        </button></a
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -817,7 +820,9 @@
                       >
                         <img
                           class="img-thumbnail profile-image"
-                          :src="baseUrl + '/uploads/' + viewVote.image_1"
+                          :src="
+                            baseUrl + '/uploads/comments/' + viewVote.image_1
+                          "
                           style="width: 242px; height: 202px"
                         />
                       </div>
@@ -838,7 +843,9 @@
                       >
                         <img
                           class="img-thumbnail profile-image"
-                          :src="baseUrl + '/uploads/' + viewVote.image_2"
+                          :src="
+                            baseUrl + '/uploads/comments/' + viewVote.image_2
+                          "
                           style="width: 242px; height: 202px"
                         />
                       </div>
@@ -861,7 +868,9 @@
                       >
                         <img
                           class="img-thumbnail profile-image"
-                          :src="baseUrl + '/uploads/' + viewVote.image_3"
+                          :src="
+                            baseUrl + '/uploads/comments/' + viewVote.image_3
+                          "
                           style="width: 242px; height: 202px"
                         />
                       </div>
@@ -882,7 +891,9 @@
                       >
                         <img
                           class="img-thumbnail profile-image"
-                          :src="baseUrl + '/uploads/' + viewVote.image_4"
+                          :src="
+                            baseUrl + '/uploads/comments/' + viewVote.image_4
+                          "
                           style="width: 242px; height: 202px"
                         />
                       </div>

@@ -46,7 +46,8 @@ class WeightController extends Controller
     {
         if ($request->isMethod('get')) {
             $breadcrumbs = ['Add Weight'];
-            return view('admin.weights.add', ['breadcrumbs' => $breadcrumbs]);
+            $goBack = '/admin/description';
+            return view('admin.weights.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
         }
 
         if ($request->isMethod('post')) {
@@ -61,7 +62,8 @@ class WeightController extends Controller
     {
         $data = Weight::find($id);
         $breadcrumbs = ['Edit Weight'];
-        return view('admin.weights.edit', compact('data'), ['breadcrumbs' => $breadcrumbs]);
+        $goBack = '/admin/description';
+        return view('admin.weights.edit', compact('data'), ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
     public function update(Request $request, $id)

@@ -45,6 +45,7 @@ import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
 import AdminComponent from './components/Amin/User/AdminComponent.vue'
 import ImageAdd from './components/Amin/Product/ImageAdd.vue'
 import ImageDetail from './components/Amin/Product/ImageDetail.vue'
+import ImageEdit from './components/Amin/Product/ImagesEdit.vue'
 
 
 
@@ -101,6 +102,7 @@ new Vue({
         AdminComponent,
         ImageAdd,
         ImageDetail,
+        ImageEdit,
     },
     created() {
         this.$validator.extend("number_phone", {
