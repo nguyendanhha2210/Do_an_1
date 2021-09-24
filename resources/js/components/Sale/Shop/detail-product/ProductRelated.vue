@@ -8,14 +8,14 @@
           </div>
         </div>
       </div>
-      <div class="row" style="background-color:#e9edf0;margin-bottom:15px">
+      <div class="row" style="background-color: #e9edf0; margin-bottom: 15px">
         <div
-        style="padding-top:29px;"
+          style="padding-top: 29px"
           class="col-lg-4 col-sm-6"
           v-for="product in products"
           :key="product.id"
         >
-          <div class="product-item" style="background-color: white;">
+          <div class="product-item" style="background-color: white">
             <div class="pi-pic">
               <img
                 style="height: 250px"
@@ -261,7 +261,7 @@ export default {
       this.product.name = product.name;
       if (product.images != "") {
         this.$refs.fileImageDispaly.src =
-          this.baseUrl + "/uploads/" + product.images;
+          this.baseUrl + "/uploads/products/" + product.images;
       }
 
       this.product.price = product.price;

@@ -14,6 +14,7 @@ use App\Models\Weight;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Descriptor\Descriptor;
 use Illuminate\Support\Facades\Session;
+use App\Models\Evaluate;
 
 
 class ShopController extends Controller
@@ -220,6 +221,12 @@ class ShopController extends Controller
 
 
         return view('sale.shop.detailproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'product', 'post'));
+    }
+
+    public function fillEvaluated(Request $request, $id)
+    {
+        $countEvaluate = Evaluate::where('product_id', $id)->get()->count();
+        return response()->json($countEvaluate, StatusCode::OK);
     }
 
     public function delViewedProduct($session_id)

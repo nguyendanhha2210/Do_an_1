@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7">
-                       <product-search></product-search>
+                        <product-search></product-search>
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">
@@ -91,7 +91,7 @@
                                                         <tr class="overflow"
                                                             style="background-color: white;border: 1px solid #e9edf0;">
                                                             <td class="si-pic pt-4"><img width="80px;" height="80px;"
-                                                                    src="{{ URL::to('uploads/' . $viewed['product_image']) }}"
+                                                                    src="{{ URL::to('uploads/products/' . $viewed['product_image']) }}"
                                                                     alt=""></td>
                                                             <td class="si-text">
                                                                 <div class="product-selected">
@@ -135,7 +135,7 @@
                                                         <tr class="overflow"
                                                             style="background-color: white;border: 1px solid #e9edf0;">
                                                             <td class="si-pic"><img width="80px;" height="80px;"
-                                                                    src="{{ URL::to('uploads/' . $favorite['product_image']) }}"
+                                                                    src="{{ URL::to('uploads/products/' . $favorite['product_image']) }}"
                                                                     alt=""></td>
                                                             <td class="si-text">
                                                                 <div class="product-selected">
@@ -186,7 +186,7 @@
                                                             <tr>
                                                                 <td class="si-pic"><img width="40px;"
                                                                         height="50px;"
-                                                                        src="{{ URL::to('uploads/' . $cart['product_image']) }}"
+                                                                        src="{{ URL::to('uploads/products/' . $cart['product_image']) }}"
                                                                         alt=""></td>
                                                                 <td class="si-text">
                                                                     <div class="product-selected">

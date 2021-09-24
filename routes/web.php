@@ -170,6 +170,7 @@ Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'ind
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
+Route::post('/fill-evaluated/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillEvaluated'])->name('admin.shop.fillEvaluated');
 
 //show đánh giá ra chi tiết sp
  Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
@@ -187,7 +188,6 @@ Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopControlle
 
 
 
- 
  
 
 Route::post('/contact/add-exchange-review',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'store'])->name('admin.comment.store'); //thêm comment

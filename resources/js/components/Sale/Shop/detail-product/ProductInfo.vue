@@ -28,58 +28,6 @@
                 />
               </div>
             </div>
-            <!-- <div
-              class="pt active"
-              :src="baseUrl + '/uploads/' + info[0].product_images[0].image_1"
-            >
-              <img
-                class="product-big-img"
-                ref="images1"
-                height="150px"
-                :src="baseUrl + '/uploads/' + info[0].product_images[0].image_1"
-                alt=""
-                @click="changeImage(1)"
-              />
-            </div> -->
-            <!-- <div
-              class="pt"
-              :src="baseUrl + '/uploads/' + info[0].product_images[0].image_2"
-            >
-              <img
-                class="product-big-img"
-                height="150px"
-                ref="images2"
-                :src="baseUrl + '/uploads/' + info[0].product_images[0].image_2"
-                alt=""
-                @click="changeImage(2)"
-              />
-            </div>
-            <div
-              class="pt"
-              :src="baseUrl + '/uploads/' + info[0].product_images[0].image_3"
-            >
-              <img
-                class="product-big-img"
-                height="150px"
-                ref="images3"
-                :src="baseUrl + '/uploads/' + info[0].product_images[0].image_3"
-                alt=""
-                @click="changeImage(3)"
-              />
-            </div>
-            <div
-              class="pt"
-              :src="baseUrl + '/uploads/' + info[0].product_images[0].image_4"
-            >
-              <img
-                class="product-big-img"
-                height="150px"
-                ref="images4"
-                :src="baseUrl + '/uploads/' + info[0].product_images[0].image_4"
-                alt=""
-                @click="changeImage(4)"
-              />
-            </div> -->
           </div>
         </div>
       </div>
@@ -87,7 +35,23 @@
         <div class="product-details">
           <div class="pd-title">
             <span>Genuine</span>
-            <h3>{{ info[0].name }}</h3>
+            <button
+              class="btb btn-danger"
+              disabled
+              style="
+                float: left;
+                width: 81px;
+                height: 28px;
+                border: 1px solid red;
+                border-radius: 25px;
+                transform: translate(-3%, 24%);
+              "
+            >
+              yêu thích
+            </button>
+            <h3>
+              {{ info[0].name }}
+            </h3>
             <a class="heart-icon" @click="addFavorite(info[0])"
               ><i class="icon_heart_alt" style="color: red; font-size: 22px"></i
             ></a>
@@ -100,12 +64,16 @@
               v-model="info[0].star_vote"
             ></star-rating>
           </div>
-          <div class="pd-desc">
-            <p style="color: #aaaaaa">
-              Đã bán :
-              {{ info[0].product_sold }}
+          <div class="pd-desc" style="margin-bottom: 7px">
+            <p style="transform: translate(23%, -115%)">
+              <b style="padding-left: 2%">|</b>
+              <u style="padding-left: 2%">{{ info[0].product_sold }}</u> Đã bán
+              <b style="padding-left: 2%">|</b>
+              <u style="padding-left: 2%">{{ this.countEvaluated }}</u> Đánh giá
             </p>
-            <h4>{{ formatPrice(info[0].price) }} đ</h4>
+            <h4 style="transform: translate(0%, -62%)">
+              {{ formatPrice(info[0].price) }} đ
+            </h4>
           </div>
           <div class="pd-size-choose">
             <div class="sc-item">
@@ -135,7 +103,7 @@
             </li>
           </ul>
           <div class="pd-share" style="transform: translate(0%, -81%)">
-            <div class="p-code"><b>Id</b>: 000{{ info[0].id }}</div>
+            <div class="p-code"><b>ID</b>: 000{{ info[0].id }}</div>
             <div class="pd-social">
               <a href="https://www.facebook.com/Mekhoebexinh02"
                 ><img
@@ -194,6 +162,7 @@ export default {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       info: this.infoProduct,
 
+      countEvaluated: 0,
       qualityOrder: 1,
       message: "",
       //Modal
@@ -208,25 +177,22 @@ export default {
       //Modal
     };
   },
-  created() {},
+  created() {
+    this.fillEvaluated();
+  },
   components: {
     Modal,
     StarRating,
   },
   props: ["infoProduct"],
-  mounted() {
-    console.log(this.infoProduct);
-  },
+  mounted() {},
   methods: {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     changeImage(value) {
-      // console.log(this.$refs["images" + value]);
       this.$refs.image.src = this.$refs["images" + value][0].src;
-      // console.log(this.$refs.image.src);
-      
     },
     addCartProduct() {
       if (this.info[0].quantity < this.qualityOrder) {
@@ -291,7 +257,9 @@ export default {
       }
     },
     increase() {
-      this.qualityOrder += 1;
+      if (this.qualityOrder < this.info[0].quantity) {
+        this.qualityOrder += 1;
+      }
     },
     decrease() {
       if (this.qualityOrder != 1) {
@@ -340,6 +308,42 @@ export default {
             });
         }
       });
+    },
+
+    fillEvaluated() {
+      let that = this;
+      axios
+        .post(`/fill-evaluated/${this.info[0].id}`)
+        .then((response) => {
+          that.countEvaluated = response.data;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              that.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
     },
   },
 };

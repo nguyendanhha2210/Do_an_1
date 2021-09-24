@@ -18,7 +18,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
     </script>
 
-    <link rel="icon" href="uploads/title_web.ico">   {{-- logo tap web --}}
+    <link rel="icon" href="uploads/title_web.ico"> {{-- logo tap web --}}
 
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
@@ -63,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script>
         window.Laravel = {
             csrfToken: '{{ csrf_token() }}',
-            baseUrl :"{{ url('/') }}" ,  //Gọi thay cho đg dẫn http://127.0.0.1:8000
+            baseUrl: "{{ url('/') }}", //Gọi thay cho đg dẫn http://127.0.0.1:8000
         }
     </script>
     {{-- Buộc phải thêm khi dùng Vue JS --}}
@@ -89,6 +89,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
+
+    {{-- trình soạn thảo văn bản --}}
+    <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> {{-- Cách 1 : (Sử dụng đường Link) --}}
+    {{-- <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>  Cách 2: (Đao về) --}}
+    <script>
+        CKEDITOR.replace('ckeditor');
+    </script>
+    {{-- trình soạn thảo văn bản --}}
 
     <script type="text/javascript">
         $('.order_status').change(function() {

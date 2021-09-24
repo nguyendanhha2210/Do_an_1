@@ -223,7 +223,18 @@
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
-                  <input
+                  <textarea
+                    style="resize: none"
+                    type="text"
+                    rows="8"
+                    name="content"
+                    id="ckeditor"
+                    class="form-control"
+                    v-validate="'required'"
+                    v-model="product.content"
+                  ></textarea>
+
+                  <!-- <input
                     type="text"
                     class="form-control"
                     id="exampleInputEmail1"
@@ -231,7 +242,7 @@
                     name="content"
                     v-validate="'required'"
                     v-model="product.content"
-                  />
+                  /> -->
                   <!-- validate -->
                   <div style="color: red" role="alert">
                     {{ errors.first("content") }}
@@ -800,6 +811,7 @@ export default {
     },
 
     AddProduct() {
+      // console.log("ANC",this.product.content);
       let that = this;
       if (this.edit == false) {
         let formData = new FormData();
@@ -989,7 +1001,7 @@ export default {
       this.product.name = product.name;
       if (product.images != "") {
         this.$refs.imageDispaly.src =
-          this.baseUrl + "/uploads/" + product.images;
+          this.baseUrl + "/uploads/products/" + product.images;
         this.$refs.imageDispaly.style.display = "block";
         this.$refs.iconClose.style.display = "block";
         this.$refs.iconFile.style.display = "none";
