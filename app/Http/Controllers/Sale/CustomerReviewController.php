@@ -222,7 +222,12 @@ class CustomerReviewController extends Controller
             $count4Stars = Evaluate::where('product_id', $request->product_id)->where('star_vote', StatusStar::FOURSTARS)->count();
             $count5Stars = Evaluate::where('product_id', $request->product_id)->where('star_vote', StatusStar::FIVESTARS)->count();
             $countAll = Evaluate::where('product_id', $request->product_id)->count();
-            $countAllImage = Evaluate::where('product_id', $request->product_id)->where('image_1', '!=', '')->orWhere('image_2', '!=', '')->orWhere('image_3', '!=', '')->orWhere('image_4', '!=', '')->count();
+            $countAllImage = Evaluate::where('product_id', $request->product_id)->where(function ($q) {
+                $q->where('image_1', '!=', '')
+                    ->orWhere('image_2', '!=', '')
+                    ->orWhere('image_3', '!=', '')
+                    ->orWhere('image_4', '!=', '');
+            })->count();
 
             return response()->json(
                 [
