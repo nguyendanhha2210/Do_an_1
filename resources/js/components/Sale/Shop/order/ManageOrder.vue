@@ -158,7 +158,7 @@
                       style="height: 50px; width: 50px"
                       :src="
                         baseUrl +
-                        '/uploads/comments/' +
+                        '/uploads/products/' +
                         voteDetail.product.images
                       "
                       alt=""
@@ -245,7 +245,6 @@
           </div>
         </div>
       </div>
-      <br />
       <br />
 
       <div
