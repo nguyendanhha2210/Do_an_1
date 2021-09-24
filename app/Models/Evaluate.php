@@ -22,4 +22,9 @@ class Evaluate extends Model
     {
         return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
+
+    public function evaluateImages()
+    {
+        return $this->hasMany('App\Models\EvaluateImage', 'evaluate_id', 'id');
+    }
 }

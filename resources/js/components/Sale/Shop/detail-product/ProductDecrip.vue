@@ -220,7 +220,9 @@
                       <div class="d-flex flex-row user-info">
                         <img
                           class="rounded-circle"
-                          :src="baseUrl + '/uploads/users/' + evaluate.user.images"
+                          :src="
+                            baseUrl + '/uploads/users/' + evaluate.user.images
+                          "
                           width="40px"
                           height="40px"
                           alt=""
@@ -246,36 +248,57 @@
                           {{ evaluate.content }}
                         </p>
                       </div>
-                      <div class="mt-2 ml-5">
-                        <img
-                          v-if="evaluate.image_1 != ''"
-                          :src="baseUrl + '/uploads/comments/' + evaluate.image_1"
-                          width="85px"
-                          height="80px"
-                          alt=""
-                        />
-                        <img
-                          v-if="evaluate.image_2 != ''"
-                          :src="baseUrl + '/uploads/comments/' + evaluate.image_2"
-                          width="85px"
-                          height="80px"
-                          alt=""
-                        />
-                        <img
-                          v-if="evaluate.image_3 != ''"
-                          :src="baseUrl + '/uploads/comments/' + evaluate.image_3"
-                          width="85px"
-                          height="80px"
-                          alt=""
-                        />
-                        <img
-                          v-if="evaluate.image_4 != ''"
-                          :src="baseUrl + '/uploads/comments/' + evaluate.image_4"
-                          width="85px"
-                          height="80px"
-                          alt=""
-                        />
-                      </div>
+                      <!-- <div class="mt-2 ml-5"  id="gallery"
+                          data-toggle="modal"
+                          data-target="#exampleModal">
+                          <img
+                            v-if="evaluate.image_1 != ''"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_1
+                            "
+                            width="85px"
+                            height="80px"
+                            alt="First slide"
+                            data-target="#carouselExample"
+                            data-slide-to="0"
+                          />
+
+                          <img
+                            v-if="evaluate.image_2 != ''"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_2
+                            "
+                            width="85px"
+                            height="80px"
+                            alt="First slide"
+                            data-target="#carouselExample"
+                            data-slide-to="1"
+                          />
+
+                          <img
+                            v-if="evaluate.image_3 != ''"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_3
+                            "
+                            width="85px"
+                            height="80px"
+                            alt="First slide"
+                            data-target="#carouselExample"
+                            data-slide-to="2"
+                          />
+
+                          <img
+                            v-if="evaluate.image_4 != ''"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_4
+                            "
+                            width="85px"
+                            height="80px"
+                            alt="First slide"
+                            data-target="#carouselExample"
+                            data-slide-to="3"
+                          />
+                      </div> -->
                       <div class="mt-2 ml-5">
                         <p class="comment-text" style="font-size: 12px">
                           {{ evaluate.created_at | formatDate }}
@@ -296,6 +319,127 @@
                 </div>
               </div>
             </div>
+
+            <!-- <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              role="dialog"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div
+                      id="carouselExample"
+                      class="carousel slide"
+                      data-ride="carousel"
+                    >
+                      <ol class="carousel-indicators">
+                        <li
+                          data-target="#carouselExample"
+                          data-slide-to="0"
+                          class="active"
+                        ></li>
+                        <li
+                          data-target="#carouselExample"
+                          data-slide-to="1"
+                        ></li>
+                        <li
+                          data-target="#carouselExample"
+                          data-slide-to="2"
+                        ></li>
+                        <li
+                          data-target="#carouselExample"
+                          data-slide-to="3"
+                        ></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img
+                            class="d-block w-100"
+                           :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_1
+                            "
+                            alt="First slide"
+                          />
+                        </div>
+                        <div class="carousel-item">
+                          <img
+                            class="d-block w-100"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_2
+                            "
+                            alt="Second slide"
+                          />
+                        </div>
+                        <div class="carousel-item">
+                          <img
+                            class="d-block w-100"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_3
+                            "
+                            alt="Third slide"
+                          />
+                        </div>
+                        <div class="carousel-item">
+                          <img
+                            class="d-block w-100"
+                            :src="
+                              baseUrl + '/uploads/comments/' + evaluate.image_4
+                            "
+                            alt="Fourth slide"
+                          />
+                        </div>
+                      </div>
+                      <a
+                        class="carousel-control-prev"
+                        href="#carouselExample"
+                        role="button"
+                        data-slide="prev"
+                      >
+                        <span
+                          class="carousel-control-prev-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a
+                        class="carousel-control-next"
+                        href="#carouselExample"
+                        role="button"
+                        data-slide="next"
+                      >
+                        <span
+                          class="carousel-control-next-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
 
             <div v-if="evaluates != ''">
               <nav aria-label="Page navigation example">
@@ -415,10 +559,6 @@ export default {
         content: "",
         rank: "",
         reply_comment: "",
-        image_1: "",
-        image_2: "",
-        image_3: "",
-        image_4: "",
       },
 
       idProduct: "",
@@ -539,7 +679,7 @@ export default {
           that.count2Stars = response.data.count2Stars;
           that.count1Stars = response.data.count1Stars;
           that.countAll = response.data.countAll;
-          that.countAllImage = response.data.countAllImage;
+          // that.countAllImage = response.data.countAllImage;
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -756,6 +896,16 @@ export default {
     },
     changeInput() {
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
+
+    switchStyle() {
+      if (document.getElementById("styleSwitch").checked) {
+        document.getElementById("gallery").classList.add("custom");
+        document.getElementById("exampleModal").classList.add("custom");
+      } else {
+        document.getElementById("gallery").classList.remove("custom");
+        document.getElementById("exampleModal").classList.remove("custom");
+      }
     },
   },
 };

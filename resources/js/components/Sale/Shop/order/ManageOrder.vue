@@ -514,7 +514,17 @@
                     {{ errorBackEnd.content[0] }}
                   </div>
                 </div>
-                <div class="form-row">
+                <div></div>
+                <!-- <input type="file" ref="list" class="form-control" name="file[]" accept="image/*" multiple> -->
+
+                <input
+                  type="file"
+                  ref="file"
+                  class="form-control"
+                  accept="image/*"
+                  multiple="multiple"
+                />
+                <!-- <div class="form-row">
                   <div class="form-group col-md-6 text-center">
                     <div class="position-relative d-inline-block">
                       <label for="file_img_banner1">
@@ -757,7 +767,7 @@
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Save</button>
@@ -1472,10 +1482,12 @@ export default {
           formData.append("product_id", this.evaluate.product_id);
           formData.append("star_vote", this.evaluate.star_vote);
           formData.append("content", this.evaluate.content);
-          formData.append("image_1", this.evaluate.image_1);
-          formData.append("image_2", this.evaluate.image_2);
-          formData.append("image_3", this.evaluate.image_3);
-          formData.append("image_4", this.evaluate.image_4);
+          formData.append("productId", this.productIdP);
+
+          for (var i = 0; i < this.$refs.file.files.length; i++) {
+            let file = this.$refs.file.files[i];
+            formData.append("files[" + i + "]", file);
+          }
 
           axios
             .post(`customer-reviews`, formData, {
@@ -1493,10 +1505,6 @@ export default {
                 .then(function (confirm) {
                   that.evaluate.star_vote = 1;
                   that.evaluate.content = "";
-                  that.$refs.imageDispaly_1.src = "";
-                  that.$refs.imageDispaly_2.src = "";
-                  that.$refs.imageDispaly_3.src = "";
-                  that.$refs.imageDispaly_4.src = "";
                 });
               that.viewDetailProduct();
               that.fetchData();

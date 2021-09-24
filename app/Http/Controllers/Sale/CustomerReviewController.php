@@ -13,12 +13,14 @@ use App\Http\Requests\Admin\ProductRequest;
 use App\Http\Requests\Sale\CustmerReviewRequest;
 use App\Models\Description;
 use App\Models\Evaluate;
+use App\Models\EvaluateImage;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
 use App\Models\Weight;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -53,43 +55,24 @@ class CustomerReviewController extends Controller
                 $evaluate->star_vote = $request->star_vote;
                 $evaluate->content = $request->content;
                 $evaluate->rank = CommentRank::FIRSTRANK;
-
-                $file_1 = $request->image_1;
-                if ($file_1 != null) {
-                    $fileName_1 = $file_1->getClientOriginalName();
-                    $file_1->move('uploads/comments', $fileName_1);
-                    $evaluate->image_1 = $fileName_1;
-                } else {
-                    $evaluate->image_1 = '';
-                }
-
-                $file_2 = $request->image_2;
-                if ($file_2 != null) {
-                    $fileName_2 = $file_2->getClientOriginalName();
-                    $file_2->move('uploads/comments', $fileName_2);
-                    $evaluate->image_2 = $fileName_2;
-                } else {
-                    $evaluate->image_2 = '';
-                }
-
-                $file_3 = $request->image_3;
-                if ($file_3 != null) {
-                    $fileName_3 = $file_3->getClientOriginalName();
-                    $file_3->move('uploads/comments', $fileName_3);
-                    $evaluate->image_3 = $fileName_3;
-                } else {
-                    $evaluate->image_3 = '';
-                }
-
-                $file_4 = $request->image_4;
-                if ($file_4 != null) {
-                    $fileName_4 = $file_4->getClientOriginalName();
-                    $file_4->move('uploads/comments', $fileName_4);
-                    $evaluate->image_4 = $fileName_4;
-                } else {
-                    $evaluate->image_4 = '';
-                }
                 $evaluate->save();
+
+                if (!empty($request->files)) {
+                    $insertDataImages = [];
+                    foreach ($request->files as $key => $ABC) {
+                        foreach ($ABC as $data) {
+                            $fileName = $data->getClientOriginalName();
+                            $data->move('uploads/comments', $fileName);
+                            $insertDataImages[] = [
+                                'evaluate_id' => $evaluate->id,
+                                'url' => $fileName,
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now(),
+                            ];
+                        }
+                    }
+                    EvaluateImage::insert($insertDataImages);
+                }
 
                 //Tính TB số sao mỗi lần KH đánh giá
                 $averageStars = Evaluate::where('product_id', $request->product_id)->avg('star_vote');
@@ -222,12 +205,12 @@ class CustomerReviewController extends Controller
             $count4Stars = Evaluate::where('product_id', $request->product_id)->where('star_vote', StatusStar::FOURSTARS)->count();
             $count5Stars = Evaluate::where('product_id', $request->product_id)->where('star_vote', StatusStar::FIVESTARS)->count();
             $countAll = Evaluate::where('product_id', $request->product_id)->count();
-            $countAllImage = Evaluate::where('product_id', $request->product_id)->where(function ($q) {
-                $q->where('image_1', '!=', '')
-                    ->orWhere('image_2', '!=', '')
-                    ->orWhere('image_3', '!=', '')
-                    ->orWhere('image_4', '!=', '');
-            })->count();
+            // $countAllImage = Evaluate::where('product_id', $request->product_id)->where(function ($q) {
+            //     $q->where('image_1', '!=', '')
+            //         ->orWhere('image_2', '!=', '')
+            //         ->orWhere('image_3', '!=', '')
+            //         ->orWhere('image_4', '!=', '');
+            // })->count();
 
             return response()->json(
                 [
@@ -237,7 +220,7 @@ class CustomerReviewController extends Controller
                     "count4Stars" => $count4Stars,
                     "count5Stars" => $count5Stars,
                     "countAll" => $countAll,
-                    "countAllImage" => $countAllImage,
+                    // "countAllImage" => $countAllImage,
                 ],
                 StatusCode::OK
             );
