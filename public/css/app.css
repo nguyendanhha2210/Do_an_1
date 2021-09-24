@@ -317,6 +317,13 @@ th {
   display: none;
 }
 
+.input-group .is-danger-search {
+  color: red;
+  position: absolute;
+  top: 100%;
+  left: 133px;
+}
+
 .loader-img {
   margin: 100px auto;
   font-size: 25px;

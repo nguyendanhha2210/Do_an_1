@@ -67,28 +67,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7">
-                        <div class="advanced-search">
-                            <button type="button" class="category-btn">All Categories</button>
-                            <div class="input-group">
-                                <input type="text" placeholder="What do you need?">
-                                <button type="button"><i class="ti-search"></i></button>
-
-                                {{-- <div class="col-sm-5">
-                                    <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
-                                        {{csrf_field()}}
-                                    <div class="search_box">
-            
-                                        <input type="text" style="width: 60%;margin-right: 5px" name="keywords_submit" id="keywords" placeholder="Tìm kiếm sản phẩm"/>
-                                       <div id="search_ajax"></div>
-            
-                                       <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
-            
-                                    </div>
-                                    </form>
-                                </div> --}}
-
-                            </div>
-                        </div>
+                       <product-search></product-search>
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">

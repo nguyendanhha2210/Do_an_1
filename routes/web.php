@@ -182,6 +182,11 @@ Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopControlle
  Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getSelect1Star');
 
 
+ Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
+ Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.searchProduct');
+
+
+
  
  
 

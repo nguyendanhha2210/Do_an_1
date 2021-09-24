@@ -266,3 +266,10 @@ th {
 .display-none {
     display: none;
 }
+
+.input-group .is-danger-search {
+    color: red;
+    position: absolute;
+    top: 100%;
+    left: 133px;
+}

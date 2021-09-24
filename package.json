@@ -33,6 +33,7 @@
         "laravel-vue-datatable": "^0.6.0",
         "moment": "^2.29.1",
         "vee-validate": "^2.2.15",
+        "vue-autosuggest": "^2.2.0",
         "vue-axios": "^3.2.4",
         "vue-card-carousel": "^1.0.0",
         "vue-router": "^3.5.2",
