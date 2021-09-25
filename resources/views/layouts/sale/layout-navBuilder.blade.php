@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
-    <link rel="icon" href="uploads/title_web.ico">   {{-- logo tap web --}}
+    <link rel="icon" href="/uploads/title_web.ico">   {{-- logo tap web --}}
 
 
     {{-- Buộc phải thêm khi dùng Vue JS --}}

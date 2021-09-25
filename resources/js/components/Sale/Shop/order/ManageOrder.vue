@@ -480,7 +480,7 @@
                     ></star-rating>
                     <input
                       hidden
-                      type="text"
+                      type="number"
                       name="star_vote"
                       v-model="evaluate.star_vote"
                     />

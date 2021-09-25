@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('backend/bootstrap-4.0.0-dist/css/bootstrap.min.css') }}"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="icon" href="uploads/title_web.ico"> {{-- logo tap web --}}
+    <link rel="icon" href="/uploads/title_web.ico"> {{-- logo tap web --}}
     <style>
         ._vue-flash-msg-body__text {
             position: absolute;

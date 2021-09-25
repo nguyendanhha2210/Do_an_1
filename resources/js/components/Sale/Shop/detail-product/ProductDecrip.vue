@@ -237,7 +237,6 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                              :increment="0.5"
                               v-model="evaluate.star_vote"
                             ></star-rating>
                           </span>
@@ -501,7 +500,7 @@ export default {
         user_id: "",
         order_code: "",
         product_id: "",
-        star_vote: "",
+        star_vote: 0,
         content: "",
         rank: "",
         reply_comment: "",

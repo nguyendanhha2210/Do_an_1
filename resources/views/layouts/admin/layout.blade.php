@@ -18,7 +18,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
     </script>
 
-    <link rel="icon" href="uploads/title_web.ico"> {{-- logo tap web --}}
+    <link rel="icon" href="/uploads/title_web.ico"> {{-- logo tap web --}}
 
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
