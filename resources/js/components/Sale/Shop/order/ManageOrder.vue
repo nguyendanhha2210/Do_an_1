@@ -1169,10 +1169,11 @@ export default {
                     icon: "success",
                     confirmButtonText: "OK!",
                   })
-                  .then(function (confirm) {});
+                  .then(function (confirm) {
+                    window.location.href = "/sale/manage-order";
+                  });
                 that.viewDetailProduct();
                 that.fetchData();
-                window.location.href = "/sale/manage-order";
               })
 
               .catch((err) => {
@@ -1206,7 +1207,6 @@ export default {
             this.$swal({
               title: "Số Ảnh Tối đa được chọn là 8 ",
               icon: "warning",
-              showCancelButton: true,
               confirmButtonColor: "#3085d6",
               confirmButtonText: "Yes !",
             });

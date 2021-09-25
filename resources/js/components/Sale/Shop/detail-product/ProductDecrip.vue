@@ -625,7 +625,7 @@ export default {
           that.count2Stars = response.data.count2Stars;
           that.count1Stars = response.data.count1Stars;
           that.countAll = response.data.countAll;
-          // that.countAllImage = response.data.countAllImage;
+          that.countAllImage = response.data.countAllImage;
         })
         .catch((err) => {
           switch (err.response.status) {
