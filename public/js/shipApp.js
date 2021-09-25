@@ -68366,7 +68366,7 @@ var render = function() {
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
-        _c("h6", [
+        _c("h6", { staticStyle: { width: "max-content" } }, [
           _c("a", { attrs: { href: _vm.forgotPasswordUrl } }, [
             _vm._v("Forgot Password?")
           ])
@@ -68387,7 +68387,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [
-      _c("input", { attrs: { type: "checkbox" } }),
+      _c("input", {
+        staticStyle: { width: "max-content" },
+        attrs: { type: "checkbox" }
+      }),
       _vm._v("Remember Me")
     ])
   }

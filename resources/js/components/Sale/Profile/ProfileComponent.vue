@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <section class="shopping-cart spad">
-      <div class="container">
+  <div style="background-color: #e9edf0">
+      <div class="container" >
         <div class="row">
-          <div class="col-lg-12">
-            <div class="cart-table">
-              <table class="table table-condensed">
+          <div class="col-lg-12 mt-3 mb-3" style="background-color: white">
+            <div class="mt-3" >
+              <table class="table table-condensed" style="border:1px solid #e9edf0">
                 <thead>
-                  <tr class="cart_menu">
+                  <tr class="cart_menu" style="background-color: #e9edf0">
                     <td>Họ Tên</td>
                     <td>Ảnh</td>
                     <td>Email</td>
@@ -196,8 +195,7 @@
           </div>
         </div>
       </div>
-    </section>
-  </div>
+   </div>
 </template>
 
 <style lang="scss" scoped>

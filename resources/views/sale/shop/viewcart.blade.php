@@ -1,10 +1,10 @@
 @extends('layouts.sale.layout')
 @section('content')
-    <section class="shopping-cart spad">
-        <div class="container">
+    <section style="background-color: #e9edf0">
+        <div class="container ">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="cart-table">
+                <div class="col-lg-12 mt-3 mb-5">
+                    <div class="cart-table" style="background-color: white;padding: 17px">
                         <form action="{{ URL::to('/update-cart') }}" method="POST">
                             @csrf
                             <table>
@@ -22,7 +22,7 @@
                                 @endif
 
                                 <thead>
-                                    <tr>
+                                    <tr style="background-color: #e9edf0">
                                         <th>Image</th>
                                         <th>Name Product</th>
                                         <th>Price</th>
@@ -44,7 +44,8 @@
                                             <tr>
                                                 <td style="text-align: center" class="cart-pic first-row"><img width="70px"
                                                         height="80px"
-                                                        src="{{ URL::to('uploads/products/' . $cart['product_image']) }}" alt="">
+                                                        src="{{ URL::to('uploads/products/' . $cart['product_image']) }}"
+                                                        alt="">
                                                 </td>
                                                 <td style="text-align: center" class="cart-title first-row">
                                                     <h5>{{ $cart['product_name'] }}</h5>
@@ -87,7 +88,7 @@
                                 </tbody>
                             </table>
                             <table>
-                                <tr>
+                                <tr style="transform: translate(0%, 20%);">
                                     <td><a href="{{ URL::to('/shop') }}" class="primary-btn">Shopping</a></td>
                                     <td><input class="primary-btn" type="submit" value="Update" name="update_qty"></td>
                                     <td><a class="primary-btn" href="{{ URL::to('/del-all-product') }}">Delete
@@ -102,9 +103,9 @@
                             </table>
                         </form>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="discount-coupon">
+                    <div class="row" style="background-color: white">
+                        <div class="col-lg-4 text-center">
+                            <div class="discount-coupon mt-3" style="padding-top: 17px;background-color: #e9edf0;">
                                 <h6>Discount Code</h6>
                                 <form action="{{ URL::to('/check-coupon') }}" method="POST" class="coupon-form">
                                     @csrf
@@ -115,8 +116,9 @@
                             </div>
                         </div>
                         <div class="col-lg-4 offset-lg-4">
-                            <div class="proceed-checkout">
-                                <ul>
+                            <div class="proceed-checkout" style="padding-top: 17px;
+                                    padding-bottom: 17px;">
+                                <ul style="background-color: #e9edf0">
                                     <li class="subtotal">Total Amount
                                         :<span>
                                             @if (Session::get('cart') == true)
@@ -226,13 +228,5 @@
                 </div>
             </div>
         </div>
-        {{-- <script type="text/javascript">
-            function chonmua(form) {
-                a = eval(form.gia.value);
-                b = eval(form.soluong.value);
-                c = a * b;
-                form.thanhtien.value = (c + " " + "VNĐ");
-            }
-        </script> --}}
     </section>
 @endsection

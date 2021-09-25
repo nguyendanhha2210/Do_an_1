@@ -80,7 +80,9 @@
         {{ errors.first("password") }}
       </div>
       <span><input type="checkbox" />Remember Me</span>
-      <h6><a :href="forgotPasswordUrl">Forgot Password?</a></h6>
+      <h6 style="width: max-content">
+        <a :href="forgotPasswordUrl">Forgot Password?</a>
+      </h6>
       <div class="clearfix"></div>
       <input type="submit" value="Sign In" name="login" />
     </form>
