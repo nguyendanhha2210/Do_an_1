@@ -254,7 +254,7 @@ export default {
     this.$validator.localize("en", messError);
     this.fetchData();
   },
-  mounted() {},
+  // mounted() {},
   methods: {
     fetchData() {
       let that = this;

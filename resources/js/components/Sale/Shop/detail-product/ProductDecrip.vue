@@ -214,9 +214,9 @@
                 v-for="evaluate in evaluates.data"
                 :key="evaluate.id"
               >
-                <div class="col-md-12">
+                <div class="col-md-12 mt-3">
                   <div class="d-flex flex-column comment-section" id="myGroup">
-                    <div class="bg-white p-2">
+                    <div class="bg-white p-2 " style="display: contents">
                       <div class="d-flex flex-row user-info">
                         <img
                           class="rounded-circle"
@@ -248,57 +248,28 @@
                           {{ evaluate.content }}
                         </p>
                       </div>
-                      <!-- <div class="mt-2 ml-5"  id="gallery"
-                          data-toggle="modal"
-                          data-target="#exampleModal">
+                      <div
+                        class="mt-2 ml-5"
+                        id="gallery"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        <div
+                          v-for="data in evaluate.evaluate_images"
+                          :key="data.id"
+                        >
                           <img
-                            v-if="evaluate.image_1 != ''"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_1
-                            "
-                            width="85px"
-                            height="80px"
+                            :src="baseUrl + '/uploads/comments/' + data.url"
+                            width="151px"
+                            height="166px"
+                            style="float: left"
                             alt="First slide"
                             data-target="#carouselExample"
-                            data-slide-to="0"
+                            data-slide-to= "0"
                           />
+                        </div>
+                      </div>
 
-                          <img
-                            v-if="evaluate.image_2 != ''"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_2
-                            "
-                            width="85px"
-                            height="80px"
-                            alt="First slide"
-                            data-target="#carouselExample"
-                            data-slide-to="1"
-                          />
-
-                          <img
-                            v-if="evaluate.image_3 != ''"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_3
-                            "
-                            width="85px"
-                            height="80px"
-                            alt="First slide"
-                            data-target="#carouselExample"
-                            data-slide-to="2"
-                          />
-
-                          <img
-                            v-if="evaluate.image_4 != ''"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_4
-                            "
-                            width="85px"
-                            height="80px"
-                            alt="First slide"
-                            data-target="#carouselExample"
-                            data-slide-to="3"
-                          />
-                      </div> -->
                       <div class="mt-2 ml-5">
                         <p class="comment-text" style="font-size: 12px">
                           {{ evaluate.created_at | formatDate }}
@@ -306,14 +277,15 @@
                       </div>
                       <div
                         v-if="evaluate.rank == 2"
-                        class="mt-2 ml-5"
+                        class="ml-5"
                         style="background-color: #f5f5f5"
                       >
                         <b class="p-2">Phản Hồi Của Người Bán</b>
                         <p class="p-2">{{ evaluate.reply_comment }}</p>
                       </div>
-                      <div v-else></div>
-                      <hr />
+                      <div v-else>
+                        <hr />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -344,61 +316,32 @@
                       id="carouselExample"
                       class="carousel slide"
                       data-ride="carousel"
+                      v-for="data in evaluate.evaluate_images"
+                      :key="data.id"
                     >
                       <ol class="carousel-indicators">
                         <li
                           data-target="#carouselExample"
-                          data-slide-to="0"
+                          data-slide-to="{{data.id}}"
+                          v-if="(data.id = 1)"
                           class="active"
                         ></li>
                         <li
                           data-target="#carouselExample"
-                          data-slide-to="1"
-                        ></li>
-                        <li
-                          data-target="#carouselExample"
-                          data-slide-to="2"
-                        ></li>
-                        <li
-                          data-target="#carouselExample"
-                          data-slide-to="3"
+                          data-slide-to="{{data.id}}"
+                          v-else
                         ></li>
                       </ol>
                       <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        <div
+                          class="carousel-item"
+                          v-for="data in evaluate.evaluate_images"
+                          :key="data.id"
+                        >
                           <img
                             class="d-block w-100"
-                           :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_1
-                            "
-                            alt="First slide"
-                          />
-                        </div>
-                        <div class="carousel-item">
-                          <img
-                            class="d-block w-100"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_2
-                            "
+                            :src="baseUrl + '/uploads/comments/' + data.url"
                             alt="Second slide"
-                          />
-                        </div>
-                        <div class="carousel-item">
-                          <img
-                            class="d-block w-100"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_3
-                            "
-                            alt="Third slide"
-                          />
-                        </div>
-                        <div class="carousel-item">
-                          <img
-                            class="d-block w-100"
-                            :src="
-                              baseUrl + '/uploads/comments/' + evaluate.image_4
-                            "
-                            alt="Fourth slide"
                           />
                         </div>
                       </div>
@@ -712,6 +655,7 @@ export default {
               that.decrip[0].id
           )
           .then(function (response) {
+            // console.log(response.data.evaluate5Stars.data[0].evaluate_images);
             that.evaluates = response.data.evaluate5Stars; //show data ra
             that.flagShowLoader = false;
           })

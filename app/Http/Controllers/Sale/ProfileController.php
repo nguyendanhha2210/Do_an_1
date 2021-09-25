@@ -64,7 +64,7 @@ class ProfileController extends Controller
                 $file = $request->images;
                 if ($file != null) {
                     $fileName = $file->getClientOriginalName();
-                    $file->move('uploads', $fileName);
+                    $file->move('uploads/users/', $fileName);
                     $user->images = $fileName;
                 }else {
                     $user->images = "avata-3.jpg";
