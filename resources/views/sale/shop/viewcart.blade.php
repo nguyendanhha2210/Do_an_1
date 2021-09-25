@@ -77,7 +77,7 @@
                                         </tr>
                                     @else
                                         <tr>
-                                            <td colspan="5" style="font-size: 18px;">
+                                            <td colspan="6" style="font-size: 18px;">
                                                 @php
                                                     echo 'Làm ơn thêm sản phẩm vào giỏ hàng !';
                                                 @endphp
