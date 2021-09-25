@@ -32,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 {{-- Buộc phải thêm khi dùng Vue JS --}}
-<link rel="icon" href="uploads/title_web.ico">   {{-- logo tap web --}}
+<link rel="icon" href="/uploads/title_web.ico">   {{-- logo tap web --}}
 
 </head>
 <body>
