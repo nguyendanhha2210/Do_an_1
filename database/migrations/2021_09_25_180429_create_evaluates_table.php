@@ -18,7 +18,7 @@ class CreateEvaluatesTable extends Migration
             $table->integer('user_id');
             $table->string('order_code');
             $table->integer('product_id');
-            $table->double('star_vote');
+            $table->integer('star_vote');
             $table->text('content');
             $table->integer('rank');
             $table->text('reply_comment')->nullable();
