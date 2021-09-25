@@ -111,7 +111,7 @@ class CustomerReviewController extends Controller
             return view('admin.users.login');
         }
         try {
-            $evaluate = Evaluate::where('order_code', $request->order_code)->where('product_id', $request->product_id)->first();
+            $evaluate = Evaluate::where('order_code', $request->order_code)->where('product_id', $request->product_id)->with('evaluateImages')->first();
             return response()->json($evaluate, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);

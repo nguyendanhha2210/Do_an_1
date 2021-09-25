@@ -293,14 +293,6 @@
                     <td v-else-if="order.order_status == 2">
                       <b style="color: blue">Đang Giao !</b>
                     </td>
-                    <!-- <td v-else-if="order.order_status == 3">
-                      <a
-                        data-toggle="modal"
-                        data-target="#myModalVote"
-                        @click="voteProduct(order)"
-                        ><button class="btn btn-warning">Evaluate</button></a
-                      >
-                    </td> -->
                     <td v-else-if="order.order_status == 3">
                       <a @click="detailProduct(order.order_code)"
                         ><button class="btn btn-warning">
@@ -318,14 +310,6 @@
                       </button>
                     </td>
                     <td v-else-if="order.order_status == 5">
-                      <!-- <a
-                        data-toggle="modal"
-                        data-target="#myModalViewVote"
-                        @click="viewVoted(order)"
-                        ><button class="btn btn-warning">
-                          Xem Đánh Giá
-                        </button></a
-                      > -->
                       <a @click="detaulVotedProduct(order.order_code)"
                         ><button class="btn btn-warning">
                           Xem Đánh Giá
@@ -514,8 +498,6 @@
                     {{ errorBackEnd.content[0] }}
                   </div>
                 </div>
-                <div></div>
-                <!-- <input type="file" ref="list" class="form-control" name="file[]" accept="image/*" multiple> -->
 
                 <input
                   type="file"
@@ -524,250 +506,6 @@
                   accept="image/*"
                   multiple="multiple"
                 />
-                <!-- <div class="form-row">
-                  <div class="form-group col-md-6 text-center">
-                    <div class="position-relative d-inline-block">
-                      <label for="file_img_banner1">
-                        <div
-                          class="img-drop-box mt-2 mr-2 profile-image"
-                          style="
-                            border: dotted 1px #c0c0c0;
-                            width: 216px;
-                            height: 194px;
-                          "
-                        >
-                          <img
-                            src
-                            ref="imageDispaly_1"
-                            class="img-thumbnail profile-image"
-                            style="width: 207; height: 185px; display: none"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="
-                              margin-top: 34%;
-                              margin-left: 38%;
-                              margin-right: 38%;
-                            "
-                            ref="iconFile_1"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          id="file_img_banner1"
-                          v-validate="'required'"
-                          name="image_1"
-                          ref="image_1"
-                          v-on:change="attachImage_1"
-                          accept="image_1/*"
-                          style="display: none"
-                        />
-                      </label>
-
-                      <a ref="iconClose_1" @click="deleteImage_1"
-                        ><i
-                          class="fa fa-times"
-                          aria-hidden="true"
-                          style="
-                            transform: translate(523%, -932%);
-                            font-size: 25px;
-                            color: red;
-                            font-weight: 600;
-                          "
-                        >
-                        </i>
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-6 text-center">
-                    <div class="position-relative d-inline-block">
-                      <label for="file_img_banner2">
-                        <div
-                          class="img-drop-box mt-2 mr-2"
-                          style="
-                            border: dotted 1px #c0c0c0;
-                            width: 216px;
-                            height: 194px;
-                          "
-                        >
-                          <img
-                            src
-                            ref="imageDispaly_2"
-                            class="img-thumbnail"
-                            style="width: 207; height: 185px; display: none"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="
-                              margin-top: 34%;
-                              margin-left: 38%;
-                              margin-right: 38%;
-                            "
-                            ref="iconFile_2"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          id="file_img_banner2"
-                          v-validate="'required'"
-                          name="image_2"
-                          ref="image_2"
-                          v-on:change="attachImage_2"
-                          accept="image_2/*"
-                          style="display: none"
-                        />
-                      </label>
-                      <a ref="iconClose_2" @click="deleteImage_2"
-                        ><i
-                          class="fa fa-times"
-                          aria-hidden="true"
-                          style="
-                            transform: translate(523%, -932%);
-                            font-size: 25px;
-                            color: red;
-                            font-weight: 600;
-                          "
-                        >
-                        </i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group col-md-6 text-center">
-                    <div class="position-relative d-inline-block">
-                      <label for="file_img_banner3">
-                        <div
-                          class="img-drop-box mt-2 mr-2"
-                          style="
-                            border: dotted 1px #c0c0c0;
-                            width: 216px;
-                            height: 194px;
-                          "
-                        >
-                          <img
-                            src
-                            ref="imageDispaly_3"
-                            class="img-thumbnail"
-                            style="width: 207; height: 185px; display: none"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="
-                              margin-top: 34%;
-                              margin-left: 38%;
-                              margin-right: 38%;
-                            "
-                            ref="iconFile_3"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          id="file_img_banner3"
-                          v-validate="'required'"
-                          name="image_3"
-                          ref="image_3"
-                          v-on:change="attachImage_3"
-                          accept="image_3/*"
-                          style="display: none"
-                        />
-                      </label>
-                      <a ref="iconClose_3" @click="deleteImage_3"
-                        ><i
-                          class="fa fa-times"
-                          aria-hidden="true"
-                          style="
-                            transform: translate(523%, -932%);
-                            font-size: 25px;
-                            color: red;
-                            font-weight: 600;
-                          "
-                        >
-                        </i>
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-6 text-center">
-                    <div class="position-relative d-inline-block">
-                      <label for="file_img_banner4">
-                        <div
-                          class="img-drop-box mt-2 mr-2"
-                          style="
-                            border: dotted 1px #c0c0c0;
-                            width: 216px;
-                            height: 194px;
-                          "
-                        >
-                          <img
-                            src
-                            ref="imageDispaly_4"
-                            class="img-thumbnail"
-                            style="width: 207; height: 185px; display: none"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="
-                              margin-top: 34%;
-                              margin-left: 38%;
-                              margin-right: 38%;
-                            "
-                            ref="iconFile_4"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          id="file_img_banner4"
-                          v-validate="'required'"
-                          name="image_4"
-                          ref="image_4"
-                          v-on:change="attachImage_4"
-                          accept="image_4/*"
-                          style="display: none"
-                        />
-                      </label>
-                      <a ref="iconClose_4" @click="deleteImage_4"
-                        ><i
-                          class="fa fa-times"
-                          aria-hidden="true"
-                          style="
-                            transform: translate(523%, -932%);
-                            font-size: 25px;
-                            color: red;
-                            font-weight: 600;
-                          "
-                        >
-                        </i>
-                      </a>
-                    </div>
-                  </div>
-                </div> -->
 
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Save</button>
@@ -819,98 +557,36 @@
                   v-model="viewVote.content"
                 ></textarea>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6 text-center">
-                  <div class="position-relative d-inline-block">
-                    <label for="file_img_banner1">
+              <div class="row" style="display: grid">
+                <div class="border-bottom w-100">
+                  <div
+                    class="form-group row row-container mb-0 pd-tb-20"
+                    style="margin-left: 1px"
+                  >
+                    <div class="col-md-12">
                       <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-if="viewVote.image_1 != ''"
+                        class="image-thumbnail mt-8-sp text-center"
+                        v-if="viewVote.evaluate_images == 0"
                       >
                         <img
-                          class="img-thumbnail profile-image"
-                          :src="
-                            baseUrl + '/uploads/comments/' + viewVote.image_1
-                          "
-                          style="width: 242px; height: 202px"
+                          src="/backend/images/no-image-found-360x250.png"
+                          class="w-10 h-10"
+                          alt=""
                         />
                       </div>
                       <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
+                        class="image-thumbnail mt-8-sp mr-2 float-left"
                         v-else
-                      ></div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-group col-md-6 text-center">
-                  <div class="position-relative d-inline-block">
-                    <label for="file_img_banner2">
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-if="viewVote.image_2 != ''"
+                        v-for="data in viewVote.evaluate_images"
+                        :key="data.id"
                       >
                         <img
-                          class="img-thumbnail profile-image"
-                          :src="
-                            baseUrl + '/uploads/comments/' + viewVote.image_2
-                          "
-                          style="width: 242px; height: 202px"
+                          style="width: 150px; height: 170px; margin-top: 9px"
+                          :src="baseUrl + '/uploads/comments/' + data.url"
+                          alt=""
                         />
                       </div>
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-else
-                      ></div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group col-md-6 text-center">
-                  <div class="position-relative d-inline-block">
-                    <label for="file_img_banner3">
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-if="viewVote.image_3 != ''"
-                      >
-                        <img
-                          class="img-thumbnail profile-image"
-                          :src="
-                            baseUrl + '/uploads/comments/' + viewVote.image_3
-                          "
-                          style="width: 242px; height: 202px"
-                        />
-                      </div>
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-else
-                      ></div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-group col-md-6 text-center">
-                  <div class="position-relative d-inline-block">
-                    <label for="file_img_banner4">
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-if="viewVote.image_4 != ''"
-                      >
-                        <img
-                          class="img-thumbnail profile-image"
-                          :src="
-                            baseUrl + '/uploads/comments/' + viewVote.image_4
-                          "
-                          style="width: 242px; height: 202px"
-                        />
-                      </div>
-                      <div
-                        class="img-drop-box mt-2 mr-2 profile-image"
-                        v-else
-                      ></div>
-                    </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -972,10 +648,6 @@ export default {
         order_id: "",
         star_vote: 1,
         content: "",
-        image_1: "",
-        image_2: "",
-        image_3: "",
-        image_4: "",
         order_code: "",
         product_id: "",
       },
@@ -992,13 +664,8 @@ export default {
       viewVote: {
         id: "",
         user_id: "",
-        // order_id: "",
         star_vote: 1,
         content: "",
-        image_1: "",
-        image_2: "",
-        image_3: "",
-        image_4: "",
       },
 
       view_vote: false,
@@ -1484,58 +1151,66 @@ export default {
           formData.append("content", this.evaluate.content);
           formData.append("productId", this.productIdP);
 
-          for (var i = 0; i < this.$refs.file.files.length; i++) {
-            let file = this.$refs.file.files[i];
-            formData.append("files[" + i + "]", file);
-          }
+          if (this.$refs.file.files.length < 8) {
+            for (var i = 0; i < this.$refs.file.files.length; i++) {
+              let file = this.$refs.file.files[i];
+              formData.append("files[" + i + "]", file);
+            }
+            axios
+              .post(`customer-reviews`, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              })
+              .then((response) => {
+                that
+                  .$swal({
+                    title: "Successful Evaluation!",
+                    icon: "success",
+                    confirmButtonText: "OK!",
+                  })
+                  .then(function (confirm) {});
+                that.viewDetailProduct();
+                that.fetchData();
+                window.location.href = "/sale/manage-order";
+              })
 
-          axios
-            .post(`customer-reviews`, formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            })
-            .then((response) => {
-              that
-                .$swal({
-                  title: "Successful Evaluation!",
-                  icon: "success",
-                  confirmButtonText: "OK!",
-                })
-                .then(function (confirm) {
-                  that.evaluate.star_vote = 1;
-                  that.evaluate.content = "";
-                });
-              that.viewDetailProduct();
-              that.fetchData();
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  this.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  that
-                    .$swal({
-                      title: "Evaluation Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                case 500:
-                  that
-                    .$swal({
-                      title: "Evaluation Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
+              .catch((err) => {
+                switch (err.response.status) {
+                  case 422:
+                    this.errorBackEnd = err.response.data.errors;
+                    break;
+                  case 404:
+                    that
+                      .$swal({
+                        title: "Evaluation Error !",
+                        icon: "warning",
+                        confirmButtonText: "Cancle !",
+                      })
+                      .then(function (confirm) {});
+                    break;
+                  case 500:
+                    that
+                      .$swal({
+                        title: "Evaluation Error !",
+                        icon: "warning",
+                        confirmButtonText: "Cancle !",
+                      })
+                      .then(function (confirm) {});
+                    break;
+                  default:
+                    break;
+                }
+              });
+          } else {
+            this.$swal({
+              title: "Số Ảnh Tối đa được chọn là 8 ",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Yes !",
             });
+          }
         }
       });
     },

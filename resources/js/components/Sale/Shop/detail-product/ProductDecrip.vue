@@ -216,7 +216,7 @@
               >
                 <div class="col-md-12 mt-3">
                   <div class="d-flex flex-column comment-section" id="myGroup">
-                    <div class="bg-white p-2 " style="display: contents">
+                    <div class="bg-white p-2" style="display: contents">
                       <div class="d-flex flex-row user-info">
                         <img
                           class="rounded-circle"
@@ -249,7 +249,7 @@
                         </p>
                       </div>
                       <div
-                        class="mt-2 ml-5"
+                        class="ml-5"
                         id="gallery"
                         data-toggle="modal"
                         data-target="#exampleModal"
@@ -260,12 +260,15 @@
                         >
                           <img
                             :src="baseUrl + '/uploads/comments/' + data.url"
-                            width="151px"
-                            height="166px"
-                            style="float: left"
+                            style="
+                              float: left;
+                              margin-right: 9px;
+                              width: 104px;
+                              height: 115px;
+                            "
                             alt="First slide"
                             data-target="#carouselExample"
-                            data-slide-to= "0"
+                            data-slide-to="0"
                           />
                         </div>
                       </div>
