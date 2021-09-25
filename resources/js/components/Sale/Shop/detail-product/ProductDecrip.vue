@@ -657,7 +657,6 @@ export default {
               that.decrip[0].id
           )
           .then(function (response) {
-            // console.log(response.data.evaluate5Stars.data[0].evaluate_images);
             that.evaluates = response.data.evaluate5Stars; //show data ra
             that.flagShowLoader = false;
           })

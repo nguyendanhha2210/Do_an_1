@@ -111,7 +111,7 @@ export default {
   },
 
   mounted() {
-    this.getProduct();
+    // this.getProduct();
   },
 
   methods: {
@@ -129,15 +129,15 @@ export default {
       this.messageText = "";
     },
 
-    getProduct() {
-      axios
-        .get("/get-full-product", {
-          _token: Laravel.csrfToken,
-        })
-        .then((response) => {
-          this.options = response.data;
-        });
-    },
+    // getProduct() {
+    //   axios
+    //     .get("/get-full-product", {
+    //       _token: Laravel.csrfToken,
+    //     })
+    //     .then((response) => {
+    //       this.options = response.data;
+    //     });
+    // },
 
     searchProduct() {
       let that = this;
