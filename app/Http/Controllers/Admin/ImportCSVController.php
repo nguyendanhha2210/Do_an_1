@@ -24,12 +24,10 @@ class ImportCSVController extends Controller
 
     public function exportTypeCsv(Request $request)
     {
-        if (!Auth::guard('admin')->check()) {
-            return view('admin.users.login');
-        }
-
-        $typesArray = explode(',', $request);
-        return (new ExcelExports($typesArray))->download('types.xlsx');
+        // dd($request);
+        // $typesArray = explode(',', $request);
+        // dd($typesArray);
+        return (new ExcelExports($request))->download('types.xlsx');
 
         // return Excel::download(new ExcelExports, 'type.xlsx');
     }

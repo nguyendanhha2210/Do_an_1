@@ -316,16 +316,16 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .get("export-type-csv", this.selectedIds)
+            .post("export-type-csv", this.selectedIds)
             .then((response) => {
-              this.$swal({
-                title: "Export successfully!",
-                icon: "success",
-                confirmButtonText: "OK!",
-              }).then(function (confirm) {});
-              that.fetchData(that.currentPage);
-              that.isBtnDeleteAll = false;
-              that.isInputAll = false;
+              // this.$swal({
+              //   title: "Export successfully!",
+              //   icon: "success",
+              //   confirmButtonText: "OK!",
+              // }).then(function (confirm) {});
+              // that.fetchData(that.currentPage);
+              // that.isBtnDeleteAll = false;
+              // that.isInputAll = false;
             })
             .catch((error) => {
               that.flashMessage.error({

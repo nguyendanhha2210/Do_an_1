@@ -30,7 +30,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/get-dashboard', [App\Http\Controllers\Admin\HomeController::class, 'getDashboard'])->name('admin.home.getDashboard');
 
     Route::post('/import-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importTypeCsv'])->name('admin.import.importTypeCsv');
-    Route::get('/export-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportTypeCsv'])->name('admin.import.exportTypeCsv');
+    Route::post('/export-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportTypeCsv'])->name('admin.import.exportTypeCsv');
     
 
     //Post //edit ngay trên trang //add kiểu modal
