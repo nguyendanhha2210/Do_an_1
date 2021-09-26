@@ -35,43 +35,28 @@ class SearchAllController extends Controller
 
     public function searchProduct(Request $request)
     {
-        // $breadcrumbs = ['Search Product'];
-        // $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        // $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        // $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
-
-        // $searchResult = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-        //     ->whereHas('weight', function ($query) {
-        //         $query->where('deleted_at', NULL);
-        //     })
-        //     ->whereHas('type', function ($query) {
-        //         $query->where('deleted_at', NULL);
-        //     })
-        //     ->whereHas('description', function ($query) {
-        //         $query->where('deleted_at', NULL);
-        //     })
-        //     ->orderBy('created_at', 'desc')->first();
-
-        // $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
-        //     ->whereHas('categorypost', function ($query) {
-        //         $query->where('deleted_at', NULL);
-        //     })->orderBy('created_at', 'desc')->take(3)->get();
-
-        $breadcrumbs = ['Type Product'];
+        $breadcrumbs = ['Search Product'];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
+
+        $searchResult = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
+            ->whereHas('weight', function ($query) {
+                $query->where('deleted_at', NULL);
+            })
+            ->whereHas('type', function ($query) {
+                $query->where('deleted_at', NULL);
+            })
+            ->whereHas('description', function ($query) {
+                $query->where('deleted_at', NULL);
+            })
+            ->orderBy('created_at', 'desc')->first();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        // $productType =  Product::where('type_id', '=', $id)->get();
-            // dd($request->id);
-        return view('sale.shop.search', ['breadcrumbs' => $breadcrumbs, 'type' => $type, 'description' => $description, 'weight' => $weight, 'post' => $post ]);
-
-        // dd("ABCDEFGH");
-        // return view("sale.shop.search", compact(['type', 'description', 'weight', 'post', 'breadcrumbs']));
+        return view('sale.shop.search', compact('type', 'description', 'weight','post','breadcrumbs',));
     }
 }

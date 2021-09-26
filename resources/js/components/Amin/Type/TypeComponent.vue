@@ -45,10 +45,33 @@
           </select>
         </div>
         <div class="col-md-2 col-sm-3 col-1" style="float: left">
-          <a class="btn btn-success" style="transform: translate(40%, -27%);" :href="formAdd">Add New</a>
+          <a
+            class="btn btn-success"
+            style="transform: translate(40%, -27%)"
+            :href="formAdd"
+            >Add New</a
+          >
         </div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input type="text" class="form-control" v-model="search" />
+        </div>
+      </div>
+
+      <div class="row w3-res-tb">
+        <div class="col-md-6 col-sm-5 col-5" style="float: left">
+          <form role="form" @submit.prevent="exportCSV()" multiple="multiple">
+            <button type="submit" class="btn btn-info">Export</button>
+          </form>
+        </div>
+
+        <div class="col-md-6 col-sm-5 col-5" style="float: left">
+          <form role="form" @submit.prevent="importCSV()" multiple="multiple">
+            <div class="form-group">
+              <input type="file" name="file" />
+              <!-- <input type="file" ref="file" name="file" accept=".xlsx" /> -->
+            </div>
+            <button type="submit" class="btn btn-info">Import</button>
+          </form>
         </div>
       </div>
 
@@ -87,12 +110,15 @@
                 {{ type.type }}
               </td>
               <td v-if="type.id == 2"></td>
-               <td v-else>
+              <td v-else>
                 <div class="td-action">
                   <a
                     :href="`type/${type.id}/edit`"
                     style="font-size: 21px; transform: translate(-26%, -14%)"
-                    ><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
                   <i
                     class="fa fa-times-circle"
                     style="font-size: 21px; color: red"
@@ -108,7 +134,9 @@
     <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm" style="float: inherit;font-size:16px"
+          <small
+            class="text-muted inline m-t-sm m-b-sm"
+            style="float: inherit; font-size: 16px"
             >showing {{ numberOfFirstRecord }}-{{ numberOfPage }} of
             {{ totalNumber }} items</small
           >
@@ -350,6 +378,87 @@ export default {
             });
         }
       });
+    },
+
+    importCSV() {
+      let that = this;
+      let formData = new FormData();
+      var file = document.querySelector("input[type=file]").files[0];
+      formData.append("file", file);
+      axios
+        .post("import-type-csv", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          that.fetchData();
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              this.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    exportCSV() {
+      let that = this;
+      axios
+        .post("export-type-csv", {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {})
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              this.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
     },
   },
 };
