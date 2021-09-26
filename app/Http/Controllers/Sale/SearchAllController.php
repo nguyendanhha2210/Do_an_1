@@ -57,6 +57,9 @@ class SearchAllController extends Controller
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        return view('sale.shop.searchproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'post', 'searchResult'));
+        // dd("ABCDEFGH");
+
+        // return view('sale.shop.searchproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'post', 'searchResult'));
+        return view('sale.shop.searchproduct', compact('breadcrumbs','type', 'description', 'weight', 'post', 'searchResult'));
     }
 }

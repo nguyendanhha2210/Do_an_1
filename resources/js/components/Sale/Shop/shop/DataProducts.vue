@@ -380,7 +380,7 @@ export default {
       this.product.name = product.name;
       if (product.images != "") {
         this.$refs.fileImageDispaly.src =
-          this.baseUrl + "/uploads/" + product.images;
+          this.baseUrl + "/uploads/products/" + product.images;
       }
 
       this.product.price = product.price;

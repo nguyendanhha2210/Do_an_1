@@ -59,7 +59,7 @@
             <div class="pi-pic">
               <img
                 style="height: 250px"
-                :src="baseUrl + '/uploads/' + product.images"
+                :src="baseUrl + '/uploads/products/' + product.images"
                 alt=""
               />
               <div class="sale pp-sale">Sale</div>
@@ -356,7 +356,7 @@ export default {
       this.product.name = product.name;
       if (product.images != "") {
         this.$refs.fileImageDispaly.src =
-          this.baseUrl + "/uploads/" + product.images;
+          this.baseUrl + "/uploads/products/" + product.images;
       }
 
       this.product.price = product.price;
