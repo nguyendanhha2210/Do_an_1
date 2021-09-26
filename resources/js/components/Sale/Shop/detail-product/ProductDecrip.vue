@@ -90,7 +90,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating=3
+                        :rating="decrip[0].star_vote"
                       ></star-rating>
                     </div>
                   </td>
@@ -152,7 +152,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating=3
+                      :rating="decrip[0].star_vote"
                     ></star-rating>
                   </div>
                 </div>
@@ -237,7 +237,7 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                             :rating=4
+                             :rating="evaluate.star_vote"
                             ></star-rating>
                           </span>
                         </div>
@@ -531,6 +531,8 @@ export default {
     };
   },
   created() {
+    // console.log("1111111111", typeof this.evaluate.star_vote)
+    // console.log("222222222222", typeof this.decrip[0].star_vote)
     let messError = {
       custom: {
         content: {
