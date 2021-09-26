@@ -90,7 +90,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating="decrip[0].star_vote"
+                        :rating="1"
                       ></star-rating>
                     </div>
                   </td>
@@ -152,7 +152,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating="decrip[0].star_vote"
+                      :rating="2"
                     ></star-rating>
                   </div>
                 </div>
@@ -237,7 +237,7 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                             :rating="evaluate.star_vote"
+                             :rating="3"
                             ></star-rating>
                           </span>
                         </div>
