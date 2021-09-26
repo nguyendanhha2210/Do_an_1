@@ -43,7 +43,7 @@
             type="text"
             class="form-control"
             v-model="search"
-            placeholder="Search"
+            placeholder="Search by name,category,brand,or weight..."
           />
         </div>
       </div>

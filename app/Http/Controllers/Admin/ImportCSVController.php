@@ -16,20 +16,21 @@ class ImportCSVController extends Controller
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         }
-        // dd($request->file('file'));
-        $path1 = $request->file('file')->store('temp'); 
-        $path=storage_path('app').'/'.$path1; 
-
-        // $path = $request->file('file')->getRealPath();
+        $path1 = $request->file('file')->store('temp');
+        $path = storage_path('app') . '/' . $path1;
         Excel::import(new ExcelImports, $path);
         return back();
     }
 
-    public function exportTypeCsv()
+    public function exportTypeCsv(Request $request)
     {
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         }
-        return Excel::download(new ExcelExports, 'type.xlsx');
+
+        $typesArray = explode(',', $request);
+        return (new ExcelExports($typesArray))->download('types.xlsx');
+
+        // return Excel::download(new ExcelExports, 'type.xlsx');
     }
 }

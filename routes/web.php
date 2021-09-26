@@ -27,16 +27,10 @@ Route::get('/admin/change-password-complete',  [App\Http\Controllers\Admin\User\
 Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
     Route::get('/logout', [App\Http\Controllers\Admin\User\AccountController::class, 'logout'])->name('admin.users.logout'); //đăng xuất
-
     Route::post('/get-dashboard', [App\Http\Controllers\Admin\HomeController::class, 'getDashboard'])->name('admin.home.getDashboard');
-
 
     Route::post('/import-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importTypeCsv'])->name('admin.import.importTypeCsv');
     Route::post('/export-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportTypeCsv'])->name('admin.import.exportTypeCsv');
-    
-
-
-    
     
 
     //Post //edit ngay trên trang //add kiểu modal

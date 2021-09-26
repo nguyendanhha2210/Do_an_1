@@ -36,6 +36,19 @@
           >
             Delete
           </button>
+
+          <button
+            class="btn border-radius-7"
+            v-bind:class="{
+              'btn-outline-secondary': !isBtnDeleteAll,
+              'background-white': !isBtnDeleteAll,
+              'btn-success': isBtnDeleteAll,
+              disabled: !isBtnDeleteAll,
+            }"
+            @click="exportExcel"
+          >
+            Export
+          </button>
         </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
           <select v-model="paginate" class="form-control w-sm inline v-middle">
@@ -81,7 +94,15 @@
             <tr>
               <th></th>
               <th class="text-center">STT</th>
-              <th class="text-center">Type</th>
+              <th class="text-center">
+                <a href="#" @click.prevent="change_sort('type')">Type</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'type'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'type'"
+                  >&darr;</span
+                >
+              </th>
               <th class="text-center" style="width: 20%">Action</th>
             </tr>
           </thead>
@@ -222,6 +243,9 @@ export default {
       isBtnDeleteAll: false,
       isInputAll: false,
       selectedIds: [],
+
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -242,6 +266,14 @@ export default {
     Loader,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     checkAll: function () {
       this.isInputAll = !this.isInputAll;
       this.selectedIds = [];
@@ -269,6 +301,41 @@ export default {
       } else {
         this.isBtnDeleteAll = false;
       }
+    },
+
+    exportExcel() {
+      let that = this;
+      this.$swal({
+        title: "Do you want to export ？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post("export-type-csv", this.selectedIds)
+            .then((response) => {
+              this.$swal({
+                title: "Export successfully!",
+                icon: "success",
+                confirmButtonText: "OK!",
+              }).then(function (confirm) {});
+              that.fetchData(that.currentPage);
+              that.isBtnDeleteAll = false;
+              that.isInputAll = false;
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Delete Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
     },
 
     deleteAll() {
@@ -319,6 +386,8 @@ export default {
             page: page,
             paginate: this.paginate,
             search: this.search,
+            sort_direction: this.sort_direction,
+            sort_field: this.sort_field,
           },
         })
         .then(function (response) {

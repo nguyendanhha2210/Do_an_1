@@ -30,13 +30,22 @@ class TypeController extends Controller
         try {
             $paginate = $request->paginate;
             $search = $request->search;
+
+            $sort_direction = request('sort_direction', 'desc');
+            if (!in_array($sort_direction, ['asc', 'desc'])) {
+                $sort_direction = 'desc';
+            }
+            $sort_field = request('sort_field', 'created_at');
+            if (!in_array($sort_field, ['type'])) {
+                $sort_field = 'created_at';
+            }
+
             $types = Type::where(function ($q) use ($search) {
                 if ($search) {
                     $q->where('type', 'like', '%' . $search . '%');
                 }
             })
-                ->orderBy('created_at', 'desc')->paginate($paginate);
-
+                ->orderBy($sort_field, $sort_direction)->paginate($paginate);
 
             return response()->json($types, StatusCode::OK);
         } catch (\Exception $e) {

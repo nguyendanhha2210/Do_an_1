@@ -90,10 +90,18 @@ class ShopController extends Controller
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                $products =  Product::where(function ($q) use ($search) {
+                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                     }
+                // $products =  Product::with(['type','description','weight'])->where(function ($q) use ($search) {
+                //     if ($search) {
+                //         $q->where('name', 'like', '%' . $search . '%');
+                //         $q->orWhere('products.type', 'like', '%' . $search . '%');
+                //         $q->orWhere('name', 'like', '%' . $search . '%');
+                //         $q->orWhere('name', 'like', '%' . $search . '%');
+                //         $q->orWhere('name', 'like', '%' . $search . '%');
+                //     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
                         $query->where('deleted_at', NULL);
