@@ -61,7 +61,7 @@
               read-only
               :star-size="15"
               :increment="0.1"
-              :rating="String(2)"
+              :rating= Number("2")
             ></star-rating>
           </div>
           <div class="pd-desc" style="margin-bottom: 7px">
