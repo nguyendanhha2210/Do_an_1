@@ -34,22 +34,6 @@
             <div class="product-content">
               <div class="row">
                 <div class="col-lg-7" style="transform: translate(0%, -8%)">
-                  <!-- <div
-                    style="
-                      overflow: hidden;
-                      position: relative;
-                      line-height: 18px;
-                      height: 270px;
-                      -ms-hyphens: auto;
-                      -webkit-hyphens: auto;
-                      hyphens: auto;
-                      word-wrap: break-word;
-                      text-overflow: ellipsis;
-                      padding-left: 16px;
-                    "
-                  >
-                    {{ decrip[0].content }}
-                  </div> -->
                   <div
                     style="
                       height: 270px;
@@ -90,7 +74,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating="decrip[0].star_vote"
+                        :rating= decrip[0].star_vote
                       ></star-rating>
                     </div>
                   </td>
@@ -152,7 +136,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating="decrip[0].star_vote"
+                      :rating= decrip[0].star_vote
                     ></star-rating>
                   </div>
                 </div>
@@ -237,7 +221,7 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                             :rating="evaluate.star_vote"
+                             :rating= evaluate.star_vote
                             ></star-rating>
                           </span>
                         </div>
