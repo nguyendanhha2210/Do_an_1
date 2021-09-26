@@ -61,7 +61,7 @@
               read-only
               :star-size="15"
               :increment="0.1"
-               :rating="3"
+              :rating="info[0].star_vote"
             ></star-rating>
           </div>
           <div class="pd-desc" style="margin-bottom: 7px">
