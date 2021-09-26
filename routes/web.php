@@ -77,14 +77,14 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
 
     // Route::get('/product-image', [App\Http\Controllers\Admin\ProductController::class, 'productImage'])->name('admin.productImage.list'); //Sửa
     // Route::get('/get-product-image', [App\Http\Controllers\Admin\ProductController::class, 'getProductImage'])->name('admin.product.getProductImage'); //trả dữ liệu ra form list
-    
+
     //Thêm Ảnh
     Route::get('/add-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'addProductImage'])->name('admin.productImage.AddProductImage'); //Sửa
     Route::get('/detail-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'detailProductImage'])->name('admin.productImage.detailProductImage'); //Sửa
     Route::get('/edit-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'editProductImage'])->name('admin.productImage.editProductImage'); //Sửa
     Route::post('/update-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'updateProductImage'])->name('admin.productImage.updateProductImage'); //Sửa
 
-   
+
     Route::post('/product-image/save', [App\Http\Controllers\Admin\ProductController::class, 'saveProductImage'])->name('admin.productImage.saveProductImage'); //Sửa
     //Thêm Ảnh
 
@@ -152,7 +152,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/get-replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'getData'])->name('admin.replyComment.getData'); //trả dữ liệu ra form list
     Route::post('/single-send',  [App\Http\Controllers\Admin\ReplyCommentController::class, 'singleSend'])->name('admin.replyComment.singleSend');
     Route::post('/all-send',  [App\Http\Controllers\Admin\ReplyCommentController::class, 'allSend'])->name('admin.replyComment.allSend');
-
 });
 
 Route::get('/', [App\Http\Controllers\Sale\HomeController::class, 'index'])->name('sale.index');
@@ -173,22 +172,19 @@ Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopControlle
 Route::post('/fill-evaluated/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillEvaluated'])->name('admin.shop.fillEvaluated');
 
 //show đánh giá ra chi tiết sp
- Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
- Route::post('/get-select-5star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect5Star'])->name('sale.evaluate.getSelect5Star');
- Route::post('/get-select-4star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect4Star'])->name('sale.evaluate.getSelect4Star');
- Route::post('/get-select-3star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect3Star'])->name('sale.evaluate.getSelect3Star');
- Route::post('/get-select-2star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect2Star'])->name('sale.evaluate.getSelect2Star');
- Route::post('/get-select-1star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect1Star'])->name('sale.evaluate.getSelect1Star');
-
- Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getSelect1Star');
-
-
- Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
- Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.searchProduct');
+Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
+Route::post('/get-select-5star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect5Star'])->name('sale.evaluate.getSelect5Star');
+Route::post('/get-select-4star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect4Star'])->name('sale.evaluate.getSelect4Star');
+Route::post('/get-select-3star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect3Star'])->name('sale.evaluate.getSelect3Star');
+Route::post('/get-select-2star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect2Star'])->name('sale.evaluate.getSelect2Star');
+Route::post('/get-select-1star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect1Star'])->name('sale.evaluate.getSelect1Star');
+Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getSelect1Star');
 
 
+Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
+Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.searchProduct');
 
- 
+
 
 Route::post('/contact/add-exchange-review',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'store'])->name('admin.comment.store'); //thêm comment
 Route::get('/get-exchange-review', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'getExchangeReview'])->name('admin.comment.getExchangeReview'); //Show data comment
