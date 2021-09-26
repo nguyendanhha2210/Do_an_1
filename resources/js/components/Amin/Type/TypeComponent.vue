@@ -461,6 +461,11 @@ export default {
           },
         })
         .then((response) => {
+          this.$swal({
+            title: "Export successfully!",
+            icon: "success",
+            confirmButtonText: "OK!",
+          });
           that.fetchData();
         })
         .catch((err) => {
