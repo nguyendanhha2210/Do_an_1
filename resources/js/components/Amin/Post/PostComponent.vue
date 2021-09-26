@@ -1,4 +1,4 @@
-m<template>
+<template>
   <div class="table-agile-info">
     <div class="panel panel-default">
       <div class="panel-heading"></div>
@@ -224,7 +224,7 @@ m<template>
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/' + data.images"
+                  :src="baseUrl + '/uploads/posts/' + data.images"
                   width="50px"
                   height="50px"
                   alt=""
@@ -602,7 +602,7 @@ export default {
       this.post.id = post.id;
       this.post.title = post.title;
       if (post.images != "") {
-        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/" + post.images;
+        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/posts/" + post.images;
         this.$refs.imageDispaly.style.display = "block";
         this.$refs.iconClose.style.display = "block";
         this.$refs.iconFile.style.display = "none";

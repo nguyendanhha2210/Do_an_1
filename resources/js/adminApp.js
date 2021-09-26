@@ -47,6 +47,8 @@ import ImageAdd from './components/Amin/Product/ImageAdd.vue'
 import ImageDetail from './components/Amin/Product/ImageDetail.vue'
 import ImageEdit from './components/Amin/Product/ImagesEdit.vue'
 
+import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
+
 
 
 Vue.use(VueStarRating)
@@ -103,6 +105,7 @@ new Vue({
         ImageAdd,
         ImageDetail,
         ImageEdit,
+        DashBoards,
     },
     created() {
         this.$validator.extend("number_phone", {

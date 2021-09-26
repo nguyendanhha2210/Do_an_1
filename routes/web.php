@@ -28,6 +28,9 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
     Route::get('/logout', [App\Http\Controllers\Admin\User\AccountController::class, 'logout'])->name('admin.users.logout'); //đăng xuất
 
+    Route::post('/get-dashboard', [App\Http\Controllers\Admin\HomeController::class, 'getDashboard'])->name('admin.home.getDashboard');
+    
+
     //Post //edit ngay trên trang //add kiểu modal
     Route::get('/post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('admin.post.list'); //gọi form list
     Route::post('/get-post', [App\Http\Controllers\Admin\PostController::class, 'getData'])->name('admin.post.getData'); //trả dữ liệu ra form list
