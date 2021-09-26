@@ -316,7 +316,7 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .post("export-type-csv", this.selectedIds)
+            .get("export-type-csv", this.selectedIds)
             .then((response) => {
               this.$swal({
                 title: "Export successfully!",
