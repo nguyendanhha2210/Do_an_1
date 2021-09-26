@@ -462,7 +462,7 @@ export default {
         })
         .then((response) => {
           this.$swal({
-            title: "Export successfully!",
+            title: "Import successfully!",
             icon: "success",
             confirmButtonText: "OK!",
           });
