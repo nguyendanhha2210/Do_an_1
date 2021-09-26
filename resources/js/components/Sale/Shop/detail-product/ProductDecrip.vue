@@ -74,7 +74,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating= decrip[0].star_vote
+                        :rating= "Number(decrip[0].star_vote)" 
                       ></star-rating>
                     </div>
                   </td>
@@ -136,7 +136,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating= decrip[0].star_vote
+                      :rating=  "Number(decrip[0].star_vote)" 
                     ></star-rating>
                   </div>
                 </div>
@@ -221,7 +221,7 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                             :rating= evaluate.star_vote
+                             :rating= "Number(evaluate.star_vote)" 
                             ></star-rating>
                           </span>
                         </div>
