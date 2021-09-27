@@ -9,6 +9,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
 import VueStarRating from 'vue-star-rating';
+import CKEditor from 'ckeditor4-vue';
 
 import LoginComponent from './components/Amin/User/LoginComponent'
 import TypeComponent from './components/Amin/Type/TypeComponent.vue'
@@ -50,7 +51,7 @@ import ImageEdit from './components/Amin/Product/ImagesEdit.vue'
 import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
 
 
-
+Vue.use(CKEditor);
 Vue.use(VueStarRating)
 Vue.use(VueSweetalert2);
 Vue.use(DataTable);

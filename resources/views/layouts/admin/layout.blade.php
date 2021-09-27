@@ -90,13 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
 
-    {{-- trình soạn thảo văn bản --}}
-    <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> {{-- Cách 1 : (Sử dụng đường Link) --}}
-    {{-- <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>  Cách 2: (Đao về) --}}
-    <script>
-        CKEDITOR.replace('ckeditor');
-    </script>
-    {{-- trình soạn thảo văn bản --}}
+    {{-- <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> --}}
 
     <script type="text/javascript">
         $('.order_status').change(function() {
