@@ -53,7 +53,7 @@ class PostController extends Controller
                 $sort_direction = 'desc';
             }
             $sort_field = request('sort_field', 'created_at');
-            if (!in_array($sort_field, ['title','desc','content'])) {
+            if (!in_array($sort_field, ['title', 'desc', 'content'])) {
                 $sort_field = 'created_at';
             }
 

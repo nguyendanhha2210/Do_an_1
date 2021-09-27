@@ -74,7 +74,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating= "Number(decrip[0].star_vote)" 
+                        :rating="Number(decrip[0].star_vote)"
                       ></star-rating>
                     </div>
                   </td>
@@ -136,7 +136,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating=  "Number(decrip[0].star_vote)" 
+                      :rating="Number(decrip[0].star_vote)"
                     ></star-rating>
                   </div>
                 </div>
@@ -221,7 +221,7 @@
                             <star-rating
                               read-only
                               :star-size="15"
-                             :rating= "Number(evaluate.star_vote)" 
+                              :rating="Number(evaluate.star_vote)"
                             ></star-rating>
                           </span>
                         </div>
@@ -231,6 +231,7 @@
                           {{ evaluate.content }}
                         </p>
                       </div>
+
                       <div
                         class="ml-5"
                         id="gallery"
@@ -238,20 +239,19 @@
                         data-target="#exampleModal"
                       >
                         <div
-                          v-for="data in evaluate.evaluate_images"
+                          v-for="(data, index) in evaluate.evaluate_images"
                           :key="data.id"
                         >
                           <img
-                            :src="baseUrl + '/uploads/comments/' + data.url"
                             style="
                               float: left;
                               margin-right: 9px;
                               width: 104px;
                               height: 115px;
                             "
-                            alt="First slide"
+                            :src="baseUrl + '/uploads/comments/' + data.url"
                             data-target="#carouselExample"
-                            data-slide-to="0"
+                            :data-slide-to="`${index + 1}`"
                           />
                         </div>
                       </div>
@@ -278,7 +278,7 @@
               </div>
             </div>
 
-            <!-- <div
+            <div
               class="modal fade"
               id="exampleModal"
               tabindex="-1"
@@ -302,22 +302,7 @@
                       id="carouselExample"
                       class="carousel slide"
                       data-ride="carousel"
-                      v-for="data in evaluate.evaluate_images"
-                      :key="data.id"
                     >
-                      <ol class="carousel-indicators">
-                        <li
-                          data-target="#carouselExample"
-                          data-slide-to="{{data.id}}"
-                          v-if="(data.id = 1)"
-                          class="active"
-                        ></li>
-                        <li
-                          data-target="#carouselExample"
-                          data-slide-to="{{data.id}}"
-                          v-else
-                        ></li>
-                      </ol>
                       <div class="carousel-inner">
                         <div
                           class="carousel-item"
@@ -325,9 +310,7 @@
                           :key="data.id"
                         >
                           <img
-                            class="d-block w-100"
                             :src="baseUrl + '/uploads/comments/' + data.url"
-                            alt="Second slide"
                           />
                         </div>
                       </div>
@@ -368,7 +351,7 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
 
             <div v-if="evaluates != ''">
               <nav aria-label="Page navigation example">
@@ -825,16 +808,6 @@ export default {
     },
     changeInput() {
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
-    },
-
-    switchStyle() {
-      if (document.getElementById("styleSwitch").checked) {
-        document.getElementById("gallery").classList.add("custom");
-        document.getElementById("exampleModal").classList.add("custom");
-      } else {
-        document.getElementById("gallery").classList.remove("custom");
-        document.getElementById("exampleModal").classList.remove("custom");
-      }
     },
   },
 };
