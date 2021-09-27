@@ -68,7 +68,7 @@ th {
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
-  right: 24px;
+  right: -8px;
 }
 
 @media (min-width: 1200px) {
