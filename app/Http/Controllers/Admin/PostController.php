@@ -47,6 +47,16 @@ class PostController extends Controller
         try {
             $paginate = $request->paginate;
             $search = $request->search;
+
+            $sort_direction = request('sort_direction', 'desc');
+            if (!in_array($sort_direction, ['asc', 'desc'])) {
+                $sort_direction = 'desc';
+            }
+            $sort_field = request('sort_field', 'created_at');
+            if (!in_array($sort_field, ['title','desc','content'])) {
+                $sort_field = 'created_at';
+            }
+
             $posts =  Post::where(function ($q) use ($search) {
                 if ($search) {
                     $q->where('title', 'like', '%' . $search . '%');
@@ -55,7 +65,7 @@ class PostController extends Controller
                 ->whereHas('categorypost', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
-                ->orderBy('created_at', 'desc')->paginate($paginate);
+                ->orderBy($sort_field, $sort_direction)->paginate($paginate);
             return response()->json($posts, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);

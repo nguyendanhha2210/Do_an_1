@@ -24,11 +24,8 @@ class ImportCSVController extends Controller
 
     public function exportTypeCsv(Request $request)
     {
-        // dd($request);
-        // $typesArray = explode(',', $request);
-        // dd($typesArray);
+        // dd((array)$request);
+        // dd(gettype($request));
         return (new ExcelExports($request))->download('types.xlsx');
-
-        // return Excel::download(new ExcelExports, 'type.xlsx');
     }
 }

@@ -54,6 +54,16 @@ class ProductController extends Controller
         try {
             $paginate = $request->paginate;
             $search = $request->search;
+
+            $sort_direction = request('sort_direction', 'desc');
+            if (!in_array($sort_direction, ['asc', 'desc'])) {
+                $sort_direction = 'desc';
+            }
+            $sort_field = request('sort_field', 'created_at');
+            if (!in_array($sort_field, ['price','quantity','import_price','product_sold','views'])) {
+                $sort_field = 'created_at';
+            }
+
             $products =  Product::where(function ($q) use ($search) {
                 if ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
@@ -71,7 +81,7 @@ class ProductController extends Controller
                 ->whereHas('warehouse', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
-                ->orderBy('created_at', 'desc')->paginate($paginate);
+                ->orderBy($sort_field, $sort_direction)->paginate($paginate);
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {

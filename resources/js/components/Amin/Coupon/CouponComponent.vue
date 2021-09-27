@@ -24,13 +24,44 @@
             <tr>
               <th>STT</th>
               <th>Name</th>
-              <th>Quality</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('time')">Quality</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'time'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'time'"
+                  >&darr;</span
+                >
+              </th>
               <th>Category</th>
               <th>Status</th>
               <th>Decrease</th>
               <th>Code</th>
-              <th>Start Date</th>
-              <th>End Date</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('start_date')"
+                  >Start Date</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'start_date'"
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'start_date'"
+                  >&darr;</span
+                >
+              </th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('end_date')"
+                  >End Date</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'end_date'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'end_date'"
+                  >&darr;</span
+                >
+              </th>
               <th>Limit</th>
               <th></th>
             </tr>
@@ -211,6 +242,8 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -231,6 +264,14 @@ export default {
     Loader,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     sendCustomer(id) {
       let that = this;
       this.$swal({
@@ -302,7 +343,11 @@ export default {
             "&paginate=" +
             that.paginate +
             "&search=" +
-            that.search
+            that.search +
+            "&sort_direction=" +
+            that.sort_direction +
+            "&sort_field=" +
+            that.sort_field
         )
         .then(function (response) {
           that.coupons = response.data.coupons; //show data ra

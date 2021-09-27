@@ -23,7 +23,15 @@
           <thead>
             <tr>
               <th>STT</th>
-              <th>name</th>
+               <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('name')">Name</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'name'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'name'"
+                  >&darr;</span
+                >
+              </th>
               <th>desc</th>
               <th></th>
             </tr>
@@ -134,6 +142,8 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -154,6 +164,14 @@ export default {
     Loader,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData();
+    },
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
@@ -164,7 +182,11 @@ export default {
             "&paginate=" +
             that.paginate +
             "&search=" +
-            that.search
+            that.search+
+             "&sort_direction=" +
+            that.sort_direction +
+            "&sort_field=" +
+            that.sort_field
         )
         .then(function (response) {
           that.categoryPosts = response.data; //show data ra

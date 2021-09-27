@@ -37,6 +37,16 @@ class WareHouseController extends Controller
             $paginate = $request->paginate;
             $search = $request->search;
             $statusImport = $request->statusImport;
+
+            $sort_direction = request('sort_direction', 'desc');
+            if (!in_array($sort_direction, ['asc', 'desc'])) {
+                $sort_direction = 'desc';
+            }
+            $sort_field = request('sort_field', 'created_at');
+            if (!in_array($sort_field, ['import_price','import_quantity','inventory'])) {
+                $sort_field = 'created_at';
+            }
+
             $types = WareHouse::where(function ($q) use ($search) {
                 if ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
@@ -45,7 +55,7 @@ class WareHouseController extends Controller
                 if ($statusImport) {
                     $q->where('status', '=', $statusImport);
                 }
-            })->orderBy('created_at', 'desc')->paginate($paginate);
+            })->orderBy($sort_field, $sort_direction)->paginate($paginate);
 
             return response()->json($types, StatusCode::OK);
         } catch (\Exception $e) {

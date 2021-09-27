@@ -305,6 +305,7 @@ export default {
 
     exportExcel() {
       let that = this;
+      console.log(typeof this.selectedIds)
       this.$swal({
         title: "Do you want to export ？",
         icon: "warning",

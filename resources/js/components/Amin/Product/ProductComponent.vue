@@ -405,17 +405,76 @@
               <th scope="col">STT</th>
               <th scope="col">Name</th>
               <th scope="col">Images</th>
-              <th scope="col">Price</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('price')">Price</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'price'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'price'"
+                  >&darr;</span
+                >
+              </th>
               <th scope="col">Status</th>
               <th scope="col">Type</th>
               <th scope="col">Weight_id</th>
               <th scope="col">Description_id</th>
               <th scope="col">Content</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Import Price</th>
-              <th scope="col">Product Sold</th>
+
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('quantity')"
+                  >Quantity</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'quantity'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'quantity'"
+                  >&darr;</span
+                >
+              </th>
+
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('import_price')"
+                  >Import Price</a
+                >
+                <span
+                  v-if="
+                    sort_direction == 'desc' && sort_field == 'import_price'
+                  "
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'import_price'"
+                  >&darr;</span
+                >
+              </th>
+
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('product_sold')"
+                  >Product Sold</a
+                >
+                <span
+                  v-if="
+                    sort_direction == 'desc' && sort_field == 'product_sold'
+                  "
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'product_sold'"
+                  >&darr;</span
+                >
+              </th>
+
               <th scope="col">Ware Houses</th>
-              <th scope="col">Views</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('views')">Views</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'views'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'views'"
+                  >&darr;</span
+                >
+              </th>
               <th></th>
             </tr>
           </thead>
@@ -597,6 +656,9 @@ export default {
       weight_product: {},
       description_product: {},
       flagShowLoader: false,
+
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -753,6 +815,14 @@ export default {
     //     });
     // },
 
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     activeStatus(product) {
       let that = this;
       let formData = new FormData();
@@ -955,7 +1025,11 @@ export default {
             "&paginate=" +
             that.paginate +
             "&search=" +
-            that.search
+            that.search +
+            "&sort_direction=" +
+            that.sort_direction +
+            "&sort_field=" +
+            that.sort_field
         )
         .then(function (response) {
           that.products = response.data;

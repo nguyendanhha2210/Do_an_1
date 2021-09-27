@@ -48,9 +48,51 @@
               <th>STT</th>
               <th>Name</th>
               <th>Images</th>
-              <th>Import Price</th>
-              <th>Import Quantity</th>
-              <th>Inventory</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('import_price')"
+                  >Import Price</a
+                >
+                <span
+                  v-if="
+                    sort_direction == 'desc' && sort_field == 'import_price	'
+                  "
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'import_price	'"
+                  >&darr;</span
+                >
+              </th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('import_quantity')"
+                  >Import Quantity</a
+                >
+                <span
+                  v-if="
+                    sort_direction == 'desc' && sort_field == 'import_quantity	'
+                  "
+                  >&uarr;</span
+                >
+                <span
+                  v-if="
+                    sort_direction == 'asc' && sort_field == 'import_quantity	'
+                  "
+                  >&darr;</span
+                >
+              </th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('inventory')"
+                  >Inventory</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'inventory'"
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'inventory'"
+                  >&darr;</span
+                >
+              </th>
               <th>Import Date</th>
               <th>Action</th>
             </tr>
@@ -188,6 +230,9 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -211,6 +256,14 @@ export default {
     Loader,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
@@ -223,7 +276,11 @@ export default {
             "&search=" +
             that.search +
             "&statusImport=" +
-            that.statusImport
+            that.statusImport +
+            "&sort_direction=" +
+            that.sort_direction +
+            "&sort_field=" +
+            that.sort_field
         )
         .then(function (response) {
           that.warehouses = response.data; //show data ra

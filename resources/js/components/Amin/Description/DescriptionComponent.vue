@@ -58,7 +58,15 @@
             <tr>
               <th></th>
               <th class="text-center">STT</th>
-              <th class="text-center">Description</th>
+              <th class="text-center">
+                <a href="#" @click.prevent="change_sort('description')">Description</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'description'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'description'"
+                  >&darr;</span
+                >
+              </th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -201,6 +209,8 @@ export default {
       isBtnDeleteAll: false,
       isInputAll: false,
       selectedIds: [],
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -221,6 +231,14 @@ export default {
     Loader,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     checkAll: function () {
       this.isInputAll = !this.isInputAll;
       this.selectedIds = [];
@@ -298,6 +316,8 @@ export default {
             page: page,
             paginate: this.paginate,
             search: this.search,
+            sort_direction: this.sort_direction,
+            sort_field: this.sort_field,
           },
         })
 

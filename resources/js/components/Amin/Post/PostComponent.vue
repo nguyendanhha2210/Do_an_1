@@ -200,12 +200,36 @@
           <thead>
             <tr>
               <th scope="col">STT</th>
-              <th scope="col">Title</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('title')">Title</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'title'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'title'"
+                  >&darr;</span
+                >
+              </th>
               <th scope="col">Category</th>
-              <th scope="col">Desc</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('desc')">Desc</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'desc'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'desc'"
+                  >&darr;</span
+                >
+              </th>
               <th scope="col">Images</th>
               <th scope="col">Status</th>
-              <th scope="col">Content</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('desc')">Content</a>
+                <span v-if="sort_direction == 'desc' && sort_field == 'content'"
+                  >&uarr;</span
+                >
+                <span v-if="sort_direction == 'asc' && sort_field == 'content'"
+                  >&darr;</span
+                >
+              </th>
               <th scope="col">Views</th>
               <th></th>
             </tr>
@@ -338,6 +362,9 @@ export default {
       search: "",
       category_post: {},
       flagShowLoader: false,
+
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -378,6 +405,14 @@ export default {
     },
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     activeStatus(data) {
       let that = this;
       let formData = new FormData();
@@ -557,7 +592,11 @@ export default {
             "&paginate=" +
             that.paginate +
             "&search=" +
-            that.search
+            that.search +
+            "&sort_direction=" +
+            that.sort_direction +
+            "&sort_field=" +
+            that.sort_field
         )
         .then(function (response) {
           that.posts = response.data;
@@ -602,7 +641,8 @@ export default {
       this.post.id = post.id;
       this.post.title = post.title;
       if (post.images != "") {
-        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/posts/" + post.images;
+        this.$refs.imageDispaly.src =
+          this.baseUrl + "/uploads/posts/" + post.images;
         this.$refs.imageDispaly.style.display = "block";
         this.$refs.iconClose.style.display = "block";
         this.$refs.iconFile.style.display = "none";

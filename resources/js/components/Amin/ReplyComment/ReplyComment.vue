@@ -63,11 +63,47 @@
             <tr>
               <th></th>
               <th class="text-center">STT</th>
-              <th class="text-center">Product Id</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('product_id')"
+                  >Product Id</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'product_id'"
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'product_id'"
+                  >&darr;</span
+                >
+              </th>
               <th class="text-center">Content</th>
-              <th>Star Vote</th>
+
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('star_vote')"
+                  >Star Vote</a
+                >
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'star_vote'"
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'star_vote'"
+                  >&darr;</span
+                >
+              </th>
+
               <th class="text-center">Reply</th>
-              <th class="text-center">Date</th>
+              <th scope="col" class="text-center">
+                <a href="#" @click.prevent="change_sort('created_at')">Date</a>
+                <span
+                  v-if="sort_direction == 'desc' && sort_field == 'created_at'"
+                  >&uarr;</span
+                >
+                <span
+                  v-if="sort_direction == 'asc' && sort_field == 'created_at'"
+                  >&darr;</span
+                >
+              </th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -100,7 +136,7 @@
                 {{ evaluate.content }}
               </td>
 
-              <td>
+              <td style="display: inline-flex">
                 <star-rating
                   read-only
                   :star-size="15"
@@ -249,6 +285,9 @@ export default {
       isBtnDeleteAll: false,
       isInputAll: false,
       selectedIds: [],
+
+      sort_direction: "desc",
+      sort_field: "created_at",
     };
   },
   created() {
@@ -278,6 +317,14 @@ export default {
     StarRating,
   },
   methods: {
+    change_sort(field) {
+      if (this.sort_field == field) {
+        this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
+      } else {
+        this.sort_field = field;
+      }
+      this.fetchData(1);
+    },
     checkAll: function () {
       this.isInputAll = !this.isInputAll;
       this.selectedIds = [];
@@ -378,6 +425,8 @@ export default {
             page: page,
             paginate: this.paginate,
             statusReply: this.statusReply,
+            sort_direction: this.sort_direction,
+            sort_field: this.sort_field,
           },
         })
         .then(function (response) {
