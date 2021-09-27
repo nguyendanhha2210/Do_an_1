@@ -223,9 +223,8 @@
                           <div class="d-flex flex-row align-items-start">
                             <img
                               class="rounded-circle"
-                              :src="
-                                baseUrl + '/uploads/users/' + comment.images
-                              "
+                            
+                               :src="baseUrl + '/uploads/users/' + showImage"
                               width="40px"
                               height="40px"
                               alt=""
@@ -393,11 +392,7 @@
                           <div class="d-flex flex-row align-items-start">
                             <img
                               class="rounded-circle"
-                              :src="
-                                baseUrl +
-                                '/uploads/users/' +
-                                exchangeReviews.images
-                              "
+                              :src="baseUrl + '/uploads/users/' + showImage"
                               width="40px"
                               height="40px"
                               alt=""
