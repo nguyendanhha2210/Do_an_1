@@ -49,7 +49,10 @@
       </div>
     </div>
 
-    <div class="product-list" style="background-color: #e9edf0;margin-bottom: 60px;">
+    <div
+      class="product-list"
+      style="background-color: #e9edf0; margin-bottom: 60px"
+    >
       <div class="row" style="padding-top: 25px">
         <div
           class="col-lg-4 col-sm-6"
@@ -171,7 +174,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
@@ -187,57 +190,48 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group row">
-              <label for="staticEmail" class="col-lg-4 col-sm-4 col-form-label"
-                >Name Product :
-              </label>
-              <div class="col-lg-8 col-sm-8">
-                <input
-                  type="text"
-                  readonly
-                  class="form-control-plaintext"
-                  id="staticEmail"
-                  v-model="product.name"
+            <div class="row">
+              <div class="col-md-4 product_img">
+                <img
+                  src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg"
+                  class="img-responsive"
                 />
               </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="staticEmail" class="col-lg-4 col-sm-4 col-form-label"
-                >Price Product :
-              </label>
-              <div class="col-lg-8 col-sm-8">
-                <input
-                  type="text"
-                  readonly
-                  class="form-control-plaintext"
-                  id="staticEmail"
-                  v-model="product.price"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="staticEmail" class="col-lg-4 col-sm-4 col-form-label"
-                >Content Product :
-              </label>
-              <div class="col-lg-8 col-sm-8">
-                <input
-                  type="text"
-                  readonly
-                  class="form-control-plaintext"
-                  id="staticEmail"
-                  v-model="product.content"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="staticEmail" class="col-lg-4 col-sm-4 col-form-label"
-                >Images Product :
-              </label>
-              <div class="col-lg-8 col-sm-8">
-                <img src ref="fileImageDispaly" width="150px" />
+              <div class="col-md-8 product_content">
+                <h4>Product Id: <span>51526</span></h4>
+                <div class="rating">
+                  <span class="glyphicon glyphicon-star"></span>
+                  <span class="glyphicon glyphicon-star"></span>
+                  <span class="glyphicon glyphicon-star"></span>
+                  <span class="glyphicon glyphicon-star"></span>
+                  <span class="glyphicon glyphicon-star"></span>
+                  (10 reviews)
+                </div>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.Lorem Ipsum is simply dummy text of the printing
+                  and typesetting industry.
+                </p>
+                <h3 class="cost">
+                  <span class="glyphicon glyphicon-usd"></span> 75.00
+                </h3>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <select class="form-control" name="select">
+                      <option value="" selected="">1</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="space-ten"></div>
+                <div class="btn-ground">
+                  <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Add
+                    To Cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -257,6 +251,22 @@
     ></Modal>
   </div>
 </template>
+
+ 
+<style lang="scss" scoped>
+.product_view .modal-dialog {
+  max-width: 800px;
+  width: 100%;
+}
+.pre-cost {
+  text-decoration: line-through;
+  color: #a5a5a5;
+}
+.space-ten {
+  padding: 10px 0;
+}
+</style>
+
 <script>
 import Modal from "../../../Modal/Modal.vue";
 import Loader from "../../../Common/loader.vue";
