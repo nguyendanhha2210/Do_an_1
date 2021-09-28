@@ -2,7 +2,11 @@
   <div class="advanced-search">
     <button type="button" class="category-btn">All Categories</button>
     <div class="input-group form-seach">
-      <form class="vue-autosuggest" role="form" @submit.prevent="searchProduct()">
+      <form
+        class="vue-autosuggest"
+        role="form"
+        @submit.prevent="searchProduct()"
+      >
         <vue-autosuggest
           v-model="query"
           :suggestions="filteredOptions"
@@ -144,10 +148,9 @@ export default {
       let formData = new FormData();
       formData.append("name", this.query);
       formData.append("id", this.userId);
-      // this.flagShowLoader = true;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
-          window.location.href=`/search-product?id=${this.userId}&name=${this.query}`
+          window.location.href = `/search-product?id=${this.userId}&name=${this.query}`;
         }
       });
     },

@@ -50,16 +50,12 @@
     </div>
     <div class="product-list" style="background-color: #e9edf0">
       <div class="row" style="padding-top: 25px">
-        <div
-          class="col-lg-4 col-sm-6"
-          v-for="product in products.data"
-          :key="product.id"
-        >
+        <div class="col-lg-4 col-sm-6">
           <div class="product-item" style="background-color: white">
             <div class="pi-pic">
               <img
                 style="height: 250px"
-                :src="baseUrl + '/uploads/' + product.images"
+                :src="baseUrl + '/uploads/products/' + abc.images"
                 alt=""
               />
               <div class="sale pp-sale">Sale</div>
@@ -68,7 +64,7 @@
               </div>
               <ul>
                 <li class="w-icon active">
-                  <a @click="addCartProduct(product)" href="#"
+                  <a @click="addCartProduct(abc)" href="#"
                     ><i class="fa fa-shopping-basket"></i
                   ></a>
                 </li>
@@ -77,14 +73,14 @@
                     type="button"
                     data-toggle="modal"
                     data-target="#myModal"
-                    @click="showQuickView(product)"
+                    @click="showQuickView(abc)"
                     href="#"
                     >+ Quick View</a
                   >
                 </li>
 
                 <li class="w-icon">
-                  <a :href="`/product-detail/${product.id}`"
+                  <a :href="`/product-detail/${abc.id}`"
                     ><i class="fa fa-eye"></i
                   ></a>
                 </li>
@@ -99,7 +95,7 @@
                 style="transform: translate(0%, -34%); font-size: 21px"
               >
                 <h5 style="">
-                  {{ product.name }}
+                  <!-- {{ abc.name }} -->
                 </h5>
               </a>
               <div style="color: red; transform: translate(-27%, 53%)">
@@ -112,7 +108,7 @@
                   >đ</u
                 >
                 <span style="font-size: 19px">{{
-                  formatPrice(product.price)
+                  formatPrice(abc.price)
                 }}</span>
               </div>
               <div
@@ -123,7 +119,7 @@
                   color: dimgray;
                 "
               >
-                <span>Đã bán {{ product.product_sold }}</span>
+                <span>Đã bán {{ abc.product_sold }}</span>
               </div>
             </div>
           </div>
@@ -135,7 +131,7 @@
       v-if="products != ''"
       style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
-      <nav aria-label="Page navigation example" style="height: 44px;">
+      <nav aria-label="Page navigation example" style="height: 44px">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"
@@ -191,7 +187,7 @@
                   readonly
                   class="form-control-plaintext"
                   id="staticEmail"
-                  v-model="product.name"
+                  v-model="abc.name"
                 />
               </div>
             </div>
@@ -206,7 +202,7 @@
                   readonly
                   class="form-control-plaintext"
                   id="staticEmail"
-                  v-model="product.price"
+                  v-model="abc.price"
                 />
               </div>
             </div>
@@ -221,7 +217,7 @@
                   readonly
                   class="form-control-plaintext"
                   id="staticEmail"
-                  v-model="product.content"
+                  v-model="abc.content"
                 />
               </div>
             </div>
@@ -248,7 +244,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
-      searchResult: this.searchResult,
+      abc: this.searchItem,
 
       products: [],
       product: {
@@ -269,169 +265,142 @@ export default {
       flagShowLoader: false,
     };
   },
-  created() {
-    this.fetchData();
-  },
   components: {
     Loader,
   },
-  props: ["searchResult"],
-  mounted() {
-    console.log(this.searchResult);
-  },
-
-  watch: {
-  },
+  props: ["searchItem"],
   methods: {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    fetchData() {
-      let that = this;
-      this.flagShowLoader = true;
-      var url =
-        "/get-type-product/" +
-        this.typ[0].type_id +
-        "?page=" +
-        this.page +
-        "&paginate=" +
-        this.paginate +
-        "&search=" +
-        this.search +
-        "&statusView=" +
-        that.statusView;
-      axios
-        .get(url)
-        .then(function (response) {
-          that.products = response.data;
-          that.flagShowLoader = false;
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 404:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+    // fetchData() {
+    //   let that = this;
+    //   this.flagShowLoader = true;
+    //   var url =
+    //     "/get-type-product/" +
+    //     this.typ[0].type_id +
+    //     "?page=" +
+    //     this.page +
+    //     "&paginate=" +
+    //     this.paginate +
+    //     "&search=" +
+    //     this.search +
+    //     "&statusView=" +
+    //     that.statusView;
+    //   axios
+    //     .get(url)
+    //     .then(function (response) {
+    //       that.products = response.data;
+    //       that.flagShowLoader = false;
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 404:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
 
-    prev() {
-      if (this.products.prev_page_url) {
-        this.page--;
-        this.fetchData();
-      }
-    },
-    next() {
-      if (this.products.next_page_url) {
-        this.page++;
-        this.fetchData();
-      }
-    },
+    //   showQuickView(product) {
+    //     this.product.id = product.id;
+    //     this.product.name = product.name;
+    //     if (product.images != "") {
+    //       this.$refs.fileImageDispaly.src =
+    //         this.baseUrl + "/uploads/" + product.images;
+    //     }
 
-    changePage(page) {
-      this.page = page;
-      this.fetchData();
-    },
+    //     this.product.price = product.price;
+    //     this.product.type_id = product.type_id;
+    //     this.product.weight_id = product.weight_id;
+    //     this.product.description_id = product.description_id;
+    //     this.product.content = product.content;
+    //     this.product.status = product.status;
+    //   },
 
-    showQuickView(product) {
-      this.product.id = product.id;
-      this.product.name = product.name;
-      if (product.images != "") {
-        this.$refs.fileImageDispaly.src =
-          this.baseUrl + "/uploads/" + product.images;
-      }
+    //   attachFile() {
+    //     this.product.images = this.$refs.fileImage.files[0];
+    //     let reader = new FileReader();
+    //     reader.buttonAddEventListener(
+    //       "load",
+    //       function () {
+    //         this.$refs.fileImageDispaly.src = reader.result;
+    //       }.bind(this),
+    //       false
+    //     );
 
-      this.product.price = product.price;
-      this.product.type_id = product.type_id;
-      this.product.weight_id = product.weight_id;
-      this.product.description_id = product.description_id;
-      this.product.content = product.content;
-      this.product.status = product.status;
-    },
+    //     reader.readAsDataURL(this.product.images);
+    //   },
 
-    attachFile() {
-      this.product.images = this.$refs.fileImage.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly.src = reader.result;
-        }.bind(this),
-        false
-      );
-
-      reader.readAsDataURL(this.product.images);
-    },
-
-    addCartProduct(product) {
-      let that = this;
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          axios
-            .post(`/add-to-cart`, product)
-            .then((response) => {
-              this.$swal({
-                title: "Add Successfully!",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then((confirm) => {
-                if (confirm.value) {
-                  this.$swal({
-                    title: "Do you want to continue ？",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Xem tiếp !",
-                    cancelButtonText: "Đi đến giỏ hàng !",
-                  }).then((result) => {
-                    if (result.value) {
-                    } else {
-                      window.location = this.baseUrl + "/view-cart";
-                    }
-                  });
-                }
-              });
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  that.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                case 500:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
-            });
-        }
-      });
-    },
+    //   addCartProduct(product) {
+    //     let that = this;
+    //     this.$validator.validateAll().then((valid) => {
+    //       if (valid) {
+    //         axios
+    //           .post(`/add-to-cart`, product)
+    //           .then((response) => {
+    //             this.$swal({
+    //               title: "Add Successfully!",
+    //               icon: "success",
+    //               confirmButtonText: "OK",
+    //             }).then((confirm) => {
+    //               if (confirm.value) {
+    //                 this.$swal({
+    //                   title: "Do you want to continue ？",
+    //                   icon: "question",
+    //                   showCancelButton: true,
+    //                   confirmButtonColor: "#3085d6",
+    //                   cancelButtonColor: "#d33",
+    //                   confirmButtonText: "Xem tiếp !",
+    //                   cancelButtonText: "Đi đến giỏ hàng !",
+    //                 }).then((result) => {
+    //                   if (result.value) {
+    //                   } else {
+    //                     window.location = this.baseUrl + "/view-cart";
+    //                   }
+    //                 });
+    //               }
+    //             });
+    //           })
+    //           .catch((err) => {
+    //             switch (err.response.status) {
+    //               case 422:
+    //                 that.errorBackEnd = err.response.data.errors;
+    //                 break;
+    //               case 404:
+    //                 that
+    //                   .$swal({
+    //                     title: "Add Error !",
+    //                     icon: "warning",
+    //                     confirmButtonText: "Cancle !",
+    //                   })
+    //                   .then(function (confirm) {});
+    //                 break;
+    //               case 500:
+    //                 that
+    //                   .$swal({
+    //                     title: "Add Error !",
+    //                     icon: "warning",
+    //                     confirmButtonText: "Cancle !",
+    //                   })
+    //                   .then(function (confirm) {});
+    //                 break;
+    //               default:
+    //                 break;
+    //             }
+    //           });
+    //       }
+    //     });
+    //   },
   },
 };
 </script>

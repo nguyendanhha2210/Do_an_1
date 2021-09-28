@@ -10,6 +10,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
 import VueStarRating from 'vue-star-rating';
 import VueAutosuggest from "vue-autosuggest";
+import VueZoomer from 'vue-zoomer'
 
 import VueCardCarousel from "vue-card-carousel"
 import LoginComponent from './components/Sale/User/LoginComponent.vue'
@@ -37,7 +38,7 @@ import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
 import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
 import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
-import VueZoomer from 'vue-zoomer'
+
 
 Vue.use(VueZoomer)
 Vue.use(VueAutosuggest);
