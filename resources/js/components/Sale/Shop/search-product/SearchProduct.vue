@@ -1,6 +1,6 @@
 <template>
   <div class="advanced-search">
-    <button type="button" class="category-btn">All Categories</button>
+    <button type="button" class="category-btn">All Products</button>
     <div class="input-group form-seach">
       <form
         class="vue-autosuggest"
@@ -9,6 +9,7 @@
       >
         <vue-autosuggest
           v-model="query"
+          :limit="10"
           :suggestions="filteredOptions"
           @input="changeInput"
           @selected="onSelected"
@@ -40,8 +41,7 @@
             {{ errors.first("name") }}
           </div>
         </div>
-        <button type="submit">Tìm</button>
-        <!-- <button type="submit"><i class="ti-search"></i></button> -->
+        <button type="submit"><i class="ti-search"></i></button>
       </form>
     </div>
     <Modal
@@ -106,6 +106,7 @@ export default {
         {
           data: this.options.filter((option) => {
             return (
+              option.name.toLowerCase().indexOf(this.query.toLowerCase()) > -1,
               option.name.toLowerCase().indexOf(this.query.toLowerCase()) > -1
             );
           }),
