@@ -95,7 +95,7 @@
                 style="transform: translate(0%, -34%); font-size: 21px"
               >
                 <h5 style="">
-                  <!-- {{ abc.name }} -->
+                  {{ abc.name }}
                 </h5>
               </a>
               <div style="color: red; transform: translate(-27%, 53%)">

@@ -18,25 +18,16 @@ class SearchAllController extends Controller
     {
         try {
             $products = Product::where('status', '=', StatusSale::UP)->where('quantity', '>', 0)->get();
-            // $data = [];
-            // if (!empty($products)) {
-            //     foreach ($products as $item) {
-            //         $data[] = [
-            //             "name" => $item->email,
-            //             "id" => $item->id,
-            //         ];
-            //     }
-            // }
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
         }
     }
 
-    public function postSearchProduct(Request $request)
-    {
-        return redirect()->route('admin.searchAll.postSearchProduct');
-    }
+    // public function postSearchProduct(Request $request)
+    // {
+    //     return redirect()->route('admin.searchAll.postSearchProduct');
+    // }
 
     public function searchProduct(Request $request)
     {
@@ -49,7 +40,7 @@ class SearchAllController extends Controller
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $ab = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
+        $resultSearch = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
             ->whereHas('weight', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -61,6 +52,6 @@ class SearchAllController extends Controller
             })
             ->orderBy('created_at', 'desc')->first();
 
-        return view('sale.shop.search', compact('type', 'description', 'weight', 'post', 'breadcrumbs','ab'));
+        return view('sale.shop.search', compact('type', 'description', 'weight', 'post', 'breadcrumbs', 'resultSearch'));
     }
 }

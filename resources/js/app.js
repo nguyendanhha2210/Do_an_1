@@ -32,12 +32,13 @@ import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
 import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.vue'
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
+import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
+import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
 
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
 import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
-import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
-import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
+
 
 
 Vue.use(VueZoomer)

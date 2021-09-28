@@ -189,8 +189,6 @@ Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewControll
 Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
 Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.getSearchProduct');
 
-
-
 Route::post('/contact/add-exchange-review',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'store'])->name('admin.comment.store'); //thêm comment
 Route::get('/get-exchange-review', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'getExchangeReview'])->name('admin.comment.getExchangeReview'); //Show data comment
 Route::post('reply-exchange-review/{id}',  [App\Http\Controllers\Sale\ExchangeReviewController::class, 'replyExchangeReview'])->name('admin.comment.replyComment'); //thêm comment
