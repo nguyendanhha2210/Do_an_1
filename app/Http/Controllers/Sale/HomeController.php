@@ -106,6 +106,44 @@ class HomeController extends Controller
 
     public function quickViewShop(Request $request)
     {
-        dd($request->all());
+        try {
+            $productQuick = Product::where('id', $request->id)->where('quantity', '>', 0)
+                ->with(['weight', 'type', 'description', 'productImages'])
+                ->whereHas('weight', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('type', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('description', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->orderBy('created_at', 'desc')->first();
+
+            $id = $productQuick->id;
+            $idType = $productQuick->type_id;
+            $idDecr = $productQuick->description_id;
+            $idWeig = $productQuick->weight_id;
+
+            $productTogether =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+                ->where('type_id', $idType)
+                ->where('description_id', $idDecr)
+                ->where('weight_id', $idWeig)
+                ->whereNotIn('id', [$id])
+                ->with(['weight', 'type', 'description'])
+                ->whereHas('weight', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('type', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('description', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })->take(3)->orderBy('price', 'asc')->get();
+
+            return response()->json(["productQuick" => $productQuick, "productTogether" => $productTogether], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
     }
 }

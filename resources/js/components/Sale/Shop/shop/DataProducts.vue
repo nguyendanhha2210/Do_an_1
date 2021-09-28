@@ -182,7 +182,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Product information
+              Product Information
             </h5>
             <button
               type="button"
@@ -195,46 +195,202 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-6 col-12 product_img">
-                <img
-                  src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg"
-                  class="img-responsive"
-                />
+              <div class="col-md-6 col-12">
+                <v-zoomer>
+                  <img
+                    class="product-big-img"
+                    style="height: 280px"
+                    ref="image"
+                    :src="baseUrl + '/uploads/products/' + quickViews.images"
+                    alt=""
+                  />
+                </v-zoomer>
+                <div class="product-thumbs">
+                  <div class="product-thumbs-track ps-slider owl-carousel">
+                    <div
+                      v-for="data in quickViews.product_images"
+                      :key="data.id"
+                    >
+                      <div class="pt active">
+                        <img
+                          class="product-big-img"
+                          :ref="`images${data.id}`"
+                          height="100px"
+                          :src="baseUrl + '/uploads/products/' + data.url"
+                          alt=""
+                          @click="changeImage(data.id)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="col-md-6 col-12 product_content">
-                <h4>Product Id: <span>51526</span></h4>
-                <div class="rating">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  (10 reviews)
+                <b style="font-size: 13px">
+                  Mã ID : <span>{{ quickViews.id }}</span>
+                </b>
+                <h3 style="color: #e7ab3c">{{ quickViews.name }}</h3>
+                <div class="rating" style="font-size: 13px; padding-top: 4px">
+                  <star-rating
+                    read-only
+                    :star-size="15"
+                    :increment="0.1"
+                    :rating="Number(quickViews.star_vote)"
+                  ></star-rating>
+                  <div style="transform: translate(30%, -99%); font-size: 14px">
+                    <b style="padding-left: 2%">|</b>
+                    <u style="padding-left: 2%">{{
+                      quickViews.product_sold
+                    }}</u>
+                    Đã bán
+                    <b style="padding-left: 2%"> |</b>
+                    <u style="padding-left: 2%">{{ quickViews.views }}</u>
+                    Đã xem
+                  </div>
                 </div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.Lorem Ipsum is simply dummy text of the printing
-                  and typesetting industry.
+                <p
+                  style="
+                    height: 175px;
+                    position: relative;
+                    width: 100%;
+                    -ms-hyphens: auto;
+                    -webkit-hyphens: auto;
+                    hyphens: auto;
+                    word-wrap: break-word;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    -webkit-line-clamp: 7;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
+                  "
+                >
+                  {{ quickViews.content }}
                 </p>
-                <h3 class="cost">
-                  <span class="glyphicon glyphicon-usd"></span> 75.00
-                </h3>
+                <div
+                  class="cost"
+                  style="color: red; transform: translate(0%, -10%)"
+                >
+                  <u
+                    style="
+                      font-size: 13px;
+                      display: -webkit-inline-box;
+                      transform: translate(0%, -13%);
+                    "
+                    >đ</u
+                  >
+                  <span class="glyphicon glyphicon-usd" style="font-size: 27px"
+                    ><b> {{ formatPrice(quickViews.price) }}</b></span
+                  >
+                </div>
+
                 <div class="row">
-                  <div class="col-md-6 col-sm-12">
-                    <select class="form-control" name="select">
-                      <option value="" selected="">1</option>
-                    </select>
+                  <div class="col-md-6 col-sm-12" style="position: relative">
+                    <div class="quantity">
+                      <a
+                        @click="addCartProduct(quickViews)"
+                        class="primary-btn pd-cart btn btn-success"
+                        href="#"
+                        >Add To Cart</a
+                      >
+                      <a
+                        style="
+                          float: right;
+                          position: absolute;
+                          margin-left: 66px;
+                          width: max-content;
+                        "
+                        class="primary-btn pd-cart btn btn-success"
+                        :href="`product-detail/${quickViews.id}`"
+                        >View Detail</a
+                      >
+                    </div>
                   </div>
                 </div>
                 <div class="space-ten"></div>
-                <div class="btn-ground">
-                  <button type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-shopping-cart"></span> Add
-                    To Cart
-                  </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-title">
+                  <h2 style="font-size: 22px">Frequently Bought Together</h2>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row"
+              style="background-color: #e9edf0; margin-bottom: 15px"
+            >
+              <div
+                style="padding-top: 29px"
+                class="col-lg-4 col-sm-6"
+                v-for="productTogether in productTogethers"
+                :key="productTogether.id"
+              >
+                <div class="product-item" style="background-color: white">
+                  <div class="pi-pic">
+                    <img
+                      style="height: 167px"
+                      :src="
+                        baseUrl + '/uploads/products/' + productTogether.images
+                      "
+                      alt=""
+                    />
+                    <div class="sale">Sale</div>
+                    <div class="icon">
+                      <i class="icon_heart_alt"></i>
+                    </div>
+                    <ul>
+                      <li class="w-icon active">
+                        <a href="#" @click="addCartProduct(productTogether)"
+                          ><i class="fa fa-shopping-basket"></i
+                        ></a>
+                      </li>
+                      <li class="w-icon">
+                        <a :href="`${productTogether.id}`"
+                          ><i class="fa fa-eye"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="pi-text"
+                    style="
+                      padding-top: 19px !important;
+                      border: 0.5px solid #e9edf0;
+                    "
+                  >
+                    <a
+                      href="#"
+                      style="transform: translate(0%, -34%); font-size: 21px"
+                    >
+                      <h5 style="">
+                        {{ productTogether.name }}
+                      </h5>
+                    </a>
+                    <div style="color: red; transform: translate(-27%, 53%)">
+                      <u
+                        style="
+                          font-size: 13px;
+                          display: -webkit-inline-box;
+                          transform: translate(0%, -13%);
+                        "
+                        >đ</u
+                      >
+                      <span style="font-size: 19px">{{
+                        formatPrice(productTogether.price)
+                      }}</span>
+                    </div>
+                    <div
+                      class="da-ban"
+                      style="
+                        transform: translate(32%, -47%);
+                        font-size: 14px;
+                        color: dimgray;
+                      "
+                    >
+                      <span>Đã bán {{ productTogether.product_sold }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -272,6 +428,7 @@
 </style>
 
 <script>
+import StarRating from "vue-star-rating";
 import Modal from "../../../Modal/Modal.vue";
 import Loader from "../../../Common/loader.vue";
 import Vue from "vue";
@@ -292,6 +449,31 @@ export default {
         content: "",
         status: "",
       },
+
+      quickViews: {
+        id: "",
+        name: "",
+        images: "",
+        price: "",
+        quantity: "",
+        product_sold: "",
+        views: "",
+        content: "",
+        star_vote: "",
+      },
+      productTogethers: [],
+      productTogether: {
+        id: "",
+        name: "",
+        images: "",
+        price: "",
+        quantity: "",
+        product_sold: "",
+        views: "",
+        content: "",
+        star_vote: "",
+      },
+
       page: 1,
       paginate: 9,
       search: "",
@@ -316,6 +498,7 @@ export default {
   components: {
     Modal,
     Loader,
+    StarRating,
   },
   mounted() {},
   props: {
@@ -333,6 +516,9 @@ export default {
     },
   },
   methods: {
+    changeImage(value) {
+      this.$refs.image.src = this.$refs["images" + value][0].src;
+    },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -390,29 +576,15 @@ export default {
     },
 
     showQuickView(product) {
-      // this.product.id = product.id;
-      // this.product.name = product.name;
-      // if (product.images != "") {
-      //   this.$refs.fileImageDispaly.src =
-      //     this.baseUrl + "/uploads/products/" + product.images;
-      // }
-
-      // this.product.price = product.price;
-      // this.product.type_id = product.type_id;
-      // this.product.weight_id = product.weight_id;
-      // this.product.description_id = product.description_id;
-      // this.product.content = product.content;
-      // this.product.status = product.status;
-
-
       let that = this;
       this.flagShowLoader = true;
       let formData = new FormData();
       formData.append("id", product.id);
       axios
-        .post(`/quick-view-shop`,formData)
+        .post(`/quick-view-shop`, formData)
         .then(function (response) {
-          that.quickViews = response.data;
+          that.quickViews = response.data.productQuick;
+          that.productTogethers = response.data.productTogether;
           that.flagShowLoader = false;
         })
         .catch((err) => {
@@ -431,54 +603,6 @@ export default {
           }
         });
     },
-
-    // addCartProduct(product) {
-    //   let that = this;
-    //   this.$validator.validateAll().then((valid) => {
-    //     if (valid) {
-    //       axios
-    //         .post(`/add-to-cart`, product)
-    //         // console.log(product)
-    //         .then((response) => {
-    //           (that.type = "success"),
-    //             (that.title = ""),
-    //             (that.text = "Do you want to continue ?"),
-    //             (that.confirm = "Xem tiếp !"),
-    //             (that.cancle = "Đi đến giỏ hàng !"),
-    //             (that.urlConfirm = ""),
-    //             (that.urlCancle = response.data),
-    //             (that.modalShow = true);
-    //         })
-    //         .catch((err) => {
-    //           switch (err.response.status) {
-    //             case 422:
-    //               that.errorBackEnd = err.response.data.errors;
-    //               break;
-    //             case 404:
-    //               that
-    //                 .$swal({
-    //                   title: "Add Error !",
-    //                   icon: "warning",
-    //                   confirmButtonText: "Cancle !",
-    //                 })
-    //                 .then(function (confirm) {});
-    //               break;
-    //             case 500:
-    //               that
-    //                 .$swal({
-    //                   title: "Add Error !",
-    //                   icon: "warning",
-    //                   confirmButtonText: "Cancle !",
-    //                 })
-    //                 .then(function (confirm) {});
-    //               break;
-    //             default:
-    //               break;
-    //           }
-    //         });
-    //     }
-    //   });
-    // },
 
     addCartProduct(product) {
       let that = this;
@@ -595,7 +719,6 @@ export default {
         }.bind(this),
         false
       );
-
       reader.readAsDataURL(this.product.images);
     },
   },

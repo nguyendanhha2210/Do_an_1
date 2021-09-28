@@ -58,7 +58,7 @@
               read-only
               :star-size="15"
               :increment="0.1"
-              :rating= "Number(info[0].star_vote)"
+              :rating="Number(info[0].star_vote)"
             ></star-rating>
           </div>
           <div class="pd-desc" style="margin-bottom: 7px">
@@ -190,8 +190,8 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     changeImage(value) {
-      console.log(this.$refs.zoom_image)
-      
+      console.log(this.$refs.zoom_image);
+
       this.$refs.image.src = this.$refs["images" + value][0].src;
     },
     addCartProduct() {
