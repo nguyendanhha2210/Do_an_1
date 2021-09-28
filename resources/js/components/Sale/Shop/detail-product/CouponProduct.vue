@@ -2,7 +2,8 @@
   <div>
     <div
       class="filter-widget"
-      style="background-color: white; margin-bottom: 10px">
+      style="background-color: white; margin-bottom: 10px"
+    >
       <h4
         class="fw-title"
         style="
@@ -64,7 +65,10 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3">
+            <td style="transform: translateY(-6%); padding-left: 17px">
+              <input class="form-check-input" type="checkbox" name="" />
+            </td>
+            <td colspan="2">
               <button
                 class="primary-btn pd-cart btn btn-success"
                 style="height: 34px; padding-top: 6px; margin-top: 19px"
@@ -77,7 +81,7 @@
         </tbody>
       </table>
     </div>
-    <hr>
+    <hr />
   </div>
 </template>
 

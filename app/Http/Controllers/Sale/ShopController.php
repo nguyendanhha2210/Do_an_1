@@ -626,7 +626,6 @@ class ShopController extends Controller
             $productAccessory =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $product->type_id)
                 ->where('description_id', $product->description_id)
-                ->where('weight_id', $product->weight_id)
                 ->whereNotIn('id', [$id])
                 ->with(['weight', 'type', 'description'])
                 ->whereHas('weight', function ($query) {
