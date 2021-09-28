@@ -132,8 +132,9 @@ class ShopController extends Controller
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
 
+            $maxSold = Product::where('status', '=', 0)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
 
-            return response()->json($products, StatusCode::OK);
+            return response()->json(["products"=>$products,"maxSold"=>$maxSold[0]], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }

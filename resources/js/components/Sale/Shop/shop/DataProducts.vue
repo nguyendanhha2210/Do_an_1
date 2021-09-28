@@ -66,7 +66,8 @@
                 :src="baseUrl + '/uploads/products/' + product.images"
                 alt=""
               />
-              <div class="sale pp-sale">Sale</div>
+              <div class="sale pp-sale" style="background: red;" v-if="maxSold.id == product.id">Best Sellers</div>
+              <div class="sale pp-sale" v-else>Sale</div>
               <div class="icon">
                 <a class="btn btn-default" @click="addFavorite(product)"
                   ><i
@@ -478,6 +479,7 @@ export default {
       paginate: 9,
       search: "",
       statusView: 0,
+      maxSold:"",
 
       flagShowLoader: false,
       //Modal
@@ -538,7 +540,8 @@ export default {
             that.statusView
         )
         .then(function (response) {
-          that.products = response.data;
+          that.products = response.data.products;
+          that.maxSold = response.data.maxSold;
           that.flagShowLoader = false;
         })
         .catch((err) => {
