@@ -191,13 +191,13 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-4 product_img">
+              <div class="col-md-6 product_img">
                 <img
                   src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg"
                   class="img-responsive"
                 />
               </div>
-              <div class="col-md-8 product_content">
+              <div class="col-md-6 product_content">
                 <h4>Product Id: <span>51526</span></h4>
                 <div class="rating">
                   <span class="glyphicon glyphicon-star"></span>
