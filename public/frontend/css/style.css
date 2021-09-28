@@ -462,7 +462,7 @@ ol {
     .inner-header .advanced-search {
         height: 50px;
         border: 1px solid #ebebeb;
-        transform: translate(6%, -2%);
+        /* transform: translate(6%, -2%); */
     }
 }
 
@@ -470,7 +470,7 @@ ol {
     .inner-header .advanced-search {
         height: 50px;
         border: 1px solid #ebebeb;
-        transform: translate(9%, -2%);
+        /* transform: translate(9%, -2%); */
     }
 }
 

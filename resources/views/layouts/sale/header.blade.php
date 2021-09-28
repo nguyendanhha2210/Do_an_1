@@ -66,10 +66,10 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-md-7">
+                    <div class="col-lg-8 col-md-8">
                         <product-search></product-search>
                     </div>
-                    <div class="col-lg-3 text-right col-md-3">
+                    <div class="col-lg-2 text-right col-md-2">
                         <ul class="nav-right">
                             <li class="cart-icon">
                                 <a href="#">

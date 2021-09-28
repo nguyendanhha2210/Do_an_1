@@ -560,3 +560,39 @@ input:checked+.slider:before {
 }
 
 // --- END: style switch --- //
+form.vue-autosuggest {
+    width: 100% !important;
+    button {
+        z-index: 999 !important;
+        right: -16px!important;
+    }
+    input {
+        height: 48px !important;
+    }
+    div.autosuggest__results {
+        border: 1px solid #ebebeb;
+        background-color: #fff !important;
+        z-index: 999999;
+        position: absolute;
+        width: 91%;
+        li {
+            list-style-type: none !important;
+            width: 100%;
+            background-color: #fff;
+            padding-left: 15px;
+            padding-top: 5px;
+        }
+    }
+}
+
+.input-group.form-seach {
+    width: 70% !important;
+    display: inline-block !important;
+    position: inherit !important;
+}
+
+.advanced-search {
+    position: relative;
+    width: 90%;
+    margin: auto;
+}

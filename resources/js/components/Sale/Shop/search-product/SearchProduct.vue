@@ -1,8 +1,8 @@
 <template>
   <div class="advanced-search">
     <button type="button" class="category-btn">All Categories</button>
-    <div class="input-group">
-      <form role="form" @submit.prevent="searchProduct()">
+    <div class="input-group form-seach">
+      <form class="vue-autosuggest" role="form" @submit.prevent="searchProduct()">
         <vue-autosuggest
           v-model="query"
           :suggestions="filteredOptions"
@@ -144,23 +144,10 @@ export default {
       let formData = new FormData();
       formData.append("name", this.query);
       formData.append("id", this.userId);
-      this.flagShowLoader = true;
+      // this.flagShowLoader = true;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
-          axios
-            .get(`/search-product`, formData)
-            .then((reponse) => {
-              that.flagShowLoader = false;
-            })
-            .catch((err) => {
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-            });
+          window.location.href=`/search-product?id=${this.userId}&name=${this.query}`
         }
       });
     },

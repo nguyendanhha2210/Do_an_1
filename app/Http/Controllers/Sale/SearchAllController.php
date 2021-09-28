@@ -33,7 +33,7 @@ class SearchAllController extends Controller
         }
     }
 
-    public function searchProduct(Request $request)
+    public function postSearchProduct(Request $request)
     {
         $breadcrumbs = ['Search Product'];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
@@ -56,7 +56,20 @@ class SearchAllController extends Controller
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
+        return redirect()->route('admin.searchAll.postSearchProduct');
+        // return view('sale.shop.search', compact('type', 'description', 'weight','post','breadcrumbs',));
+    }
 
-        return view('sale.shop.search', compact('type', 'description', 'weight','post','breadcrumbs',));
+    public function searchProduct(Request $request)
+    {
+        $breadcrumbs = ['Search Product'];
+        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
+        $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
+            ->whereHas('categorypost', function ($query) {
+                $query->where('deleted_at', NULL);
+            })->orderBy('created_at', 'desc')->take(3)->get();
+        return view('sale.shop.search',compact('type', 'description', 'weight','post','breadcrumbs'));
     }
 }

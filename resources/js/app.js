@@ -37,8 +37,9 @@ import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
 import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
 import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
+import VueZoomer from 'vue-zoomer'
 
-
+Vue.use(VueZoomer)
 Vue.use(VueAutosuggest);
 Vue.use(VueStarRating)
 Vue.component('paginate', Paginate)

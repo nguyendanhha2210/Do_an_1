@@ -609,6 +609,43 @@ input:checked + .slider:before {
   }
 }
 
+form.vue-autosuggest {
+  width: 100% !important;
+}
+form.vue-autosuggest button {
+  z-index: 999 !important;
+  right: -16px !important;
+}
+form.vue-autosuggest input {
+  height: 48px !important;
+}
+form.vue-autosuggest div.autosuggest__results {
+  border: 1px solid #ebebeb;
+  background-color: #fff !important;
+  z-index: 999999;
+  position: absolute;
+  width: 91%;
+}
+form.vue-autosuggest div.autosuggest__results li {
+  list-style-type: none !important;
+  width: 100%;
+  background-color: #fff;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.input-group.form-seach {
+  width: 70% !important;
+  display: inline-block !important;
+  position: inherit !important;
+}
+
+.advanced-search {
+  position: relative;
+  width: 90%;
+  margin: auto;
+}
+
 .loader-img {
   margin: 100px auto;
   font-size: 25px;

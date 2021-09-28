@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-lg-6">
-        <div class="product-pic-zoom">
+        <v-zoomer>
           <img
             class="product-big-img"
             style="height: 400px"
@@ -10,13 +10,10 @@
             :src="baseUrl + '/uploads/products/' + info[0].images"
             alt=""
           />
-          <div class="zoom-icon">
-            <i class="fa fa-search-plus"></i>
-          </div>
-        </div>
+        </v-zoomer>
         <div class="product-thumbs">
           <div class="product-thumbs-track ps-slider owl-carousel">
-            <div v-for="(data, index) in info[0].product_images" :key="data.id">
+            <div v-for="data in info[0].product_images" :key="data.id">
               <div class="pt active">
                 <img
                   class="product-big-img"
@@ -156,6 +153,7 @@ import StarRating from "vue-star-rating";
 import Modal from "../../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -192,6 +190,8 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     changeImage(value) {
+      console.log(this.$refs.zoom_image)
+      
       this.$refs.image.src = this.$refs["images" + value][0].src;
     },
     addCartProduct() {

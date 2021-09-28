@@ -187,7 +187,7 @@ Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewControll
 
 
 Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
-Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.searchProduct');
+Route::get('/search-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'searchProduct'])->name('admin.searchAll.getSearchProduct');
 
 
 
