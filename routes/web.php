@@ -176,6 +176,8 @@ Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::cl
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
 Route::post('/fill-evaluated/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillEvaluated'])->name('admin.shop.fillEvaluated');
 
+Route::get('/get-accessory/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'getAccessory'])->name('admin.shop.getAccessory');
+
 //show đánh giá ra chi tiết sp
 Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
 Route::post('/get-select-5star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect5Star'])->name('sale.evaluate.getSelect5Star');

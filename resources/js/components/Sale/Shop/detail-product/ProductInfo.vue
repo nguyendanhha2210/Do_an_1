@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row" style="padding-top: 15px;">
       <div class="col-lg-6">
         <v-zoomer>
           <img

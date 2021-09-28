@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\Console\Descriptor\Descriptor;
 use Illuminate\Support\Facades\Session;
 use App\Models\Evaluate;
-
+use PhpParser\Node\Stmt\Catch_;
 
 class ShopController extends Controller
 {
@@ -94,7 +94,7 @@ class ShopController extends Controller
                 //     if ($search) {
                 //         $q->where('name', 'like', '%' . $search . '%');
                 //     }
-                $products =  Product::whereHas('type',function ($q) use ($search) {
+                $products =  Product::whereHas('type', function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere('type', 'like', '%' . $search . '%');
@@ -102,7 +102,6 @@ class ShopController extends Controller
                         // $q->orWhere('name', 'like', '%' . $search . '%');
                         // $q->orWhere('name', 'like', '%' . $search . '%');
                     }
-                
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
                         $query->where('deleted_at', NULL);
@@ -134,7 +133,7 @@ class ShopController extends Controller
 
             $maxSold = Product::where('status', '=', 0)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
 
-            return response()->json(["products"=>$products,"maxSold"=>$maxSold[0]], StatusCode::OK);
+            return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
@@ -616,6 +615,33 @@ class ShopController extends Controller
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    //Show Accessory shop
+    public function getAccessory(Request $request, $id)
+    {
+        try {
+            $product = Product::find($id);
+            $productAccessory =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+                ->where('type_id', $product->type_id)
+                ->where('description_id', $product->description_id)
+                ->where('weight_id', $product->weight_id)
+                ->whereNotIn('id', [$id])
+                ->with(['weight', 'type', 'description'])
+                ->whereHas('weight', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('type', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('description', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })->take(4)->orderBy('price', 'asc')->get();
+
+            return response()->json(["productAccessory" => $productAccessory], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
 }

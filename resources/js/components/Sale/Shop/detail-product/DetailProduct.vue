@@ -1,12 +1,30 @@
 <template>
-  <div style="padding-top:16px">
-    <ProductInfo :infoProduct="productinfo"></ProductInfo>
-    <ProductDecrip :decripProduct="productdecrip"></ProductDecrip><br>
-    <ProductRelated :relatedProduct="productrelated"></ProductRelated>
-  </div>
+  <section class="product-shop spad" style="background-color: #e9edf0">
+    <div class="container" style="margin-top: 17px">
+      <div class="row">
+        <div
+          class="col-lg-3 col-md-6 col-sm-8 order-1 order-lg-1"
+          style="background-color: white; border-right: solid 2px #e9edf0"
+        >
+          <CouponProduct :couponProduct="couponproduct"></CouponProduct>
+        </div>
+        <div
+          class="col-lg-9 order-2 order-lg-2"
+          style="background-color: white"
+        >
+          <ProductInfo :infoProduct="productinfo"></ProductInfo>
+          <ProductDecrip :decripProduct="productdecrip"></ProductDecrip><br />
+        </div>
+      </div>
+      <div class="row">
+        <ProductRelated :relatedProduct="productrelated"></ProductRelated>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import CouponProduct from "./CouponProduct.vue";
 import ProductInfo from "./ProductInfo.vue";
 import ProductDecrip from "./ProductDecrip.vue";
 import ProductRelated from "./ProductRelated.vue";
@@ -19,6 +37,7 @@ export default {
       productinfo: this.product,
       productdecrip: this.product,
       productrelated: this.product,
+      couponproduct: this.product,
     };
   },
   created() {},
@@ -26,6 +45,7 @@ export default {
     ProductInfo,
     ProductDecrip,
     ProductRelated,
+    CouponProduct,
   },
   props: ["product"],
   mounted() {},
