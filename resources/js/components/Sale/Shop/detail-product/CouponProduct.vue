@@ -58,7 +58,7 @@
               <br />
               <div>
                 <i style="font-size: 14px; float: left"
-                  >_ {{ productAccessory.created_at | formatDate }} _</i
+                  >_{{ productAccessory.created_at | formatDate }}_</i
                 >
               </div>
             </td>
