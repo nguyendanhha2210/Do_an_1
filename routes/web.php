@@ -169,7 +169,7 @@ Route::get('blog/{id}/detail', [App\Http\Controllers\Sale\PostController::class,
 Route::get('blog/{id}/get-detail', [App\Http\Controllers\Sale\PostController::class, 'getDetail'])->name('sale.post.getDetail');
 Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'index'])->name('sale.contact.index');
 
-// Route::post('/autocomplete-ajax', [App\Http\Controllers\Sale\HomeController::class, 'autoCompleteSearch'])->name('sale.autoCompleteSearch');
+Route::post('/quick-view-shop', [App\Http\Controllers\Sale\HomeController::class, 'quickViewShop'])->name('sale.quickViewShop');
 
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product

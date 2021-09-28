@@ -174,7 +174,11 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg" style="width: 85% !important;" role="document">
+      <div
+        class="modal-dialog modal-lg"
+        style="width: 85% !important"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
@@ -386,19 +390,46 @@ export default {
     },
 
     showQuickView(product) {
-      this.product.id = product.id;
-      this.product.name = product.name;
-      if (product.images != "") {
-        this.$refs.fileImageDispaly.src =
-          this.baseUrl + "/uploads/products/" + product.images;
-      }
+      // this.product.id = product.id;
+      // this.product.name = product.name;
+      // if (product.images != "") {
+      //   this.$refs.fileImageDispaly.src =
+      //     this.baseUrl + "/uploads/products/" + product.images;
+      // }
 
-      this.product.price = product.price;
-      this.product.type_id = product.type_id;
-      this.product.weight_id = product.weight_id;
-      this.product.description_id = product.description_id;
-      this.product.content = product.content;
-      this.product.status = product.status;
+      // this.product.price = product.price;
+      // this.product.type_id = product.type_id;
+      // this.product.weight_id = product.weight_id;
+      // this.product.description_id = product.description_id;
+      // this.product.content = product.content;
+      // this.product.status = product.status;
+
+
+      let that = this;
+      this.flagShowLoader = true;
+      let formData = new FormData();
+      formData.append("id", product.id);
+      axios
+        .post(`/quick-view-shop`,formData)
+        .then(function (response) {
+          that.quickViews = response.data;
+          that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 404:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
     },
 
     // addCartProduct(product) {

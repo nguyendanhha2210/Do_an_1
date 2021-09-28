@@ -104,23 +104,8 @@ class HomeController extends Controller
         return view('errors.500');
     }
 
-    // public function autoCompleteSearch(Request $request)
-    // {
-    //     $search = $request->query;
-    //     if ($search) {
-    //         $product = Product::where('status', 0)->where('name', 'like', '%' . $search . '%')->get();
-
-    //         $output = '
-    //         <ul class="dropdown-menu" style="display:block; position:relative">';
-
-    //         foreach ($product as $key => $val) {
-    //             $output .= '
-    //          <li class="li_search_ajax"><a href="#">' . $val->name . '</a></li>
-    //          ';
-    //         }
-
-    //         $output .= '</ul>';
-    //         echo $output;
-    //     }
-    // }
+    public function quickViewShop(Request $request)
+    {
+        dd($request->all());
+    }
 }
