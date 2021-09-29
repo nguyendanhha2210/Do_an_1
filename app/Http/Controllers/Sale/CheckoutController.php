@@ -167,6 +167,7 @@ class CheckoutController extends Controller
                 $order_details->product_id = $cart['product_id'];
                 $order_details->product_name = $cart['product_name'];
                 $order_details->product_price = $cart['product_price'];
+                $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
                 $order_details->status_vote =  OrderDetailVote::NOTVOTED;
@@ -285,6 +286,7 @@ class CheckoutController extends Controller
                 $order_details->product_id = $cart['product_id'];
                 $order_details->product_name = $cart['product_name'];
                 $order_details->product_price = $cart['product_price'];
+                $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
                 $order_details->status_vote =  OrderDetailVote::NOTVOTED;
@@ -397,6 +399,7 @@ class CheckoutController extends Controller
                 $order_details->product_id = $cart['product_id'];
                 $order_details->product_name = $cart['product_name'];
                 $order_details->product_price = $cart['product_price'];
+                $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
                 $order_details->status_vote =  OrderDetailVote::NOTVOTED;
@@ -661,6 +664,7 @@ class CheckoutController extends Controller
                 $order_details->product_id = $cart['product_id'];
                 $order_details->product_name = $cart['product_name'];
                 $order_details->product_price = $cart['product_price'];
+                $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
                 $order_details->status_vote =  OrderDetailVote::NOTVOTED;
@@ -839,6 +843,7 @@ class CheckoutController extends Controller
     //             $order_details->product_id = $cart['product_id'];
     //             $order_details->product_name = $cart['product_name'];
     //             $order_details->product_price = $cart['product_price'];
+    //         $order_details->order_weight = $cart['product_weight'];
     //             $order_details->product_sales_quantity = $cart['product_qty'];
     //             $order_details->product_coupon =  $order_coupon;
     //             $order_details->save();
@@ -1049,6 +1054,7 @@ class CheckoutController extends Controller
                 $order_details->product_id = $cart['product_id'];
                 $order_details->product_name = $cart['product_name'];
                 $order_details->product_price = $cart['product_price'];
+                $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
                 $order_details->status_vote =  OrderDetailVote::NOTVOTED;

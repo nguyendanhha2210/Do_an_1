@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row" style="padding-top: 15px;">
+    <div class="row" style="padding-top: 15px">
       <div class="col-lg-6">
         <v-zoomer>
           <img
@@ -68,48 +68,61 @@
               <b style="padding-left: 2%">|</b>
               <u style="padding-left: 2%">{{ this.countEvaluated }}</u> Đánh giá
             </p>
-            <h4 style="transform: translate(0%, -62%)">
+            <!-- <h4 style="transform: translate(0%, -62%)">
               {{ formatPrice( info[0].price) }} đ
+            </h4> -->
+
+            <h4
+              style="transform: translate(0%, -62%)"
+              v-if="statusChooseWeight"
+            >
+              {{ formatPrice(this.weightProduct.price) }} đ
+              <input hidden type="text" v-model="weightProduct.price" />
+              <input hidden type="text" v-model="weightProduct.weight" />
+            </h4>
+            <h4 style="transform: translate(0%, -62%)" v-else>
+              <div v-if="this.priceWeightProduct == 0">
+                {{ formatPrice(this.weightProductMin) }} -
+                {{ formatPrice(this.weightProductMax) }} đ
+              </div>
+              <div v-else>
+                {{ formatPrice(this.priceWeightProduct) }} đ
+                <input hidden type="text" v-model="priceWeightProduct" />
+                <input hidden type="text" v-model="weightProduct" />
+              </div>
             </h4>
           </div>
           <div class="pd-size-choose">
-
-            <div class="sc-item">
+            <!-- <div class="sc-item">
               <input type="radio" id="sm-size" />
               <label for="sm-size">{{ info[0].weight.weight }}</label>
-            </div>
-             <div class="sc-item">
-              <input type="radio" id="sm-size" @click="" />
-              <label for="sm-size">300g</label>
-            </div>
-            <div class="sc-item">
+            </div> -->
+            <div
+              class="sc-item"
+              v-for="data in info[0].weight_products"
+              :key="data.id"
+            >
               <input type="radio" id="sm-size" />
-              <label for="sm-size">500g</label>
+              <label for="sm-size" @click="chooseWeight(data.id)">{{
+                data.weight
+              }}kg</label>
             </div>
-            <div class="sc-item">
-              <input type="radio" id="sm-size" />
-              <label for="sm-size">1kg</label>
-            </div>
-            <div class="sc-item">
-              <input type="radio" id="sm-size" />
-              <label for="sm-size">2kg</label>
-            </div>
-           
-
           </div>
           <div class="quantity">
             <div class="pro-qty">
               <span @click="decrease()" class="dec qtybtn">-</span>
               <input type="text" v-model="qualityOrder" min="1" readonly />
               <span @click="increase()" class="inc qtybtn">+</span>
-              <!-- <input
-                  name="qualityOrder"
-                  v-model="qualityOrder"
-                  type="number"
-                /> -->
             </div>
-            <a @click="addCartProduct()" class="primary-btn pd-cart" href="#"
+            <a
+              @click="addCartProduct()"
+              v-if="statusChoosed"
+              class="primary-btn pd-cart"
+              href="#"
               >Add To Cart</a
+            >
+            <b v-else style="font-size: 18px; padding-top: 10px; color: red"
+              >Please Click Option !</b
             >
           </div>
           <ul class="pd-tags">
@@ -182,6 +195,18 @@ export default {
       countEvaluated: 0,
       qualityOrder: 1,
       message: "",
+      weightProduct: {
+        product_id: "",
+        weight: "",
+        price: "",
+      },
+      statusChooseWeight: false,
+      priceWeightProduct: 0,
+      weightProduct:0,
+      weightProductMax: 0,
+      weightProductMin: 0,
+      statusChoosed: false,
+
       //Modal
       modalShow: false,
       type: "",
@@ -196,13 +221,16 @@ export default {
   },
   created() {
     this.fillEvaluated();
+    this.fillWeight();
   },
   components: {
     Modal,
     StarRating,
   },
   props: ["infoProduct"],
-  mounted() {},
+  mounted() {
+    this.fillWeight();
+  },
   methods: {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
@@ -228,7 +256,13 @@ export default {
         formData.append("id", this.info[0].id);
         formData.append("name", this.info[0].name);
         formData.append("images", this.info[0].images);
-        formData.append("price", this.info[0].price);
+        if (this.priceWeightProduct == 0) {
+          formData.append("price", this.weightProduct.price);
+          formData.append("weight", this.weightProduct.weight);
+        } else {
+          formData.append("price", this.priceWeightProduct);
+          formData.append("weight", this.weightProduct); 
+        }
 
         this.$validator.validateAll().then((valid) => {
           if (valid) {
@@ -335,6 +369,59 @@ export default {
         .post(`/fill-evaluated/${this.info[0].id}`)
         .then((response) => {
           that.countEvaluated = response.data;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              that.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    fillWeight() {
+      axios.post(`/fill-weight-product/${this.info[0].id}`).then((response) => {
+        if (response.data.priceWeightProduct != "") {
+          this.priceWeightProduct = response.data.priceWeightProduct;
+          this.weightProduct = response.data.weightProduct;
+          this.statusChoosed = true;
+        } else {
+          this.weightProductMax = response.data.weightProductMax;
+          this.weightProductMin = response.data.weightProductMin;
+        }
+      });
+    },
+
+    chooseWeight(value) {
+      let that = this;
+      let formData = new FormData();
+      formData.append("id", value);
+      axios
+        .post(`/choose-weight-product`, formData)
+        .then((response) => {
+          that.weightProduct = response.data;
+          that.statusChooseWeight = true;
+          that.statusChoosed = true;
         })
         .catch((err) => {
           switch (err.response.status) {

@@ -300,37 +300,39 @@ class OrderController extends Controller
                 $warehouseQuantity = $warehouse->inventory;
                 $product_quantity = $product->quantity;
                 $product_sold = $product->product_sold;
-                foreach ($data['quantity'] as $key2 => $qty) {
-                    if ($key == $key2) {
-                        $pro_remain = $product_quantity - $qty;
-                        $ware_remain = $warehouseQuantity - $qty;
-                        
-                        $product->quantity = $pro_remain;
-                        $warehouse->inventory = $ware_remain;
-                        $product->product_sold = $product_sold + $qty;
-                        $product->save();
-                        $warehouse->save();
+                foreach ($data['order_weight'] as $key1 => $weight) {
+                    foreach ($data['quantity'] as $key2 => $qty) {
+                        if ($key == $key1 && $key == $key2) {
+                            $pro_remain = $product_quantity - ($qty * $weight);
+                            $ware_remain = $warehouseQuantity - ($qty * $weight);
+
+                            $product->quantity = $pro_remain;
+                            $warehouse->inventory = $ware_remain;
+                            $product->product_sold = $product_sold + ($qty * $weight);
+                            $product->save();
+                            $warehouse->save();
+                        }
                     }
                 }
             }
         } elseif ($order->order_status == 1) {
             foreach ($data['order_product_id'] as $key => $id) {
                 $product = product::find($id);
-
                 $warehouse = WareHouse::where('id', $product->ware_houses_id)->first();
                 $warehouseQuantity = $warehouse->inventory;
-
                 $product_quantity = $product->quantity;
                 $product_sold = $product->product_sold;
-                foreach ($data['quantity'] as $key2 => $qty) {
-                    if ($key == $key2) {
-                        $pro_remain = $product_quantity + $qty;
-                        $ware_remain = $warehouseQuantity + $qty;
-                        $product->quantity = $pro_remain;
-                        $warehouse->inventory = $ware_remain;
-                        $product->product_sold = $product_sold - $qty;
-                        $product->save();
-                        $warehouse->save();
+                foreach ($data['order_weight'] as $key1 => $weight) {
+                    foreach ($data['quantity'] as $key2 => $qty) {
+                        if ($key == $key1 && $key == $key2) {
+                            $pro_remain = $product_quantity + ($qty * $weight);
+                            $ware_remain = $warehouseQuantity + ($qty * $weight);
+                            $product->quantity = $pro_remain;
+                            $warehouse->inventory = $ware_remain;
+                            $product->product_sold = $product_sold - ($qty * $weight);
+                            $product->save();
+                            $warehouse->save();
+                        }
                     }
                 }
             }

@@ -25,7 +25,7 @@ class CartController extends Controller
             if ($cart == true) {
                 $is_avaiable = 0;
                 foreach ($cart as $key => $val) {
-                    if ($val['product_id'] == $request->id) {
+                    if ($val['product_id'] == $request->id && $val['product_price'] == $request->price) {
                         $is_avaiable++;
                         // dd($val['product_qty'] + $request->qualityOrder);
                     }
@@ -39,6 +39,7 @@ class CartController extends Controller
                             'product_image' => $request->images,
                             'product_qty' => $request->qualityOrder,
                             'product_price' => $request->price,
+                            'product_weight' => $request->weight,
                         );
                         Session::put('cart', $cart);
                     } else {
@@ -49,6 +50,7 @@ class CartController extends Controller
                             'product_image' => $request->images,
                             'product_qty' => 1,
                             'product_price' => $request->price,
+                            'product_weight' => $request->weight,
                         );
                         Session::put('cart', $cart);
                     }
@@ -85,6 +87,7 @@ class CartController extends Controller
                         'product_image' => $request->images,
                         'product_qty' => $request->qualityOrder,
                         'product_price' => $request->price,
+                        'product_weight' => $request->weight,
                     );
                     Session::put('cart', $cart);
                 } else {
@@ -95,6 +98,7 @@ class CartController extends Controller
                         'product_image' => $request->images,
                         'product_qty' => 1,
                         'product_price' => $request->price,
+                        'product_weight' => $request->weight,
                     );
                     Session::put('cart', $cart);
                 }

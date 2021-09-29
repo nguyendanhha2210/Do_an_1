@@ -52,4 +52,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\Evaluate', 'product_id', 'id');
     }
+
+    public function weightProducts()
+    {
+        return $this->hasMany('App\Models\WeightProduct', 'product_id', 'id');
+    }
 }

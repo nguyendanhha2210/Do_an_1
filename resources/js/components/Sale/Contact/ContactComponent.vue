@@ -879,7 +879,6 @@ export default {
     fillImage() {
       axios.post(`/sale/fill-image`).then((response) => {
         this.showImage = response.data.image;
-        console.log(this.showImage);
       });
     },
   },

@@ -102,6 +102,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $("input[name='product_sales_quantity']").each(function() {
                 quantity.push($(this).val());
             });
+
+            order_weight=[];
+            $("input[name='order_weight']").each(function() {
+                order_weight.push($(this).val());
+            });
+
             //lay ra product id
             order_product_id = [];
             $("input[name='order_product_id']").each(function() {
@@ -113,6 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 data: {
                     tong_tien: tong_tien,
                     order_product_id: order_product_id,
+                    order_weight: order_weight,
                     quantity: quantity,
                     id: id,
                     values: values,

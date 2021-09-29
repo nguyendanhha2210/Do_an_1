@@ -285,6 +285,7 @@
                             <th>Số lượng kho còn</th>
                             <th>Mã giảm giá</th>
                             <th>Phí ship hàng</th>
+                            <th>Khối lượng đặt </th>
                             <th>Số lượng</th>
                             <th>Giá sản phẩm</th>
                             <th>Tổng tiền</th>
@@ -306,7 +307,7 @@
 
                                 <td><i>{{ $i }}</i></td>
                                 <td>{{ $details->product_name }}</td>
-                                <td>{{ $details->product->quantity }}</td>
+                                <td>{{ $details->product->quantity }}kg</td>
                                 <td>
                                     @if ($details->product_coupon != 'no')
                                         {{ $details->product_coupon }}
@@ -315,6 +316,7 @@
                                     @endif
                                 </td>
                                 <td>{{ number_format($details->product_feeship, 0, ',', '.') }}đ</td>
+                                <td>{{$details->order_weight}}kg</td>
                                 <td>
 
                                     <input type="number" min="1" style="text-align: center;border:none" readonly
@@ -328,6 +330,9 @@
 
                                     <input type="hidden" name="order_code" class="order_code"
                                         value="{{ $details->order_code }}">
+                                     
+                                    <input type="hidden" name="order_weight" class="order_weight"
+                                        value="{{ $details->order_weight }}">
 
                                     <input type="hidden" name="order_product_id" class="order_product_id"
                                         value="{{ $details->product_id }}">

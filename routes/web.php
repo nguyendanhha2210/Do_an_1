@@ -175,6 +175,12 @@ Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::cl
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
 Route::post('/fill-evaluated/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillEvaluated'])->name('admin.shop.fillEvaluated');
 
+
+Route::post('/choose-weight-product',  [App\Http\Controllers\Sale\ShopController::class, 'chooseWeightProduct'])->name('admin.shop.chooseWeightProduct');
+Route::post('/fill-weight-product/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillWeightProduct'])->name('admin.shop.fillWeightProduct');
+
+
+
 Route::get('/get-accessory/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'getAccessory'])->name('admin.shop.getAccessory');
 
 //show đánh giá ra chi tiết sp

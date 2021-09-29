@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\Console\Descriptor\Descriptor;
 use Illuminate\Support\Facades\Session;
 use App\Models\Evaluate;
+use App\Models\WeightProduct;
 use PhpParser\Node\Stmt\Catch_;
 
 class ShopController extends Controller
@@ -223,7 +224,8 @@ class ShopController extends Controller
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
-        $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description', 'productImages'])
+
+        $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description', 'productImages', 'weightProducts'])
             ->whereHas('weight', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -234,6 +236,9 @@ class ShopController extends Controller
                 $query->where('deleted_at', NULL);
             })
             ->whereHas('productImages', function ($query) {
+                $query->where('deleted_at', NULL);
+            })
+            ->whereHas('weightProducts', function ($query) {
                 $query->where('deleted_at', NULL);
             })
             ->orderBy('price', 'ASC')->get();
@@ -956,6 +961,36 @@ class ShopController extends Controller
 
 
             return response()->json($products, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function fillWeightProduct(Request $request, $id)
+    {
+        try {
+            $weightProducts = WeightProduct::where('product_id', $id)->get()->count();
+            if ($weightProducts == 1) {
+                $weightProducts = WeightProduct::where('product_id', $id)->first();
+                $priceWeightProduct = $weightProducts->price;
+                $weightProduct = $weightProducts->weight;
+                return response()->json(["priceWeightProduct" => $priceWeightProduct,"weightProduct" => $weightProduct], StatusCode::OK);
+            } else {
+                $weightProductMax = WeightProduct::where('product_id', $request->id)->max('price');
+                $weightProductMin = WeightProduct::where('product_id', $request->id)->min('price');
+                $priceWeightProduct = '';
+                return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function chooseWeightProduct(Request $request)
+    {
+        try {
+            $weightProduct = WeightProduct::find($request->id);
+            return response()->json($weightProduct, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }

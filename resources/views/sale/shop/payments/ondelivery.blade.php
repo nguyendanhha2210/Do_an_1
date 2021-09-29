@@ -22,7 +22,7 @@
                                                 $subtotal = $cart['product_price'] * $cart['product_qty'];
                                                 $total += $subtotal;
                                             @endphp
-                                            <li class="fw-normal">{{ $cart['product_name'] }} x
+                                            <li class="fw-normal">{{ $cart['product_name'] }} ({{$cart['product_weight']}}kg) x
                                                 {{ $cart['product_qty'] }}
                                                 <span>{{ number_format($subtotal, 0, ',', '.') }}đ</span>
                                             </li>
