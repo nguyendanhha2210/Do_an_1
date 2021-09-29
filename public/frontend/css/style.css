@@ -531,17 +531,19 @@ ol {
     background: #e7ab3c;
     padding: 12px 16px 12px;
     cursor: pointer;
+    transform: translate(28%, 0%);
 }
 
 .inner-header .nav-right {
     padding: 10px 0;
+    width: max-content;
 }
 
 .inner-header .nav-right li {
     list-style: none;
     display: inline-block;
     font-size: 20px;
-    margin-left: 15px;
+    margin-left: 5px;
 }
 
 .inner-header .nav-right li.heart-icon a {
