@@ -277,7 +277,7 @@
                 </div>
               </div>
             </div>
-
+<!-- 
             <div
               class="modal fade"
               id="exampleModal"
@@ -368,7 +368,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div v-if="evaluates != ''">
               <nav aria-label="Page navigation example">

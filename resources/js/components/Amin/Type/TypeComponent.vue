@@ -71,11 +71,7 @@
       </div>
 
       <div class="row w3-res-tb">
-        <div class="col-md-6 col-sm-5 col-5" style="float: left">
-          <form role="form" @submit.prevent="exportCSV()" multiple="multiple">
-            <button type="submit" class="btn btn-info">Export</button>
-          </form>
-        </div>
+        <div class="col-md-6 col-sm-5 col-5" style="float: left"></div>
 
         <div class="col-md-6 col-sm-5 col-5" style="float: left">
           <form role="form" @submit.prevent="importCSV()" multiple="multiple">
@@ -246,7 +242,7 @@ export default {
 
       sort_direction: "desc",
       sort_field: "created_at",
-      url: ""
+      url: "",
     };
   },
   created() {
@@ -287,7 +283,7 @@ export default {
       } else {
         this.isBtnDeleteAll = false;
       }
-      this.url = '/api/export-type-csv/' + this.selectedIds;
+      this.url = "/api/export-type-csv/" + this.selectedIds;
     },
 
     updateCheckAll: function () {
@@ -303,44 +299,8 @@ export default {
       } else {
         this.isBtnDeleteAll = false;
       }
-      this.url = '/api/export-type-csv/' + this.selectedIds;
+      this.url = "/api/export-type-csv/" + this.selectedIds;
     },
-
-    // exportExcel() {
-    //   let that = this;
-    //   // console.log(typeof this.selectedIds);
-    //   this.$swal({
-    //     title: "Do you want to export ？",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete it!",
-    //     cancelButtonText: "No, cancel!",
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       axios
-    //         .post("export-type-csv",{abc:this.selectedIds})
-    //         .then((response) => {
-    //           // this.$swal({
-    //           //   title: "Export successfully!",
-    //           //   icon: "success",
-    //           //   confirmButtonText: "OK!",
-    //           // }).then(function (confirm) {});
-    //           // that.fetchData(that.currentPage);
-    //           // that.isBtnDeleteAll = false;
-    //           // that.isInputAll = false;
-    //         })
-    //         .catch((error) => {
-    //           that.flashMessage.error({
-    //             message: "Delete Failure!",
-    //             icon: "/backend/icon/error.svg",
-    //             blockClass: "text-centet",
-    //           });
-    //         });
-    //     }
-    //   });
-    // },
 
     deleteAll() {
       let that = this;
@@ -472,44 +432,6 @@ export default {
           });
           that.fetchData();
         })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 422:
-              this.errorBackEnd = err.response.data.errors;
-              break;
-            case 404:
-              that
-                .$swal({
-                  title: "Add Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
-                })
-                .then(function (confirm) {});
-              break;
-            case 500:
-              that
-                .$swal({
-                  title: "Add Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
-
-    exportCSV() {
-      let that = this;
-      axios
-        .post("export-type-csv", {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {})
         .catch((err) => {
           switch (err.response.status) {
             case 422:
