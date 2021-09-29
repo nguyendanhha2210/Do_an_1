@@ -37,7 +37,7 @@
             Delete
           </button>
 
-          <button
+          <a
             class="btn border-radius-7"
             v-bind:class="{
               'btn-outline-secondary': !isBtnDeleteAll,
@@ -45,10 +45,10 @@
               'btn-success': isBtnDeleteAll,
               disabled: !isBtnDeleteAll,
             }"
-            @click="exportExcel"
+            :href="url"
           >
             Export
-          </button>
+          </a>
         </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
           <select v-model="paginate" class="form-control w-sm inline v-middle">
@@ -246,6 +246,7 @@ export default {
 
       sort_direction: "desc",
       sort_field: "created_at",
+      url: ""
     };
   },
   created() {
@@ -286,6 +287,7 @@ export default {
       } else {
         this.isBtnDeleteAll = false;
       }
+      this.url = '/api/export-type-csv/' + this.selectedIds;
     },
 
     updateCheckAll: function () {
@@ -301,43 +303,44 @@ export default {
       } else {
         this.isBtnDeleteAll = false;
       }
+      this.url = '/api/export-type-csv/' + this.selectedIds;
     },
 
-    exportExcel() {
-      let that = this;
-      console.log(typeof this.selectedIds);
-      this.$swal({
-        title: "Do you want to export ？",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-      }).then((result) => {
-        if (result.value) {
-          axios
-            .post("export-type-csv", this.selectedIds)
-            .then((response) => {
-              // this.$swal({
-              //   title: "Export successfully!",
-              //   icon: "success",
-              //   confirmButtonText: "OK!",
-              // }).then(function (confirm) {});
-              // that.fetchData(that.currentPage);
-              // that.isBtnDeleteAll = false;
-              // that.isInputAll = false;
-            })
-            .catch((error) => {
-              that.flashMessage.error({
-                message: "Delete Failure!",
-                icon: "/backend/icon/error.svg",
-                blockClass: "text-centet",
-              });
-            });
-        }
-      });
-    },
+    // exportExcel() {
+    //   let that = this;
+    //   // console.log(typeof this.selectedIds);
+    //   this.$swal({
+    //     title: "Do you want to export ？",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes, delete it!",
+    //     cancelButtonText: "No, cancel!",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       axios
+    //         .post("export-type-csv",{abc:this.selectedIds})
+    //         .then((response) => {
+    //           // this.$swal({
+    //           //   title: "Export successfully!",
+    //           //   icon: "success",
+    //           //   confirmButtonText: "OK!",
+    //           // }).then(function (confirm) {});
+    //           // that.fetchData(that.currentPage);
+    //           // that.isBtnDeleteAll = false;
+    //           // that.isInputAll = false;
+    //         })
+    //         .catch((error) => {
+    //           that.flashMessage.error({
+    //             message: "Delete Failure!",
+    //             icon: "/backend/icon/error.svg",
+    //             blockClass: "text-centet",
+    //           });
+    //         });
+    //     }
+    //   });
+    // },
 
     deleteAll() {
       let that = this;

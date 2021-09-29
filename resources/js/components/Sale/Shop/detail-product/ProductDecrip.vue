@@ -303,11 +303,28 @@
                       class="carousel slide"
                       data-ride="carousel"
                     >
+                      <ol class="carousel-indicators">
+                        <li
+                          data-target="#carouselExample"
+                          v-for="(data,index) in evaluate.evaluate_images"
+                          :key="data.id"
+                          :data-slide-to="index"
+                          :class="index == 0 ? 'active' : ''"
+                        ></li>
+                      </ol>
                       <div class="carousel-inner">
                         <div
+                          class="carousel-item active"
+                        >
+                          <img
+                            src=""
+                          />
+                        </div>
+                        <div
                           class="carousel-item"
-                          v-for="data in evaluate.evaluate_images"
+                          v-for="(data, index) in evaluate.evaluate_images"
                           :key="data.id"
+                          :class="index == 0 ? 'active' : ''"
                         >
                           <img
                             :src="baseUrl + '/uploads/comments/' + data.url"

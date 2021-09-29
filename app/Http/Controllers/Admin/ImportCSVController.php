@@ -22,10 +22,9 @@ class ImportCSVController extends Controller
         return back();
     }
 
-    public function exportTypeCsv(Request $request)
+    public function exportTypeCsv($array)
     {
-        // dd((array)$request);
-        // dd(gettype($request));
-        return (new ExcelExports($request))->download('types.xlsx');
+        $typesArray = explode(',', $array);
+        return (new ExcelExports($typesArray))->download('types.xlsx');
     }
 }

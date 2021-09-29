@@ -51,3 +51,5 @@ use App\Http\Middleware\Sale;
 //     Route::post('reply-comment/{id}',  [App\Http\Controllers\Sale\CommentController::class, 'replyComment'])->name('admin.comment.replyComment'); //thêm comment
 
 // });
+
+Route::get('/export-type-csv/{array}', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportTypeCsv'])->name('admin.import.exportTypeCsv');

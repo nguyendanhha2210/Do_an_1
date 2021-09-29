@@ -82,6 +82,88 @@
       </table>
     </div>
     <hr />
+    <div
+      class="filter-widget"
+      style="background-color: white; margin-bottom: 10px"
+    >
+      <h4
+        class="fw-title"
+        style="
+          margin-bottom: 16px;
+          font-size: 20px;
+          padding-left: 16px;
+          padding-top: 10px;
+        "
+      >
+        Add an Accessory :
+      </h4>
+      <table class="select-items">
+        <tbody>
+          <tr
+            class="overflow"
+            v-for="productAccessory in productAccessories"
+            :key="productAccessory.id"
+          >
+            <td style="transform: translateY(-20%); padding-left: 17px">
+              <input class="form-check-input" type="checkbox" name="" />
+            </td>
+            <td>
+              <img
+                style="width: 108px; height: 94px; padding-right: 3px"
+                :src="baseUrl + '/uploads/products/' + productAccessory.images"
+                alt=""
+              />
+            </td>
+
+            <td>
+              <div
+                style="
+                  float: left;
+                  color: #e7ab3c;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  display: -webkit-box;
+                "
+              >
+                <b>
+                  {{ productAccessory.name }}
+                </b>
+              </div>
+              <br />
+
+              <div>
+                <b style="font-size: 14px; float: left; color: red">
+                  {{ formatPrice(productAccessory.price) }} đ</b
+                >
+              </div>
+              <br />
+              <div>
+                <i style="font-size: 14px; float: left"
+                  >_{{ productAccessory.created_at | formatDate }}_</i
+                >
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="transform: translateY(-6%); padding-left: 17px">
+              <input class="form-check-input" type="checkbox" name="" />
+            </td>
+            <td colspan="2">
+              <button
+                class="primary-btn pd-cart btn btn-success"
+                style="height: 34px; padding-top: 6px; margin-top: 19px"
+                href="#"
+              >
+                Add To List
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr />
   </div>
 </template>
 
