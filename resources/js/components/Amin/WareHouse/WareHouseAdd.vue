@@ -24,38 +24,6 @@
                   {{ errors.first("name") }}
                 </div>
               </div>
-              <!-- 
-              <div class="form-group">
-                <label for="exampleInputEmail1">Images</label>
-                <div>
-                  <img src ref="fileImageDispaly" width="150px" />
-                </div>
-                <input
-                  @change="attachFile"
-                  type="file"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  ref="fileImage"
-                  name="images"
-                />
-                <div style="color: red" role="alert">
-                  {{ errors.first("images") }}
-                </div>
-
-                <!-- <label for="file_img_banner">
-                  <div class="img-drop-box mt-2 mr-2">
-                    <svg
-                      width="45"
-                      height="45"
-                      viewBox="0 0 45 45"
-                      style="margin-top: 30px"
-                    >
-                      <use xlink:href="/images/Group_1287.svg#Group_1287"></use>
-                    </svg>
-                  </div>
-                  <input type="file" id="file_img_banner" />
-                </label> -->
-              <!-- </div> -->
 
               <div class="form-group">
                 <div class="position-relative d-inline-block">

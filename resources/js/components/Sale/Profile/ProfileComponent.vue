@@ -92,8 +92,7 @@
                       <div class="img-drop-box mt-2 mr-2 profile-image">
                         <img
                           src
-                          ref="imageDispaly"
-                          style="width: 200px; height: 200px"
+                          ref="imageDispaly"                        
                           class="img-thumbnail profile-image"
                         />
                         <svg
@@ -123,18 +122,9 @@
                         style="display: none"
                       />
                     </label>
-                    <a ref="iconClose" @click="deleteImage"
-                      ><i
-                        class="fa fa-times"
-                        aria-hidden="true"
-                        style="
-                          transform: translate(942%, -898%);
-                          font-size: 25px;
-                          color: red;
-                          font-weight: 600;
-                        ">
-                        </i>
-                        
+                    <a  class="btn btn-light icon-close-white display-none"
+                    style="background-color: black; border-radius: 91%" ref="iconClose" @click="deleteImage"
+                      >
                         </a>
                   </div>
                   <div style="color: red" role="alert">
@@ -285,7 +275,7 @@ export default {
       this.user.email = user.email;
       this.user.phone = user.phone;
       if (user.images != "") {
-        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/" + user.images;
+        this.$refs.imageDispaly.src = this.baseUrl + "/uploads/users/" + user.images;
         this.$refs.imageDispaly.style.display = "block";
         this.$refs.iconClose.style.display = "block";
         this.$refs.iconFile.style.display = "none";
