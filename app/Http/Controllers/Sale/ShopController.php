@@ -45,6 +45,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -61,6 +76,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -77,6 +107,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -90,17 +135,24 @@ class ShopController extends Controller
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                //  $products =  Product::where(function ($q) use ($search) {
-                //     if ($search) {
-                //         $q->where('name', 'like', '%' . $search . '%');
-                //     }
-                $products =  Product::whereHas('type', function ($q) use ($search) {
+                $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere('type', 'like', '%' . $search . '%');
-                        // $q->orWhere('name', 'like', '%' . $search . '%');
-                        // $q->orWhere('name', 'like', '%' . $search . '%');
-                        // $q->orWhere('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -117,6 +169,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -306,6 +373,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -322,6 +404,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -338,6 +435,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -354,6 +466,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -370,6 +497,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -419,6 +561,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -435,6 +592,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -451,6 +623,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -467,6 +654,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -483,6 +685,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -533,6 +750,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -549,6 +781,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -565,6 +812,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -581,6 +843,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {
@@ -597,6 +874,21 @@ class ShopController extends Controller
                 $products =  Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('type', function ($q) use ($search) {
+                                $q->where('type', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('description', function ($q) use ($search) {
+                                $q->where('description', 'like', '%' . $search . '%');
+                            });
+                        });
+                        $q->orWhere(function ($query) use ($search) {
+                            $query->whereHas('weight', function ($q) use ($search) {
+                                $q->where('weight', 'like', '%' . $search . '%');
+                            });
+                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
                     ->whereHas('weight', function ($query) {

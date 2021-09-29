@@ -3,7 +3,7 @@
     <div
       class="product-show-option"
       style="background-color: #e9edf0; height: 54px"
-      v-if="products != ''"
+      
     >
       <div class="row">
         <div

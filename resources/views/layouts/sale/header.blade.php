@@ -289,13 +289,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
+                        {{-- @dd($breadcrumbs) --}}
                         @if (isset($breadcrumbs))
                             @foreach ($breadcrumbs as $key => $breadcrumb)
                                 @if ($key != count($breadcrumbs) - 1)
-                                    <span><a href="{{ URL::to('/') }}"><i class="fa fa-home"></i> Home</a><a
-                                            href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a></span>
+                                    <span><a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a></span>
                                 @else
-                                    <span><a href="{{ URL::to('/') }}"><i class="fa fa-home"></i> Home</a></span>
                                     <span>{{ $breadcrumb }}</span>
                                 @endif
                             @endforeach
