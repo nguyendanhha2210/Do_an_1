@@ -36,19 +36,69 @@ class CheckoutController extends Controller
             $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
             $abc = $request->payment_option;
             if ($abc == Payments::PAYMENTDELIVERY) {
-                $breadcrumbs = ['Payment on delivery '];
+                $breadcrumbs = [
+                    [
+                        'name' => 'Home',
+                        'url' => route('sale.index')
+
+                    ], [
+                        'name' => 'View Cart',
+                        'url' => route('admin.cart.viewCart')
+
+                    ], 'Payment on Delivery'
+                ];
                 return view('sale.shop.payments.ondelivery', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTPAYPAL) {
-                $breadcrumbs = ['Payment on paypal '];
+                $breadcrumbs = [
+                    [
+                        'name' => 'Home',
+                        'url' => route('sale.index')
+
+                    ], [
+                        'name' => 'View Cart',
+                        'url' => route('admin.cart.viewCart')
+
+                    ], 'Payment on Paypal'
+                ];
                 return view('sale.shop.payments.onpaypal', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTVNPAY) {
-                $breadcrumbs = ['Payment on vnpay '];
+                $breadcrumbs = [
+                    [
+                        'name' => 'Home',
+                        'url' => route('sale.index')
+
+                    ], [
+                        'name' => 'View Cart',
+                        'url' => route('admin.cart.viewCart')
+
+                    ], 'Payment on Vnpay'
+                ];
                 return view('sale.shop.payments.onvnpay', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTONEPAY) {
-                $breadcrumbs = ['Payment on onepay '];
+                $breadcrumbs = [
+                    [
+                        'name' => 'Home',
+                        'url' => route('sale.index')
+
+                    ], [
+                        'name' => 'View Cart',
+                        'url' => route('admin.cart.viewCart')
+
+                    ], 'Payment on Onepay'
+                ];
                 return view('sale.shop.payments.ononepay', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTMOMO) {
-                $breadcrumbs = ['Payment on Momo '];
+                $breadcrumbs = [
+                    [
+                        'name' => 'Home',
+                        'url' => route('sale.index')
+
+                    ], [
+                        'name' => 'View Cart',
+                        'url' => route('admin.cart.viewCart')
+
+                    ], 'Payment on Momo'
+                ];
                 return view('sale.shop.payments.onmomo', ['breadcrumbs' => $breadcrumbs], compact('type'));
             }
             // elseif ($abc == Payments::PAYMENTMOMO) {
@@ -543,7 +593,13 @@ class CheckoutController extends Controller
             $payment->save();
         }
 
-        $breadcrumbs = ['Success Order'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'Success Order'
+        ];
         return view('sale.shop.payments.vnpay_php.successvnpay', ['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
     }
 

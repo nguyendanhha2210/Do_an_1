@@ -289,7 +289,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        {{-- @dd($breadcrumbs) --}}
                         @if (isset($breadcrumbs))
                             @foreach ($breadcrumbs as $key => $breadcrumb)
                                 @if ($key != count($breadcrumbs) - 1)

@@ -16,6 +16,13 @@ class PostController extends Controller
     public function index()
     {
         $breadcrumbs = ['Blog'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'Blog'
+        ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         return view("sale.post.index", ['breadcrumbs' => $breadcrumbs], compact('type'));
     }
@@ -54,9 +61,21 @@ class PostController extends Controller
         }
     }
 
-    public function viewDetail()
+    public function viewDetail($id)
     {
-        $breadcrumbs = ['Blog Detail'];
+        $postDetail = Post::where('status', '=', StatusSale::UP)->with('categorypost')->where('id', $id)->get();
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Blog',
+                'url' => route('sale.post.index')
+
+            ], $postDetail[0]->title
+        ];
+
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
 
         return view("sale.post.detail", ['breadcrumbs' => $breadcrumbs], compact('type'));

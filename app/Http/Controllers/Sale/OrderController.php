@@ -24,7 +24,13 @@ class OrderController extends Controller
             return redirect()->route('sale.users.login');
         } else {
             $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-            $breadcrumbs = ['Manage Order'];
+            $breadcrumbs = [
+                [
+                    'name' => 'Home',
+                    'url' => route('sale.index')
+
+                ], 'Manage Order'
+            ];
             return view('sale.shop.orders.manageorder', ['breadcrumbs' => $breadcrumbs], compact('type'));
         }
     }

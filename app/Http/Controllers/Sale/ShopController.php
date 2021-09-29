@@ -21,7 +21,14 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $breadcrumbs = ['Shop'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'Shop'
+        ];
+
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
@@ -232,6 +239,18 @@ class ShopController extends Controller
             ->orderBy('price', 'ASC')->get();
         $breadcrumbs = ['Detail Product'];
 
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Shop',
+                'url' => route('sale.shop.index')
+
+            ], $product[0]->name
+        ];
+
         $productView = Product::find($id);
         $productView->views = $productView->views + 1;
         $productView->save();
@@ -347,7 +366,18 @@ class ShopController extends Controller
 
     public function chooseType($id)
     {
-        $breadcrumbs = ['Type Product'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Shop',
+                'url' => route('sale.shop.index')
+
+            ], 'Type Product'
+        ];
+
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
@@ -535,7 +565,17 @@ class ShopController extends Controller
     //Show view Description product
     public function chooseDescription($id)
     {
-        $breadcrumbs = ['Description Product'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Shop',
+                'url' => route('sale.shop.index')
+
+            ], 'Description Product'
+        ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
@@ -724,7 +764,18 @@ class ShopController extends Controller
     //Show view Weight product
     public function chooseWeight($id)
     {
-        $breadcrumbs = ['Description Product'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Shop',
+                'url' => route('sale.shop.index')
+
+            ], 'Weight Product'
+        ];
+
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();

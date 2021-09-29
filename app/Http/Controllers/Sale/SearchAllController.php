@@ -24,14 +24,15 @@ class SearchAllController extends Controller
         }
     }
 
-    // public function postSearchProduct(Request $request)
-    // {
-    //     return redirect()->route('admin.searchAll.postSearchProduct');
-    // }
-
     public function searchProduct(Request $request)
     {
-        $breadcrumbs = ['Search Product'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'Search Product'
+        ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
         $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();

@@ -18,7 +18,13 @@ class ProfileController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
-        $breadcrumbs = ['Profile'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'Profile'
+        ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
         return view("sale.profile.index", ['breadcrumbs' => $breadcrumbs], compact('type'));
     }
@@ -66,7 +72,7 @@ class ProfileController extends Controller
                     $fileName = $file->getClientOriginalName();
                     $file->move('uploads/users/', $fileName);
                     $user->images = $fileName;
-                }else {
+                } else {
                     $user->images = "avata-3.jpg";
                 }
                 $user->save();

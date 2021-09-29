@@ -125,7 +125,13 @@ class CartController extends Controller
     public function viewCart()
     {
         $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $breadcrumbs = ['View Cart'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], 'View Cart'
+        ];
         return view('sale.shop.viewcart', ['breadcrumbs' => $breadcrumbs], compact('type'));
     }
 
