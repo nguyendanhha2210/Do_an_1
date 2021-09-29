@@ -304,6 +304,7 @@ class OrderController extends Controller
                     if ($key == $key2) {
                         $pro_remain = $product_quantity - $qty;
                         $ware_remain = $warehouseQuantity - $qty;
+                        
                         $product->quantity = $pro_remain;
                         $warehouse->inventory = $ware_remain;
                         $product->product_sold = $product_sold + $qty;

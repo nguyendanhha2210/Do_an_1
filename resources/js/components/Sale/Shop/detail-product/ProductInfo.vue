@@ -69,14 +69,33 @@
               <u style="padding-left: 2%">{{ this.countEvaluated }}</u> Đánh giá
             </p>
             <h4 style="transform: translate(0%, -62%)">
-              {{ formatPrice(info[0].price) }} đ
+              {{ formatPrice( info[0].price) }} đ
             </h4>
           </div>
           <div class="pd-size-choose">
+
             <div class="sc-item">
               <input type="radio" id="sm-size" />
               <label for="sm-size">{{ info[0].weight.weight }}</label>
             </div>
+             <div class="sc-item">
+              <input type="radio" id="sm-size" @click="" />
+              <label for="sm-size">300g</label>
+            </div>
+            <div class="sc-item">
+              <input type="radio" id="sm-size" />
+              <label for="sm-size">500g</label>
+            </div>
+            <div class="sc-item">
+              <input type="radio" id="sm-size" />
+              <label for="sm-size">1kg</label>
+            </div>
+            <div class="sc-item">
+              <input type="radio" id="sm-size" />
+              <label for="sm-size">2kg</label>
+            </div>
+           
+
           </div>
           <div class="quantity">
             <div class="pro-qty">
