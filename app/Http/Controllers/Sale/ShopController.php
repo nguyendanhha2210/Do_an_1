@@ -241,9 +241,8 @@ class ShopController extends Controller
             ->whereHas('weightProducts', function ($query) {
                 $query->where('deleted_at', NULL);
             })
-            ->orderBy('price', 'ASC')->get();
-        $breadcrumbs = ['Detail Product'];
-
+            ->orderBy('price', 'ASC')->first();
+      
         $breadcrumbs = [
             [
                 'name' => 'Home',
@@ -253,7 +252,7 @@ class ShopController extends Controller
                 'name' => 'Shop',
                 'url' => route('sale.shop.index')
 
-            ], $product[0]->name
+            ], $product->name
         ];
 
         $productView = Product::find($id);

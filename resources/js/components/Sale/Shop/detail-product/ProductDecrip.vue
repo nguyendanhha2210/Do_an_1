@@ -51,13 +51,13 @@
                       display: -webkit-box;
                     "
                   >
-                    {{ decrip[0].content }}
+                    {{ decrip.content }}
                   </div>
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
                     style="height: 268px; transform: translate(0%, -6%)"
-                    :src="baseUrl + '/uploads/products/' + decrip[0].images"
+                    :src="baseUrl + '/uploads/products/' + decrip.images"
                   />
                 </div>
               </div>
@@ -74,7 +74,7 @@
                         read-only
                         :star-size="15"
                         :increment="0.1"
-                        :rating="Number(decrip[0].star_vote)"
+                        :rating="Number(decrip.star_vote)"
                       ></star-rating>
                     </div>
                   </td>
@@ -83,7 +83,7 @@
                   <td class="p-catagory">Price</td>
                   <td>
                     <div class="p-price">
-                      {{ formatPrice(decrip[0].price) }} đ
+                      {{ formatPrice(decrip.price) }} đ
                     </div>
                   </td>
                 </tr>
@@ -96,19 +96,19 @@
                 <tr>
                   <td class="p-catagory">Availability</td>
                   <td>
-                    <div class="p-stock">{{ decrip[0].quantity }} in stock</div>
+                    <div class="p-stock">{{ decrip.quantity }} in stock</div>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-catagory">Weight</td>
                   <td>
-                    <div class="p-weight">{{ decrip[0].weight.weight }}</div>
+                    <div class="p-weight">{{ decrip.weight.weight }}</div>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-catagory">Id</td>
                   <td>
-                    <div class="p-code">000{{ decrip[0].id }}</div>
+                    <div class="p-code">000{{ decrip.id }}</div>
                   </td>
                 </tr>
               </table>
@@ -127,7 +127,7 @@
               <div class="row">
                 <div class="col-lg-3 col-5">
                   <div style="font-size: 20px; color: #17a2b8">
-                    <b class="pl-4">{{ decrip[0].star_vote }} </b>trên 5
+                    <b class="pl-4">{{ decrip.star_vote }} </b>trên 5
                   </div>
                   <div>
                     <star-rating
@@ -136,7 +136,7 @@
                       :increment="0.1"
                       :show-rating="false"
                       style="margin: auto"
-                      :rating="Number(decrip[0].star_vote)"
+                      :rating="Number(decrip.star_vote)"
                     ></star-rating>
                   </div>
                 </div>
@@ -600,7 +600,7 @@ export default {
     fetchCountStar() {
       let that = this;
       axios
-        .post(`/get-count-star?product_id=` + that.decrip[0].id)
+        .post(`/get-count-star?product_id=` + that.decrip.id)
         .then(function (response) {
           that.count5Stars = response.data.count5Stars;
           that.count4Stars = response.data.count4Stars;
@@ -638,7 +638,7 @@ export default {
               "&paginate=" +
               that.paginate +
               "&product_id=" +
-              that.decrip[0].id
+              that.decrip.id
           )
           .then(function (response) {
             that.evaluates = response.data.evaluate5Stars; //show data ra
@@ -667,7 +667,7 @@ export default {
               "&paginate=" +
               that.paginate +
               "&product_id=" +
-              that.decrip[0].id
+              that.decrip.id
           )
           .then(function (response) {
             that.evaluates = response.data.evaluate4Stars; //show data ra
@@ -696,7 +696,7 @@ export default {
               "&paginate=" +
               that.paginate +
               "&product_id=" +
-              that.decrip[0].id
+              that.decrip.id
           )
           .then(function (response) {
             that.evaluates = response.data.evaluate3Stars; //show data ra
@@ -725,7 +725,7 @@ export default {
               "&paginate=" +
               that.paginate +
               "&product_id=" +
-              that.decrip[0].id
+              that.decrip.id
           )
           .then(function (response) {
             that.evaluates = response.data.evaluate2Stars; //show data ra
@@ -754,7 +754,7 @@ export default {
               "&paginate=" +
               that.paginate +
               "&product_id=" +
-              that.decrip[0].id
+              that.decrip.id
           )
           .then(function (response) {
             that.evaluates = response.data.evaluate1Stars; //show data ra
@@ -782,7 +782,7 @@ export default {
           "&paginate=" +
           this.paginate +
           "&product_id=" +
-          this.decrip[0].id;
+          this.decrip.id;
         axios
           .post(url)
           .then(function (response) {

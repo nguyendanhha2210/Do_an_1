@@ -234,7 +234,7 @@ export default {
     fetchData() {
       let that = this;
       axios
-        .get(`/get-related-product/${this.related[0].id}`)
+        .get(`/get-related-product/${this.related.id}`)
         .then(function (response) {
           console.log(response);
           that.products = response.data; //show data ra

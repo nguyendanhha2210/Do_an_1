@@ -208,7 +208,7 @@ export default {
     fetchData() {
       let that = this;
       axios
-        .get(`/get-accessory/${this.coupon[0].id}`)
+        .get(`/get-accessory/${this.coupon.id}`)
         .then(function (response) {
           that.productAccessories = response.data.productAccessory; //show data ra
         })

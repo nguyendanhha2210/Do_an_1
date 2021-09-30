@@ -7,13 +7,13 @@
             class="product-big-img"
             style="height: 400px"
             ref="image"
-            :src="baseUrl + '/uploads/products/' + info[0].images"
+            :src="baseUrl + '/uploads/products/' + info.images"
             alt=""
           />
         </v-zoomer>
         <div class="product-thumbs">
           <div class="product-thumbs-track ps-slider owl-carousel">
-            <div v-for="data in info[0].product_images" :key="data.id">
+            <div v-for="data in info.product_images" :key="data.id">
               <div class="pt active">
                 <img
                   class="product-big-img"
@@ -47,9 +47,9 @@
               yêu thích
             </button>
             <h3>
-              {{ info[0].name }}
+              {{ info.name }}
             </h3>
-            <a class="heart-icon" @click="addFavorite(info[0])"
+            <a class="heart-icon" @click="addFavorite(info)"
               ><i class="icon_heart_alt" style="color: red; font-size: 22px"></i
             ></a>
           </div>
@@ -58,18 +58,18 @@
               read-only
               :star-size="15"
               :increment="0.1"
-              :rating="Number(info[0].star_vote)"
+              :rating="Number(info.star_vote)"
             ></star-rating>
           </div>
           <div class="pd-desc" style="margin-bottom: 7px">
             <p style="transform: translate(23%, -115%)">
               <b style="padding-left: 2%">|</b>
-              <u style="padding-left: 2%">{{ info[0].product_sold }}</u> Đã bán
+              <u style="padding-left: 2%">{{ info.product_sold }}</u> Đã bán
               <b style="padding-left: 2%">|</b>
               <u style="padding-left: 2%">{{ this.countEvaluated }}</u> Đánh giá
             </p>
             <!-- <h4 style="transform: translate(0%, -62%)">
-              {{ formatPrice( info[0].price) }} đ
+              {{ formatPrice( info.price) }} đ
             </h4> -->
 
             <h4
@@ -95,11 +95,11 @@
           <div class="pd-size-choose">
             <!-- <div class="sc-item">
               <input type="radio" id="sm-size" />
-              <label for="sm-size">{{ info[0].weight.weight }}</label>
+              <label for="sm-size">{{ info.weight.weight }}</label>
             </div> -->
             <div
               class="sc-item"
-              v-for="data in info[0].weight_products"
+              v-for="data in info.weight_products"
               :key="data.id"
             >
               <input type="radio" id="sm-size" />
@@ -126,13 +126,13 @@
             >
           </div>
           <ul class="pd-tags">
-            <li><span>CATEGORIES</span>: {{ info[0].type.type }}</li>
+            <li><span>CATEGORIES</span>: {{ info.type.type }}</li>
             <li>
-              <span>DECRIPTIONS</span>: {{ info[0].description.description }}
+              <span>DECRIPTIONS</span>: {{ info.description.description }}
             </li>
           </ul>
           <div class="pd-share" style="transform: translate(0%, -81%)">
-            <div class="p-code"><b>ID</b>: 000{{ info[0].id }}</div>
+            <div class="p-code"><b>ID</b>: 000{{ info.id }}</div>
             <div class="pd-social">
               <a href="https://www.facebook.com/Mekhoebexinh02"
                 ><img
@@ -242,20 +242,20 @@ export default {
       this.$refs.image.src = this.$refs["images" + value][0].src;
     },
     addCartProduct() {
-      if (this.info[0].quantity < this.qualityOrder) {
+      if (this.info.quantity < this.qualityOrder) {
         this.$swal({
           title: "Not Enough Products",
           icon: "warning",
-          text: "Sản phẩm còn lại trong kho : " + this.info[0].quantity,
+          text: "Sản phẩm còn lại trong kho : " + this.info.quantity,
           confirmButtonText: "Cancle !",
         }).then(function (confirm) {});
       } else {
         let that = this;
         let formData = new FormData();
         formData.append("qualityOrder", this.qualityOrder);
-        formData.append("id", this.info[0].id);
-        formData.append("name", this.info[0].name);
-        formData.append("images", this.info[0].images);
+        formData.append("id", this.info.id);
+        formData.append("name", this.info.name);
+        formData.append("images", this.info.images);
         if (this.priceWeightProduct == 0) {
           formData.append("price", this.weightProduct.price);
           formData.append("weight", this.weightProduct.weight);
@@ -310,7 +310,7 @@ export default {
       }
     },
     increase() {
-      if (this.qualityOrder < this.info[0].quantity) {
+      if (this.qualityOrder < this.info.quantity) {
         this.qualityOrder += 1;
       }
     },
@@ -366,7 +366,7 @@ export default {
     fillEvaluated() {
       let that = this;
       axios
-        .post(`/fill-evaluated/${this.info[0].id}`)
+        .post(`/fill-evaluated/${this.info.id}`)
         .then((response) => {
           that.countEvaluated = response.data;
         })
@@ -400,7 +400,7 @@ export default {
     },
 
     fillWeight() {
-      axios.post(`/fill-weight-product/${this.info[0].id}`).then((response) => {
+      axios.post(`/fill-weight-product/${this.info.id}`).then((response) => {
         if (response.data.priceWeightProduct != "") {
           this.priceWeightProduct = response.data.priceWeightProduct;
           this.weightProduct = response.data.weightProduct;
