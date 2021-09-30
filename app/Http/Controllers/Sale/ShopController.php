@@ -182,7 +182,9 @@ class ShopController extends Controller
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
+
         $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)
+            ->with(['type', 'description', 'productImages', 'weightProducts'])
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -195,8 +197,7 @@ class ShopController extends Controller
             ->whereHas('weightProducts', function ($query) {
                 $query->where('deleted_at', NULL);
             })->first();
-
-        $nameProduct = $product->name;
+     
         $breadcrumbs = [
             [
                 'name' => 'Home',
@@ -206,7 +207,7 @@ class ShopController extends Controller
                 'name' => 'Shop',
                 'url' => route('sale.shop.index')
 
-            ], $nameProduct
+            ], $product->name
         ];
 
         $productView = Product::find($id);
