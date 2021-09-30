@@ -242,7 +242,8 @@ class ShopController extends Controller
                 $query->where('deleted_at', NULL);
             })
             ->orderBy('price', 'ASC')->first();
-      
+
+        $nameProduct = $product->name;
         $breadcrumbs = [
             [
                 'name' => 'Home',
@@ -252,7 +253,7 @@ class ShopController extends Controller
                 'name' => 'Shop',
                 'url' => route('sale.shop.index')
 
-            ], $product->name
+            ], $nameProduct
         ];
 
         $productView = Product::find($id);
@@ -973,7 +974,7 @@ class ShopController extends Controller
                 $weightProducts = WeightProduct::where('product_id', $id)->first();
                 $priceWeightProduct = $weightProducts->price;
                 $weightProduct = $weightProducts->weight;
-                return response()->json(["priceWeightProduct" => $priceWeightProduct,"weightProduct" => $weightProduct], StatusCode::OK);
+                return response()->json(["priceWeightProduct" => $priceWeightProduct, "weightProduct" => $weightProduct], StatusCode::OK);
             } else {
                 $weightProductMax = WeightProduct::where('product_id', $request->id)->max('price');
                 $weightProductMin = WeightProduct::where('product_id', $request->id)->min('price');
