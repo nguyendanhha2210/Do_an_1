@@ -186,7 +186,6 @@ export default {
         images: "",
         price: "",
         type_id: "",
-        weight_id: "",
         description_id: "",
         content: "",
         status: "",
@@ -205,29 +204,29 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
 
-    fetchData() {
-      let that = this;
-      axios
-        .get(`/get-accessory/${this.coupon.id}`)
-        .then(function (response) {
-          that.productAccessories = response.data.productAccessory; //show data ra
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 500:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+    // fetchData() {
+    //   let that = this;
+    //   axios
+    //     .get(`/get-accessory/${this.coupon.id}`)
+    //     .then(function (response) {
+    //       that.productAccessories = response.data.productAccessory; //show data ra
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 500:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
   },
 };
 </script>

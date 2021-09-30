@@ -10,7 +10,6 @@ use App\Models\Description;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Type;
-use App\Models\Weight;
 
 class SearchAllController extends Controller
 {
@@ -35,16 +34,12 @@ class SearchAllController extends Controller
         ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $resultSearch = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-            ->whereHas('weight', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
+        $resultSearch = Product::where('id', '=', $request->id)->where('quantity', '>', 0)->with(['type', 'description'])
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -53,6 +48,6 @@ class SearchAllController extends Controller
             })
             ->orderBy('created_at', 'desc')->first();
 
-        return view('sale.shop.search', compact('type', 'description', 'weight', 'post', 'breadcrumbs', 'resultSearch'));
+        return view('sale.shop.search', compact('type', 'description','post', 'breadcrumbs', 'resultSearch'));
     }
 }

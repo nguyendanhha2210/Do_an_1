@@ -34,17 +34,6 @@
     </ul>
 </div>
 
-<div class="filter-widget" style="background-color: white; margin-bottom: 20px;">
-    <h4 class="fw-title" style="margin-bottom: 16px;font-size:26px;">Weights Product</h4>
-    <div class="fw-size-choose">
-        @foreach ($weight as $key => $dataWeight)
-            <div class="sc-item">
-                <label for="s-size"><a style="color: black"
-                        href="{{ URL::to('/choose-weight/' . $dataWeight->id) }}">{{ $dataWeight->weight }}</a></label>
-            </div>
-        @endforeach
-    </div>
-</div>
 <hr>
 
 <div class="filter-widget" style="background-color: white; margin-bottom: 12px;text-align: center;">
@@ -62,7 +51,8 @@
                     <tr class="overflow">
                         <td class="si-pic">
                             <a href="{{ URL::to('/blog/' . $data->id . '/detail') }}"><img style="width: 90px;max-width:100%;
-                      height: 74px;padding-right:10px;" src="{{ URL::to('uploads/posts/' . $data->images) }}" alt=""></a>
+                      height: 74px;padding-right:10px;" src="{{ URL::to('uploads/posts/' . $data->images) }}"
+                                    alt=""></a>
 
                         <td class="si-text">
                             <div class="product-selected">

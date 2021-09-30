@@ -14,10 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $featureProduct = Product::where('status', '=', 0)->where('quantity', '>', 0)
-            ->with(['weight', 'type', 'description'])
-            ->whereHas('weight', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
+            ->with(['type', 'description'])
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -27,10 +24,7 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')->get();
 
         $sellingProduct = Product::where('status', '=', 0)->where('quantity', '>', 0)
-            ->with(['weight', 'type', 'description'])
-            ->whereHas('weight', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
+            ->with(['type', 'description'])
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -54,10 +48,7 @@ class HomeController extends Controller
     {
         try {
             $products =  Product::where('status', '=', 0)->where('quantity', '>', 0)
-                ->with(['weight', 'type', 'description'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+                ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
@@ -76,10 +67,7 @@ class HomeController extends Controller
     {
         try {
             $products =  Product::where('status', '=', 0)->where('quantity', '>', 0)
-                ->with(['weight', 'type', 'description'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+                ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
@@ -108,10 +96,7 @@ class HomeController extends Controller
     {
         try {
             $productQuick = Product::where('id', $request->id)->where('quantity', '>', 0)
-                ->with(['weight', 'type', 'description', 'productImages'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+                ->with(['type', 'description', 'productImages'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
@@ -123,17 +108,12 @@ class HomeController extends Controller
             $id = $productQuick->id;
             $idType = $productQuick->type_id;
             $idDecr = $productQuick->description_id;
-            $idWeig = $productQuick->weight_id;
 
             $productTogether =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $idType)
                 ->where('description_id', $idDecr)
-                ->where('weight_id', $idWeig)
                 ->whereNotIn('id', [$id])
-                ->with(['weight', 'type', 'description'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+                ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })

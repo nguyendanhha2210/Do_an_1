@@ -100,12 +100,6 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="p-catagory">Weight</td>
-                  <td>
-                    <div class="p-weight">{{ decrip.weight.weight }}</div>
-                  </td>
-                </tr>
-                <tr>
                   <td class="p-catagory">Id</td>
                   <td>
                     <div class="p-code">000{{ decrip.id }}</div>

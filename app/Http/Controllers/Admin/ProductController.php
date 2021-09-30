@@ -10,7 +10,6 @@ use App\Models\Description;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
-use App\Models\Weight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -68,10 +67,7 @@ class ProductController extends Controller
                 if ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
                 }
-            })->with(['weight', 'type', 'description', 'warehouse'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+            })->with(['type', 'description', 'warehouse'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
@@ -93,11 +89,9 @@ class ProductController extends Controller
     {
         $data = [];
         $type_product = Type::get();
-        $weight_product = Weight::get();
         $description_product = Description::get();
         $data = collect([
             'type_product' => $type_product,
-            'weight_product' => $weight_product,
             'description_product' => $description_product,
         ]);
         return $data;
@@ -118,7 +112,6 @@ class ProductController extends Controller
 
             $product->price = $request->price;
             $product->type_id = $request->type_id;
-            $product->weight_id = $request->weight_id;
             $product->description_id = $request->description_id;
             $product->content = $request->content;
             $product->status = StatusSale::DOWN;

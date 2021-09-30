@@ -30,7 +30,6 @@ class ProductRequest extends FormRequest
             // 'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'type_id' => 'required|numeric',
-            'weight_id' => 'required|numeric',
             'description_id' => 'required|numeric',
             'content' => 'required',
         ];
@@ -43,7 +42,6 @@ class ProductRequest extends FormRequest
             // 'images' => '* Hình ảnh',
             'price' => '* Giá',
             'type_id' => '* Thể loại',
-            'weight_id' => '* Khối lượng',
             'description_id' => '* Mô tả',
             'content' => '* Nội dung',
             'status' => '* Trang thái'

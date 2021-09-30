@@ -201,7 +201,6 @@ export default {
         images: "",
         price: "",
         type_id: "",
-        weight_id: "",
         description_id: "",
         content: "",
         status: "",
@@ -266,7 +265,6 @@ export default {
 
       this.product.price = product.price;
       this.product.type_id = product.type_id;
-      this.product.weight_id = product.weight_id;
       this.product.description_id = product.description_id;
       this.product.content = product.content;
       this.product.status = product.status;

@@ -93,10 +93,6 @@
             </h4>
           </div>
           <div class="pd-size-choose">
-            <!-- <div class="sc-item">
-              <input type="radio" id="sm-size" />
-              <label for="sm-size">{{ info.weight.weight }}</label>
-            </div> -->
             <div
               class="sc-item"
               v-for="data in info.weight_products"

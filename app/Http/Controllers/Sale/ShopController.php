@@ -32,14 +32,13 @@ class ShopController extends Controller
 
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        return view("sale.shop.shop", ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'post'));
+        return view("sale.shop.shop", ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'post'));
     }
 
     public function getData(Request $request)
@@ -63,16 +62,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
-                        $query->where('deleted_at', NULL);
-                    })
+                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', NULL);
                     })
@@ -94,16 +85,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
-                        $query->where('deleted_at', NULL);
-                    })
+                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', NULL);
                     })
@@ -125,16 +108,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
-                        $query->where('deleted_at', NULL);
-                    })
+                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', NULL);
                     })
@@ -156,16 +131,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
-                        $query->where('deleted_at', NULL);
-                    })
+                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', NULL);
                     })
@@ -187,16 +154,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
-                        $query->where('deleted_at', NULL);
-                    })
+                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', NULL);
                     })
@@ -218,17 +177,13 @@ class ShopController extends Controller
     {
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description', 'productImages', 'weightProducts'])
-            ->whereHas('weight', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
+        $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description', 'productImages', 'weightProducts'])
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
             })
@@ -320,7 +275,7 @@ class ShopController extends Controller
         Session::save();
 
 
-        return view('sale.shop.detailproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'product', 'post'));
+        return view('sale.shop.detailproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'product', 'post'));
     }
 
     public function fillEvaluated(Request $request, $id)
@@ -352,10 +307,7 @@ class ShopController extends Controller
             $products =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $product->type_id)
                 ->whereNotIn('id', [$id])
-                ->with(['weight', 'type', 'description'])
-                ->whereHas('weight', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
+                ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
                     $query->where('deleted_at', NULL);
                 })
@@ -385,7 +337,6 @@ class ShopController extends Controller
 
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
         $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
@@ -394,7 +345,7 @@ class ShopController extends Controller
 
         $productType =  Product::where('type_id', '=', $id)->get();
 
-        return view('sale.shop.typeproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productType', 'post'));
+        return view('sale.shop.typeproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productType', 'post'));
     }
 
     public function getTypeProduct(Request $request, $id)
@@ -419,13 +370,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -450,13 +401,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -481,13 +432,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -512,13 +463,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -543,13 +494,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -591,7 +542,7 @@ class ShopController extends Controller
             })->orderBy('created_at', 'desc')->take(3)->get();
         $productDescription =  Product::where('description_id', '=', $id)->get();
 
-        return view('sale.shop.descriptionproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productDescription', 'post'));
+        return view('sale.shop.descriptionproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description',  'productDescription', 'post'));
     }
 
     //Show data Description product
@@ -617,13 +568,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -648,13 +599,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -679,13 +630,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -710,13 +661,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -741,13 +692,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -791,7 +742,7 @@ class ShopController extends Controller
             })->orderBy('created_at', 'desc')->take(3)->get();
         $productWeight =  Product::where('weight_id', '=', $id)->get();
 
-        return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'weight', 'productWeight', 'post'));
+        return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description',  'productWeight', 'post'));
     }
 
     //Show data Weight product
@@ -817,13 +768,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -848,13 +799,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -879,13 +830,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -910,13 +861,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -941,13 +892,13 @@ class ShopController extends Controller
                             });
                         });
                         $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('weight', function ($q) use ($search) {
-                                $q->where('weight', 'like', '%' . $search . '%');
+                            $query->whereHas(function ($q) use ($search) {
+                                $q->where('like', '%' . $search . '%');
                             });
                         });
                     }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['weight', 'type', 'description'])
-                    ->whereHas('weight', function ($query) {
+                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+                    ->whereHas(function ($query) {
                         $query->where('deleted_at', NULL);
                     })
                     ->whereHas('type', function ($query) {
@@ -1005,8 +956,8 @@ class ShopController extends Controller
                 ->where('type_id', $product->type_id)
                 ->where('description_id', $product->description_id)
                 ->whereNotIn('id', [$id])
-                ->with(['weight', 'type', 'description'])
-                ->whereHas('weight', function ($query) {
+                ->with(['type', 'description'])
+                ->whereHas(function ($query) {
                     $query->where('deleted_at', NULL);
                 })
                 ->whereHas('type', function ($query) {

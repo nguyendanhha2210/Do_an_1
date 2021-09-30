@@ -178,28 +178,6 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Weight_id</label>
-                  <select v-model="product.weight_id" class="form-control">
-                    <option value="">Select product weight</option>
-                    <option
-                      v-for="data in weight_product"
-                      :key="data.id"
-                      :value="data.id"
-                    >
-                      {{ data.weight }}
-                    </option>
-                  </select>
-                  <!-- validate -->
-                  <div style="color: red" role="alert">
-                    {{ errors.first("weight_id") }}
-                  </div>
-                  <div style="color: red" v-if="errorBackEnd.weight_id">
-                    {{ errorBackEnd.weight_id[0] }}
-                  </div>
-                  <!-- validate -->
-                </div>
-
-                <div class="form-group">
                   <label for="exampleInputEmail1">Description_id</label>
                   <select v-model="product.description_id" class="form-control">
                     <option value="">Select product description</option>
@@ -411,7 +389,6 @@
               </th>
               <th scope="col">Status</th>
               <th scope="col">Type</th>
-              <th scope="col">Weight_id</th>
               <th scope="col">Description_id</th>
               <th scope="col">Content</th>
 
@@ -524,9 +501,6 @@
                 {{ product.type.type }}
               </td>
               <td>
-                {{ product.weight.weight }}
-              </td>
-              <td>
                 {{ product.description.description }}
               </td>
               <td>
@@ -631,7 +605,6 @@ export default {
         images: "",
         price: "",
         type_id: "",
-        weight_id: "",
         description_id: "",
         content: "",
         status: "",
@@ -648,7 +621,6 @@ export default {
       paginate: 5,
       search: "",
       type_product: {},
-      weight_product: {},
       description_product: {},
       flagShowLoader: false,
 
@@ -698,9 +670,6 @@ export default {
         },
         type_id: {
           required: "* Thể loại chưa nhập",
-        },
-        weight_id: {
-          required: "* Khối lượng chưa nhập",
         },
         description_id: {
           required: "* Mô tả chưa nhập",
@@ -883,7 +852,6 @@ export default {
         })
         .then((res) => {
           this.type_product = res.data.type_product;
-          this.weight_product = res.data.weight_product;
           this.description_product = res.data.description_product;
         });
     },
@@ -911,7 +879,6 @@ export default {
         formData.append("images", this.product.images);
         formData.append("price", this.product.price);
         formData.append("type_id", this.product.type_id);
-        formData.append("weight_id", this.product.weight_id);
         formData.append("description_id", this.product.description_id);
         formData.append("content", this.product.content);
         formData.append("status", this.product.status);
@@ -946,7 +913,6 @@ export default {
                     images: "",
                     price: "",
                     type_id: "",
-                    weight_id: "",
                     description_id: "",
                     content: "",
                     status: "",
@@ -980,7 +946,6 @@ export default {
         formData.append("images", this.product.images);
         formData.append("price", this.product.price);
         formData.append("type_id", this.product.type_id);
-        formData.append("weight_id", this.product.weight_id);
         formData.append("description_id", this.product.description_id);
         formData.append("content", this.product.content);
         axios
@@ -1007,7 +972,7 @@ export default {
                       images: "",
                       price: "",
                       type_id: "",
-                      weight_id: "",
+                     
                       description_id: "",
                       content: "",
                       status: "",
@@ -1105,7 +1070,6 @@ export default {
 
       this.product.price = product.price;
       this.product.type_id = product.type_id;
-      this.product.weight_id = product.weight_id;
       this.product.description_id = product.description_id;
       this.product.content = product.content;
       this.product.import_price = product.import_price;
