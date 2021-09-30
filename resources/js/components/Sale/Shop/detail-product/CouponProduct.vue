@@ -195,7 +195,7 @@ export default {
   created() {},
   components: {},
   mounted() {
-    this.fetchData();
+    // this.fetchData();
   },
   props: ["couponProduct"],
   methods: {
