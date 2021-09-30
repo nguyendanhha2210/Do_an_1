@@ -183,6 +183,7 @@ class ShopController extends Controller
                 $query->where('deleted_at', NULL);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
+            
         $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)
             ->whereHas('type', function ($query) {
                 $query->where('deleted_at', NULL);
