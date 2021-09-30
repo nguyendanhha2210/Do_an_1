@@ -185,18 +185,19 @@ class ShopController extends Controller
 
         $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)
             ->with(['type', 'description', 'productImages', 'weightProducts'])
-            ->whereHas('type', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
-            ->whereHas('description', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
-            ->whereHas('productImages', function ($query) {
-                $query->where('deleted_at', NULL);
-            })
-            ->whereHas('weightProducts', function ($query) {
-                $query->where('deleted_at', NULL);
-            })->first();
+            // ->whereHas('type', function ($query) {
+            //     $query->where('deleted_at', NULL);
+            // })
+            // ->whereHas('description', function ($query) {
+            //     $query->where('deleted_at', NULL);
+            // })
+            // ->whereHas('productImages', function ($query) {
+            //     $query->where('deleted_at', NULL);
+            // })
+            // ->whereHas('weightProducts', function ($query) {
+            //     $query->where('deleted_at', NULL);
+            // })
+            ->first();
      
         $breadcrumbs = [
             [
