@@ -113,15 +113,17 @@
                                     href="{{ URL::to('/product-detail/' . $key->id) }}"></a> --}}
                                 {{-- Lấy cho sp yêu thích --}}
 
-                                <div class="product-item" style="background-color:white">
-                                    <div class="pi-pic">
-                                        <img height="320px" src="{{ URL::to('uploads/products/' . $key->images) }}" alt="">
-                                        <div class="sale">Sale</div>
-                                        <div class="icon">
-                                            <a class="btn btn-default" id="{{ $key->id }}"
-                                                onclick="add_wistlist(this.id)"><i class=" icon_heart_alt"></i></a>
-                                        </div>
-                                        <ul>
+                                <a href="{{ URL::to('/product-detail/' . $key->id) }}">
+                                    <div class="product-item div-hover" style="background-color:white">
+                                        <div class="pi-pic">
+                                            <img height="320px" src="{{ URL::to('uploads/products/' . $key->images) }}"
+                                                alt="">
+                                            <div class="sale">Sale</div>
+                                            <div class="icon">
+                                                <a class="btn btn-default" id="{{ $key->id }}"
+                                                    onclick="add_wistlist(this.id)"><i class=" icon_heart_alt"></i></a>
+                                            </div>
+                                            {{-- <ul>
                                             <li class="w-icon active">
                                                 <a class="btn btn-default add-to-cart"
                                                     data-id_product="{{ $key->id }}" name="add-to-cart"><i
@@ -131,32 +133,33 @@
                                                 <a href="{{ URL::to('/product-detail/' . $key->id) }}"><i
                                                         class="fa fa-eye"></i></a>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text"
-                                        style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
-                                        <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
-                                            <h5 style="">
-                                                {{ $key->name }}
-                                            </h5>
-                                        </a>
-                                        <div style="color: red; transform: translate(-27%, 53%)">
-                                            <u style="
-                                                          font-size: 13px;
-                                                          display: -webkit-inline-box;
-                                                          transform: translate(0%, -13%);
-                                                        ">đ</u>
-                                            <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                        </ul> --}}
                                         </div>
-                                        <div class="da-ban" style="
-                                                        transform: translate(32%, -47%);
-                                                        font-size: 14px;
-                                                        color: dimgray;
-                                                      ">
-                                            <span>Đã bán {{ $key->product_sold }}</span>
+                                        <div class="pi-text"
+                                            style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+                                            <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
+                                                <h5 style="">
+                                                    {{ $key->name }}
+                                                </h5>
+                                            </a>
+                                            <div style="color: red; transform: translate(-27%, 53%)">
+                                                <u style="
+                                                                  font-size: 13px;
+                                                                  display: -webkit-inline-box;
+                                                                  transform: translate(0%, -13%);
+                                                                ">đ</u>
+                                                <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                            </div>
+                                            <div class="da-ban" style="
+                                                                transform: translate(32%, -47%);
+                                                                font-size: 14px;
+                                                                color: dimgray;
+                                                              ">
+                                                <span>Đã bán {{ $key->product_sold }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </form>
                         @endforeach
                     </div>
@@ -229,16 +232,18 @@
                                     class="cart_product_price_{{ $key->id }}">
                                 <input type="hidden" value="1" class="cart_product_qty_{{ $key->id }}">
 
-                                <div class="product-item" style="background-color:white">
-                                    <div class="pi-pic">
-                                        <img height="320px;" src="{{ URL::to('uploads/products/' . $key->images) }}" alt="">
-                                        <div class="sale">Sale</div>
-                                        <div class="icon">
-                                            <a class="btn btn-default add-to-favorite"
-                                                data-id_product="{{ $key->id }}" name="add-to-favorite"><i
-                                                    class=" icon_heart_alt"></i></a>
-                                        </div>
-                                        <ul>
+                                <a href="{{ URL::to('/product-detail/' . $key->id) }}`">
+                                    <div class="product-item div-hover" style="background-color:white">
+                                        <div class="pi-pic">
+                                            <img height="320px;" src="{{ URL::to('uploads/products/' . $key->images) }}"
+                                                alt="">
+                                            <div class="sale">Sale</div>
+                                            <div class="icon">
+                                                <a class="btn btn-default add-to-favorite"
+                                                    data-id_product="{{ $key->id }}" name="add-to-favorite"><i
+                                                        class=" icon_heart_alt"></i></a>
+                                            </div>
+                                            {{-- <ul>
                                             <li class="w-icon active">
                                                 <a class="btn btn-default add-to-cart"
                                                     data-id_product="{{ $key->id }}" name="add-to-cart"><i
@@ -249,33 +254,33 @@
                                                 <a href="{{ URL::to('/product-detail/' . $key->id) }}`"><i
                                                         class="fa fa-eye"></i></a>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text"
-                                        style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
-                                        <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
-                                            <h5 style="">
-                                                {{ $key->name }}
-                                            </h5>
-                                        </a>
-                                        <div style="color: red; transform: translate(-27%, 53%)">
-                                            <u style="
-                                                          font-size: 13px;
-                                                          display: -webkit-inline-box;
-                                                          transform: translate(0%, -13%);
-                                                        ">đ</u>
-                                            <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                        </ul> --}}
                                         </div>
-                                        <div class="da-ban" style="
-                                                        transform: translate(32%, -47%);
-                                                        font-size: 14px;
-                                                        color: dimgray;
-                                                      ">
-                                            <span>Đã bán {{ $key->product_sold }}</span>
+                                        <div class="pi-text"
+                                            style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+                                            <a href="#" style="transform: translate(0%, -34%); font-size: 21px">
+                                                <h5 style="">
+                                                    {{ $key->name }}
+                                                </h5>
+                                            </a>
+                                            <div style="color: red; transform: translate(-27%, 53%)">
+                                                <u style="
+                                                                  font-size: 13px;
+                                                                  display: -webkit-inline-box;
+                                                                  transform: translate(0%, -13%);
+                                                                ">đ</u>
+                                                <span style="font-size: 19px">{{ number_format($key->price) }}</span>
+                                            </div>
+                                            <div class="da-ban" style="
+                                                                transform: translate(32%, -47%);
+                                                                font-size: 14px;
+                                                                color: dimgray;
+                                                              ">
+                                                <span>Đã bán {{ $key->product_sold }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </a>
                             </form>
                         @endforeach
                     </div>
@@ -351,7 +356,7 @@
                             </a>
 
                             <div class="latest-text" style="padding-left: 16px;
-                                        padding-bottom: 5px;">
+                                                padding-bottom: 5px;">
                                 <div class="tag-list">
                                     <div class="tag-item">
                                         <i class="fa fa-calendar-o"></i>
@@ -365,24 +370,24 @@
 
                                 <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
                                     <h4 style="
-                                        width:339px;
-                                        white-space: pre-wrap; 
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                        -webkit-line-clamp: 1;
-                                        -webkit-box-orient: vertical;
-                                         display: -webkit-box;
-                                         ">{{ $key->title }}</h4>
+                                                width:339px;
+                                                white-space: pre-wrap; 
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                -webkit-line-clamp: 1;
+                                                -webkit-box-orient: vertical;
+                                                 display: -webkit-box;
+                                                 ">{{ $key->title }}</h4>
                                 </a>
                                 <p style="
-                                    width:339px;
-                                    white-space: pre-wrap; 
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
-                                    -webkit-line-clamp: 2;
-                                    -webkit-box-orient: vertical;
-                                     display: -webkit-box;
-                                     ">{{ $key->content }}</p>
+                                            width:339px;
+                                            white-space: pre-wrap; 
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            -webkit-line-clamp: 2;
+                                            -webkit-box-orient: vertical;
+                                             display: -webkit-box;
+                                             ">{{ $key->content }}</p>
                             </div>
                         </div>
                     </div>

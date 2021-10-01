@@ -3316,6 +3316,10 @@ ol {
     letter-spacing: 0;
 }
 
+.div-hover:hover {
+    border: 1px solid red;
+}
+
 
 /*---------------------
   Blog Details
