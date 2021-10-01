@@ -178,6 +178,7 @@
                     1 sao ({{ this.count1Stars }})
                   </button>
                   <button
+                    @click="haveImage()"
                     class="btn btn-info mt-1"
                     style="width: max-content; font-size: 17px"
                   >
@@ -498,6 +499,7 @@ export default {
       select_3star: false,
       select_2star: false,
       select_1star: false,
+      select_haveimage: false,
 
       count5Stars: 0,
       count4Stars: 0,
@@ -544,6 +546,7 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
+      this.select_haveimage = false,
       this.fetchData();
     },
     select5Star() {
@@ -553,6 +556,7 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
+      this.select_haveimage = false,
       this.fetchData();
     },
     select4Star() {
@@ -561,28 +565,42 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
+      this.select_haveimage = false,
       this.fetchData();
     },
     select3Star() {
-      this.select_3star = !this.select_3star;
+      this.select_3star = true;
       this.select_5star = false;
       this.select_4star = false;
       this.select_all = false;
       this.select_2star = false;
       this.select_1star = false;
+      this.select_haveimage = false,
       this.fetchData();
     },
     select2Star() {
-      this.select_2star = !this.select_2star;
+      this.select_2star = true;
       this.select_5star = false;
       this.select_4star = false;
       this.select_3star = false;
       this.select_all = false;
       this.select_1star = false;
+      this.select_haveimage = false,
       this.fetchData();
     },
     select1Star() {
-      this.select_1star = !this.select_1star;
+      this.select_1star = true;
+      this.select_5star = false;
+      this.select_4star = false;
+      this.select_3star = false;
+      this.select_2star = false;
+      this.select_all = false;
+      this.select_haveimage = false,
+      this.fetchData();
+    },
+    haveImage(){
+      this.select_haveimage = true,
+      this.select_1star = false;
       this.select_5star = false;
       this.select_4star = false;
       this.select_3star = false;
@@ -769,7 +787,37 @@ export default {
                 break;
             }
           });
-      } else {
+      }else if (that.select_haveimage == true) {
+        axios
+          .post(
+            `/get-select-haveimage?page=` +
+              that.page +
+              "&paginate=" +
+              that.paginate +
+              "&product_id=" +
+              that.decrip.id
+          )
+          .then(function (response) {
+            that.evaluates = response.data.haveImage; //show data ra
+            that.flagShowLoader = false;
+          })
+          .catch((err) => {
+            switch (err.response.status) {
+              case 500:
+                that
+                  .$swal({
+                    title: "Error loading data !",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                  })
+                  .then(function (confirm) {});
+                break;
+              default:
+                break;
+            }
+          });
+          }
+       else {
         var url =
           `/get-evaluated?page=` +
           this.page +

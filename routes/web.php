@@ -190,6 +190,9 @@ Route::post('/get-select-4star', [App\Http\Controllers\Sale\CustomerReviewContro
 Route::post('/get-select-3star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect3Star'])->name('sale.evaluate.getSelect3Star');
 Route::post('/get-select-2star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect2Star'])->name('sale.evaluate.getSelect2Star');
 Route::post('/get-select-1star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect1Star'])->name('sale.evaluate.getSelect1Star');
+Route::post('/get-select-haveimage', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelectHaveImage'])->name('sale.evaluate.getSelectHaveImage');
+
+
 Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getSelect1Star');
 
 
