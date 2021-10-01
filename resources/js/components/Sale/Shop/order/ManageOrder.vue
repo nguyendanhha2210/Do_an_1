@@ -159,12 +159,11 @@
           </div>
         </div>
       </div>
-      <br /><br />
 
       <!-- Show màn hình từng sp chưa được vote -->
       <div
         v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
-        class="row mt-3 pt-1 pb-1"
+        class="row mt-3 pt-1"
         style="background-color: white"
       >
         <div class="col-lg-12">
@@ -219,8 +218,6 @@
           </div>
         </div>
       </div>
-
-      <br /><br />
 
       <!-- Show màn hình từng sp đã được vote -->
       <div

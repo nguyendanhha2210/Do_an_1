@@ -132,7 +132,17 @@ class OrderController extends Controller
             return view('admin.users.login');
         }
         $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
-        $breadcrumbs = ['Order Detail'];
+        $breadcrumbs = [
+            [
+                'name' => 'Home',
+                'url' => route('sale.index')
+
+            ], [
+                'name' => 'Order',
+                'url' => route('sale.shop.index')
+
+            ], $order_code
+        ];
 
         $order_details = OrderDetail::with('product')->where('order_code', $order_code)->get();
 
