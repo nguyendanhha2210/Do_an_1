@@ -7,11 +7,17 @@
           style="border: dotted 1px #c0c0c0"
           @click="showCorfirm()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundConfirming,
+              'text-white': isBackGroundConfirming,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
-                src="/frontend/images/icon-2.png"
+                src="/frontend/images/confirm.jpg"
                 style="height: 66px; width: 81px"
                 alt=""
               />
@@ -27,11 +33,17 @@
           style="border: dotted 1px #c0c0c0"
           @click="showDeliver()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundDelivering,
+              'text-white': isBackGroundDelivering,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
-                src="/frontend/images/icon-1.png"
+                src="/frontend/images/deliver.jpg"
                 style="height: 66px; width: 81px"
                 alt=""
               />
@@ -47,7 +59,13 @@
           style="border: dotted 1px #c0c0c0"
           @click="showRecive()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundReceived,
+              'text-white': isBackGroundReceived,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
@@ -67,7 +85,13 @@
           style="border: dotted 1px #c0c0c0"
           @click="showEvaluat()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundEvaluated,
+              'text-white': isBackGroundEvaluated,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
@@ -87,7 +111,13 @@
           style="border: dotted 1px #c0c0c0"
           @click="showCancel()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundCancelled,
+              'text-white': isBackGroundCancelled,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
@@ -107,7 +137,13 @@
           style="border: dotted 1px #c0c0c0"
           @click="showReturn()"
         >
-          <div class="single-benefit">
+          <div
+            class="single-benefit hover-status"
+            v-bind:class="{
+              'bt btn-success': isBackGroundReturns,
+              'text-white': isBackGroundReturns,
+            }"
+          >
             <div class="sb-icon text-center">
               <img
                 class="pt-2"
@@ -677,6 +713,13 @@ export default {
         product_sales_quantity: 1,
         created_at: "",
       },
+
+      isBackGroundConfirming: false,
+      isBackGroundDelivering: false,
+      isBackGroundReceived: false,
+      isBackGroundEvaluated: false,
+      isBackGroundCancelled: false,
+      isBackGroundReturns: false,
     };
   },
   created() {
@@ -697,7 +740,13 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     showCorfirm() {
-      this.show_corfirm = !this.show_corfirm;
+      this.isBackGroundConfirming = !this.isBackGroundConfirming;
+      (this.isBackGroundDelivering = false),
+        (this.isBackGroundReceived = false),
+        (this.isBackGroundEvaluated = false),
+        (this.isBackGroundCancelled = false),
+        (this.isBackGroundReturns = false),
+        (this.show_corfirm = !this.show_corfirm);
       this.show_deliver = false;
       this.show_receive = false;
       this.show_evaluat = false;
@@ -708,7 +757,13 @@ export default {
       this.fetchData();
     },
     showDeliver() {
-      this.show_deliver = !this.show_deliver;
+      this.isBackGroundDelivering = !this.isBackGroundDelivering;
+      (this.isBackGroundConfirming = false),
+        (this.isBackGroundReceived = false),
+        (this.isBackGroundEvaluated = false),
+        (this.isBackGroundCancelled = false),
+        (this.isBackGroundReturns = false),
+        (this.show_deliver = !this.show_deliver);
       this.show_corfirm = false;
       this.show_receive = false;
       this.show_evaluat = false;
@@ -719,7 +774,13 @@ export default {
       this.fetchData();
     },
     showRecive() {
-      this.show_receive = !this.show_receive;
+      this.isBackGroundReceived = !this.isBackGroundReceived;
+      (this.isBackGroundConfirming = false),
+        (this.isBackGroundDelivering = false),
+        (this.isBackGroundEvaluated = false),
+        (this.isBackGroundCancelled = false),
+        (this.isBackGroundReturns = false),
+        (this.show_receive = !this.show_receive);
       this.show_deliver = false;
       this.show_corfirm = false;
       this.show_evaluat = false;
@@ -729,7 +790,13 @@ export default {
       this.fetchData();
     },
     showEvaluat() {
-      this.show_evaluat = !this.show_evaluat;
+      this.isBackGroundEvaluated = !this.isBackGroundEvaluated;
+      (this.isBackGroundConfirming = false),
+        (this.isBackGroundDelivering = false),
+        (this.isBackGroundReceived = false),
+        (this.isBackGroundCancelled = false),
+        (this.isBackGroundReturns = false),
+        (this.show_evaluat = !this.show_evaluat);
       this.show_deliver = false;
       this.show_receive = false;
       this.show_corfirm = false;
@@ -740,7 +807,13 @@ export default {
       this.fetchData();
     },
     showCancel() {
-      this.show_cancel = !this.show_cancel;
+      this.isBackGroundCancelled = !this.isBackGroundCancelled;
+      (this.isBackGroundConfirming = false),
+        (this.isBackGroundDelivering = false),
+        (this.isBackGroundReceived = false),
+        (this.isBackGroundEvaluated = false),
+        (this.isBackGroundReturns = false),
+        (this.show_cancel = !this.show_cancel);
       this.show_deliver = false;
       this.show_receive = false;
       this.show_evaluat = false;
@@ -751,7 +824,13 @@ export default {
       this.fetchData();
     },
     showReturn() {
-      this.show_return = !this.show_return;
+      this.isBackGroundReturns = !this.isBackGroundReturns;
+      (this.isBackGroundConfirming = false),
+        (this.isBackGroundDelivering = false),
+        (this.isBackGroundReceived = false),
+        (this.isBackGroundEvaluated = false),
+        (this.isBackGroundCancelled = false),
+        (this.show_return = !this.show_return);
       this.show_deliver = false;
       this.show_receive = false;
       this.show_evaluat = false;

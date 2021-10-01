@@ -646,6 +646,10 @@ form.vue-autosuggest div.autosuggest__results li {
   margin: auto;
 }
 
+.hover-status:hover {
+  border: 1px solid red;
+}
+
 .loader-img {
   margin: 100px auto;
   font-size: 25px;
