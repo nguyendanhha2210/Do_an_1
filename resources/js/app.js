@@ -11,6 +11,7 @@ import moment from 'moment';
 import VueStarRating from 'vue-star-rating';
 import VueAutosuggest from "vue-autosuggest";
 import VueZoomer from 'vue-zoomer'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
 import VueCardCarousel from "vue-card-carousel"
 import LoginComponent from './components/Sale/User/LoginComponent.vue'
@@ -40,8 +41,8 @@ import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
 
 
-
-Vue.use(VueZoomer)
+Vue.use(VueEasyLightbox);
+Vue.use(VueZoomer);
 Vue.use(VueAutosuggest);
 Vue.use(VueStarRating)
 Vue.component('paginate', Paginate)

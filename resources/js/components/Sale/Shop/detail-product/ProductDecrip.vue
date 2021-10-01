@@ -82,9 +82,7 @@
                 <tr>
                   <td class="p-catagory">Price</td>
                   <td>
-                    <div class="p-price">
-                      {{ formatPrice(decrip.price) }} đ
-                    </div>
+                    <div class="p-price">{{ formatPrice(decrip.price) }} đ</div>
                   </td>
                 </tr>
                 <tr>
@@ -227,17 +225,17 @@
                         </p>
                       </div>
 
-                      <div
-                        class="ml-5"
-                        id="gallery"
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                      >
+                      <div class="ml-5" id="gallery">
                         <div
                           v-for="(data, index) in evaluate.evaluate_images"
                           :key="data.id"
                         >
                           <img
+                            @click="
+                              showSingle(
+                                baseUrl + '/uploads/comments/' + data.url
+                              )
+                            "
                             style="
                               float: left;
                               margin-right: 9px;
@@ -248,6 +246,18 @@
                             data-target="#carouselExample"
                             :data-slide-to="`${index + 1}`"
                           />
+                          <!-- all props & events -->
+                          <vue-easy-lightbox
+                            scrollDisabled
+                            escDisabled
+                            moveDisabled
+                            :visible="visible"
+                            :imgs="imgs"
+                            :index="index"
+                            @hide="handleHide"
+                          >
+                          </vue-easy-lightbox>
+                          <!-- all props & events -->
                         </div>
                       </div>
 
@@ -272,7 +282,7 @@
                 </div>
               </div>
             </div>
-<!-- 
+            <!-- 
             <div
               class="modal fade"
               id="exampleModal"
@@ -508,6 +518,10 @@ export default {
       count1Stars: 0,
       countAll: 0,
       countAllImage: 0,
+
+      imgs: "", // Img Url , string or Array of string
+      visible: false,
+      index: 0, // default: 0
     };
   },
   created() {
@@ -546,8 +560,7 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
     select5Star() {
       this.select_5star = true;
@@ -556,8 +569,7 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
     select4Star() {
       this.select_4star = true;
@@ -565,8 +577,7 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_1star = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
     select3Star() {
       this.select_3star = true;
@@ -575,8 +586,7 @@ export default {
       this.select_all = false;
       this.select_2star = false;
       this.select_1star = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
     select2Star() {
       this.select_2star = true;
@@ -585,8 +595,7 @@ export default {
       this.select_3star = false;
       this.select_all = false;
       this.select_1star = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
     select1Star() {
       this.select_1star = true;
@@ -595,12 +604,10 @@ export default {
       this.select_3star = false;
       this.select_2star = false;
       this.select_all = false;
-      this.select_haveimage = false,
-      this.fetchData();
+      (this.select_haveimage = false), this.fetchData();
     },
-    haveImage(){
-      this.select_haveimage = true,
-      this.select_1star = false;
+    haveImage() {
+      (this.select_haveimage = true), (this.select_1star = false);
       this.select_5star = false;
       this.select_4star = false;
       this.select_3star = false;
@@ -787,7 +794,7 @@ export default {
                 break;
             }
           });
-      }else if (that.select_haveimage == true) {
+      } else if (that.select_haveimage == true) {
         axios
           .post(
             `/get-select-haveimage?page=` +
@@ -816,8 +823,7 @@ export default {
                 break;
             }
           });
-          }
-       else {
+      } else {
         var url =
           `/get-evaluated?page=` +
           this.page +
@@ -867,6 +873,17 @@ export default {
     },
     changeInput() {
       this.errorBackEnd = []; //Khi thay đổi trong input thì biến đổi về rỗng
+    },
+
+    showSingle(url) {
+      this.imgs = url;
+      this.show();
+    },
+    show() {
+      this.visible = true;
+    },
+    handleHide() {
+      this.visible = false;
     },
   },
 };
