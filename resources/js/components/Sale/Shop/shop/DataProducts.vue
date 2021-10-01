@@ -3,7 +3,6 @@
     <div
       class="product-show-option"
       style="background-color: #e9edf0; height: 54px"
-      
     >
       <div class="row">
         <div
@@ -59,84 +58,95 @@
           v-for="product in products.data"
           :key="product.id"
         >
-          <div class="product-item" style="background-color: white">
-            <div class="pi-pic">
-              <img
-                style="height: 250px"
-                :src="baseUrl + '/uploads/products/' + product.images"
-                alt=""
-              />
-              <div class="sale pp-sale" style="background: red;" v-if="maxSold.id == product.id">Best Sellers</div>
-              <div class="sale pp-sale" v-else>Sale</div>
-              <div class="icon">
-                <a class="btn btn-default" @click="addFavorite(product)"
-                  ><i
-                    class="icon_heart_alt"
-                    style="color: red; font-size: 22px"
-                  ></i
-                ></a>
-              </div>
-              <ul>
-                <li class="w-icon active">
+          <a :href="`product-detail/${product.id}`">
+            <div class="product-item" style="background-color: white">
+              <div class="pi-pic">
+                <img
+                  style="height: 250px"
+                  :src="baseUrl + '/uploads/products/' + product.images"
+                  alt=""
+                />
+                <div
+                  class="sale pp-sale"
+                  style="background: red"
+                  v-if="maxSold.id == product.id"
+                >
+                  Best Sellers
+                </div>
+                <div class="sale pp-sale" v-else>Sale</div>
+                <div class="icon">
+                  <a class="btn btn-default" @click="addFavorite(product)"
+                    ><i
+                      class="icon_heart_alt"
+                      style="color: red; font-size: 22px"
+                    ></i
+                  ></a>
+                </div>
+                <ul>
+                  <!-- <li class="w-icon active">
                   <a @click="addCartProduct(product)" href="#"
                     ><i class="fa fa-shopping-basket"></i
                   ></a>
-                </li>
-                <li class="quick-view">
-                  <a
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#myModal"
-                    @click="showQuickView(product)"
-                    href="#"
-                    >+ Quick View</a
-                  >
-                </li>
+                </li> -->
+                  <li class="quick-view">
+                    <a
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                      @click="showQuickView(product)"
+                      href="#"
+                      style="background-color: darkolivegreen; color: white"
+                      >+ Quick View</a
+                    >
+                  </li>
 
-                <li class="w-icon">
-                  <a :href="`product-detail/${product.id}`"
-                    ><i class="fa fa-eye"></i
+                  <!-- <li class="w-icon">
+                  <a :href="`product-detail/${product.id}`"><i class="fa fa-eye"></i
                   ></a>
-                </li>
-              </ul>
-            </div>
-            <div
-              class="pi-text"
-              style="padding-top: 19px !important; border: 0.5px solid #e9edf0"
-            >
-              <a
-                href="#"
-                style="transform: translate(0%, -34%); font-size: 21px"
-              >
-                <h5 style="">
-                  {{ product.name }}
-                </h5>
-              </a>
-              <div style="color: red; transform: translate(-27%, 53%)">
-                <u
-                  style="
-                    font-size: 13px;
-                    display: -webkit-inline-box;
-                    transform: translate(0%, -13%);
-                  "
-                  >đ</u
-                >
-                <span style="font-size: 19px">{{
-                  formatPrice(product.price)
-                }}</span>
+                </li> -->
+                </ul>
               </div>
               <div
-                class="da-ban"
+                class="pi-text"
                 style="
-                  transform: translate(32%, -47%);
-                  font-size: 14px;
-                  color: dimgray;
+                  padding-top: 19px !important;
+                  border: 0.5px solid #e9edf0;
                 "
               >
-                <span>Đã bán {{ product.product_sold }}</span>
+                <a
+                  href="#"
+                  style="transform: translate(0%, -34%); font-size: 21px"
+                >
+                  <h5 style="">
+                    {{ product.name }}
+                  </h5>
+                </a>
+                <div style="color: red; transform: translate(-27%, 53%)">
+                  <u
+                    style="
+                      font-size: 13px;
+                      display: -webkit-inline-box;
+                      transform: translate(0%, -13%);
+                    "
+                    >đ</u
+                  >
+                  <span style="font-size: 19px">{{
+                    formatPrice(product.price)
+                  }}</span>
+                </div>
+                <div
+                  class="da-ban"
+                  style="
+                    transform: translate(32%, -47%);
+                    font-size: 14px;
+                    color: dimgray;
+                  "
+                >
+                  <span>Đã bán {{ product.product_sold }}</span>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -479,7 +489,7 @@ export default {
       paginate: 9,
       search: "",
       statusView: 0,
-      maxSold:"",
+      maxSold: "",
 
       flagShowLoader: false,
       //Modal

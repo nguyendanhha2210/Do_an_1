@@ -193,7 +193,7 @@ Route::post('/get-select-1star', [App\Http\Controllers\Sale\CustomerReviewContro
 Route::post('/get-select-haveimage', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelectHaveImage'])->name('sale.evaluate.getSelectHaveImage');
 
 
-Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getSelect1Star');
+Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getCountStar');
 
 
 Route::get('/get-full-product',  [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
@@ -261,6 +261,8 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('get-order-evaluat', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderEvaluat'])->name('sale.orderStatus.getOrderEvaluat');
     Route::post('get-order-cancel', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderCancel'])->name('sale.orderStatus.getOrderCancel');
     Route::post('get-order-return', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReturn'])->name('sale.orderStatus.getOrderReturn');
+
+    Route::post('/get-count-status', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getCountStatus'])->name('sale.orderStatus.getCountStatus');
 
     Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
 

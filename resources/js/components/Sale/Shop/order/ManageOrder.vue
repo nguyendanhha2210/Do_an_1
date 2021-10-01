@@ -24,7 +24,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Confirming</h6>
+              <h6>
+                Confirming
+                <span
+                  v-if="this.countOrder != 0"
+                  style="
+                    background-color: crimson;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countOrder }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -50,7 +63,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Delivering</h6>
+              <h6>
+                Delivering
+                <span
+                  v-if="this.countshipping != 0"
+                  style="
+                    background-color: gold;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countshipping }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -76,7 +102,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Received</h6>
+              <h6>
+                Received
+                <span
+                  v-if="this.countSuccess != 0"
+                  style="
+                    background-color: blue;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countSuccess }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -102,7 +141,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Evaluated</h6>
+              <h6>
+                Evaluated
+                <span
+                  v-if="this.countEvaluate != 0"
+                  style="
+                    background-color: yellowgreen;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countEvaluate }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -128,7 +180,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Cancelled</h6>
+              <h6>
+                Cancelled
+                <span
+                  v-if="this.countFailure != 0"
+                  style="
+                    background-color: red;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countFailure }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -154,7 +219,20 @@
             </div>
             <br />
             <div class="sb-text text-center pb-2">
-              <h6>Returns</h6>
+              <h6>
+                Returns
+                <span
+                  v-if="this.countReturn != 0"
+                  style="
+                    background-color: crimson;
+                    color: white;
+                    padding: 3px;
+                    font-size: 13px;
+                    border-radius: 25px;
+                  "
+                  >{{ this.countReturn }}</span
+                >
+              </h6>
             </div>
           </div>
         </div>
@@ -218,7 +296,7 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Show màn hình từng sp đã được vote -->
       <div
         v-if="
@@ -226,7 +304,7 @@
           this.show_evaluat &&
           this.votedProductDetail != ''
         "
-        class="row mt-1 pt-1 pb-1"
+        class="row mt-2 pt-1 pb-1"
         style="background-color: white"
       >
         <div class="col-lg-12">
@@ -717,6 +795,13 @@ export default {
       isBackGroundEvaluated: false,
       isBackGroundCancelled: false,
       isBackGroundReturns: false,
+
+      countOrder: "",
+      countshipping: "",
+      countSuccess: "",
+      countFailure: "",
+      countEvaluate: "",
+      countReturn: "",
     };
   },
   created() {
@@ -725,8 +810,11 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData();
+    this.fetchCountStatus();
   },
-  mounted() {},
+  mounted() {
+    this.fetchCountStatus();
+  },
   components: {
     Loader,
     StarRating,
@@ -1034,7 +1122,9 @@ export default {
                   confirmButtonText: "OK!",
                 })
                 .then(function (confirm) {});
+              window.location.href = "/sale/manage-order";
               that.fetchData();
+              that.fetchCountStatus();
             })
             .catch((err) => {
               switch (err.response.status) {
@@ -1096,6 +1186,7 @@ export default {
                 })
                 .then(function (confirm) {});
               that.fetchData();
+              that.fetchCountStatus();
             })
             .catch((error) => {
               that.flashMessage.error({
@@ -1113,100 +1204,100 @@ export default {
       this.evaluate.product_id = order.product_id;
     },
 
-    attachImage_1() {
-      this.evaluate.image_1 = this.$refs.image_1.files[0];
-      let reader_1 = new FileReader();
-      reader_1.addEventListener(
-        "load",
-        function () {
-          this.$refs.imageDispaly_1.style.display = "block";
-          this.$refs.iconClose_1.style.display = "block";
-          this.$refs.imageDispaly_1.src = reader_1.result;
-          this.$refs.iconFile_1.style.display = "none";
-        }.bind(this),
-        false
-      );
-      reader_1.readAsDataURL(this.evaluate.image_1);
-    },
-    deleteImage_1() {
-      this.evaluate.image_1 = "";
-      this.$refs.imageDispaly_1.style.display = "none";
-      this.$refs.iconClose_1.style.display = "none";
-      this.$refs.image_1.value = "";
-      this.$refs.iconFile_1.style.display = "block";
-    },
+    // attachImage_1() {
+    //   this.evaluate.image_1 = this.$refs.image_1.files[0];
+    //   let reader_1 = new FileReader();
+    //   reader_1.addEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs.imageDispaly_1.style.display = "block";
+    //       this.$refs.iconClose_1.style.display = "block";
+    //       this.$refs.imageDispaly_1.src = reader_1.result;
+    //       this.$refs.iconFile_1.style.display = "none";
+    //     }.bind(this),
+    //     false
+    //   );
+    //   reader_1.readAsDataURL(this.evaluate.image_1);
+    // },
+    // deleteImage_1() {
+    //   this.evaluate.image_1 = "";
+    //   this.$refs.imageDispaly_1.style.display = "none";
+    //   this.$refs.iconClose_1.style.display = "none";
+    //   this.$refs.image_1.value = "";
+    //   this.$refs.iconFile_1.style.display = "block";
+    // },
 
-    attachImage_2() {
-      this.evaluate.image_2 = this.$refs.image_2.files[0];
-      console.log(this.$refs.image_2.files[0]);
-      let reader_2 = new FileReader();
-      reader_2.addEventListener(
-        "load",
-        function () {
-          this.$refs.imageDispaly_2.style.display = "block";
-          this.$refs.iconClose_2.style.display = "block";
-          this.$refs.imageDispaly_2.src = reader_2.result;
-          this.$refs.iconFile_2.style.display = "none";
-        }.bind(this),
-        false
-      );
-      reader_2.readAsDataURL(this.evaluate.image_2);
-    },
-    deleteImage_2() {
-      this.evaluate.image_2 = "";
-      this.$refs.imageDispaly_2.style.display = "none";
-      this.$refs.iconClose_2.style.display = "none";
-      this.$refs.image_2.value = "";
-      this.$refs.iconFile_2.style.display = "block";
-    },
+    // attachImage_2() {
+    //   this.evaluate.image_2 = this.$refs.image_2.files[0];
+    //   console.log(this.$refs.image_2.files[0]);
+    //   let reader_2 = new FileReader();
+    //   reader_2.addEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs.imageDispaly_2.style.display = "block";
+    //       this.$refs.iconClose_2.style.display = "block";
+    //       this.$refs.imageDispaly_2.src = reader_2.result;
+    //       this.$refs.iconFile_2.style.display = "none";
+    //     }.bind(this),
+    //     false
+    //   );
+    //   reader_2.readAsDataURL(this.evaluate.image_2);
+    // },
+    // deleteImage_2() {
+    //   this.evaluate.image_2 = "";
+    //   this.$refs.imageDispaly_2.style.display = "none";
+    //   this.$refs.iconClose_2.style.display = "none";
+    //   this.$refs.image_2.value = "";
+    //   this.$refs.iconFile_2.style.display = "block";
+    // },
 
-    attachImage_3() {
-      this.evaluate.image_3 = this.$refs.image_3.files[0];
-      console.log(this.$refs.image_3.files[0]);
-      let reader_3 = new FileReader();
-      reader_3.addEventListener(
-        "load",
-        function () {
-          this.$refs.imageDispaly_3.style.display = "block";
-          this.$refs.iconClose_3.style.display = "block";
-          this.$refs.imageDispaly_3.src = reader_3.result;
-          this.$refs.iconFile_3.style.display = "none";
-        }.bind(this),
-        false
-      );
-      reader_3.readAsDataURL(this.evaluate.image_3);
-    },
-    deleteImage_3() {
-      this.evaluate.image_3 = "";
-      this.$refs.imageDispaly_3.style.display = "none";
-      this.$refs.iconClose_3.style.display = "none";
-      this.$refs.image_3.value = "";
-      this.$refs.iconFile_3.style.display = "block";
-    },
+    // attachImage_3() {
+    //   this.evaluate.image_3 = this.$refs.image_3.files[0];
+    //   console.log(this.$refs.image_3.files[0]);
+    //   let reader_3 = new FileReader();
+    //   reader_3.addEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs.imageDispaly_3.style.display = "block";
+    //       this.$refs.iconClose_3.style.display = "block";
+    //       this.$refs.imageDispaly_3.src = reader_3.result;
+    //       this.$refs.iconFile_3.style.display = "none";
+    //     }.bind(this),
+    //     false
+    //   );
+    //   reader_3.readAsDataURL(this.evaluate.image_3);
+    // },
+    // deleteImage_3() {
+    //   this.evaluate.image_3 = "";
+    //   this.$refs.imageDispaly_3.style.display = "none";
+    //   this.$refs.iconClose_3.style.display = "none";
+    //   this.$refs.image_3.value = "";
+    //   this.$refs.iconFile_3.style.display = "block";
+    // },
 
-    attachImage_4() {
-      this.evaluate.image_4 = this.$refs.image_4.files[0];
-      console.log(this.$refs.image_4.files[0]);
-      let reader_4 = new FileReader();
-      reader_4.addEventListener(
-        "load",
-        function () {
-          this.$refs.imageDispaly_4.style.display = "block";
-          this.$refs.iconClose_4.style.display = "block";
-          this.$refs.imageDispaly_4.src = reader_4.result;
-          this.$refs.iconFile_4.style.display = "none";
-        }.bind(this),
-        false
-      );
-      reader_4.readAsDataURL(this.evaluate.image_4);
-    },
-    deleteImage_4() {
-      this.evaluate.image_4 = "";
-      this.$refs.imageDispaly_4.style.display = "none";
-      this.$refs.iconClose_4.style.display = "none";
-      this.$refs.image_4.value = "";
-      this.$refs.iconFile_4.style.display = "block";
-    },
+    // attachImage_4() {
+    //   this.evaluate.image_4 = this.$refs.image_4.files[0];
+    //   console.log(this.$refs.image_4.files[0]);
+    //   let reader_4 = new FileReader();
+    //   reader_4.addEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs.imageDispaly_4.style.display = "block";
+    //       this.$refs.iconClose_4.style.display = "block";
+    //       this.$refs.imageDispaly_4.src = reader_4.result;
+    //       this.$refs.iconFile_4.style.display = "none";
+    //     }.bind(this),
+    //     false
+    //   );
+    //   reader_4.readAsDataURL(this.evaluate.image_4);
+    // },
+    // deleteImage_4() {
+    //   this.evaluate.image_4 = "";
+    //   this.$refs.imageDispaly_4.style.display = "none";
+    //   this.$refs.iconClose_4.style.display = "none";
+    //   this.$refs.image_4.value = "";
+    //   this.$refs.iconFile_4.style.display = "block";
+    // },
 
     customerReviews() {
       let that = this;
@@ -1247,6 +1338,7 @@ export default {
                   })
                   .then(function (confirm) {
                     window.location.href = "/sale/manage-order";
+                    that.fetchCountStatus();
                   });
                 that.viewDetailProduct();
                 that.fetchData();
@@ -1383,6 +1475,7 @@ export default {
     // },
 
     //Xem chi tiết sp để vote
+
     detailProduct(order_code) {
       this.view_vote = !this.view_vote;
       this.viewDetailProduct(order_code);
@@ -1398,6 +1491,36 @@ export default {
         .then(function (response) {
           that.voteDetails = response.data; //show data ra
           that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    fetchCountStatus() {
+      let that = this;
+      axios
+        .post(`/sale/get-count-status`)
+        .then(function (response) {
+          console.log("AVCS", response.data);
+          that.countOrder = response.data.countOrder;
+          that.countshipping = response.data.countshipping;
+          that.countSuccess = response.data.countSuccess;
+          that.countFailure = response.data.countFailure;
+          that.countEvaluate = response.data.countEvaluate;
+          that.countReturn = response.data.countReturn;
         })
         .catch((err) => {
           switch (err.response.status) {

@@ -122,6 +122,7 @@ class OrderController extends Controller
             $idUser = Auth::guard('sales')->id();
             $orders = Order::where('customer_id', '=', $idUser)->where('id', '=', $id)->first();
             $orders->order_status = OrderStatus::ORDER;
+            $orders->order_destroy = "";
             $orders->save();
         }
     }

@@ -100,4 +100,35 @@ class OrderWithStatusController extends Controller
             }
         }
     }
+
+    public function getCountStatus()
+    {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        } else {
+            try {
+                $id = Auth::guard('sales')->id();
+                $countOrder = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::ORDER)->count();
+                $countshipping = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::SHIPPING)->count();
+                $countSuccess = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::SUCCESS)->count();
+                $countFailure = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::FAILURE)->count();
+                $countEvaluate = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::EVALUATED)->count();
+                $countReturn = Order::where('customer_id', '=', $id)->where('order_status', '=', OrderStatus::RETURNS)->count();
+
+                return response()->json(
+                    [
+                    "countOrder" => $countOrder,
+                    "countshipping" => $countshipping,
+                    "countSuccess" => $countSuccess,
+                    "countFailure" => $countFailure,
+                    "countEvaluate" => $countEvaluate,
+                    "countReturn" => $countReturn,
+                ],
+                    StatusCode::OK
+                );
+            } catch (\Exception $e) {
+                return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+            }
+        }
+    }
 }
