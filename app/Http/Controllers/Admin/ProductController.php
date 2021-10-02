@@ -10,6 +10,7 @@ use App\Models\Description;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
+use App\Models\Weight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -90,9 +91,11 @@ class ProductController extends Controller
         $data = [];
         $type_product = Type::get();
         $description_product = Description::get();
+        $weight_product = Weight::get();
         $data = collect([
             'type_product' => $type_product,
             'description_product' => $description_product,
+            'weight_product' => $weight_product,
         ]);
         return $data;
     }

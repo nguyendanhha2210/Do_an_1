@@ -296,7 +296,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Show màn hình từng sp đã được vote -->
       <div
         v-if="

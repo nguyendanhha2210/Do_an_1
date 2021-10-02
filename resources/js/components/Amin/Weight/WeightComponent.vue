@@ -31,7 +31,7 @@
                           :classes="column.classes"
                         >
                         </data-table-cell>
-                        <slot v-if="column.name == 'action' && item.id != 2">
+                        <slot v-if="column.name == 'action'">
                           <a :href="`weight/${item.id}/edit`">
                             <i
                               style="

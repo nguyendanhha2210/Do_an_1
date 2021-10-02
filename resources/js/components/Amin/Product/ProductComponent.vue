@@ -126,6 +126,23 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Price</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="price"
+                    v-validate="'required'"
+                    v-model="product.price"
+                  />
+                  <div style="color: red" role="alert">
+                    {{ errors.first("price") }}
+                  </div>
+                  <div style="color: red" v-if="errorBackEnd.price">
+                    {{ errorBackEnd.price[0] }}
+                  </div>
+                </div>
+
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Price</label>
@@ -622,6 +639,7 @@ export default {
       search: "",
       type_product: {},
       description_product: {},
+      weight_product: {},
       flagShowLoader: false,
 
       sort_direction: "desc",
@@ -853,6 +871,7 @@ export default {
         .then((res) => {
           this.type_product = res.data.type_product;
           this.description_product = res.data.description_product;
+          this.weight_product = res.data.weight_product;
         });
     },
 
@@ -972,7 +991,7 @@ export default {
                       images: "",
                       price: "",
                       type_id: "",
-                     
+
                       description_id: "",
                       content: "",
                       status: "",
