@@ -167,17 +167,17 @@ export default {
                 axios
                   .post(`checkout-momo`, that.shipping)
                   .then((response) => {
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
                     window.location.href = response.data.data;
-                      // that
-                      // .$swal({
-                      //   title: "Thành Công !",
-                      //   icon: "success",
-                      //   confirmButtonText: "Ok",
-                      // })
-                      // .then(function (confirm) {
-                      //   window.location.href = response.data.data;
-                      // });
+                    // that
+                    // .$swal({
+                    //   title: "Thành Công !",
+                    //   icon: "success",
+                    //   confirmButtonText: "Ok",
+                    // })
+                    // .then(function (confirm) {
+                    //   window.location.href = response.data.data;
+                    // });
                   })
                   .catch((error) => {
                     that.flashMessage.error({

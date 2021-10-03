@@ -786,10 +786,6 @@ class CheckoutController extends Controller
     //         return redirect()->route('sale.users.login');
     //     }
 
-    //     // dd($request->all());
-
-
-
     //     if (Session::get('coupon')) {
     //         foreach (Session::get('coupon') as $key => $cou) {
     //             $order_coupon = $cou['coupon_code'];
@@ -833,6 +829,7 @@ class CheckoutController extends Controller
     //     date_default_timezone_set('Asia/Ho_Chi_Minh');
     //     $order->order_date = now();
     //     $order->order_destroy = "";
+    //     $order->payments = "Thanh toán bằng Momo !";
     //     $order->total_bill = $totalBill;
     //     $flag_order = $order->save();
 
@@ -843,9 +840,10 @@ class CheckoutController extends Controller
     //             $order_details->product_id = $cart['product_id'];
     //             $order_details->product_name = $cart['product_name'];
     //             $order_details->product_price = $cart['product_price'];
-    //         $order_details->order_weight = $cart['product_weight'];
+    //             $order_details->order_weight = $cart['product_weight'];
     //             $order_details->product_sales_quantity = $cart['product_qty'];
     //             $order_details->product_coupon =  $order_coupon;
+    //             $order_details->status_vote =  OrderDetailVote::NOTVOTED;
     //             $order_details->save();
     //         }
     //     }
@@ -868,90 +866,87 @@ class CheckoutController extends Controller
     //         }
     //     }
 
-    //     // $shipping_array = array(
-    //     //     // 'fee' =>  $fee,
-    //     //     'customer_name' => $customer->name,
-    //     //     'shipping_name' => $request->name,
-    //     //     'shipping_email' => $request->email,
-    //     //     'shipping_phone' => $request->phone,
-    //     //     'shipping_address' => $request->address,
-    //     // );
+    // $shipping_array = array(
+    //     // 'fee' =>  $fee,
+    //     'customer_name' => $customer->name,
+    //     'shipping_name' => $request->name,
+    //     'shipping_email' => $request->email,
+    //     'shipping_phone' => $request->phone,
+    //     'shipping_address' => $request->address,
+    // );
 
-    //     //lay ma giam gia, lay coupon code
-    //     // $ordercode_mail = array(
-    //     //     'coupon_code' => $order_coupon,
-    //     //     'order_code' => $checkout_code,
-    //     //     'totalBill' => "100000",
-    //     // );
+    //lay ma giam gia, lay coupon code
+    // $ordercode_mail = array(
+    //     'coupon_code' => $order_coupon,
+    //     'order_code' => $checkout_code,
+    //     'totalBill' => "100000",
+    // );
 
-    //     // Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
-    //     //     $message->to($data['email'])->subject($title_mail); //send this mail with subject
-    //     //     $message->from($data['email'], $title_mail); //send from this mail
-    //     // });
+    // Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+    //     $message->to($data['email'])->subject($title_mail); //send this mail with subject
+    //     $message->from($data['email'], $title_mail); //send from this mail
+    // });
 
-    //     // Session::forget('coupon');
-    //     // Session::forget('cart');
-    //     // Session::forget('totalPriceBill');
-    //     // Session::forget('shipping');
+    // Session::forget('coupon');
+    // Session::forget('cart');
+    // Session::forget('totalPriceBill');
+    // Session::forget('shipping');
 
-
-    //     $endpoint = "https://test-payment.momo.vn/gw_payment/payment/qr";
-    //     $notifyUrl = "https://momo.vn";
-    //     $returnUrl = "https://momo.vn";
-    //     $extraData = "merchantName=MoMo Partner";
-
+    //     $endpoint = "https://test-payment.momo.vn/v2/gateway/pay";
     //     $partnerCode = "MOMO809S20210911";
     //     $accessKey = "jzM0ArXzU6XhoJUd";
     //     $serectkey = "OJ7L1nR5X5BBvNsMUHGhAODDMP7vjySv";
-    //     $orderId = $order->id; // Mã đơn hàng
-    //     $orderInfo = "Thành Công !";
-    //     $orderType = "momo_wallet";
-    //     $amount =  $totalBill;
+    //     $orderInfo = "Thanh toán qua MoMo";
+    //     $amount = "10000";
+    //     $orderId = (time() + (10 * 24 * 60 * 60)) . "";
+    //     $returnUrl = "";
+    //     $notifyurl = "";
+    //     $bankCode = "SML";
+    //     $requestId = (time() + (7 * 24 * 60 * 60)) . "";
+    //     $extraData = "";
+    //     $requestType = "payWithMoMoATM";
 
-    //     $transId = "700569652782";
-    //     // $requestId = time() . "";
+    //     // $rawHashArr =  array(
+    //     //     'partnerCode' => $partnerCode,
+    //     //     'accessKey' => $accessKey,
+    //     //     'requestId' => $requestId,
+    //     //     'amount' => $amount,
+    //     //     'orderId' => $orderId,
+    //     //     'orderInfo' => $orderInfo,
+    //     //     'bankCode' => $bankCode,
+    //     //     'returnUrl' => $returnUrl,
+    //     //     'notifyUrl' => $notifyurl,
+    //     //     'extraData' => $extraData,
+    //     //     'requestType' => $requestType
+    //     // );
 
-    //     $requestId = "1631372800";
-    //     $payType = "web";
+    //     $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
+    //     $signature = hash_hmac("sha256", $rawHash, $serectkey);
 
-    //     $requestType = "captureMoMoWallet";
-    //     $extraData = "merchantName=Payment";
-    //     // before sign HMAC SHA256 signature
-
-    //     $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo  . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData;
-    //     $signature = hash_hmac("sha512", $rawHash, $serectkey);
-
-    //     // $partnerCode="MOMOBKUN20180529";
-    //     // $accessKey="klm05TvNBzhg7h7j";
-    //     // $orderId="1631371994";
-    //     // $requestId="1631378249";
-    //     // $amount="10000";
-    //     // $signature = "719b25b8371f8adf5fbc7d70650fc632849dbf83df543162b2cab6208df30ef9";
-    //     // $requestType="captureMoMoWallet";
-
-
-    //     $data = array(
+    //     $data =  array(
     //         'partnerCode' => $partnerCode,
     //         'accessKey' => $accessKey,
     //         'requestId' => $requestId,
     //         'amount' => $amount,
-    //         'orderId' => $orderId,
+    //         'orderId' => $order->id,
     //         'orderInfo' => $orderInfo,
-    //         'orderType' => $orderType,
-    //         'transId' => $transId,
     //         'returnUrl' => $returnUrl,
-    //         'notifyUrl' => $notifyUrl,
+    //         'bankCode' => $bankCode,
+    //         'notifyUrl' => $notifyurl,
     //         'extraData' => $extraData,
     //         'requestType' => $requestType,
     //         'signature' => $signature
     //     );
 
-    //     //  $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&signature=" . $signature . "&requestType=" . $requestType;
+    //     //  $result = execPostRequest($endpoint, json_encode($data));
+    //     //  $jsonResult = json_decode($result,true);  // decode json
 
-    //     $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData . "&signature=" . $signature . "&requestType=" . $requestType;
+    //     //  error_log( print_r( $jsonResult, true ) );
+    //     //  header('Location: '.$jsonResult['payUrl']);
 
+    //     $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&signature=" . $signature . "&requestType=" . $requestType;
 
-    //     $endpoint = $endpoint . "?" . $abc;
+    //     $endpoint = $endpoint . "?t=" . $abc;
 
     //     $returnData = array(
     //         'code' => '00',
@@ -967,39 +962,34 @@ class CheckoutController extends Controller
     //     return request()->json($returnData);
     // }
 
-
-    // public function execPostRequest($url, $data)
-    // {
-    //     $ch = curl_init($url);
-    //     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt(
-    //         $ch,
-    //         CURLOPT_HTTPHEADER,
-    //         array(
-    //             'Content-Type: application/json',
-    //             'Content-Length: ' . strlen($data)
-    //         )
-    //     );
-    //     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    //     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    //     //execute post
-    //     $result = curl_exec($ch);
-    //     //close connection
-    //     curl_close($ch);
-    //     return $result;
-    // }
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data)
+            )
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
 
     public function checkoutMomo(Request $request)
     {
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
-
-        // dd($request->all());
-
-
 
         if (Session::get('coupon')) {
             foreach (Session::get('coupon') as $key => $cou) {
@@ -1045,6 +1035,7 @@ class CheckoutController extends Controller
         $order->order_date = now();
         $order->order_destroy = "";
         $order->total_bill = $totalBill;
+        $order->payments = "Thanh toán bằng Momo !";
         $flag_order = $order->save();
 
         if (Session::get('cart') == true) {
@@ -1057,7 +1048,7 @@ class CheckoutController extends Controller
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
                 $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
+                $order_details->status_vote =  0;
                 $order_details->save();
             }
         }
@@ -1106,62 +1097,61 @@ class CheckoutController extends Controller
         // Session::forget('totalPriceBill');
         // Session::forget('shipping');
 
+
         $endpoint = "https://test-payment.momo.vn/v2/gateway/pay";
+        $notifyUrl = "https://momo.vn";
+        $returnUrl = "https://momo.vn";
+        $extraData = "merchantName=MoMo Partner";
+
         $partnerCode = "MOMO809S20210911";
         $accessKey = "jzM0ArXzU6XhoJUd";
         $serectkey = "OJ7L1nR5X5BBvNsMUHGhAODDMP7vjySv";
-        $orderInfo = "Thanh toán qua MoMo";
-        $amount = "10000";
-        $orderId = (time() + (10 * 24 * 60 * 60)) . "";
-        $returnUrl = "";
-        $notifyurl = "";
-        $bankCode = "SML";
-        $requestId = (time() + (7 * 24 * 60 * 60)) . "";
+        $orderId = $order->id; // Mã đơn hàng
+        $orderInfo = "Thành Công !";
+        $orderType = "momo_wallet";
+        $amount =  $totalBill;
+
+        $transId = "700569652782";
+        // $requestId = time() . "";
+
+        $requestId = "1631372800";
+        $payType = "web";
+
+        $requestType = "captureMoMoWallet";
         $extraData = "";
-        $requestType = "payWithMoMoATM";
+        // before sign HMAC SHA256 signature
 
-        // $rawHashArr =  array(
-        //     'partnerCode' => $partnerCode,
-        //     'accessKey' => $accessKey,
-        //     'requestId' => $requestId,
-        //     'amount' => $amount,
-        //     'orderId' => $orderId,
-        //     'orderInfo' => $orderInfo,
-        //     'bankCode' => $bankCode,
-        //     'returnUrl' => $returnUrl,
-        //     'notifyUrl' => $notifyurl,
-        //     'extraData' => $extraData,
-        //     'requestType' => $requestType
-        // );
-
-        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
+        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo  . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData;
         $signature = hash_hmac("sha256", $rawHash, $serectkey);
 
-        $data =  array(
+        // $partnerCode="MOMOBKUN20180529";
+        // $accessKey="klm05TvNBzhg7h7j";
+        // $orderId="1631371994";
+        // $requestId="1631378249";
+        // $amount="10000";
+        // $signature = "719b25b8371f8adf5fbc7d70650fc632849dbf83df543162b2cab6208df30ef9";
+        // $requestType="captureMoMoWallet";
+
+
+        $data = array(
             'partnerCode' => $partnerCode,
             'accessKey' => $accessKey,
             'requestId' => $requestId,
             'amount' => $amount,
-            'orderId' => $order->id,
+            'orderId' => $orderId,
             'orderInfo' => $orderInfo,
+            'orderType' => $orderType,
+            'transId' => $transId,
             'returnUrl' => $returnUrl,
-            'bankCode' => $bankCode,
-            'notifyUrl' => $notifyurl,
+            'notifyUrl' => $notifyUrl,
             'extraData' => $extraData,
             'requestType' => $requestType,
             'signature' => $signature
         );
 
-        //  $result = execPostRequest($endpoint, json_encode($data));
-        //  $jsonResult = json_decode($result,true);  // decode json
+        $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData . "&signature=" . $signature . "&requestType=" . $requestType;
 
-        //  error_log( print_r( $jsonResult, true ) );
-        //  header('Location: '.$jsonResult['payUrl']);
-
-        $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&signature=" . $signature . "&requestType=" . $requestType;
-
-        $endpoint = $endpoint . "?t=" . $abc;
-
+        $endpoint = $endpoint . "?" . $abc;
         $returnData = array(
             'code' => '00',
             'message' => 'success',
