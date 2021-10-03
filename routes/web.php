@@ -182,6 +182,8 @@ Route::post('/fill-weight-product/{id}',  [App\Http\Controllers\Sale\ShopControl
 
 
 Route::get('/get-accessory/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'getAccessory'])->name('admin.shop.getAccessory');
+Route::get('/get-coupon-store',  [App\Http\Controllers\Sale\ShopController::class, 'getCouponStore'])->name('admin.shop.getCouponStore');
+
 
 //show đánh giá ra chi tiết sp
 Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
@@ -263,8 +265,9 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('get-order-return', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getOrderReturn'])->name('sale.orderStatus.getOrderReturn');
 
     Route::post('/get-count-status', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getCountStatus'])->name('sale.orderStatus.getCountStatus');
-
     Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
+    Route::post('/save-coupon-store/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'saveCouponStore'])->name('admin.shop.saveCouponStore');
+
 
 
     //manage order

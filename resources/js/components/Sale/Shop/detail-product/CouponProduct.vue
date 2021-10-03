@@ -95,82 +95,83 @@
           padding-top: 10px;
         "
       >
-        Add an Accessory :
+        Store Code Discount :
       </h4>
-      <table class="select-items">
-        <tbody>
-          <tr
-            class="overflow"
-            v-for="productAccessory in productAccessories"
-            :key="productAccessory.id"
-          >
-            <td style="transform: translateY(-20%); padding-left: 17px">
-              <input class="form-check-input" type="checkbox" name="" />
-            </td>
-            <td>
-              <img
-                style="width: 108px; height: 94px; padding-right: 3px"
-                :src="baseUrl + '/uploads/products/' + productAccessory.images"
-                alt=""
-              />
-            </td>
-
-            <td>
-              <div
-                style="
-                  float: left;
-                  color: #e7ab3c;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  -webkit-line-clamp: 1;
-                  -webkit-box-orient: vertical;
-                  display: -webkit-box;
-                "
-              >
-                <b>
-                  {{ productAccessory.name }}
-                </b>
-              </div>
-              <br />
-
-              <div>
-                <b style="font-size: 14px; float: left; color: red">
-                  {{ formatPrice(productAccessory.price) }} đ</b
+      <div class="overflow">
+        <div
+          class="coupon mt-2"
+          v-for="couponStore in couponStores"
+          :key="couponStore.id"
+        >
+          <div class="container" style="background-color: #fff4f4">
+            <form role="form" @submit.prevent="saveCoupon(couponStore.id)">
+              <div class="row">
+                <div
+                  class="col-lg-8 col-md-6 col-sm-6"
+                  v-if="couponStore.condition == 1"
                 >
-              </div>
-              <br />
-              <div>
-                <i style="font-size: 14px; float: left"
-                  >_{{ productAccessory.created_at | formatDate }}_</i
+                  <b>{{ couponStore.number }}% off Order</b><br />
+                  <i style="font-size: 14px"
+                    >HSD : {{ couponStore.end_date | formatDateCoupon }}</i
+                  >
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-6" v-else>
+                  <b> {{ formatPrice(couponStore.number) }}đ off Order</b><br />
+                  <i style="font-size: 14px"
+                    >HSD : {{ couponStore.end_date | formatDateCoupon }}</i
+                  >
+                </div>
+                <div
+                  class="col-lg-4 col-md-6 col-sm-6 text-center"
+                  style="display: flex; align-items: center"
                 >
+                  <button
+                    v-if="couponStore.id != couponId"
+                    type="submit"
+                    class="btn btn-success"
+                  >
+                    Save
+                  </button>
+                  <button v-else class="btn btn-info">Use</button>
+                </div>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="transform: translateY(-6%); padding-left: 17px">
-              <input class="form-check-input" type="checkbox" name="" />
-            </td>
-            <td colspan="2">
-              <button
-                class="primary-btn pd-cart btn btn-success"
-                style="height: 34px; padding-top: 6px; margin-top: 19px"
-                href="#"
-              >
-                Add To List
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <hr />
+    <Modal
+      v-if="modalShow"
+      :type="type"
+      :title="title"
+      :text="text"
+      :confirm="confirm"
+      :cancle="cancle"
+      :urlConfirm="urlConfirm"
+      :urlCancle="urlCancle"
+      :modalShow="modalShow"
+    ></Modal>
   </div>
 </template>
 
 <style scoped>
+.coupon {
+  border: 5px dotted #fbc9c0;
+  width: 100%;
+  border-radius: 15px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.container {
+  padding: 2px 16px;
+  background-color: #f1f1f1;
+}
 </style>
 
 <script>
+import Modal from "../../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
 export default {
@@ -190,12 +191,37 @@ export default {
         content: "",
         status: "",
       },
+
+      //Modal
+      modalShow: false,
+      type: "",
+      title: "",
+      text: "",
+      confirm: "",
+      cancle: "",
+      urlConfirm: "",
+      urlCancle: "",
+      //Modal
+      couponId:'',
+
+      couponStores: [],
+      couponStore: {
+        id: "",
+        name: "",
+        condition: "",
+        number: "",
+        start_date: "",
+        end_date: "",
+      },
     };
   },
   created() {},
-  components: {},
+  components: {
+    Modal,
+  },
   mounted() {
     // this.fetchData();
+    this.fetchCoupon();
   },
   props: ["couponProduct"],
   methods: {
@@ -227,6 +253,65 @@ export default {
     //       }
     //     });
     // },
+
+    fetchCoupon() {
+      let that = this;
+      axios
+        .get(`/get-coupon-store`)
+        .then(function (response) {
+          that.couponStores = response.data.couponStores; //show data ra
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+    saveCoupon(id) {
+      let that = this;
+      axios
+        .post(`/sale/save-coupon-store/${id}`)
+        .then((response) => {
+          that.couponId = id;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              this.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
   },
 };
 </script>

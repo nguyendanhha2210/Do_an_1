@@ -59,6 +59,12 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
+Vue.filter('formatDateCoupon', function(value) {
+    if (value) {
+        return moment(String(value)).format('MM/DD/YYYY')
+    }
+});
+
 new Vue({
     el: '#app',
     components: {

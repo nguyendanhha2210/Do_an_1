@@ -6,6 +6,7 @@ use App\Enums\SortByOption;
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Description;
 use App\Models\Post;
 use App\Models\Product;
@@ -15,8 +16,11 @@ use Illuminate\Http\Request;
 use Symfony\Component\Console\Descriptor\Descriptor;
 use Illuminate\Support\Facades\Session;
 use App\Models\Evaluate;
+use App\Models\UserCoupon;
 use App\Models\WeightProduct;
 use PhpParser\Node\Stmt\Catch_;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -958,6 +962,54 @@ class ShopController extends Controller
             return response()->json(["productAccessory" => $productAccessory], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    //Show coupon shop
+    public function getCouponStore()
+    {
+        try {
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $couponStores =  Coupon::Where('status', '=', 0)->where('time', '>', 0)
+                ->whereDate('start_date', '<=', now())
+                ->whereDate('end_date', '>=', now())
+                ->orderBy('created_at', 'desc')->get();
+
+            return response()->json(["couponStores" => $couponStores], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    public function saveCouponStore($id)
+    {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        } else {
+            try {
+                DB::beginTransaction();
+                $useCoupon = UserCoupon::where('coupon_id', $id)->first();
+                if ($useCoupon) {
+                    $mess = "Coupon has been saved!";
+                } else {
+                    $coupon = Coupon::find($id);
+                    $coupon->time =  $coupon->time - 1;
+                    $coupon->update();
+
+                    $userCoupon = new UserCoupon();
+                    $userCoupon->user_id = Auth::guard('sales')->id();
+                    $userCoupon->coupon_id = $id;
+                    $userCoupon->coupon_name = $coupon->name;
+                    $userCoupon->coupon_time = 1;
+                    $userCoupon->save();
+                    $mess = "Coupon saved successfully ! See details ?";
+                    DB::commit();
+                }
+                return response()->json(["mess" => $mess, "url" => route('sale.contact.index')], StatusCode::OK);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+            }
         }
     }
 }
