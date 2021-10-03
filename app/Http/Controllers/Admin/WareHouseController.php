@@ -14,6 +14,7 @@ use App\Models\ProductImage;
 use App\Models\Type;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class WareHouseController extends Controller
@@ -43,7 +44,7 @@ class WareHouseController extends Controller
                 $sort_direction = 'desc';
             }
             $sort_field = request('sort_field', 'created_at');
-            if (!in_array($sort_field, ['import_price','import_quantity','inventory'])) {
+            if (!in_array($sort_field, ['import_price', 'import_quantity', 'inventory'])) {
                 $sort_field = 'created_at';
             }
 
@@ -73,6 +74,7 @@ class WareHouseController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             $warehouse = new WareHouse();
             $warehouse->name = $request->name;
             $file = $request->images;
@@ -91,9 +93,8 @@ class WareHouseController extends Controller
             $product->name = $request->name;
             $product->images = $fileName;
             $product->price = 0;
-            // $product->type_id = StatusSale::JUSTENTERD;
-            // $product->weight_id = StatusSale::JUSTENTERD;
-            // $product->description_id = StatusSale::JUSTENTERD;
+            // $product->type_id = '';
+            // $product->description_id = '';
             $product->content = '';
             $product->status = StatusSale::DOWN;
             $product->quantity = $warehouse->inventory;
@@ -109,9 +110,11 @@ class WareHouseController extends Controller
             $flagProductImage = $productImage->save();
 
             if ($flagWarehouse && $flagProduct && $flagProductImage) {
+                DB::commit();
                 return response()->json(route('admin.warehouse.list'), StatusCode::OK);  //Lưu thành công gọi ra đg dẫn về list
             }
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -127,6 +130,7 @@ class WareHouseController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            DB::beginTransaction();
             $warehouse = new WareHouse();
             $warehouse->name = $request->name;
             $warehouse->images = $request->images;
@@ -148,9 +152,10 @@ class WareHouseController extends Controller
             $product->import_price = $request->import_price;
             $product->ware_houses_id = $warehouse->id;
             $product->save();
-
+            DB::commit();
             return response()->json(route('admin.warehouse.list'), StatusCode::OK);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
         }
     }

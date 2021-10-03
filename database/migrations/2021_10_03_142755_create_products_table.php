@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('images');
             $table->string('price');
-            $table->integer('type_id');
-            $table->integer('description_id');
+            $table->integer('type_id')->nullable();
+            $table->integer('description_id')->nullable();
             $table->text('content');
             $table->integer('status');
             $table->integer('quantity');
