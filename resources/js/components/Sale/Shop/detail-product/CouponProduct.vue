@@ -126,7 +126,7 @@
                   style="display: flex; align-items: center"
                 >
                   <button
-                    v-if="couponStore.id != couponId"
+                    v-if="``"
                     type="submit"
                     class="btn btn-success"
                   >
@@ -282,7 +282,6 @@ export default {
       axios
         .post(`/sale/save-coupon-store/${id}`)
         .then((response) => {
-          that.couponId = id;
         })
         .catch((err) => {
           switch (err.response.status) {
