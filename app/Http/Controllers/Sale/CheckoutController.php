@@ -655,6 +655,7 @@ class CheckoutController extends Controller
         $order->order_date = now();
         $order->order_destroy = "";
         $order->total_bill = $totalBill;
+        $order->payments = "Thanh toán Onpay !";
         $flag_order = $order->save();
 
         if (Session::get('cart') == true) {
@@ -706,15 +707,15 @@ class CheckoutController extends Controller
             'totalBill' => $totalBill,
         );
 
-        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
-            $message->to($data['email'])->subject($title_mail); //send this mail with subject
-            $message->from($data['email'], $title_mail); //send from this mail
-        });
+        // Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        //     $message->to($data['email'])->subject($title_mail); //send this mail with subject
+        //     $message->from($data['email'], $title_mail); //send from this mail
+        // });
 
-        Session::forget('coupon');
-        Session::forget('cart');
-        Session::forget('totalPriceBill');
-        Session::forget('shipping');
+        // Session::forget('coupon');
+        // Session::forget('cart');
+        // Session::forget('totalPriceBill');
+        // Session::forget('shipping');
 
         $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
         $vpcURL = "https://mtf.onepay.vn/onecomm-pay/vpc.op";
@@ -753,10 +754,6 @@ class CheckoutController extends Controller
             $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
         }
 
-
-
-
-
         if (strlen($SECURE_SECRET) > 0 && $_GET["vpc_TxnResponseCode"] != "7" && $_GET["vpc_TxnResponseCode"] != "No Value Returned") {
             $stringHashData = "";
 
@@ -774,9 +771,6 @@ class CheckoutController extends Controller
         } else {
             $hashValidated = "INVALID HASH";
         }
-
-
-
         return request()->json($vpcURL);
     }
 
