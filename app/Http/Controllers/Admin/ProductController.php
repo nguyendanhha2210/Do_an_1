@@ -100,8 +100,9 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request)
     {
+        dd($request->all());
         try {
             $product = Product::where('id', $id)->firstOrFail();
             $product->name = $request->name;

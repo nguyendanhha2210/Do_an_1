@@ -91,9 +91,9 @@ class WareHouseController extends Controller
             $product->name = $request->name;
             $product->images = $fileName;
             $product->price = 0;
-            $product->type_id = StatusSale::JUSTENTERD;
+            // $product->type_id = StatusSale::JUSTENTERD;
             // $product->weight_id = StatusSale::JUSTENTERD;
-            $product->description_id = StatusSale::JUSTENTERD;
+            // $product->description_id = StatusSale::JUSTENTERD;
             $product->content = '';
             $product->status = StatusSale::DOWN;
             $product->quantity = $warehouse->inventory;

@@ -279,20 +279,20 @@ export default {
           this.$refs[type + value].value = "";
         }
       }
-      if (type == "album") {
-        if (value < this.listAlbums.length) {
-          this.listAlbums[value].file = this.$refs[type + value][0].files[0];
-          file = this.$refs[type + value][0].files[0];
-          this.$refs[type + value][0].value = "";
-        } else {
-          this.listAlbums.push({
-            file_id: null,
-            file: this.$refs[type + value].files[0],
-          });
-          file = this.$refs[type + value].files[0];
-          this.$refs[type + value].value = "";
-        }
-      }
+      // if (type == "album") {
+      //   if (value < this.listAlbums.length) {
+      //     this.listAlbums[value].file = this.$refs[type + value][0].files[0];
+      //     file = this.$refs[type + value][0].files[0];
+      //     this.$refs[type + value][0].value = "";
+      //   } else {
+      //     this.listAlbums.push({
+      //       file_id: null,
+      //       file: this.$refs[type + value].files[0],
+      //     });
+      //     file = this.$refs[type + value].files[0];
+      //     this.$refs[type + value].value = "";
+      //   }
+      // }
       let reader = new FileReader();
       reader.addEventListener(
         "load",
