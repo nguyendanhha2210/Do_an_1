@@ -231,7 +231,6 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
                   <ckeditor
-                    :name="content"
                     v-model="product.content"
                     :config="editorConfig"
                     :editor-url="editorUrl"
