@@ -101,6 +101,7 @@
                   type="datetime"
                   class="w100 mr-4"
                   name="nameStartDate"
+                  :lang="lang"
                 ></date-picker>
 
                 <div style="color: red" role="alert">
@@ -117,6 +118,7 @@
                   type="datetime"
                   class="w100 mr-4"
                   name="nameEndDate"
+                  :lang="lang"
                 ></date-picker>
 
                 <div style="color: red" role="alert">
@@ -137,11 +139,14 @@
 </template>
 
 <script>
+import moment from 'moment-timezone'
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
-import "vue2-datepicker/locale/zh-cn";
+import "vue2-datepicker/locale/en";
+import 'vue2-datepicker/locale/zh-cn';
 import Vue from "vue";
 import axios from "axios";
+
 export default {
   created() {
     let messError = {
@@ -173,24 +178,15 @@ export default {
   },
   data() {
     return {
+      lang: 'en',
       csrfToken: Laravel.csrfToken,
-      coupon: {
-        name: "",
-        time: "",
-        condition: "",
-        number: "",
-        code: "",
-        start_date: "",
-        end_date: "",
-      },
-
       nameName: this.coupon.name,
       nameTime: this.coupon.time,
       nameCondition: this.coupon.condition,
       nameNumber: this.coupon.number,
       nameCode: this.coupon.code,
-      nameStartDate: this.coupon.start_date,
-      nameEndDate: this.coupon.end_date,
+      nameStartDate: new Date(this.coupon.start_date),
+      nameEndDate: new Date(this.coupon.end_date),
       errorBackEnd: {}, //Lỗi bên backend laravel
     };
   },
@@ -201,7 +197,7 @@ export default {
   },
   methods: {
     editCoupon: function () {
-      console.log(this.nameStartDate);
+      // console.log(this.nameStartDate);
       let that = this;
       let formData = new FormData();
       formData.append("name", this.nameName);
@@ -209,8 +205,8 @@ export default {
       formData.append("condition", this.nameCondition);
       formData.append("number", this.nameNumber);
       formData.append("code", this.nameCode);
-      formData.append("start_date", this.nameStartDate);
-      formData.append("end_date", this.nameEndDate);
+      formData.append("start_date", moment(this.nameStartDate).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss'));
+      formData.append("end_date", moment(this.nameEndDate).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss'));
       this.$validator.validateAll().then((valid) => {
         if (valid) {
           axios

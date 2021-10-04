@@ -57,7 +57,7 @@
             </div>
             <div class="modal-body">
               <form
-                @submit.prevent="AddProduct"
+                @submit.prevent="addProduct"
                 enctype="multipart/form-data"
                 method="POST"
                 ref="addForm"
@@ -157,21 +157,21 @@
                     :key="data.id"
                   >
                     <label :for="`data${index}`">{{ data.weight }}</label>
-                    <!-- <input
+                    <input
                       type="text"
                       class="form-control text-center"
                       :name="'price[' + index + ']'"
                       v-validate="'required'"
-                    /> -->
-
-                    <!-- <input
-                      class="form-check-input"
-                      type="text"
-                      v-model="selectedIds"
-                      :id="`weight${index}`"
-                      @change="changeInputPrice()"/> -->
+                    /> 
 
                     <input
+                      class="form-check-input"
+                      type="hidden"
+                      :value="data.weight"
+                      :name="'weight[' + index + ']'"
+                     />
+
+                    <!-- <input
                       class="form-check-input"
                       type="text"
                       v-model="selectedIds"
@@ -179,7 +179,7 @@
                       name="weight"
                       @change="updateCheckAll(data.id)"
                       :ref="`comment${data.id}`"
-                      />
+                      /> -->
 
                     <div style="color: red" role="alert">
                       {{ errors.first("price") }}
@@ -749,8 +749,16 @@ export default {
           content: this.$refs["comment" + id][0].value,
       });
     },
-
-    AddProduct(e) {
+  addProduct: function (e) {
+      e.preventDefault();
+      let that = this;
+      this.$validator.validateAll().then((valid) => {
+        if (valid) {
+          that.$refs.addForm.submit();
+        }
+      });
+    },
+    // AddProduct(e) {
       // let formData = new FormData();
       // formData.append("id", this.product.id);
       // formData.append("name", this.product.name);
@@ -760,58 +768,58 @@ export default {
       // formData.append("description_id", this.product.description_id);
       // formData.append("content", this.product.content);
       // formData.append("priceImport",priceImport);
-      axios
-        .post(`product/update`, this.update_comment, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          that.fetchData();
-          that
-            .$swal({
-              title: "Update success!",
-              icon: "success",
-              confirmButtonText: "Yes !",
-              confirmButtonColor: "#3085d6",
-            })
-            .then(function (confirm) {
-              if (confirm.isConfirmed) {
-                that.buttonAdd = true;
-                (window.location = response.data),
-                  (that.product = {
-                    name: "",
-                    images: "",
-                    price: "",
-                    type_id: "",
+      // axios
+      //   .post(`product/update`, this.update_comment, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
+      //   .then((response) => {
+      //     that.fetchData();
+      //     that
+      //       .$swal({
+      //         title: "Update success!",
+      //         icon: "success",
+      //         confirmButtonText: "Yes !",
+      //         confirmButtonColor: "#3085d6",
+      //       })
+      //       .then(function (confirm) {
+      //         if (confirm.isConfirmed) {
+      //           that.buttonAdd = true;
+      //           (window.location = response.data),
+      //             (that.product = {
+      //               name: "",
+      //               images: "",
+      //               price: "",
+      //               type_id: "",
 
-                    description_id: "",
-                    content: "",
-                    status: "",
-                  });
-              } else {
-              }
-            });
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 422:
-              that.errorBackEnd = err.response.data.errors;
-              break;
-            case 500:
-              that
-                .$swal({
-                  title: "Update Failure Data!",
-                  icon: "error",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+      //               description_id: "",
+      //               content: "",
+      //               status: "",
+      //             });
+      //         } else {
+      //         }
+      //       });
+      //   })
+      //   .catch((err) => {
+        //   switch (err.response.status) {
+        //     case 422:
+        //       that.errorBackEnd = err.response.data.errors;
+        //       break;
+        //     case 500:
+        //       that
+        //         .$swal({
+        //           title: "Update Failure Data!",
+        //           icon: "error",
+        //           confirmButtonText: "Ok",
+        //         })
+        //         .then(function (confirm) {});
+        //       break;
+        //     default:
+        //       break;
+        //   }
+        // });
+    // },
 
     // updateProductImage(product) {
     //   this.productImage.product_id = product.id;

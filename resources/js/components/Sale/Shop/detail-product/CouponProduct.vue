@@ -124,15 +124,16 @@
                 <div
                   class="col-lg-4 col-md-6 col-sm-6 text-center"
                   style="display: flex; align-items: center"
+                 
                 >
                   <button
-                    v-if="``"
-                    type="submit"
-                    class="btn btn-success"
+                    class="btn btn-info"
                   >
+                    Use
+                  </button>
+                  <button type="submit" class="btn btn-success">
                     Save
                   </button>
-                  <button v-else class="btn btn-info">Use</button>
                 </div>
               </div>
             </form>
@@ -202,10 +203,20 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
-      couponId:'',
+      couponId: "",
 
       couponStores: [],
       couponStore: {
+        id: "",
+        name: "",
+        condition: "",
+        number: "",
+        start_date: "",
+        end_date: "",
+      },
+
+      couponUsers: [],
+      couponUser: {
         id: "",
         name: "",
         condition: "",
@@ -222,6 +233,7 @@ export default {
   mounted() {
     // this.fetchData();
     this.fetchCoupon();
+    this.fetchUserCoupon();
   },
   props: ["couponProduct"],
   methods: {
@@ -277,12 +289,12 @@ export default {
           }
         });
     },
+
     saveCoupon(id) {
       let that = this;
       axios
         .post(`/sale/save-coupon-store/${id}`)
-        .then((response) => {
-        })
+        .then((response) => {})
         .catch((err) => {
           switch (err.response.status) {
             case 422:
@@ -303,6 +315,30 @@ export default {
                   title: "Add Error !",
                   icon: "warning",
                   confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    fetchUserCoupon() {
+      let that = this;
+      axios
+        .post(`/sale/get-coupon-user`)
+        .then(function (response) {
+          that.couponUsers = response.data.userCoupons; //show data ra
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 500:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
                 })
                 .then(function (confirm) {});
               break;

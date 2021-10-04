@@ -1005,11 +1005,30 @@ class ShopController extends Controller
                     $mess = "Coupon saved successfully ! See details ?";
                     DB::commit();
                 }
+
                 return response()->json(["mess" => $mess, "url" => route('sale.contact.index')], StatusCode::OK);
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }
+    }
+
+    public function getCouponUser()
+    {
+        if (!Auth::guard('sales')->check()) {
+            return redirect()->route('sale.users.login');
+        }else{
+            try{
+                $userId = Auth::guard('sales')->id();
+                $userCoupons = UserCoupon::where(function ($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                    $query->where('coupon_time', '>', 0);
+                })->get();
+                return response()->json(["userCoupons" => $userCoupons], StatusCode::OK);
+            }catch(\Exception $e) {
+                return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+            }
+            }
     }
 }

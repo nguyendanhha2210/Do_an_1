@@ -267,8 +267,9 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('/get-count-status', [App\Http\Controllers\Sale\OrderWithStatusController::class, 'getCountStatus'])->name('sale.orderStatus.getCountStatus');
     Route::post('/fill-image', [App\Http\Controllers\Sale\ExchangeReviewController::class, 'fillImage'])->name('sale.users.fillImage');
     Route::post('/save-coupon-store/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'saveCouponStore'])->name('admin.shop.saveCouponStore');
+    Route::post('/get-coupon-user',  [App\Http\Controllers\Sale\ShopController::class, 'getCouponUser'])->name('admin.shop.saveCouponStore');
 
-
+    
 
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order

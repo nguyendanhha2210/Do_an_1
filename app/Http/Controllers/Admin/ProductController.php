@@ -17,6 +17,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -100,11 +101,11 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function update(ProductRequest $request)
+    public function update(Request $request)
     {
-        dd($request->all());
+        // Log::info($request->all());
         try {
-            $product = Product::where('id', $id)->firstOrFail();
+            $product = Product::where('id', $request->productId)->firstOrFail();
             $product->name = $request->name;
 
             $file = $request->images;
