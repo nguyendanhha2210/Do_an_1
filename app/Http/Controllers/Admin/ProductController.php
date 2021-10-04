@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
 {
@@ -120,7 +121,6 @@ class ProductController extends Controller
             $product->status = StatusSale::DOWN;
             $product->save();
 
-
             $existWeightPrices = WeightProduct::where('product_id', $request->productId)->pluck('weight')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
             $inputWeightPrices = array_map('intval', $request->weight);    //Lấy mảng giá trị vừa truyền vào từng khối lượng ở ô input
             $deleteWeightPrices = array_values(array_diff($existWeightPrices, $inputWeightPrices));  //So sánh nhưng cái trong DB với những cái nk nhập từ ô input
@@ -148,7 +148,7 @@ class ProductController extends Controller
                 WeightProduct::insert($insertDataList);
             }
             DB::commit();
-            return response()->json(route("admin.product.list"), StatusCode::OK);
+            return Redirect::back();
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);

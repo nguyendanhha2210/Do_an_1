@@ -231,7 +231,7 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
                   <ckeditor
-                    name="content"
+                    :name="content"
                     v-model="product.content"
                     :config="editorConfig"
                     :editor-url="editorUrl"
@@ -453,6 +453,7 @@
         >
         </paginate>
       </nav>
+      <FlashMessage :position="'left bottom'"></FlashMessage>
     </div>
     <div class="text-center" v-else style="color: red">There is no data !</div>
     <loader :flag-show="flagShowLoader"></loader>
@@ -600,6 +601,11 @@ export default {
       this.$validator.validateAll().then((valid) => {
         if (valid) {
           that.$refs.addForm.submit();
+          that.flashMessage.success({
+            message: "Thành Công !",
+            icon: "/backend/icon/check.svg",
+            blockClass: "text-centet",
+          });
         }
       });
     },
