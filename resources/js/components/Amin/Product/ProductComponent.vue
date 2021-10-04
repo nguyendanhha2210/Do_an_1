@@ -138,9 +138,9 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="price"
+                    name="priceImport"
                     v-validate="'required'"
-                    v-model="product.price"
+                    v-model="product.import_price"
                   />
                   <div style="color: red" role="alert">
                     {{ errors.first("price") }}
@@ -156,30 +156,20 @@
                     v-for="(data, index) in weight_product"
                     :key="data.id"
                   >
-                    <label :for="`data${index}`">{{ data.weight }}</label>
+                    <label>{{ data.weight }}kg</label>
                     <input
                       type="text"
                       class="form-control text-center"
                       :name="'price[' + index + ']'"
                       v-validate="'required'"
-                    /> 
+                    />
 
                     <input
                       class="form-check-input"
                       type="hidden"
                       :value="data.weight"
                       :name="'weight[' + index + ']'"
-                     />
-
-                    <!-- <input
-                      class="form-check-input"
-                      type="text"
-                      v-model="selectedIds"
-                      :id="`data${index}`"
-                      name="weight"
-                      @change="updateCheckAll(data.id)"
-                      :ref="`comment${data.id}`"
-                      /> -->
+                    />
 
                     <div style="color: red" role="alert">
                       {{ errors.first("price") }}
@@ -192,7 +182,11 @@
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Type_id</label>
-                  <select v-model="product.type_id" class="form-control">
+                  <select
+                    name="typeId"
+                    v-model="product.type_id"
+                    class="form-control"
+                  >
                     <option value="">Select product type</option>
                     <option
                       v-for="data in type_product"
@@ -202,19 +196,21 @@
                       {{ data.type }}
                     </option>
                   </select>
-                  <!-- validate -->
                   <div style="color: red" role="alert">
                     {{ errors.first("type_id") }}
                   </div>
                   <div style="color: red" v-if="errorBackEnd.type_id">
                     {{ errorBackEnd.type_id[0] }}
                   </div>
-                  <!-- validate -->
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Description_id</label>
-                  <select v-model="product.description_id" class="form-control">
+                  <select
+                    name="descriptionId"
+                    v-model="product.description_id"
+                    class="form-control"
+                  >
                     <option value="">Select product description</option>
                     <option
                       v-for="data in description_product"
@@ -224,41 +220,28 @@
                       {{ data.description }}
                     </option>
                   </select>
-                  <!-- validate -->
                   <div style="color: red" role="alert">
                     {{ errors.first("description_id") }}
                   </div>
                   <div style="color: red" v-if="errorBackEnd.description_id">
                     {{ errorBackEnd.description_id[0] }}
                   </div>
-                  <!-- validate -->
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
                   <ckeditor
+                    name="content"
                     v-model="product.content"
                     :config="editorConfig"
                     :editor-url="editorUrl"
                   ></ckeditor>
-
-                  <!-- <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    placeholder="Name"
-                    name="content"
-                    v-validate="'required'"
-                    v-model="product.content"
-                  /> -->
-                  <!-- validate -->
                   <div style="color: red" role="alert">
                     {{ errors.first("content") }}
                   </div>
                   <div style="color: red" v-if="errorBackEnd.content">
                     {{ errorBackEnd.content[0] }}
                   </div>
-                  <!-- validate -->
                 </div>
 
                 <div class="modal-footer">
@@ -276,135 +259,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div
-        class="modal fade"
-        id="myModalImage"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Import product images
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form
-                @submit.prevent="AddProductImage()"
-                enctype="multipart/form-data"
-              >
-                <div class="row">
-                  <input type="text" v-model="productImage.product_id" hidden />
-                  <div class="col-md-9 px-0">
-                    <div
-                      class="position-relative float-left"
-                      v-for="(item, index) in listImages"
-                      :key="item.id"
-                    >
-                      <label :for="`file_img_banner${index}`">
-                        <div class="img-drop-box mt-2 mr-2">
-                          <img
-                            :src="item.src"
-                            :ref="`imageDisplay${index}`"
-                            class="mh-100 mw-100 mx-auto display-block"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="margin-top: 30px"
-                            :ref="`imageIconPlus${index}`"
-                            class="display-none"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          :id="`file_img_banner${index}`"
-                          :ref="`image${index}`"
-                          v-on:change="attachImage('image', index)"
-                          accept="image/*"
-                          style="display: none"
-                        />
-                      </label>
-                      <a
-                        class="btn btn-light icon-close-white display-block"
-                        :ref="`imageIconClose${index}`"
-                        @click="deleteImage('image', index)"
-                      >
-                      </a>
-                    </div>
-                    <div class="position-relative float-left">
-                      <label :for="`file_img_banner${listImages.length}`">
-                        <div class="img-drop-box mt-2 mr-2">
-                          <img
-                            src
-                            :ref="`imageDisplay${listImages.length}`"
-                            class="mh-100 mw-100 mx-auto"
-                          />
-                          <svg
-                            width="45"
-                            height="45"
-                            viewBox="0 0 45 45"
-                            style="margin-top: 30px"
-                            :ref="`imageIconPlus${listImages.length}`"
-                          >
-                            <use
-                              xlink:href="/images/Group_1287.svg#Group_1287"
-                            ></use>
-                          </svg>
-                        </div>
-                        <input
-                          type="file"
-                          :id="`file_img_banner${listImages.length}`"
-                          :ref="`image${listImages.length}`"
-                          v-on:change="
-                            attachImageAdd('image', listImages.length)
-                          "
-                          accept="image/*"
-                          style="display: none"
-                        />
-                      </label>
-                      <a
-                        class="btn btn-light icon-close-white display-none"
-                        :ref="`imageIconClose${listImages.length}`"
-                        @click="deleteImageAdd('image', listImages.length)"
-                      >
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div class="table-responsive">
         <table class="table table-striped b-t b-light text-center">
@@ -627,7 +481,7 @@ export default {
       buttonAdd: true,
 
       update_comment: [],
-      selectedIds:[],
+      selectedIds: [],
 
       productImages: [],
       productImage: {
@@ -727,9 +581,7 @@ export default {
     this.fill_Product();
   },
   props: ["formUrl"],
-  mounted() {
-  
-  },
+  mounted() {},
   components: {
     Loader,
   },
@@ -742,14 +594,7 @@ export default {
     },
   },
   methods: {
-   updateCheckAll: function (id) {
-     this.update_comment = [];
-      this.update_comment.push({
-          id: id,
-          content: this.$refs["comment" + id][0].value,
-      });
-    },
-  addProduct: function (e) {
+    addProduct: function (e) {
       e.preventDefault();
       let that = this;
       this.$validator.validateAll().then((valid) => {
@@ -759,66 +604,66 @@ export default {
       });
     },
     // AddProduct(e) {
-      // let formData = new FormData();
-      // formData.append("id", this.product.id);
-      // formData.append("name", this.product.name);
-      // formData.append("images", this.product.images);
-      // formData.append("price", this.product.price);
-      // formData.append("type_id", this.product.type_id);
-      // formData.append("description_id", this.product.description_id);
-      // formData.append("content", this.product.content);
-      // formData.append("priceImport",priceImport);
-      // axios
-      //   .post(`product/update`, this.update_comment, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   })
-      //   .then((response) => {
-      //     that.fetchData();
-      //     that
-      //       .$swal({
-      //         title: "Update success!",
-      //         icon: "success",
-      //         confirmButtonText: "Yes !",
-      //         confirmButtonColor: "#3085d6",
-      //       })
-      //       .then(function (confirm) {
-      //         if (confirm.isConfirmed) {
-      //           that.buttonAdd = true;
-      //           (window.location = response.data),
-      //             (that.product = {
-      //               name: "",
-      //               images: "",
-      //               price: "",
-      //               type_id: "",
+    // let formData = new FormData();
+    // formData.append("id", this.product.id);
+    // formData.append("name", this.product.name);
+    // formData.append("images", this.product.images);
+    // formData.append("price", this.product.price);
+    // formData.append("type_id", this.product.type_id);
+    // formData.append("description_id", this.product.description_id);
+    // formData.append("content", this.product.content);
+    // formData.append("priceImport",priceImport);
+    // axios
+    //   .post(`product/update`, this.update_comment, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     that.fetchData();
+    //     that
+    //       .$swal({
+    //         title: "Update success!",
+    //         icon: "success",
+    //         confirmButtonText: "Yes !",
+    //         confirmButtonColor: "#3085d6",
+    //       })
+    //       .then(function (confirm) {
+    //         if (confirm.isConfirmed) {
+    //           that.buttonAdd = true;
+    //           (window.location = response.data),
+    //             (that.product = {
+    //               name: "",
+    //               images: "",
+    //               price: "",
+    //               type_id: "",
 
-      //               description_id: "",
-      //               content: "",
-      //               status: "",
-      //             });
-      //         } else {
-      //         }
-      //       });
-      //   })
-      //   .catch((err) => {
-        //   switch (err.response.status) {
-        //     case 422:
-        //       that.errorBackEnd = err.response.data.errors;
-        //       break;
-        //     case 500:
-        //       that
-        //         .$swal({
-        //           title: "Update Failure Data!",
-        //           icon: "error",
-        //           confirmButtonText: "Ok",
-        //         })
-        //         .then(function (confirm) {});
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        // });
+    //               description_id: "",
+    //               content: "",
+    //               status: "",
+    //             });
+    //         } else {
+    //         }
+    //       });
+    //   })
+    //   .catch((err) => {
+    //   switch (err.response.status) {
+    //     case 422:
+    //       that.errorBackEnd = err.response.data.errors;
+    //       break;
+    //     case 500:
+    //       that
+    //         .$swal({
+    //           title: "Update Failure Data!",
+    //           icon: "error",
+    //           confirmButtonText: "Ok",
+    //         })
+    //         .then(function (confirm) {});
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
     // },
 
     // updateProductImage(product) {

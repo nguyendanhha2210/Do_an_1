@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Type;
 use App\Models\Weight;
+use App\Models\WeightProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -61,7 +62,7 @@ class ProductController extends Controller
                 $sort_direction = 'desc';
             }
             $sort_field = request('sort_field', 'created_at');
-            if (!in_array($sort_field, ['price','quantity','import_price','product_sold','views'])) {
+            if (!in_array($sort_field, ['price', 'quantity', 'import_price', 'product_sold', 'views'])) {
                 $sort_field = 'created_at';
             }
 
@@ -103,63 +104,56 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-        // Log::info($request->all());
         try {
+            DB::beginTransaction();
             $product = Product::where('id', $request->productId)->firstOrFail();
             $product->name = $request->name;
-
             $file = $request->images;
             if ($file != null) {
                 $fileName = $file->getClientOriginalName();
                 $file->move('uploads/products', $fileName);
                 $product->images = $fileName;
             }
-
-            $product->price = $request->price;
-            $product->type_id = $request->type_id;
-            $product->description_id = $request->description_id;
-            $product->content = $request->content;
+            $product->type_id = $request->typeId;
+            $product->description_id = $request->descriptionId;
+            $product->content = "hadjkadsa";
             $product->status = StatusSale::DOWN;
-
             $product->save();
+
+
+            $existWeightPrices = WeightProduct::where('product_id', $request->productId)->pluck('weight')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
+            $inputWeightPrices = array_map('intval', $request->weight);    //Lấy mảng giá trị vừa truyền vào từng khối lượng ở ô input
+            $deleteWeightPrices = array_values(array_diff($existWeightPrices, $inputWeightPrices));  //So sánh nhưng cái trong DB với những cái nk nhập từ ô input
+            $insertWeightPrices = array_diff($inputWeightPrices, $existWeightPrices); //So sánh những cái nk nhập từ ô input với nhưng cái trong DB
+
+            if (!empty($deleteWeightPrices)) {
+                WeightProduct::where('product_id', $request->productId)->whereIn('weight', $deleteWeightPrices)->delete();
+            }
+
+            if (!empty($insertWeightPrices)) {
+                $insertDataList = [];
+                foreach ($request->price as $key => $price) {
+                    foreach ($request->weight as $value => $weight) {
+                        if ($key == $value) {
+                            $insertDataList[] = [
+                                "product_id" => $request->productId,
+                                "weight" => $weight,
+                                "price" => $price,
+                                "created_at" => Carbon::now(),
+                                "updated_at" => Carbon::now(),
+                            ];
+                        }
+                    }
+                }
+                WeightProduct::insert($insertDataList);
+            }
+            DB::commit();
             return response()->json(route("admin.product.list"), StatusCode::OK);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
-
-    // public function productImage()
-    // {
-    //     if (!Auth::guard('admin')->check()) {
-    //         return view('admin.users.login');
-    //     } else {
-    //         $breadcrumbs = ['Product Image'];
-    //         return view('admin.products.productimage', ['breadcrumbs' => $breadcrumbs]);
-    //     }
-    // }
-
-    // public function getProductImage(Request $request)
-    // {
-    //     if (!Auth::guard('admin')->check()) {
-    //         return view('admin.users.login');
-    //     }
-    //     try {
-    //         $paginate = $request->paginate;
-    //         $search = $request->search;
-    //         $productImages =  ProductImage::where(function ($q) use ($search) {
-    //             if ($search) {
-    //                 $q->where('product_id', '=', $search);
-    //             }
-    //         })->with(['product'])
-    //             ->whereHas('product', function ($query) {
-    //                 $query->where('deleted_at', NULL);
-    //             })->orderBy('created_at', 'desc')->paginate($paginate);
-
-    //         return response()->json($productImages, StatusCode::OK);
-    //     } catch (\Exception $e) {
-    //         return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-    //     }
-    // }
 
     public function saveProductImage(Request $request)
     {

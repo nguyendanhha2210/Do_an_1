@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'name', 'images', 'price', 'type_id', 'weight_id', 'description_id', 'content', 'status', 'views', 'quantity', 'import_price', 'product_sold', 'ware_houses_id'
+        'id', 'name', 'images','type_id', 'weight_id', 'description_id', 'content', 'status', 'views', 'quantity', 'import_price', 'product_sold', 'ware_houses_id'
     ];
 
     public function type()
