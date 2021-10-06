@@ -3,7 +3,7 @@
     <div class="table-agile-info">
       <div class="panel panel-default">
         <div class="panel-heading">
-          Lợi Nhuận : <b style="color: red"> {{ formatPrice(amount) }}</b>
+          Lợi Nhuậu ajlsdamkl;đa : <b style="color: red"> {{ formatPrice(amount) }}</b>
         </div>
         <button
           class="btn btn-success"
