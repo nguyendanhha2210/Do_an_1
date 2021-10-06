@@ -305,7 +305,7 @@ class ShopController extends Controller
                 })
                 ->whereHas('description', function ($query) {
                     $query->where('deleted_at', NULL);
-                })->take(3)->get();
+                })->take(7)->get();
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {

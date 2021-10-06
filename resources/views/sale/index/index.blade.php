@@ -144,17 +144,17 @@
                                             </a>
                                             <div style="color: red; transform: translate(-27%, 53%)">
                                                 <u style="
-                                                                  font-size: 13px;
-                                                                  display: -webkit-inline-box;
-                                                                  transform: translate(0%, -13%);
-                                                                ">đ</u>
+                                                                          font-size: 13px;
+                                                                          display: -webkit-inline-box;
+                                                                          transform: translate(0%, -13%);
+                                                                        ">đ</u>
                                                 <span style="font-size: 19px">{{ number_format($key->price) }}</span>
                                             </div>
                                             <div class="da-ban" style="
-                                                                transform: translate(32%, -47%);
-                                                                font-size: 14px;
-                                                                color: dimgray;
-                                                              ">
+                                                                        transform: translate(32%, -47%);
+                                                                        font-size: 14px;
+                                                                        color: dimgray;
+                                                                      ">
                                                 <span>Đã bán {{ $key->product_sold }}</span>
                                             </div>
                                         </div>
@@ -265,17 +265,17 @@
                                             </a>
                                             <div style="color: red; transform: translate(-27%, 53%)">
                                                 <u style="
-                                                                  font-size: 13px;
-                                                                  display: -webkit-inline-box;
-                                                                  transform: translate(0%, -13%);
-                                                                ">đ</u>
+                                                                          font-size: 13px;
+                                                                          display: -webkit-inline-box;
+                                                                          transform: translate(0%, -13%);
+                                                                        ">đ</u>
                                                 <span style="font-size: 19px">{{ number_format($key->price) }}</span>
                                             </div>
                                             <div class="da-ban" style="
-                                                                transform: translate(32%, -47%);
-                                                                font-size: 14px;
-                                                                color: dimgray;
-                                                              ">
+                                                                        transform: translate(32%, -47%);
+                                                                        font-size: 14px;
+                                                                        color: dimgray;
+                                                                      ">
                                                 <span>Đã bán {{ $key->product_sold }}</span>
                                             </div>
                                         </div>
@@ -294,9 +294,7 @@
             </div>
         </div>
     </section>
-    <!-- Man Banner Section End -->
 
-    <!-- Instagram Section Begin -->
     <div class="instagram-photo">
         <div class="insta-item set-bg" data-setbg="{{ 'frontend/images/9.jpg' }}">
             <div class="inside-text">
@@ -335,9 +333,7 @@
             </div>
         </div>
     </div>
-    <!-- Instagram Section End -->
 
-    <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">
         <div class="container">
             <div class="row">
@@ -356,7 +352,7 @@
                             </a>
 
                             <div class="latest-text" style="padding-left: 16px;
-                                                padding-bottom: 5px;">
+                                                        padding-bottom: 5px;">
                                 <div class="tag-list">
                                     <div class="tag-item">
                                         <i class="fa fa-calendar-o"></i>
@@ -370,24 +366,24 @@
 
                                 <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
                                     <h4 style="
-                                                width:339px;
-                                                white-space: pre-wrap; 
-                                                overflow: hidden;
-                                                text-overflow: ellipsis;
-                                                -webkit-line-clamp: 1;
-                                                -webkit-box-orient: vertical;
-                                                 display: -webkit-box;
-                                                 ">{{ $key->title }}</h4>
+                                                        width:339px;
+                                                        white-space: pre-wrap; 
+                                                        overflow: hidden;
+                                                        text-overflow: ellipsis;
+                                                        -webkit-line-clamp: 1;
+                                                        -webkit-box-orient: vertical;
+                                                         display: -webkit-box;
+                                                         ">{{ $key->title }}</h4>
                                 </a>
                                 <p style="
-                                            width:339px;
-                                            white-space: pre-wrap; 
-                                            overflow: hidden;
-                                            text-overflow: ellipsis;
-                                            -webkit-line-clamp: 2;
-                                            -webkit-box-orient: vertical;
-                                             display: -webkit-box;
-                                             ">{{ $key->content }}</p>
+                                                    width:339px;
+                                                    white-space: pre-wrap; 
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                    -webkit-line-clamp: 2;
+                                                    -webkit-box-orient: vertical;
+                                                     display: -webkit-box;
+                                                     ">{{ $key->content }}</p>
                             </div>
                         </div>
                     </div>
@@ -432,5 +428,4 @@
             </div>
         </div>
     </section>
-    <!-- Latest Blog Section End -->
 @endsection
