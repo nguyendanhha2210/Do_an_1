@@ -94,7 +94,7 @@ class ProductController extends Controller
         $data = [];
         $type_product = Type::get();
         $description_product = Description::get();
-        $weight_product = Weight::get();
+        $weight_product = Weight::orderBy('weight', 'ASC')->get();
         $data = collect([
             'type_product' => $type_product,
             'description_product' => $description_product,
@@ -119,6 +119,14 @@ class ProductController extends Controller
             $product->description_id = $request->descriptionId;
             $product->content = "hadjkadsa";
             $product->status = StatusSale::DOWN;
+            //Tìm min price nhập để lưu cho giá bán show cho khách hàng
+            $minPrice = $request->price[0];
+            foreach ($request->price as $key => $price) {
+                if ($minPrice > $price) {
+                    $minPrice = $price;
+                }
+            }
+            $product->price = $minPrice;
             $product->save();
 
             $existWeightPrices = WeightProduct::where('product_id', $request->productId)->pluck('weight')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
