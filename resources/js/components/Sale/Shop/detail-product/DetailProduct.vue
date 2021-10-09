@@ -19,6 +19,9 @@
       <div class="row">
         <ProductRelated :relatedProduct="productrelated"></ProductRelated>
       </div>
+       <div class="row">
+        <ProductCompare :compareProduct="productcompare"></ProductCompare>
+      </div>
     </div>
   </section>
 </template>
@@ -28,6 +31,7 @@ import CouponProduct from "./CouponProduct.vue";
 import ProductInfo from "./ProductInfo.vue";
 import ProductDecrip from "./ProductDecrip.vue";
 import ProductRelated from "./ProductRelated.vue";
+import ProductCompare from "./ProductCompare.vue";
 
 import Vue from "vue";
 import axios from "axios";
@@ -38,6 +42,7 @@ export default {
       productdecrip: this.product,
       productrelated: this.product,
       couponproduct: this.product,
+      productcompare: this.product,
     };
   },
   created() {},
@@ -46,6 +51,7 @@ export default {
     ProductDecrip,
     ProductRelated,
     CouponProduct,
+    ProductCompare,
   },
   props: ["product"],
   mounted() {},
