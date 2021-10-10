@@ -173,13 +173,11 @@ Route::post('/quick-view-shop', [App\Http\Controllers\Sale\HomeController::class
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
+Route::get('/get-compare-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productCompare'])->name('admin.shop.productCompare');
 Route::post('/fill-evaluated/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillEvaluated'])->name('admin.shop.fillEvaluated');
-
 
 Route::post('/choose-weight-product',  [App\Http\Controllers\Sale\ShopController::class, 'chooseWeightProduct'])->name('admin.shop.chooseWeightProduct');
 Route::post('/fill-weight-product/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'fillWeightProduct'])->name('admin.shop.fillWeightProduct');
-
-
 
 Route::get('/get-accessory/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'getAccessory'])->name('admin.shop.getAccessory');
 Route::get('/get-coupon-store',  [App\Http\Controllers\Sale\ShopController::class, 'getCouponStore'])->name('admin.shop.getCouponStore');

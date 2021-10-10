@@ -133,83 +133,59 @@ class ProductController extends Controller
             $existPrices = WeightProduct::where('product_id', $request->productId)->pluck('price')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
             $inputWeights = $request->weight;
             $inputPrices = $request->price;
+
             $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
-
-            $deletePrices =  array_values(array_diff($existPrices,$inputPrices));
-
-            $insertPrices =  array_diff($inputPrices,$existPrices);
-            $insertWeights =  array_diff($inputWeights,$existWeights);
-
-            // dd($existPrices,$request->price);
-
-            //Lưu mới
-            foreach ($insertWeights as $key => $weight) {
-                foreach ($insertPrices as $value => $price) {
-                    if ($key == $value) {
-                        $insertDataList[] = [
-                            "product_id" => $request->productId,
-                            "weight" => $weight,
-                            "price" => $price,
-                            "created_at" => Carbon::now(),
-                            "updated_at" => Carbon::now(),
-                        ];
-                    }
-                }
-                WeightProduct::insert($insertDataList);
+            if (!empty($compareWeights)) {
+                // foreach ($compareWeights as $key => $weight) {
+                //     $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
+                //     $deleteWeightProduct = WeightProduct::find($result->id);
+                //     $deleteWeightProduct->delete();
+                // }
+                WeightProduct::where('product_id', $request->productId)->WhereIn('weight', $compareWeights)->delete();
             }
 
-            //Update
-            if(empty($insertWeights)) {
-                foreach ($existPrices as $key => $exits) {
-                    foreach ($inputPrices as $value => $input) {  
+            $insertPrices =  array_diff($inputPrices, $existPrices);
+            $insertWeights =  array_diff($inputWeights, $existWeights);
+            if (!empty($insertWeights)) {
+                foreach ($insertWeights as $key => $weight) {
+                    foreach ($insertPrices as $value => $price) {
                         if ($key == $value) {
-                            $updateDataList[] = [
-                                "price" => $input,
+                            $insertDataList[] = [
+                                "product_id" => $request->productId,
+                                "weight" => $weight,
+                                "price" => $price,
+                                "created_at" => Carbon::now(),
+                                "updated_at" => Carbon::now(),
                             ];
                         }
                     }
+                    WeightProduct::insert($insertDataList);
                 }
-                WeightProduct::where('product_id', $request->productId)->update($updateDataList);  //Sai
+                if (!empty($insertPrices)) {
+                    foreach ($existWeights as $key => $exits) {
+                        foreach ($insertPrices as $value => $updatePrice) {
+                            if ($key == $value) {
+                                $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
+                                $weightProduct->price = $updatePrice;
+                                $weightProduct->save();
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (!empty($insertPrices)) {
+                    foreach ($existWeights as $key => $exits) {
+                        foreach ($insertPrices as $value => $updatePrice) {
+                            if ($key == $value) {
+                                $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
+                                $weightProduct->price = $updatePrice;
+                                $weightProduct->save();
+                            }
+                        }
+                    }
+                }
             }
-            
-            // if(empty($compareWeights)) {
-            //     if (!empty($deletePrices)) {
-            //         WeightProduct::where('product_id', $request->productId)->whereIn('weight', $deletePrices)->delete();
-            //     }
 
-            //     if (!empty($insertPrices)) {
-            //         $insertDataList = [];
-            //         foreach ($request->price as $key => $price) {
-            //             foreach ($request->weight as $value => $weight) {
-            //                 if ($key == $value) {
-            //                     $insertDataList[] = [
-            //                         "product_id" => $request->productId,
-            //                         "weight" => $weight,
-            //                         "price" => $price,
-            //                         "created_at" => Carbon::now(),
-            //                         "updated_at" => Carbon::now(),
-            //                     ];
-            //                 }
-            //             }
-            //         }
-            //         WeightProduct::insert($insertDataList);
-            //     }
-            // }
-
-            
-
-            // $inputWeightPrices = array_map('intval', $request->weight);    //Lấy mảng giá trị vừa truyền vào từng khối lượng ở ô input
-            // $deleteWeightPrices = array_values(array_diff($existWeights, $inputWeights));  //So sánh nhưng cái trong DB với những cái nk nhập từ ô input
-            // dd($existWeights, $inputWeights);
-
-            // $insertWeightPrices = array_diff($inputWeights, $existWeights); //So sánh những cái nk nhập từ ô input với nhưng cái trong DB
-
-
-            // if (!empty($deleteWeightPrices)) {
-            //     WeightProduct::where('product_id', $request->productId)->whereIn('weight', $deleteWeightPrices)->delete();
-            // }
-
-           
             DB::commit();
             return Redirect::back();
         } catch (\Exception $e) {

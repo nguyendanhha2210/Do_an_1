@@ -20,6 +20,8 @@ class CartController extends Controller
     public function addCart(Request $request)
     {
         try {
+            // $products = Product::where('id',$request->id)->with('weightProducts')->get();
+            // dd($products);
             $session_id = substr(md5(microtime()), rand(0, 26), 5);
             $cart = Session::get('cart');
             if ($cart == true) {
@@ -91,6 +93,7 @@ class CartController extends Controller
                     );
                     Session::put('cart', $cart);
                 } else {
+                    
                     $cart[] = array(
                         'session_id' => $session_id,
                         'product_id' => $request->id,

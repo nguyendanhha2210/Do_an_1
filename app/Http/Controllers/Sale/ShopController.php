@@ -305,7 +305,28 @@ class ShopController extends Controller
                 })
                 ->whereHas('description', function ($query) {
                     $query->where('deleted_at', NULL);
-                })->take(7)->get();
+                })->take(6)->get();
+
+            return response()->json($products, StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+        }
+    }
+
+    public function productCompare($id)
+    {
+        try {
+            $product = Product::find($id);
+            $products =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+                ->where('type_id', $product->type_id)
+                ->whereNotIn('id', [$id])
+                ->with(['type', 'description'])
+                ->whereHas('type', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })
+                ->whereHas('description', function ($query) {
+                    $query->where('deleted_at', NULL);
+                })->orderBy('price', 'asc')->take(4)->get();
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
@@ -1018,17 +1039,17 @@ class ShopController extends Controller
     {
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
-        }else{
-            try{
+        } else {
+            try {
                 $userId = Auth::guard('sales')->id();
                 $userCoupons = UserCoupon::where(function ($query) use ($userId) {
                     $query->where('user_id', $userId);
                     $query->where('coupon_time', '>', 0);
                 })->get();
                 return response()->json(["userCoupons" => $userCoupons], StatusCode::OK);
-            }catch(\Exception $e) {
+            } catch (\Exception $e) {
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
-            }
+        }
     }
 }

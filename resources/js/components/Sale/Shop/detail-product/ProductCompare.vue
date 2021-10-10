@@ -1,21 +1,24 @@
 <template>
-  <div class="abc">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-title mb-0">
-            <h2 class="pt-2" style="font-size: 25px">Compare Products</h2>
-          </div>
+  <div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title mb-0">
+          <h2 class="pt-2" style="font-size: 25px">Compare Products</h2>
         </div>
       </div>
+    </div>
+    <div class="row">
       <a :href="`${product.id}`">
         <div class="row" style="background-color: #e9edf0; margin-bottom: 15px">
           <div
-            class="col-lg-3 col-sm-6 pl-0"
+            class="col-lg-3 col-sm-6 pl-0 pr-0"
             v-for="product in products"
             :key="product.id"
           >
-            <div class="product-item" style="background-color: white">
+            <div
+              class="product-item"
+              style="background-color: white; border: 1px solid #78a4c5"
+            >
               <div class="pi-pic">
                 <img
                   style="height: 250px"
@@ -24,6 +27,11 @@
                 />
                 <div class="sale">Sale</div>
                 <ul>
+                   <li class="w-icon active">
+                  <a @click="addCartProduct(product)" href="#"
+                    ><i class="fa fa-shopping-basket"></i
+                  ></a>
+                </li>
                   <li class="quick-view">
                     <a
                       type="button"
@@ -39,41 +47,37 @@
               </div>
               <div
                 class="pi-text"
-                style="
-                  padding-top: 19px !important;
-                  border: 0.5px solid #e9edf0;
-                "
+                style="padding-top: 0px !important; border: 0.5px solid #e9edf0"
               >
-                <a
-                  href="#"
-                  style="transform: translate(0%, -34%); font-size: 21px"
+                <h5
+                  class="border-bottom pb-2 pt-2"
+                  style="font-size: 18px; background-color: #eaeaea"
                 >
-                  <h5 class="border-bottom pb-2">
-                    {{ product.name }}
-                  </h5>
-                </a>
-                <div style="color: red; transform: translate(-27%, 53%)">
-                  <u
-                    style="
-                      font-size: 13px;
-                      display: -webkit-inline-box;
-                      transform: translate(0%, -13%);
-                    "
-                    >đ</u
-                  >
-                  <span style="font-size: 19px">{{
-                    formatPrice(product.price)
-                  }}</span>
-                </div>
+                  {{ product.name }}
+                </h5>
                 <div
-                  class="da-ban"
-                  style="
-                    transform: translate(26%, -42%);
-                    font-size: 14px;
-                    color: dimgray;
-                  "
+                  class="text-center border-bottom pb-2"
+                  style="display: -webkit-inline-box"
                 >
-                  <span>Đã bán {{ product.product_sold }}</span>
+                  <star-rating
+                    read-only
+                    :star-size="15"
+                    :increment="0.1"
+                    :rating="Number(product.star_vote)"
+                  ></star-rating>
+                </div>
+                <h5
+                  class="border-bottom pb-2 pt-2"
+                  style="font-size: 21px; color: red; background-color: #eaeaea"
+                >
+                  {{ formatPrice(product.price) }} đ
+                </h5>
+
+                <div
+                  class="da-ban pb-2 pt-2"
+                  style="font-size: 14px; color: dimgray"
+                >
+                  <b class="">Đã bán {{ product.product_sold }}</b>
                 </div>
               </div>
             </div>
@@ -178,6 +182,7 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 import Modal from "../../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
@@ -185,7 +190,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
-      related: this.compareProduct,
+      compare: this.compareProduct,
 
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       products: [],
@@ -214,6 +219,7 @@ export default {
   created() {},
   components: {
     Modal,
+    StarRating,
   },
   props: ["compareProduct"],
   mounted() {
@@ -227,9 +233,8 @@ export default {
     fetchData() {
       let that = this;
       axios
-        .get(`/get-related-product/${this.related.id}`)
+        .get(`/get-compare-product/${this.compare.id}`)
         .then(function (response) {
-          console.log(response);
           that.products = response.data; //show data ra
         })
         .catch((err) => {

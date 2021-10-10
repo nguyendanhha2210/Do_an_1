@@ -111,7 +111,7 @@
                       <input
                         type="file"
                         id="file_img_banner1"
-                        v-validate="'required'"
+                        v-validate="'image_format'"
                         name="images"
                         ref="image"
                         v-on:change="attachImage"
@@ -161,7 +161,7 @@
                       type="text"
                       class="form-control text-center"
                       :name="'price[' + index + ']'"
-                      v-validate="'required'"
+                      v-validate="'required|min:4'"
                     />
 
                     <input
@@ -172,7 +172,7 @@
                     />
 
                     <div style="color: red" role="alert">
-                      {{ errors.first("price") }}
+                      {{ errors.first("price[" + index + "]") }}
                     </div>
                     <div style="color: red" v-if="errorBackEnd.price">
                       {{ errorBackEnd.price[0] }}
