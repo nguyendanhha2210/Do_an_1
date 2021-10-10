@@ -15,21 +15,20 @@
             >
               <input type="hidden" :value="csrfToken" name="_token" />
               <div class="form-group">
-                <label for="exampleInputEmail1">Weight Name</label>
+                <label for="exampleInputEmail1">Weight (đơn vị : kg)</label>
                 <input
                   type="text"
                   name="weight"
+                  style="width: 20%"
                   class="form-control"
                   v-validate="'required'"
                   v-model="weight.weight"
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("weight") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.weight">
                   {{ errorBackEnd.weight[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
               </div>
               <button type="submit" class="btn btn-info">Add</button>
@@ -84,8 +83,7 @@ export default {
             title: "Add successfully!",
             icon: "success",
             confirmButtonText: "OK",
-          }).then(function (confirm) {
-          });
+          }).then(function (confirm) {});
         }
       });
     },
