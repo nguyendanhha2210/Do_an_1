@@ -134,7 +134,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Import Price</label>
+                  <label for="exampleInputEmail1">Import Price (.../1kg) </label>
                   <input
                     type="text"
                     class="form-control"

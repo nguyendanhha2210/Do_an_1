@@ -940,9 +940,10 @@ class ShopController extends Controller
                 $weightProduct = $weightProducts->weight;
                 return response()->json(["priceWeightProduct" => $priceWeightProduct, "weightProduct" => $weightProduct], StatusCode::OK);
             } else {
-                $weightProductMax = WeightProduct::where('product_id', $request->id)->max('price');
-                $weightProductMin = WeightProduct::where('product_id', $request->id)->min('price');
+                $weightProductMax = WeightProduct::where('product_id', $id)->max('price');
+                $weightProductMin = WeightProduct::where('product_id', $id)->min('price');
                 $priceWeightProduct = '';
+
                 return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
             }
         } catch (\Exception $e) {

@@ -16,8 +16,8 @@ class CreateWeightProductsTable extends Migration
         Schema::create('weight_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
-            $table->string('weight');
-            $table->string('price');
+            $table->double('weight');
+            $table->double('price');
             $table->timestamps();
             $table->softDeletes();
         });
