@@ -27,11 +27,11 @@
                 />
                 <div class="sale">Sale</div>
                 <ul>
-                   <li class="w-icon active">
+                  <!-- <li class="w-icon active">
                   <a @click="addCartProduct(product)" href="#"
                     ><i class="fa fa-shopping-basket"></i
                   ></a>
-                </li>
+                </li> -->
                   <li class="quick-view">
                     <a
                       type="button"
