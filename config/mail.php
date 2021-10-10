@@ -51,7 +51,7 @@ return [
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME','danhha221020@gmail.com'),
-            'password' => env('MAIL_PASSWORD','ugugmhrqzcmpqzrv'),
+            'password' => env('MAIL_PASSWORD','bwdzlhuwezapcojv'),
             'timeout' => null,
             'auth_mode' => null,
         ],
