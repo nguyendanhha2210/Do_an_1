@@ -29,9 +29,19 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/logout', [App\Http\Controllers\Admin\User\AccountController::class, 'logout'])->name('admin.users.logout'); //đăng xuất
     Route::post('/get-dashboard', [App\Http\Controllers\Admin\HomeController::class, 'getDashboard'])->name('admin.home.getDashboard');
 
-    Route::post('/get-map', [App\Http\Controllers\Admin\HomeController::class, 'getMap'])->name('admin.home.getMap');
+    Route::post('/get-general-statistical', [App\Http\Controllers\Admin\HomeController::class, 'getGeneralStatistical'])->name('admin.home.getGeneralStatistical');
 
     Route::post('/import-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importTypeCsv'])->name('admin.import.importTypeCsv');
+
+    Route::get('/invoice-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'invoiceStatistical'])->name('admin.statistical.invoice');
+    Route::get('/get-invoice-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getInvoiceStatistical'])->name('admin.statistical.getInvoiceStatistical');
+    Route::post('/get-profit-table', [App\Http\Controllers\Admin\StatisticalController::class, 'getProfitTable'])->name('admin.statistical.getProfitTable'); //trả dữ liệu ra form list
+
+    Route::get('/product-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'productStatistical'])->name('admin.statistical.product');
+    Route::get('/get-product-statisticall', [App\Http\Controllers\Admin\StatisticalController::class, 'getProductStatistical'])->name('admin.statistical.getProductStatistical');
+
+    Route::get('/rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'ratingStatistical'])->name('admin.statistical.rating');
+
 
 
     //Post //edit ngay trên trang //add kiểu modal
@@ -128,10 +138,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/warehouse/warehouse-add',  [App\Http\Controllers\Admin\WareHouseController::class, 'store'])->name('admin.warehouse.store'); //thêm
     Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
     Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
-
-    //Profit 
-    Route::get('/profit', [App\Http\Controllers\Admin\ProfitController::class, 'index'])->name('admin.profit.list'); //gọi form list
-    Route::post('/get-profit', [App\Http\Controllers\Admin\ProfitController::class, 'getData'])->name('admin.profit.getData'); //trả dữ liệu ra form list
 
     //User
     Route::get('/user', [App\Http\Controllers\Admin\User\AccountController::class, 'index'])->name('admin.user.list'); //gọi form list

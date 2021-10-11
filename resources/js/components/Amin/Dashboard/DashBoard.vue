@@ -1,15 +1,9 @@
 <template>
   <div class="table-agile-info">
-    <div class="row pb-3">
-      <div class="col-md-12 col-xs-12 ">
-        <h3 class="text-center">Profit</h3>
-        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-4 col-xs-12">
         <h3 class="text-center">Genneral</h3>
-          <PieChart v-if="chartGenerals.length > 0" :general="chartGenerals" />
+        <PieChart v-if="chartGenerals.length > 0" :general="chartGenerals" />
       </div>
 
       <div class="col-md-4 col-xs-12 text-center">
@@ -107,8 +101,7 @@ const axios = require("axios").default;
 export default {
   data() {
     return {
-      chartProfits: [],
-      chartGenerals:[],
+      chartGenerals: [],
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       flagShowLoader: false,
       posts: [],
@@ -158,10 +151,10 @@ export default {
       let that = this;
       this.flagShowLoader = true;
       axios
-        .post("get-map")
+        .post("get-general-statistical")
         .then(function (response) {
-          that.chartProfits = response.data.data;
           that.chartGenerals = response.data.general;
+          // console.log(that.chartGenerals);
           that.flagShowLoader = false;
         })
         .catch((err) => {

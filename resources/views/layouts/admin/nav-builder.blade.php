@@ -13,10 +13,15 @@
                 </li>
 
                 <li class="sub-menu">
-                    <a href="{{ route('admin.profit.list') }}">
+                    <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Profit</span>
+                        <span>Statistical</span>
                     </a>
+                    <ul class="sub">
+                        <li><a href="{{ route('admin.statistical.invoice') }}">Invoice Statistics</a></li>
+                        <li><a href="{{ route('admin.statistical.product') }}">Product Statistics</a></li>
+                        <li><a href="{{ route('admin.statistical.rating') }}">Rating Statistics</a></li>
+                    </ul>
                 </li>
 
                 <li class="sub-menu">

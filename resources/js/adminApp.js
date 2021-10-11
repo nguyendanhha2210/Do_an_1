@@ -38,7 +38,6 @@ import CategoryPostComponent from './components/Amin/CategoryPost/CategoryCompon
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
 import PostComponent from './components/Amin/Post/PostComponent.vue'
 import ReplyComment from './components/Amin/ReplyComment/ReplyComment.vue'
-import ProfitComponent from './components/Amin/Profit/ProfitComponent.vue'
 import UserComponent from './components/Amin/User/UserComponent.vue'
 import UserDetail from './components/Amin/User/UserDetail.vue'
 import ShipperComponent from './components/Amin/User/ShipperComponent.vue'
@@ -47,6 +46,9 @@ import ImageAdd from './components/Amin/Product/ImageAdd.vue'
 import ImageDetail from './components/Amin/Product/ImageDetail.vue'
 import ImageEdit from './components/Amin/Product/ImagesEdit.vue'
 import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
+
+import InvoiceStatistical from './components/Amin/Statistical/Invoice.vue'
+import ProductStatistical from './components/Amin/Statistical/Product.vue'
 
 
 Vue.use(CKEditor);
@@ -95,7 +97,6 @@ new Vue({
         CategoryPostEdit,
         PostComponent,
         ReplyComment,
-        ProfitComponent,
         UserComponent,
         UserDetail,
         ShipperComponent,
@@ -104,6 +105,8 @@ new Vue({
         ImageDetail,
         ImageEdit,
         DashBoards,
+        InvoiceStatistical,
+        ProductStatistical
     },
     created() {
         this.$validator.extend("number_phone", {

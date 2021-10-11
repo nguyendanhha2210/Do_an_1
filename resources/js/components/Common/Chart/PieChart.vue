@@ -11,6 +11,7 @@ export default {
   },
   props: ["general"],
   created: function () {
+    // console.log(this.options);
   },
   mounted() {
     this.gradient = this.$refs.canvas

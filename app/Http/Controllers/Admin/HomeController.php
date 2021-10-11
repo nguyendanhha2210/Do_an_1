@@ -42,13 +42,12 @@ class HomeController extends Controller
         }
     }
 
-    public function getMap()
+    public function getGeneralStatistical()
     {
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         }
         try {
-            // $profits = Profit::get();
             $profits = Profit::select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($profits as $item) {
@@ -58,7 +57,6 @@ class HomeController extends Controller
                     "color" => "#000066"
                 ];
             }
-
 
             $countProducts = Product::where('status', '=', StatusSale::UP)->count(); //Đếm số sản phẩm đang bày bán
             $countPosts = Post::where('status', '=', StatusSale::UP)->count(); //Đếm số sản phẩm đang bày bán
