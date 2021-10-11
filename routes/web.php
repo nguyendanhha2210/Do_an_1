@@ -38,7 +38,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/get-profit-table', [App\Http\Controllers\Admin\StatisticalController::class, 'getProfitTable'])->name('admin.statistical.getProfitTable'); //trả dữ liệu ra form list
 
     Route::get('/product-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'productStatistical'])->name('admin.statistical.product');
-    Route::get('/get-product-statisticall', [App\Http\Controllers\Admin\StatisticalController::class, 'getProductStatistical'])->name('admin.statistical.getProductStatistical');
+    Route::get('/get-product-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getProductStatistical'])->name('admin.statistical.getProductStatistical');
 
     Route::get('/rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'ratingStatistical'])->name('admin.statistical.rating');
 

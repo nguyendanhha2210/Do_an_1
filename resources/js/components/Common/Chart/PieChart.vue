@@ -6,12 +6,15 @@ export default {
   extends: Pie,
   data() {
     return {
-      options: this.general,
+      lables: [],
+      values: [],
+      options: this.data,
     };
   },
-  props: ["general"],
+  props: ["data"],
   created: function () {
-    // console.log(this.options);
+    this.labels = this.options.map((item) => item.label);
+    this.values = this.options.map((item) => item.value);
   },
   mounted() {
     this.gradient = this.$refs.canvas
@@ -30,16 +33,11 @@ export default {
     this.gradient2.addColorStop(1, "rgba(0, 231, 255, 0)");
     this.renderChart(
       {
-        labels: ["Products", "Posts", "Orders", "Users"],
+        labels: this.labels,
         datasets: [
           {
             backgroundColor: [this.gradient, this.gradient2, "#00D8FF"],
-            data: [
-              this.options.countProducts,
-              this.options.countPosts,
-              this.options.countOrders,
-              this.options.countUsers,
-            ],
+            data: this.values,
           },
         ],
       },

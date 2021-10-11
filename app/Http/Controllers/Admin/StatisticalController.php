@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\StatusCode;
+use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Profit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -95,6 +97,44 @@ class StatisticalController extends Controller
 
     public function getProductStatistical()
     {
-        
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $products = Product::where('status', '=', StatusSale::UP)->get();
+            $productSold = Product::where('status', '=', StatusSale::UP)->orderBy("product_sold", "ASC")->get();
+            $productView = Product::where('status', '=', StatusSale::UP)->orderBy("views", "ASC")->get();
+
+            $dataProductStock = [];
+            $dataProductView = [];
+            $dataProductSold = [];
+
+            foreach ($products as $item) {
+                $dataProductStock[] = [
+                    "label" => $item->name,
+                    "value" => $item->quantity,
+                ];
+            }
+
+            foreach ($productView as $item) {
+                $dataProductView[] = [
+                    "label" => $item->name,
+                    "value" => $item->views,
+                    "color" => "#BB0000"
+                ];
+            }
+
+            foreach ($productSold as $item) {
+                $dataProductSold[] = [
+                    "label" => $item->name,
+                    "value" => $item->product_sold,
+                    "color" => "#000066"
+                ];
+            }
+
+            return response()->json(["dataProductStock" => $dataProductStock, "dataProductView" => $dataProductView, "dataProductSold" => $dataProductSold], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
     }
 }
