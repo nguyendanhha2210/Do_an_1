@@ -1,9 +1,15 @@
 <template>
   <div class="table-agile-info">
+    <div class="row pb-3">
+      <div class="col-md-12 col-xs-12 ">
+        <h3 class="text-center">Profit</h3>
+        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-4 col-xs-12">
-        <p class="title_thongke">Thống kê</p>
-        <BarChart v-if="optionChars.length > 0" :data="optionChars" />
+        <h3 class="text-center">Genneral</h3>
+          <PieChart v-if="chartGenerals.length > 0" :general="chartGenerals" />
       </div>
 
       <div class="col-md-4 col-xs-12 text-center">
@@ -94,28 +100,15 @@
 
 <script>
 import Loader from "../../Common/loader.vue";
-import BarChart from "../../Common/BarChar";
+import BarChart from "../../Common/Chart/BarChart.vue";
+import PieChart from "../../Common/Chart/PieChart.vue";
 const axios = require("axios").default;
-
-// const data = {
-//   [
-//     date : "2021/12/12",
-//     profit : 15
-//   ],
-//   [
-//     date : "2021/12/13",
-//     profit : 40
-//   ],
-//   [
-//     date : "2021/12/14",
-//     profit : 55
-//   ],
-// }
 
 export default {
   data() {
     return {
-      optionChars: [],
+      chartProfits: [],
+      chartGenerals:[],
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       flagShowLoader: false,
       posts: [],
@@ -124,12 +117,13 @@ export default {
   },
   created() {
     this.fetchData();
-    this.fetchABC();
+    this.fetchChart();
   },
   mounted() {},
   components: {
     Loader,
     BarChart,
+    PieChart,
   },
   watch: {},
   methods: {
@@ -160,13 +154,14 @@ export default {
         });
     },
 
-    fetchABC() {
+    fetchChart() {
       let that = this;
       this.flagShowLoader = true;
       axios
         .post("get-map")
         .then(function (response) {
-          that.optionChars = response.data;
+          that.chartProfits = response.data.data;
+          that.chartGenerals = response.data.general;
           that.flagShowLoader = false;
         })
         .catch((err) => {
