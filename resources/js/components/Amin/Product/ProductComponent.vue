@@ -158,7 +158,7 @@
                     v-for="(data, index) in weight_product"
                     :key="data.id"
                   >
-                    <label>{{ data.weight }}kg</label>
+                    <label>{{ data.weight }}kg </label>
                     <input
                       type="text"
                       class="form-control text-center"

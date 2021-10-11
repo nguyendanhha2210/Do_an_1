@@ -74,7 +74,6 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/product', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.product.list'); //gọi form list
     Route::get('/get-product', [App\Http\Controllers\Admin\ProductController::class, 'getData'])->name('admin.product.getData'); //trả dữ liệu ra form list
     Route::get('/fill-product', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
-    // Route::post('/product-add',  [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.add'); //thêm
     Route::post('/update-product-status/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update_product_status'])->name('admin.product.updateStatus'); //trả dữ liệu ra form list
     Route::post('/product/update', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update'); //Sửa
     Route::get('/product/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.product.delete'); //Xóa
