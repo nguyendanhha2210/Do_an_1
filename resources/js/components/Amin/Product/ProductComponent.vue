@@ -134,7 +134,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Import Price (.../1kg) </label>
+                  <label for="exampleInputEmail1"
+                    >Import Price (.../1kg)
+                  </label>
                   <input
                     type="text"
                     class="form-control"
@@ -185,6 +187,7 @@
                   <select
                     name="typeId"
                     v-model="product.type_id"
+                    v-validate="'required'"
                     class="form-control"
                   >
                     <option value="">Select product type</option>
@@ -199,9 +202,6 @@
                   <div style="color: red" role="alert">
                     {{ errors.first("type_id") }}
                   </div>
-                  <div style="color: red" v-if="errorBackEnd.type_id">
-                    {{ errorBackEnd.type_id[0] }}
-                  </div>
                 </div>
 
                 <div class="form-group">
@@ -209,6 +209,7 @@
                   <select
                     name="descriptionId"
                     v-model="product.description_id"
+                    v-validate="'required'"
                     class="form-control"
                   >
                     <option value="">Select product description</option>
@@ -222,9 +223,6 @@
                   </select>
                   <div style="color: red" role="alert">
                     {{ errors.first("description_id") }}
-                  </div>
-                  <div style="color: red" v-if="errorBackEnd.description_id">
-                    {{ errorBackEnd.description_id[0] }}
                   </div>
                 </div>
 
@@ -276,8 +274,8 @@
                 >
               </th>
               <th scope="col">Status</th>
-              <th scope="col">Type</th>
-              <th scope="col">Description_id</th>
+              <th scope="col">TypeID</th>
+              <th scope="col">DescriptionID</th>
               <th scope="col">Content</th>
 
               <th scope="col" class="text-center">
@@ -311,7 +309,7 @@
 
               <th scope="col" class="text-center">
                 <a href="#" @click.prevent="change_sort('product_sold')"
-                  >Product Sold</a
+                  >Sold</a
                 >
                 <span
                   v-if="
@@ -325,7 +323,6 @@
                 >
               </th>
 
-              <th scope="col">Ware Houses</th>
               <th scope="col" class="text-center">
                 <a href="#" @click.prevent="change_sort('views')">Views</a>
                 <span v-if="sort_direction == 'desc' && sort_field == 'views'"
@@ -386,27 +383,27 @@
               </td>
               <td v-else></td>
               <td>
-                {{ product.type.type }}
+                {{ product.type_id }}
               </td>
               <td>
-                {{ product.description.description }}
+                {{ product.description_id }}
               </td>
               <td>
                 {{ product.content }}
               </td>
               <td>
-                {{ product.quantity }}
+                <a
+                  style="font-size: 16px"
+                  :href="`warehouse/${product.ware_houses_id}/edit`"
+                >
+                  {{ product.quantity }}
+                </a>
               </td>
               <td>
                 {{ product.import_price }}
               </td>
               <td>
                 {{ product.product_sold }}
-              </td>
-              <td>
-                <a style="font-size: 20px" href="warehouse"
-                  ><span class="fa fa-eye"></span
-                ></a>
               </td>
               <td>
                 {{ product.views }}

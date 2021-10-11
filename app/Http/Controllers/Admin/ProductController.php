@@ -71,17 +71,7 @@ class ProductController extends Controller
                 if ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
                 }
-            })->with(['type', 'description', 'warehouse'])
-                ->whereHas('type', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
-                ->whereHas('description', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
-                ->whereHas('warehouse', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
-                ->orderBy($sort_field, $sort_direction)->paginate($paginate);
+            })->with(['type', 'description', 'warehouse'])->orderBy($sort_field, $sort_direction)->paginate($paginate);
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
