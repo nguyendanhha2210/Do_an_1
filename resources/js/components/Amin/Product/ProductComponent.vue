@@ -159,12 +159,14 @@
                     :key="data.id"
                   >
                     <label>{{ data.weight }}kg </label>
-                    <input
-                      type="text"
-                      class="form-control text-center"
-                      :name="'price[' + index + ']'"
-                      v-validate="'required|min:4'"
-                    />
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control text-center"
+                        :name="'price[' + index + ']'"
+                        v-validate="'required|min:4'"
+                      />
+                    </div>
 
                     <input
                       class="form-check-input"
@@ -200,7 +202,7 @@
                     </option>
                   </select>
                   <div style="color: red" role="alert">
-                    {{ errors.first("type_id") }}
+                    {{ errors.first("typeId") }}
                   </div>
                 </div>
 
@@ -222,7 +224,7 @@
                     </option>
                   </select>
                   <div style="color: red" role="alert">
-                    {{ errors.first("description_id") }}
+                    {{ errors.first("descriptionId") }}
                   </div>
                 </div>
 

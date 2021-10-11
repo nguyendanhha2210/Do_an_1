@@ -10,6 +10,7 @@ use App\Models\Profit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -42,12 +43,13 @@ class HomeController extends Controller
             return view('admin.users.login');
         }
         try {
-            $profits = Profit::get();
+            // $profits = Profit::get();
+            $profits = Profit::select('date',DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($profits as $item) {
                 $data[] = [
                     "label" => Carbon::parse($item->date)->format('Y/m/d'),
-                    "value" => $item->profit
+                    "value" => $item->totalProfit,
                 ];
             }
             return response()->json($data, StatusCode::OK);
