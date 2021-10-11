@@ -29,6 +29,8 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/logout', [App\Http\Controllers\Admin\User\AccountController::class, 'logout'])->name('admin.users.logout'); //đăng xuất
     Route::post('/get-dashboard', [App\Http\Controllers\Admin\HomeController::class, 'getDashboard'])->name('admin.home.getDashboard');
 
+    Route::post('/get-map', [App\Http\Controllers\Admin\HomeController::class, 'getMap'])->name('admin.home.getMap');
+
     Route::post('/import-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importTypeCsv'])->name('admin.import.importTypeCsv');
 
 

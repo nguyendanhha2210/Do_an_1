@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-4 col-xs-12">
         <p class="title_thongke">Thống kê</p>
-        <div id="donut"></div>
+        <BarChart v-if="optionChars.length > 0" :data="optionChars" />
       </div>
 
       <div class="col-md-4 col-xs-12 text-center">
@@ -13,7 +13,7 @@
             <a target="_blank" :href="`post`">
               <div
                 style="
-                  width: 84%;
+                  width: 80%;
                   -ms-hyphens: auto;
                   -webkit-hyphens: auto;
                   hyphens: auto;
@@ -94,10 +94,28 @@
 
 <script>
 import Loader from "../../Common/loader.vue";
+import BarChart from "../../Common/BarChar";
 const axios = require("axios").default;
+
+// const data = {
+//   [
+//     date : "2021/12/12",
+//     profit : 15
+//   ],
+//   [
+//     date : "2021/12/13",
+//     profit : 40
+//   ],
+//   [
+//     date : "2021/12/14",
+//     profit : 55
+//   ],
+// }
+
 export default {
   data() {
     return {
+      optionChars: [],
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       flagShowLoader: false,
       posts: [],
@@ -106,10 +124,12 @@ export default {
   },
   created() {
     this.fetchData();
+    this.fetchABC();
   },
   mounted() {},
   components: {
     Loader,
+    BarChart,
   },
   watch: {},
   methods: {
@@ -121,6 +141,32 @@ export default {
         .then(function (response) {
           that.posts = response.data.posts;
           that.products = response.data.products;
+          that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 404:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    fetchABC() {
+      let that = this;
+      this.flagShowLoader = true;
+      axios
+        .post("get-map")
+        .then(function (response) {
+          that.optionChars = response.data;
           that.flagShowLoader = false;
         })
         .catch((err) => {
