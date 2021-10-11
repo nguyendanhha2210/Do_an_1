@@ -33,7 +33,6 @@ import OrderComponent from './components/Amin/Order/OrderComponent.vue'
 import WarehouseComponent from './components/Amin/WareHouse/WareHouseComponent.vue'
 import WarehouseAdd from './components/Amin/WareHouse/WareHouseAdd.vue'
 import WarehouseEdit from './components/Amin/WareHouse/WareHouseEdit.vue'
-// import ProductImage from './components/Amin/Product/ProductImage.vue'
 import CategoryPostAdd from './components/Amin/CategoryPost/CategoryAdd.vue'
 import CategoryPostComponent from './components/Amin/CategoryPost/CategoryComponent.vue'
 import CategoryPostEdit from './components/Amin/CategoryPost/CategoryEdit.vue'
@@ -47,7 +46,6 @@ import AdminComponent from './components/Amin/User/AdminComponent.vue'
 import ImageAdd from './components/Amin/Product/ImageAdd.vue'
 import ImageDetail from './components/Amin/Product/ImageDetail.vue'
 import ImageEdit from './components/Amin/Product/ImagesEdit.vue'
-
 import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
 
 
@@ -92,7 +90,6 @@ new Vue({
         WarehouseComponent,
         WarehouseAdd,
         WarehouseEdit,
-        // ProductImage,
         CategoryPostAdd,
         CategoryPostComponent,
         CategoryPostEdit,
