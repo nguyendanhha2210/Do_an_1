@@ -21,8 +21,6 @@ export default {
     // console.log('arr1', this.labels);
     // console.log('arr2', arr);
     this.values = this.options.map((item) => item.value);
-    console.log('arr1', this.values);
-
     this.colors = this.options[0].color;
   },
   mounted() {

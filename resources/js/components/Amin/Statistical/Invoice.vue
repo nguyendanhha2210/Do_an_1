@@ -2,18 +2,6 @@
   <div class="table-agile-info">
     <div class="row pb-3">
       <div class="col-md-12 col-xs-12">
-        <h3 class="text-center">Profit</h3>
-        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
-      </div>
-    </div>
-    <br />
-    <br />
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <div class="panel-heading">
-          Profit :
-          <b style="color: red"> {{ formatPrice(amount) }}</b>
-        </div>
         <button
           class="btn btn-success"
           style="float: right; margin-top: 10px; margin-left: 15px"
@@ -65,6 +53,20 @@
           </table>
         </form>
         <br />
+      </div>
+      <div class="col-md-12 col-xs-12">
+        <h3 class="text-center">Profit</h3>
+        <AreaChart v-if="chartProfits.length > 0" :data="chartProfits" />
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="panel-heading">
+          Total :
+          <b style="color: red"> {{ formatPrice(amount) }}</b>
+        </div>
         <div class="table-responsive">
           <table class="table table-striped b-t b-light text-center">
             <thead>
@@ -160,7 +162,7 @@
 <script>
 import Loader from "../../Common/loader.vue";
 import Modal from "../../Modal/Modal.vue";
-import BarChart from "../../Common/Chart/BarChart.vue";
+import AreaChart from "../../Common/Chart/AreaChart.vue";
 const axios = require("axios").default;
 
 export default {
@@ -204,14 +206,14 @@ export default {
     };
   },
   created() {
-    this.fetchChart();
+    // this.fetchChart();
     this.fetchProfits();
   },
   mounted() {},
   components: {
     Loader,
     Modal,
-    BarChart,
+    AreaChart,
   },
   watch: {
     paginate: function (value) {
@@ -222,31 +224,31 @@ export default {
     },
   },
   methods: {
-    fetchChart() {
-      let that = this;
-      this.flagShowLoader = true;
-      axios
-        .get(`get-invoice-statistical`)
-        .then(function (response) {
-          that.chartProfits = response.data.data;
-          that.flagShowLoader = false;
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 404:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+    // fetchChart() {
+    //   let that = this;
+    //   this.flagShowLoader = true;
+    //   axios
+    //     .get(`get-invoice-statistical`)
+    //     .then(function (response) {
+    //       that.chartProfits = response.data.data;
+    //       that.flagShowLoader = false;
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 404:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
     fetchProfits() {
       let that = this;
       this.flagShowLoader = true;
@@ -259,6 +261,8 @@ export default {
       axios.post("get-profit-table", formData).then(function (response) {
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
+        that.chartProfits = response.data.chart;
+        console.log("ABC", that.chartProfits);
         that.flagShowLoader = false;
       });
       that.flagShowLoader = false;

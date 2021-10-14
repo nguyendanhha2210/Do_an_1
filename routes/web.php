@@ -41,7 +41,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/get-product-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getProductStatistical'])->name('admin.statistical.getProductStatistical');
 
     Route::get('/rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'ratingStatistical'])->name('admin.statistical.rating');
-    Route::get('/get-rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'get-general-statistical'])->name('admin.statistical.getRatingStatistical');
+    Route::get('/get-rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getRatingStatistical'])->name('admin.statistical.getRatingStatistical');
 
     
     //Post //edit ngay trên trang //add kiểu modal
