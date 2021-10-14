@@ -204,7 +204,7 @@ export default {
     };
   },
   created() {
-    // this.fetchChart();
+    this.fetchChart();
     this.fetchProfits();
   },
   mounted() {},
@@ -222,31 +222,31 @@ export default {
     },
   },
   methods: {
-    // fetchChart() {
-    //   let that = this;
-    //   this.flagShowLoader = true;
-    //   axios
-    //     .get(`get-invoice-statistical`)
-    //     .then(function (response) {
-    //       that.chartProfits = response.data.data;
-    //       that.flagShowLoader = false;
-    //     })
-    //     .catch((err) => {
-    //       switch (err.response.status) {
-    //         case 404:
-    //           that
-    //             .$swal({
-    //               title: "Error loading data !",
-    //               icon: "warning",
-    //               confirmButtonText: "Ok",
-    //             })
-    //             .then(function (confirm) {});
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     });
-    // },
+    fetchChart() {
+      let that = this;
+      this.flagShowLoader = true;
+      axios
+        .get(`get-invoice-statistical`)
+        .then(function (response) {
+          that.chartProfits = response.data.data;
+          that.flagShowLoader = false;
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 404:
+              that
+                .$swal({
+                  title: "Error loading data !",
+                  icon: "warning",
+                  confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
     fetchProfits() {
       let that = this;
       this.flagShowLoader = true;
@@ -259,8 +259,7 @@ export default {
       axios.post("get-profit-table", formData).then(function (response) {
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
-        that.chartProfits = response.data.chart;
-        console.log("ABC", that.chartProfits);
+        // that.chartProfits = response.data.chart;
         that.flagShowLoader = false;
       });
       that.flagShowLoader = false;
