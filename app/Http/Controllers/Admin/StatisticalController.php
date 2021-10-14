@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
+use App\Enums\StatusStar;
 use App\Http\Controllers\Controller;
+use App\Models\Evaluate;
 use App\Models\Product;
 use App\Models\Profit;
 use Carbon\Carbon;
@@ -131,8 +133,51 @@ class StatisticalController extends Controller
                     "color" => "#000066"
                 ];
             }
-
             return response()->json(["dataProductStock" => $dataProductStock, "dataProductView" => $dataProductView, "dataProductSold" => $dataProductSold], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    //Rating
+    public function ratingStatistical()
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        } else {
+            $breadcrumbs = ['Rating Statistical'];
+            return view('admin.statistical.rating', ['breadcrumbs' => $breadcrumbs]);
+        }
+    }
+
+    public function getRatingStatistical()
+    {
+        if (!Auth::guard('admin')->check()) {
+            return view('admin.users.login');
+        }
+        try {
+            $starOne = Evaluate::where('star_vote','=',StatusStar::ONESTAR)->count();
+            $starTwo = Evaluate::where('star_vote','=',StatusStar::TWOSTARS)->count();
+            $starThree= Evaluate::where('star_vote','=',StatusStar::THREESTARS)->count();
+            $starFour = Evaluate::where('star_vote','=',StatusStar::FOURSTARS)->count();
+            $starFive= Evaluate::where('star_vote','=',StatusStar::FIVESTARS)->count();
+
+            $data = [
+                "1 Star" => $starOne,
+                "2 Star" => $starTwo,
+                "3 Star" => $starThree,
+                "4 Star" => $starFour,
+                "5 Star" => $starFive,
+            ];
+
+            foreach ($data as $item => $value) {
+                $dataProduct[] = [
+                    "label" => $item,
+                    "value" => $value,
+                    "color" => "#000066"
+                ];
+            }
+            return response()->json(["rating" => $dataProduct], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }

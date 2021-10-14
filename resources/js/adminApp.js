@@ -49,6 +49,9 @@ import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
 
 import InvoiceStatistical from './components/Amin/Statistical/Invoice.vue'
 import ProductStatistical from './components/Amin/Statistical/Product.vue'
+import RatingStatistical from './components/Amin/Statistical/Rating.vue'
+
+
 
 
 Vue.use(CKEditor);
@@ -106,7 +109,8 @@ new Vue({
         ImageEdit,
         DashBoards,
         InvoiceStatistical,
-        ProductStatistical
+        ProductStatistical,
+        RatingStatistical,
     },
     created() {
         this.$validator.extend("number_phone", {

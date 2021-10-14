@@ -41,9 +41,9 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/get-product-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getProductStatistical'])->name('admin.statistical.getProductStatistical');
 
     Route::get('/rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'ratingStatistical'])->name('admin.statistical.rating');
+    Route::get('/get-rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'get-general-statistical'])->name('admin.statistical.getRatingStatistical');
 
-
-
+    
     //Post //edit ngay trên trang //add kiểu modal
     Route::get('/post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('admin.post.list'); //gọi form list
     Route::post('/get-post', [App\Http\Controllers\Admin\PostController::class, 'getData'])->name('admin.post.getData'); //trả dữ liệu ra form list
