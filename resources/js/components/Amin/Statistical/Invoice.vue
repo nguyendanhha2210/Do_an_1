@@ -2,6 +2,10 @@
   <div class="table-agile-info">
     <div class="row pb-3">
       <div class="col-md-12 col-xs-12">
+        <h3 class="text-center">Profit</h3>
+        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
+      </div>
+      <div class="col-md-12 col-xs-12">
         <button
           class="btn btn-success"
           style="float: right; margin-top: 10px; margin-left: 15px"
@@ -54,13 +58,7 @@
         </form>
         <br />
       </div>
-      <div class="col-md-12 col-xs-12">
-        <h3 class="text-center">Profit</h3>
-        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
-      </div>
     </div>
-    <br />
-    <br />
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div class="panel-heading">
