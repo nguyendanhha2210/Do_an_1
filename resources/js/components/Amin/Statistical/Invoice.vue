@@ -56,7 +56,7 @@
       </div>
       <div class="col-md-12 col-xs-12">
         <h3 class="text-center">Profit</h3>
-        <AreaChart v-if="chartProfits.length > 0" :data="chartProfits" />
+        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
       </div>
     </div>
     <br />
@@ -162,7 +162,7 @@
 <script>
 import Loader from "../../Common/loader.vue";
 import Modal from "../../Modal/Modal.vue";
-import AreaChart from "../../Common/Chart/AreaChart.vue";
+import BarChart from "../../Common/Chart/BarChart.vue";
 const axios = require("axios").default;
 
 export default {
@@ -213,7 +213,7 @@ export default {
   components: {
     Loader,
     Modal,
-    AreaChart,
+    BarChart,
   },
   watch: {
     paginate: function (value) {

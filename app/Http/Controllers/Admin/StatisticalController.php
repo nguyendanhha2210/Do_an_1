@@ -56,7 +56,6 @@ class StatisticalController extends Controller
         }
 
         if (empty($request->keyword) && empty($request->time1) && empty($request->time2)) {
-
             $charts = Profit::select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
