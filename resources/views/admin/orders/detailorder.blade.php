@@ -282,7 +282,7 @@
                         <tr>
                             <th>STT</th>
                             <th>Tên sản phẩm</th>
-                            <th>Số lượng kho còn</th>
+                            {{-- <th>Số lượng kho còn</th> --}}
                             <th>Mã giảm giá</th>
                             <th>Phí ship hàng</th>
                             <th>Khối lượng đặt </th>
@@ -307,7 +307,7 @@
 
                                 <td><i>{{ $i }}</i></td>
                                 <td>{{ $details->product_name }}</td>
-                                <td>{{ $details->product->quantity }}kg</td>
+                                {{-- <td>{{ $details->product->quantity }}kg</td> --}}
                                 <td>
                                     @if ($details->product_coupon != 'no')
                                         {{ $details->product_coupon }}

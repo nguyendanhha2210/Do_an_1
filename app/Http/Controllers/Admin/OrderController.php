@@ -101,7 +101,6 @@ class OrderController extends Controller
     {
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->printOrderConvert($checkout_code));
-
         return $pdf->stream();
     }
 
@@ -296,10 +295,12 @@ class OrderController extends Controller
         if ($order->order_status == 2) {
             foreach ($data['order_product_id'] as $key => $id) {
                 $product = Product::findOrFail($id);
-                $warehouse = WareHouse::where('id', $product->ware_houses_id)->first();
-                $warehouseQuantity = $warehouse->inventory;
                 $product_quantity = $product->quantity;
                 $product_sold = $product->product_sold;
+
+                $warehouse = WareHouse::where('id', $product->ware_houses_id)->first();
+                $warehouseQuantity = $warehouse->inventory;
+
                 foreach ($data['order_weight'] as $key1 => $weight) {
                     foreach ($data['quantity'] as $key2 => $qty) {
                         if ($key == $key1 && $key == $key2) {

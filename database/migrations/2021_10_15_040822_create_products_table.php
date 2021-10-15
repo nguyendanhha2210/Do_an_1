@@ -22,9 +22,9 @@ class CreateProductsTable extends Migration
             $table->integer('description_id')->nullable();
             $table->text('content');
             $table->integer('status');
-            $table->integer('quantity');
+            $table->double('quantity');
             $table->string('import_price');
-            $table->integer('product_sold');
+            $table->double('product_sold');
             $table->integer('ware_houses_id');
             $table->double('star_vote')->nullable();
             $table->integer('views');

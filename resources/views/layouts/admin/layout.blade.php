@@ -104,7 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 quantity.push($(this).val());
             });
 
-            order_weight=[];
+            order_weight = [];
             $("input[name='order_weight']").each(function() {
                 order_weight.push($(this).val());
             });
@@ -133,7 +133,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-
 </body>
-
 </html>

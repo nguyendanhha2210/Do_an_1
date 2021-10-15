@@ -16,8 +16,8 @@ class CreateProfitsTable extends Migration
         Schema::create('profits', function (Blueprint $table) {
             $table->increments('id');
             $table->string('order_code');
-            $table->string('revenue');
-            $table->string('cost');
+            $table->double('revenue');
+            $table->double('cost');
             $table->double('profit');
             $table->datetime('date');
             $table->timestamps();
