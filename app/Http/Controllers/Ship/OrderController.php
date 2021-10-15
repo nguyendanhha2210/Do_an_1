@@ -78,7 +78,7 @@ class OrderController extends Controller
                 foreach ($orderDetail as $key => $item) {
                     foreach ($product as $value => $que) {
                         if ($item['product_id'] == $que['id']) {
-                            $intoMoney = $que['import_price'] * $item['product_sales_quantity'];
+                            $intoMoney = $que['import_price'] * $item['product_sales_quantity'] * $item['order_weight'];
                             $cost += $intoMoney;
                         }
                     }
