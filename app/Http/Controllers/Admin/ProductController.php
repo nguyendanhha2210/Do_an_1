@@ -124,6 +124,16 @@ class ProductController extends Controller
             $inputWeights = $request->weight;
             $inputPrices = $request->price;
 
+            $data = [];
+            foreach($inputWeights as $key => $weight){
+                $data[] = [
+                    "weight" => $weight,
+                    "price" => $inputPrices[$key]
+                ];
+            }
+
+            dd($data);
+
             $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
             if (!empty($compareWeights)) {
                 foreach ($compareWeights as $key => $weight) {

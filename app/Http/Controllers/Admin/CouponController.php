@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CouponController extends Controller
 {
@@ -119,7 +120,7 @@ class CouponController extends Controller
     public function couponShow(Request $request)
     {
         try {
-            $countCustomer = User::where('role_id','=',RoleStateType::SALER)->count();
+            $countCustomer = User::where('role_id', '=', RoleStateType::SALER)->count();
             $coupon = new coupon();
             $coupon->name = $request->name;
             $coupon->time = $countCustomer;
@@ -149,7 +150,6 @@ class CouponController extends Controller
 
     public function update(CouponRequest $request, $id)
     {
-        // Log::info($request->all());
         try {
             $coupon = Coupon::find($id);
             $coupon->name = $request->name;
@@ -239,8 +239,8 @@ class CouponController extends Controller
 
     public function viewCustomer($id)
     {
-        $customers = User::where('role_id', '=',RoleStateType::SALER)->get();
-        
+        $customers = User::where('role_id', '=', RoleStateType::SALER)->get();
+
         $coupon = Coupon::where('id', $id)->first();
         $qualityCoupon = $coupon->time;
 

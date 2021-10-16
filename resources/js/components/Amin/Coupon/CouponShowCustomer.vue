@@ -87,7 +87,7 @@
                   v-model="data.start_date"
                   type="datetime"
                   class="w100"
-                  style="width:180px"
+                  style="width: 180px"
                   :lang="lang"
                 ></date-picker>
 
@@ -103,7 +103,7 @@
                   v-model="data.end_date"
                   type="datetime"
                   class="w100 pl-2"
-                  style="width:189px"
+                  style="width: 189px"
                   :lang="lang"
                 ></date-picker>
 
@@ -137,7 +137,7 @@
 import Modal from "../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
-import moment from 'moment-timezone'
+import moment from "moment-timezone";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import "vue2-datepicker/locale/en";
@@ -163,7 +163,7 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
-      lang: 'en',
+      lang: "en",
     };
   },
   created() {
@@ -202,11 +202,28 @@ export default {
     },
 
     addCoupon() {
-      let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
+          let that = this;
+          let formData = new FormData();
+          formData.append("name", this.data.name);
+          formData.append("condition", this.data.condition);
+          formData.append("number", this.data.number);
+          formData.append("code", this.data.code);
+          formData.append(
+            "start_date",
+            moment(this.data.start_date)
+              .tz("Asia/Ho_Chi_Minh")
+              .format("YYYY-MM-DD HH:mm:ss")
+          );
+          formData.append(
+            "end_date",
+            moment(this.data.end_date)
+              .tz("Asia/Ho_Chi_Minh")
+              .format("YYYY-MM-DD HH:mm:ss")
+          );
           axios
-            .post("coupon-show", this.data)
+            .post("coupon-show", formData)
             .then((response) => {
               (this.type = "success"),
                 (this.title = "Saved"),

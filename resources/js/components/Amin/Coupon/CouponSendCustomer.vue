@@ -105,7 +105,7 @@
                   v-model="data.start_date"
                   type="datetime"
                   class="w100"
-                  style="width:180px"
+                  style="width: 180px"
                   :lang="lang"
                 ></date-picker>
 
@@ -121,7 +121,7 @@
                   v-model="data.end_date"
                   type="datetime"
                   class="w100 pl-2"
-                  style="width:189px"
+                  style="width: 189px"
                   :lang="lang"
                 ></date-picker>
 
@@ -155,7 +155,7 @@
 import Modal from "../../Modal/Modal.vue";
 import Vue from "vue";
 import axios from "axios";
-import moment from 'moment-timezone'
+import moment from "moment-timezone";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import "vue2-datepicker/locale/en";
@@ -182,7 +182,7 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
-      lang: 'en',
+      lang: "en",
     };
   },
   created() {
@@ -224,27 +224,45 @@ export default {
     },
 
     addCoupon() {
-      let that = this;
       this.$validator.validateAll().then((valid) => {
         if (valid) {
+          let that = this;
+          let formData = new FormData();
+          formData.append("name", this.data.name);
+          formData.append("time", this.data.time);
+          formData.append("condition", this.data.condition);
+          formData.append("number", this.data.number);
+          formData.append("code", this.data.code);
+          formData.append(
+            "start_date",
+            moment(this.data.start_date)
+              .tz("Asia/Ho_Chi_Minh")
+              .format("YYYY-MM-DD HH:mm:ss")
+          );
+          formData.append(
+            "end_date",
+            moment(this.data.end_date)
+              .tz("Asia/Ho_Chi_Minh")
+              .format("YYYY-MM-DD HH:mm:ss")
+          );
           axios
-            .post("coupon-send", this.data)
+            .post("coupon-send", formData)
             .then((response) => {
-              (this.type = "success"),
-                (this.title = "Saved"),
-                (this.text = "Do you want to continue ?"),
-                (this.confirm = "Yes !"),
-                (this.cancle = "Back to List !"),
-                (this.urlConfirm = ""),
-                (this.urlCancle = response.data), //lấy url từ respon->json() bên controller
-                (this.modalShow = true); //gọi modal thêm thành công ra
-              this.data.name = "";
-              this.data.time = "";
-              this.data.condition = "";
-              this.data.number = "";
-              this.data.code = "";
-              this.data.start_date = "";
-              this.data.end_date = "";
+              (that.type = "success"),
+                (that.title = "Saved"),
+                (that.text = "Do you want to continue ?"),
+                (that.confirm = "Yes !"),
+                (that.cancle = "Back to List !"),
+                (that.urlConfirm = ""),
+                (that.urlCancle = response.data), //lấy url từ respon->json() bên controller
+                (that.modalShow = true); //gọi modal thêm thành công ra
+              that.data.name = "";
+              that.data.time = "";
+              that.data.condition = "";
+              that.data.number = "";
+              that.data.code = "";
+              that.data.start_date = "";
+              that.data.end_date = "";
             })
             .catch((err) => {
               switch (err.response.status) {

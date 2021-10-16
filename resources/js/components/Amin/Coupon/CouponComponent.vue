@@ -10,12 +10,27 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-6 col-sm-7 col-3 float-left" style="transform: translate(0%, -18%);">
-          <a class="btn btn-success btn-sm" :href="addSend">Add for Send Mail</a>
-          <a class="btn btn-success btn-sm" style="background-color:#008080;"  :href="addShow">Add to Show for Customer</a>
+        <div
+          class="col-md-6 col-sm-7 col-3 float-left"
+          style="transform: translate(0%, -18%)"
+        >
+          <a class="btn btn-success btn-sm" :href="addSend"
+            >Add for Send Mail</a
+          >
+          <a
+            class="btn btn-success btn-sm"
+            style="background-color: #008080"
+            :href="addShow"
+            >Add to Show for Customer</a
+          >
         </div>
         <div class="col-md-3 col-sm-3 col-5" style="float: right">
-          <input type="text" class="form-control" placeholder="Search with name" v-model="search" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search with name"
+            v-model="search"
+          />
         </div>
       </div>
 
@@ -115,12 +130,8 @@
                 </span>
               </td>
 
-              <td v-if="data.condition == 1"> 
-                -{{ data.number }} %
-              </td>
-              <td v-else> 
-              -{{formatPrice(data.number)}} vnđ
-              </td>
+              <td v-if="data.condition == 1">-{{ data.number }} %</td>
+              <td v-else>-{{ formatPrice(data.number) }} vnđ</td>
 
               <td>
                 {{ data.code }}
@@ -139,7 +150,13 @@
               </td>
               <td>
                 <div class="td-action">
-                <a v-if="data.status == 0 && data.time > 0 && data.statusSendShow == 2">
+                  <a
+                    v-if="
+                      data.status == 0 &&
+                      data.time > 0 &&
+                      data.statusSendShow == 2
+                    "
+                  >
                     <i
                       @click="viewCustomer(data.id)"
                       class="fa fa-user text-dark text-active"
@@ -147,7 +164,13 @@
                     ></i
                   ></a>
 
-                  <a v-if="data.status == 0 && data.time > 0 && data.statusSendShow == 1">
+                  <a
+                    v-if="
+                      data.status == 0 &&
+                      data.time > 0 &&
+                      data.statusSendShow == 1
+                    "
+                  >
                     <i
                       @click="sendCustomer(data.id)"
                       class="fa fa-paper-plane text-success text-active"
@@ -266,7 +289,7 @@ export default {
       this.fetchData();
     },
   },
-  props: ["addSend",'addShow', "today"],
+  props: ["addSend", "addShow", "today"],
   mounted() {},
   components: {
     Modal,

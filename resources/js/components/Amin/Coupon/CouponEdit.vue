@@ -197,8 +197,8 @@ export default {
       formData.append("condition", this.nameCondition);
       formData.append("number", this.nameNumber);
       formData.append("code", this.nameCode);
-      formData.append("start_date", moment(this.nameStartDate).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss'));
-      formData.append("end_date", moment(this.nameEndDate).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss'));
+      formData.append("start_date", moment(this.nameStartDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss'));
+      formData.append("end_date", moment(this.nameEndDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss'));
       this.$validator.validateAll().then((valid) => {
         if (valid) {
           axios
