@@ -108,31 +108,38 @@
               <div class="row">
                 <div
                   class="col-lg-8 col-md-6 col-sm-6"
-                  v-if="couponStore.condition == 1"
+                  v-if="couponStore.coupon.condition == 1"
                 >
-                  <b>{{ couponStore.number }}% off Order</b><br />
+                  <b>{{ couponStore.coupon.number }}% off Order</b><br />
                   <i style="font-size: 14px"
-                    >HSD : {{ couponStore.end_date | formatDateCoupon }}</i
+                    >HSD :
+                    {{ couponStore.coupon.end_date | formatDateCoupon }}</i
                   >
                 </div>
                 <div class="col-lg-8 col-md-6 col-sm-6" v-else>
-                  <b> {{ formatPrice(couponStore.number) }}đ off Order</b><br />
+                  <b> {{ formatPrice(couponStore.coupon.number) }}đ off Order</b
+                  ><br />
                   <i style="font-size: 14px"
-                    >HSD : {{ couponStore.end_date | formatDateCoupon }}</i
+                    >HSD :
+                    {{ couponStore.coupon.end_date | formatDateCoupon }}</i
                   >
                 </div>
                 <div
                   class="col-lg-4 col-md-6 col-sm-6 text-center"
                   style="display: flex; align-items: center"
-                 
                 >
                   <button
+                    v-if="couponStore.statusUse == 3"
+                    type="submit"
+                    class="btn btn-success"
+                  >
+                    Save
+                  </button>
+                  <button
+                    v-if="couponStore.statusUse == 4"
                     class="btn btn-info"
                   >
                     Use
-                  </button>
-                  <button type="submit" class="btn btn-success">
-                    Save
                   </button>
                 </div>
               </div>
@@ -207,12 +214,11 @@ export default {
 
       couponStores: [],
       couponStore: {
-        id: "",
-        name: "",
-        condition: "",
-        number: "",
-        start_date: "",
-        end_date: "",
+        user_id: "",
+        coupon_id: "",
+        coupon_name: "",
+        coupon_time: "",
+        statusUse: "",
       },
 
       couponUsers: [],
@@ -272,6 +278,7 @@ export default {
         .get(`/get-coupon-store`)
         .then(function (response) {
           that.couponStores = response.data.couponStores; //show data ra
+          console.log(that.couponStores[0].coupon.name);
         })
         .catch((err) => {
           switch (err.response.status) {

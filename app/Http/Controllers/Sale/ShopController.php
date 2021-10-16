@@ -990,13 +990,26 @@ class ShopController extends Controller
     //Show coupon shop
     public function getCouponStore()
     {
+        // try {
+        //     date_default_timezone_set('Asia/Ho_Chi_Minh');
+        //     $couponStores =  Coupon::Where('status', '=', 0)->where('time', '>', 0)
+        //         ->whereDate('start_date', '<=', now())
+        //         ->whereDate('end_date', '>=', now())
+        //         ->orderBy('created_at', 'desc')->get();
+
+        //     return response()->json(["couponStores" => $couponStores], StatusCode::OK);
+        // } catch (\Exception $e) {
+        //     return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        // }
+
         try {
             date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $couponStores =  Coupon::Where('status', '=', 0)->where('time', '>', 0)
-                ->whereDate('start_date', '<=', now())
-                ->whereDate('end_date', '>=', now())
-                ->orderBy('created_at', 'desc')->get();
-
+            $idUser = Auth::guard('sales')->id();
+            $couponStores =  UserCoupon::Where('user_id', '=', $idUser)->where('coupon_time', '>', 0)
+                ->with('coupon', function ($query) {
+                    $query->whereDate('start_date', '<=', now());
+                    $query->whereDate('end_date', '>=', now());
+                })->orderBy('created_at', 'desc')->get();
             return response()->json(["couponStores" => $couponStores], StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
