@@ -125,20 +125,11 @@ class ProductController extends Controller
             $inputPrices = $request->price;
 
             $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
-            // $arrays = [];
-            // foreach($compareWeights as $object)
-            // {
-            //     $arrays.array_push($object);
-            // }
-            // dd($arrays);
-
             if (!empty($compareWeights)) {
-                // foreach ($compareWeights as $key => $weight) {
-                //     $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
-                //     $deleteWeightProduct = WeightProduct::find($result->id);
-                //     $deleteWeightProduct->delete();
-                // }
-                $abc = WeightProduct::where('product_id', $request->productId)->WhereIn('weight', $compareWeights)->delete();
+                foreach ($compareWeights as $key => $weight) {
+                    $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
+                    $result->delete();
+                }
             }
 
             $insertPrices =  array_diff($inputPrices, $existPrices);
@@ -184,7 +175,6 @@ class ProductController extends Controller
                     }
                 }
             }
-
             DB::commit();
             return Redirect::back();
         } catch (\Exception $e) {

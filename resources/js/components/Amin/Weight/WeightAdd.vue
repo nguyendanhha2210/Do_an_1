@@ -15,20 +15,17 @@
             >
               <input type="hidden" :value="csrfToken" name="_token" />
               <div class="form-group">
-                <label for="exampleInputEmail1">Weight (đơn vị : kg)</label>
+                <label for="exampleInputEmail1">Weight (vd : 0.3, 0.5, 1, 2) (đơn vị : kg)</label>
                 <input
                   type="text"
                   name="weight"
                   style="width: 20%"
                   class="form-control"
-                  v-validate="'required'"
+                  v-validate="'required|between:0,999.99'"
                   v-model="weight.weight"
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("weight") }}
-                </div>
-                <div style="color: red" v-if="errorBackEnd.weight">
-                  {{ errorBackEnd.weight[0] }}
                 </div>
               </div>
               <button type="submit" class="btn btn-info">Add</button>
@@ -51,7 +48,8 @@ export default {
     let messError = {
       custom: {
         weight: {
-          required: "* Tên chưa nhập",
+          required: "* Khối lượng chưa nhập",
+          between: "* Khối lượng sai định dạng",
         },
       },
     };
@@ -63,7 +61,6 @@ export default {
       weight: {
         weight: "",
       },
-      errorBackEnd: {}, //Lỗi bên backend laravel
       flagShowLoader: false,
     };
   },
