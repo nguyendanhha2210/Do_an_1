@@ -25,28 +25,43 @@
                 </li>
 
                 <li class="sub-menu">
-                    <a href="{{ route('admin.replyComment.list') }}">
+                    <a href="{{ route('admin.warehouse.list') }}">
                         <i class="fa fa-book"></i>
-                        <span>Reply Comment</span>
+                        <span>Warehouse</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="{{ route('admin.warehouse.list') }}">
+                    <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Warehouse</span>
+                        <span>Products</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ route('admin.product.list') }}">Product Detail</a></li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Product Option</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ route('admin.description.list') }}">Descriptions</a></li>
+                                <li><a href="{{ route('admin.weight.list') }}">Weights</a></li>
+                                <li><a href="{{ route('admin.type.list') }}">Types</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="{{ route('admin.replyComment.list') }}">
+                        <i class="fa fa-book"></i>
+                        <span>Reply Comment</span>
                     </a>
                 </li>
                 <li class="sub-menu">
                     <a href="{{ route('admin.order.list') }}">
                         <i class="fa fa-book"></i>
                         <span>Orders</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="{{ route('admin.product.list') }}">
-                        <i class="fa fa-book"></i>
-                        <span>Products</span>
                     </a>
                 </li>
                 <li class="sub-menu">
@@ -79,17 +94,7 @@
                     </ul>
                 </li>
 
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Product Option</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{ route('admin.description.list') }}">Descriptions</a></li>
-                        <li><a href="{{ route('admin.weight.list') }}">Weights</a></li>
-                        <li><a href="{{ route('admin.type.list') }}">Types</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
         <!-- sidebar menu end-->
