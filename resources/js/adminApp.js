@@ -27,7 +27,8 @@ import SuccessEmail from './components/Amin/User/Password/SuccessMail.vue'
 import ChangePassword from './components/Amin/User/Password/Change.vue'
 import SuccessChange from './components/Amin/User/Password/Success.vue'
 import CouponComponent from './components/Amin/Coupon/CouponComponent.vue'
-import CouponAdd from './components/Amin/Coupon/CouponAdd.vue'
+import CouponSend from './components/Amin/Coupon/CouponSendCustomer.vue'
+import CouponShow from './components/Amin/Coupon/CouponShowCustomer.vue'
 import CouponEdit from './components/Amin/Coupon/CouponEdit.vue'
 import OrderComponent from './components/Amin/Order/OrderComponent.vue'
 import WarehouseComponent from './components/Amin/WareHouse/WareHouseComponent.vue'
@@ -50,8 +51,6 @@ import DashBoards from './components/Amin/Dashboard/DashBoard.vue'
 import InvoiceStatistical from './components/Amin/Statistical/Invoice.vue'
 import ProductStatistical from './components/Amin/Statistical/Product.vue'
 import RatingStatistical from './components/Amin/Statistical/Rating.vue'
-
-
 
 
 Vue.use(CKEditor);
@@ -89,7 +88,8 @@ new Vue({
         ChangePassword,
         SuccessChange,
         CouponComponent,
-        CouponAdd,
+        CouponSend,
+        CouponShow,
         CouponEdit,
         OrderComponent,
         WarehouseComponent,

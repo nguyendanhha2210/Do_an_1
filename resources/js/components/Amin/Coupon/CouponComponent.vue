@@ -10,11 +10,12 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-4 col-sm-7 col-3" style="float: left">
-          <a class="btn btn-success btn-sm" :href="formAdd">Add New</a>
+        <div class="col-md-6 col-sm-7 col-3 float-left" style="transform: translate(0%, -18%);">
+          <a class="btn btn-success btn-sm" :href="addSend">Add for Send Mail</a>
+          <a class="btn btn-success btn-sm" style="background-color:#008080;"  :href="addShow">Add to Show for Customer</a>
         </div>
-        <div class="col-md-5 col-sm-3 col-5" style="float: right">
-          <input type="text" class="form-control" v-model="search" />
+        <div class="col-md-3 col-sm-3 col-5" style="float: right">
+          <input type="text" class="form-control" placeholder="Search with name" v-model="search" />
         </div>
       </div>
 
@@ -33,7 +34,6 @@
                   >&darr;</span
                 >
               </th>
-              <th>Category</th>
               <th>Status</th>
               <th>Decrease</th>
               <th>Code</th>
@@ -78,9 +78,6 @@
               <td v-else>
                 <b style="color: red">Hết !</b>
               </td>
-              <td v-if="data.condition == 1">Giảm %</td>
-              <td v-else>Giảm $</td>
-
               <td>
                 <span class="text-ellipsis">
                   <a
@@ -118,9 +115,13 @@
                 </span>
               </td>
 
-              <td>
-                {{ data.number }}
+              <td v-if="data.condition == 1"> 
+                -{{ data.number }} %
               </td>
+              <td v-else> 
+              -{{formatPrice(data.number)}} vnđ
+              </td>
+
               <td>
                 {{ data.code }}
               </td>
@@ -138,7 +139,15 @@
               </td>
               <td>
                 <div class="td-action">
-                  <a v-if="data.status == 0 && data.time > 0">
+                <a v-if="data.status == 0 && data.time > 0 && data.statusSendShow == 2">
+                    <i
+                      @click="viewCustomer(data.id)"
+                      class="fa fa-user text-dark text-active"
+                      style="font-size: 21px; transform: translate(-54%, -9%)"
+                    ></i
+                  ></a>
+
+                  <a v-if="data.status == 0 && data.time > 0 && data.statusSendShow == 1">
                     <i
                       @click="sendCustomer(data.id)"
                       class="fa fa-paper-plane text-success text-active"
@@ -150,7 +159,7 @@
                   <a :href="`coupon/${data.id}/edit`">
                     <i
                       style="font-size: 21px"
-                      class="fa fa-pencil-square-o text-success text-active"
+                      class="fa fa-pencil-square-o text-primary text-active"
                     ></i
                   ></a>
                 </div>
@@ -257,7 +266,7 @@ export default {
       this.fetchData();
     },
   },
-  props: ["formAdd", "today"],
+  props: ["addSend",'addShow', "today"],
   mounted() {},
   components: {
     Modal,
@@ -304,7 +313,38 @@ export default {
         }
       });
     },
-
+    viewCustomer(id) {
+      let that = this;
+      this.$swal({
+        title: "Do you want to show coupons to all customers ？",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .get(`coupon/${id}/view-customer`)
+            .then((response) => {
+              this.$swal({
+                title: "Show Successfully!",
+                icon: "success",
+                confirmButtonText: "OK!",
+              }).then(function (confirm) {});
+              that.fetchData();
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Show Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
+    },
     activeStatus(data) {
       let that = this;
       let formData = new FormData();
@@ -369,7 +409,6 @@ export default {
           }
         });
     },
-
     prev() {
       if (this.coupons.prev_page_url) {
         this.page--;
@@ -382,12 +421,10 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     deleteCoupon(id) {
       let that = this;
       this.$swal({
@@ -419,6 +456,10 @@ export default {
             });
         }
       });
+    },
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };

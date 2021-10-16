@@ -10,7 +10,7 @@ class UserCoupon extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
-        'id', 'user_id', 'coupon_id', 'coupon_name', 'coupon_time'
+        'id', 'user_id', 'coupon_id', 'coupon_name', 'coupon_time','statusUse'
     ];
 
     public function user()

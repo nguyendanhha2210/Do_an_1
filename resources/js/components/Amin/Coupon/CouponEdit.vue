@@ -17,27 +17,25 @@
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("nameName") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.name">
                   {{ errorBackEnd.name[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
-                <label for="exampleInputEmail1">New Time</label>
+
+                <label for="exampleInputEmail1" v-if="statusSendShow == 1">New Time</label>
                 <input
                   type="text"
                   name="nameTime"
                   class="form-control"
                   v-validate="'required'"
                   v-model="nameTime"
+                  v-if="statusSendShow == 1"
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("nameTime") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.time">
                   {{ errorBackEnd.time[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
                 <label for="exampleInputEmail1">New Condition</label>
 
@@ -54,11 +52,9 @@
 
                 <div style="color: red" role="alert">
                   {{ errors.first("nameCondition") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.condition">
                   {{ errorBackEnd.condition[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
                 <label for="exampleInputEmail1">New Number</label>
 
@@ -71,11 +67,9 @@
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("nameNumber") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.number">
                   {{ errorBackEnd.number[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
                 <label for="exampleInputEmail1">New Code</label>
 
@@ -88,18 +82,17 @@
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("nameCode") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.code">
                   {{ errorBackEnd.code[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
 
                 <label for="exampleInputEmail1">Start Time </label>
                 <date-picker
                   v-model="nameStartDate"
                   type="datetime"
-                  class="w100 mr-4"
+                  class="w100"
+                  style="width:180px"
                   name="nameStartDate"
                   :lang="lang"
                 ></date-picker>
@@ -109,14 +102,14 @@
                 </div>
                 <div style="color: red" v-if="errorBackEnd.end_date">
                   {{ errorBackEnd.end_date[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
 
                 <label for="exampleInputEmail1">End Time </label>
                 <date-picker
                   v-model="nameEndDate"
                   type="datetime"
-                  class="w100 mr-4"
+                  class="w100 pl-2"
+                  style="width:189px"
                   name="nameEndDate"
                   :lang="lang"
                 ></date-picker>
@@ -126,7 +119,6 @@
                 </div>
                 <div style="color: red" v-if="errorBackEnd.end_date">
                   {{ errorBackEnd.end_date[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
               </div>
               <button type="submit" class="btn btn-info">Save</button>
@@ -143,7 +135,7 @@ import moment from 'moment-timezone'
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import "vue2-datepicker/locale/en";
-import 'vue2-datepicker/locale/zh-cn';
+// import 'vue2-datepicker/locale/zh-cn';
 import Vue from "vue";
 import axios from "axios";
 
@@ -185,6 +177,7 @@ export default {
       nameCondition: this.coupon.condition,
       nameNumber: this.coupon.number,
       nameCode: this.coupon.code,
+      statusSendShow: this.coupon.statusSendShow,
       nameStartDate: new Date(this.coupon.start_date),
       nameEndDate: new Date(this.coupon.end_date),
       errorBackEnd: {}, //Lỗi bên backend laravel
@@ -197,7 +190,6 @@ export default {
   },
   methods: {
     editCoupon: function () {
-      // console.log(this.nameStartDate);
       let that = this;
       let formData = new FormData();
       formData.append("name", this.nameName);

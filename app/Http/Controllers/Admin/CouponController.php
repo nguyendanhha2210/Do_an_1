@@ -7,6 +7,7 @@ use App\Enums\OrderStatus;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
+use App\Enums\StatusCoupon;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CouponRequest;
 use App\Models\Coupon;
@@ -79,14 +80,21 @@ class CouponController extends Controller
         }
     }
 
-    public function create()
+    public function addForSendMail()
     {
-        $breadcrumbs = ['Add New Coupon'];
+        $breadcrumbs = ['Add For Send Mail'];
         $goBack = '/admin/coupon';
-        return view('admin.coupons.add', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
+        return view('admin.coupons.sendCustomer', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
     }
 
-    public function store(CouponRequest $request)
+    public function addForShowCustomer()
+    {
+        $breadcrumbs = ['Add to Show for Customer'];
+        $goBack = '/admin/coupon';
+        return view('admin.coupons.showCustomer', ['breadcrumbs' => $breadcrumbs, 'goBack' => $goBack]);
+    }
+
+    public function couponSend(CouponRequest $request)
     {
         try {
             $coupon = new coupon();
@@ -96,6 +104,30 @@ class CouponController extends Controller
             $coupon->status = StatusSale::DOWN;
             $coupon->number = $request->number;
             $coupon->code = $request->code;
+            $coupon->statusSendShow = StatusCoupon::SEND;
+            $coupon->start_date = date("Y-m-d H:i:s", strtotime($request->start_date));
+            $coupon->end_date = date("Y-m-d H:i:s", strtotime($request->end_date));
+            $flag = $coupon->save();
+            if ($flag) {
+                return response()->json(route('admin.coupon.list'), StatusCode::OK);  //Lưu thành công gọi ra đg dẫn về list
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    public function couponShow(Request $request)
+    {
+        try {
+            $countCustomer = User::where('role_id','=',RoleStateType::SALER)->count();
+            $coupon = new coupon();
+            $coupon->name = $request->name;
+            $coupon->time = $countCustomer;
+            $coupon->condition = $request->condition;
+            $coupon->status = StatusSale::DOWN;
+            $coupon->number = $request->number;
+            $coupon->code = $request->code;
+            $coupon->statusSendShow = StatusCoupon::SHOW;
             $coupon->start_date = date("Y-m-d H:i:s", strtotime($request->start_date));
             $coupon->end_date = date("Y-m-d H:i:s", strtotime($request->end_date));
             $flag = $coupon->save();
@@ -203,5 +235,38 @@ class CouponController extends Controller
         } else {
             return redirect()->back()->with('message', 'Gửi mã khuyến mãi khách hàng thất bại !');
         }
+    }
+
+    public function viewCustomer($id)
+    {
+        $customers = User::where('role_id', '=',RoleStateType::SALER)->get();
+        
+        $coupon = Coupon::where('id', $id)->first();
+        $qualityCoupon = $coupon->time;
+
+        //Xét dk để chia số vẽ có trong cửa hàng cho số người lấy ở trên
+        $dataId = [];
+        foreach ($customers as $key => $normal) {
+            for ($i = 0; $i < $qualityCoupon; $i++) {
+                if ($i == $key) {
+                    $dataId[] = $normal->id;
+                }
+            }
+        }
+
+        foreach ($dataId as $usc) {
+            $userCoupons = new UserCoupon();
+            $userCoupons->user_id = $usc;
+            $userCoupons->coupon_id = $coupon->id;
+            $userCoupons->coupon_name = $coupon->name;
+            $userCoupons->coupon_time = 1;
+            $userCoupons->statusUse = StatusCoupon::UNSAVED;
+            $userCoupons->save();
+        }
+
+        //Update trạng thái thành đã gửi
+        $couponStatus = Coupon::where('id', $id)->first();
+        $couponStatus->status = StatusSale::SENT;
+        $couponStatus->save();
     }
 }
