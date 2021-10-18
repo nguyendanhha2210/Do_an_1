@@ -107,7 +107,7 @@ class ProductController extends Controller
             }
             $product->type_id = $request->typeId;
             $product->description_id = $request->descriptionId;
-            $product->content = "hadjkadsa";
+            $product->content = $request->content;
             $product->status = StatusSale::DOWN;
             //Tìm min price nhập để lưu cho giá bán show cho khách hàng
             $minPrice = $request->price[0];
@@ -120,7 +120,6 @@ class ProductController extends Controller
             $product->save();
 
             $existWeights = WeightProduct::where('product_id', $request->productId)->pluck('weight')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
-            $existPrices = WeightProduct::where('product_id', $request->productId)->pluck('price')->toArray();  //Lấy ra tất cả các khổi lượng theo product id thành 1 mảng
             $inputWeights = $request->weight;
             $inputPrices = $request->price;
 
@@ -132,7 +131,7 @@ class ProductController extends Controller
                 ];
             }
 
-            $weightProducts = WeightProduct::where('product_id', $request->productId)->orderBy('weight', 'ASC')->get();
+            $weightProducts = WeightProduct::where('product_id', $request->productId)->get();
             $dataExit = [];
             foreach ($weightProducts as $key => $weightProduct) {
                 $dataExit[] = [
@@ -141,6 +140,13 @@ class ProductController extends Controller
                 ];
             }
 
+            $deleteWeights =  array_diff($existWeights, $inputWeights);
+            if (!empty($deleteWeights)) {
+                foreach ($deleteWeights as $key => $weight) {
+                    $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
+                    $result->delete();
+                }
+            }
 
             $insertWeights =  array_diff($inputWeights, $existWeights);
             if (!empty($insertWeights)) {
@@ -158,99 +164,19 @@ class ProductController extends Controller
                     }
                 }
                 WeightProduct::insert($insertDataList);
-            } else {
-                foreach ($dataInput as $input => $item) {
-                    foreach ($dataExit as $key => $value) {
-                        if ($input == $key) {
-                            if ($item["price"] != $value["price"]) {
-                                dd($item["weight"], $value["weight"], $item["weight"], $item["price"], $key);
-                            }
+            }
+
+            foreach ($dataInput as $input => $item) {
+                foreach ($dataExit as $key => $value) {
+                    if ($item["weight"] == $value["weight"]) {
+                        if ($item["price"] != $value["price"]) {
+                            $weightProducts = WeightProduct::where('product_id', $request->productId)->where('weight', $item["weight"])->first();
+                            $weightProducts->price = $item["price"];
+                            $weightProducts->update();
                         }
                     }
                 }
             }
-
-
-            // if (!empty($insertWeights)) {
-            //     foreach ($insertWeights as $key => $weight) {
-            //         foreach ($insertPrices as $value => $price) {
-            //             if ($key == $value) {
-            //                 $insertDataList[] = [
-            //                     "product_id" => $request->productId,
-            //                     "weight" => $weight,
-            //                     "price" => $price,
-            //                     "created_at" => Carbon::now(),
-            //                     "updated_at" => Carbon::now(),
-            //                 ];
-            //             }
-            //         }
-            //     }
-            //     WeightProduct::insert($insertDataList);
-
-            //     if (!empty($insertPrices)) {
-            //         foreach ($existWeights as $key => $exits) {
-            //             foreach ($insertPrices as $value => $updatePrice) {
-            //                 if ($key == $value) {
-            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
-            //                     $weightProduct->price = $updatePrice;
-            //                     $weightProduct->save();
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-
-            // $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
-            // if (!empty($compareWeights)) {
-            //     foreach ($compareWeights as $key => $weight) {
-            //         $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
-            //         $result->delete();
-            //     }
-            // }
-
-            // $insertPrices =  array_diff($inputPrices, $existPrices);
-            // $insertWeights =  array_diff($inputWeights, $existWeights);
-
-            // if (!empty($insertWeights)) {
-            //     foreach ($insertWeights as $key => $weight) {
-            //         foreach ($insertPrices as $value => $price) {
-            //             if ($key == $value) {
-            //                 $insertDataList[] = [
-            //                     "product_id" => $request->productId,
-            //                     "weight" => $weight,
-            //                     "price" => $price,
-            //                     "created_at" => Carbon::now(),
-            //                     "updated_at" => Carbon::now(),
-            //                 ];
-            //             }
-            //         }
-            //     }
-            //     WeightProduct::insert($insertDataList);
-
-            //     if (!empty($insertPrices)) {
-            //         foreach ($existWeights as $key => $exits) {
-            //             foreach ($insertPrices as $value => $updatePrice) {
-            //                 if ($key == $value) {
-            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
-            //                     $weightProduct->price = $updatePrice;
-            //                     $weightProduct->save();
-            //                 }
-            //             }
-            //         }
-            //     }
-            // } else {
-            //     if (!empty($insertPrices)) {
-            //         foreach ($existWeights as $key => $exits) {
-            //             foreach ($insertPrices as $value => $updatePrice) {
-            //                 if ($key == $value) {
-            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
-            //                     $weightProduct->price = $updatePrice;
-            //                     $weightProduct->save();
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
 
             DB::commit();
             return Redirect::back();

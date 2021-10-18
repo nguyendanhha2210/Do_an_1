@@ -99,9 +99,9 @@
               :key="data.id"
             >
               <input type="radio" id="sm-size" />
-              <label for="sm-size" @click="chooseWeight(data.id)">{{
-                data.weight
-              }}kg</label>
+              <label for="sm-size" @click="chooseWeight(data.id)"
+                >{{ data.weight }}kg</label
+              >
             </div>
           </div>
           <div class="quantity">
@@ -198,7 +198,7 @@ export default {
       },
       statusChooseWeight: false,
       priceWeightProduct: 0,
-      weightProduct:0,
+      weightProduct: 0,
       weightProductMax: 0,
       weightProductMin: 0,
       statusChoosed: false,
@@ -257,7 +257,7 @@ export default {
           formData.append("weight", this.weightProduct.weight);
         } else {
           formData.append("price", this.priceWeightProduct);
-          formData.append("weight", this.weightProduct); 
+          formData.append("weight", this.weightProduct);
         }
 
         this.$validator.validateAll().then((valid) => {

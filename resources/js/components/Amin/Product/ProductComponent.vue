@@ -231,6 +231,7 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
                   <ckeditor
+                    name="content"
                     v-model="product.content"
                     :config="editorConfig"
                     :editor-url="editorUrl"
@@ -596,14 +597,25 @@ export default {
     addProduct: function (e) {
       e.preventDefault();
       let that = this;
+      let formData = new FormData(this.$refs.addForm);
+      formData.append("content", this.product.content);
       this.$validator.validateAll().then((valid) => {
         if (valid) {
-          that.$refs.addForm.submit();
-          that.flashMessage.success({
-            message: "Thành Công !",
-            icon: "/backend/icon/check.svg",
-            blockClass: "text-centet",
-          });
+          axios
+            .post(`/admin/product/update`, formData, {
+              header: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              this.$swal({
+                title: "Update Successfully!",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(function (confirm) {
+                window.location.href = "/admin/product";
+              });
+            });
         }
       });
     },
