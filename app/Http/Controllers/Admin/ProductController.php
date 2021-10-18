@@ -124,35 +124,33 @@ class ProductController extends Controller
             $inputWeights = $request->weight;
             $inputPrices = $request->price;
 
-            $data = [];
-            foreach($inputWeights as $key => $weight){
-                $data[] = [
+            $dataInput = [];
+            foreach ($inputWeights as $key => $weight) {
+                $dataInput[] = [
                     "weight" => $weight,
                     "price" => $inputPrices[$key]
                 ];
             }
 
-            dd($data);
-
-            $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
-            if (!empty($compareWeights)) {
-                foreach ($compareWeights as $key => $weight) {
-                    $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
-                    $result->delete();
-                }
+            $weightProducts = WeightProduct::where('product_id', $request->productId)->orderBy('weight', 'ASC')->get();
+            $dataExit = [];
+            foreach ($weightProducts as $key => $weightProduct) {
+                $dataExit[] = [
+                    "weight" => $weightProduct->weight,
+                    "price" => $weightProduct->price,
+                ];
             }
 
-            $insertPrices =  array_diff($inputPrices, $existPrices);
-            $insertWeights =  array_diff($inputWeights, $existWeights);
 
+            $insertWeights =  array_diff($inputWeights, $existWeights);
             if (!empty($insertWeights)) {
-                foreach ($insertWeights as $key => $weight) {
-                    foreach ($insertPrices as $value => $price) {
-                        if ($key == $value) {
+                foreach ($insertWeights as $key => $value) {
+                    foreach ($dataInput as $ab => $item) {
+                        if ($value == $item["weight"]) {
                             $insertDataList[] = [
                                 "product_id" => $request->productId,
-                                "weight" => $weight,
-                                "price" => $price,
+                                "weight" => $item["weight"],
+                                "price" => $item["price"],
                                 "created_at" => Carbon::now(),
                                 "updated_at" => Carbon::now(),
                             ];
@@ -160,31 +158,100 @@ class ProductController extends Controller
                     }
                 }
                 WeightProduct::insert($insertDataList);
-
-                if (!empty($insertPrices)) {
-                    foreach ($existWeights as $key => $exits) {
-                        foreach ($insertPrices as $value => $updatePrice) {
-                            if ($key == $value) {
-                                $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
-                                $weightProduct->price = $updatePrice;
-                                $weightProduct->save();
-                            }
-                        }
-                    }
-                }
             } else {
-                if (!empty($insertPrices)) {
-                    foreach ($existWeights as $key => $exits) {
-                        foreach ($insertPrices as $value => $updatePrice) {
-                            if ($key == $value) {
-                                $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
-                                $weightProduct->price = $updatePrice;
-                                $weightProduct->save();
+                foreach ($dataInput as $input => $item) {
+                    foreach ($dataExit as $key => $value) {
+                        if ($input == $key) {
+                            if ($item["price"] != $value["price"]) {
+                                dd($item["weight"], $value["weight"], $item["weight"], $item["price"], $key);
                             }
                         }
                     }
                 }
             }
+
+
+            // if (!empty($insertWeights)) {
+            //     foreach ($insertWeights as $key => $weight) {
+            //         foreach ($insertPrices as $value => $price) {
+            //             if ($key == $value) {
+            //                 $insertDataList[] = [
+            //                     "product_id" => $request->productId,
+            //                     "weight" => $weight,
+            //                     "price" => $price,
+            //                     "created_at" => Carbon::now(),
+            //                     "updated_at" => Carbon::now(),
+            //                 ];
+            //             }
+            //         }
+            //     }
+            //     WeightProduct::insert($insertDataList);
+
+            //     if (!empty($insertPrices)) {
+            //         foreach ($existWeights as $key => $exits) {
+            //             foreach ($insertPrices as $value => $updatePrice) {
+            //                 if ($key == $value) {
+            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
+            //                     $weightProduct->price = $updatePrice;
+            //                     $weightProduct->save();
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // $compareWeights =  array_values(array_diff($existWeights, $inputWeights));
+            // if (!empty($compareWeights)) {
+            //     foreach ($compareWeights as $key => $weight) {
+            //         $result = WeightProduct::where('product_id', $request->productId)->Where('weight', $weight)->first();
+            //         $result->delete();
+            //     }
+            // }
+
+            // $insertPrices =  array_diff($inputPrices, $existPrices);
+            // $insertWeights =  array_diff($inputWeights, $existWeights);
+
+            // if (!empty($insertWeights)) {
+            //     foreach ($insertWeights as $key => $weight) {
+            //         foreach ($insertPrices as $value => $price) {
+            //             if ($key == $value) {
+            //                 $insertDataList[] = [
+            //                     "product_id" => $request->productId,
+            //                     "weight" => $weight,
+            //                     "price" => $price,
+            //                     "created_at" => Carbon::now(),
+            //                     "updated_at" => Carbon::now(),
+            //                 ];
+            //             }
+            //         }
+            //     }
+            //     WeightProduct::insert($insertDataList);
+
+            //     if (!empty($insertPrices)) {
+            //         foreach ($existWeights as $key => $exits) {
+            //             foreach ($insertPrices as $value => $updatePrice) {
+            //                 if ($key == $value) {
+            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
+            //                     $weightProduct->price = $updatePrice;
+            //                     $weightProduct->save();
+            //                 }
+            //             }
+            //         }
+            //     }
+            // } else {
+            //     if (!empty($insertPrices)) {
+            //         foreach ($existWeights as $key => $exits) {
+            //             foreach ($insertPrices as $value => $updatePrice) {
+            //                 if ($key == $value) {
+            //                     $weightProduct = WeightProduct::where('product_id', $request->productId)->where('weight', $exits)->firstOrFail();
+            //                     $weightProduct->price = $updatePrice;
+            //                     $weightProduct->save();
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
             DB::commit();
             return Redirect::back();
         } catch (\Exception $e) {

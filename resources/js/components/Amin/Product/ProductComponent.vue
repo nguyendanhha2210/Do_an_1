@@ -164,7 +164,7 @@
                         type="text"
                         class="form-control text-center"
                         :name="'price[' + index + ']'"
-                        v-validate="'required|min:4'"
+                        v-validate="'required'"
                       />
                     </div>
 
