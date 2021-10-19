@@ -35,10 +35,14 @@ import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
 import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
 import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
+import CouponComponent from './components/Sale/Coupon/CouponComponent.vue'
+
+
+
+
 
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
 import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
-
 
 
 Vue.use(VueEasyLightbox);
@@ -91,6 +95,7 @@ new Vue({
         CheckoutMomo,
         ProductSearch,
         SearchResult,
+        CouponComponent,
     },
     created() {
         this.$validator.extend("number_phone", {

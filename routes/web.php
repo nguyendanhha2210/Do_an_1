@@ -43,7 +43,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'ratingStatistical'])->name('admin.statistical.rating');
     Route::get('/get-rating-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getRatingStatistical'])->name('admin.statistical.getRatingStatistical');
 
-    
+
     //Post //edit ngay trên trang //add kiểu modal
     Route::get('/post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('admin.post.list'); //gọi form list
     Route::post('/get-post', [App\Http\Controllers\Admin\PostController::class, 'getData'])->name('admin.post.getData'); //trả dữ liệu ra form list
@@ -258,7 +258,9 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('/checkout-momo', [App\Http\Controllers\Sale\CheckoutController::class, 'checkoutMomo'])->name('admin.checkout.checkoutMomo'); //thanh toán paypal
 
     Route::get('/profile', [App\Http\Controllers\Sale\ProfileController::class, 'index'])->name('sale.profile.index');
+    Route::get('/coupon', [App\Http\Controllers\Sale\CouponController::class, 'index'])->name('sale.coupon.index');
     Route::get('/get-user', [App\Http\Controllers\Sale\ProfileController::class, 'getUser'])->name('sale.profile.getUser');
+    Route::get('/get-coupon', [App\Http\Controllers\Sale\CouponController::class, 'getCoupon'])->name('sale.coupon.getCoupon');
     Route::post('user-update', [App\Http\Controllers\Sale\ProfileController::class, 'updateUser'])->name('sale.profile.updateUser');
 
     Route::post('get-vote-product', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getVoteProduct'])->name('sale.evaluate.getVoteProduct');
@@ -278,7 +280,7 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::post('/save-coupon-store/{id}',  [App\Http\Controllers\Sale\ShopController::class, 'saveCouponStore'])->name('admin.shop.saveCouponStore');
     Route::post('/get-coupon-user',  [App\Http\Controllers\Sale\ShopController::class, 'getCouponUser'])->name('admin.shop.saveCouponStore');
 
-    
+
 
     //manage order
     Route::get('/manage-order', [App\Http\Controllers\Sale\OrderController::class, 'manageOrder'])->name('sale.order.manageOrder');  //gọi trang order

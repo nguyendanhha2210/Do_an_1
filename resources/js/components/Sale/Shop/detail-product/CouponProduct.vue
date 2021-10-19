@@ -104,7 +104,7 @@
           :key="couponStore.id"
         >
           <div class="container" style="background-color: #fff4f4">
-            <form role="form" @submit.prevent="saveCoupon(couponStore.id)">
+            <form role="form">
               <div class="row">
                 <div
                   class="col-lg-8 col-md-6 col-sm-6"
@@ -130,17 +130,17 @@
                 >
                   <button
                     v-if="couponStore.statusUse == 3"
-                    type="submit"
+                    @click="saveCoupon(couponStore.id)"
                     class="btn btn-success"
                   >
                     Save
                   </button>
-                  <button
+                  <a
                     v-if="couponStore.statusUse == 4"
+                    :href="`/sale/coupon`"
                     class="btn btn-info"
+                    >Use</a
                   >
-                    Use
-                  </button>
                 </div>
               </div>
             </form>
@@ -278,7 +278,6 @@ export default {
         .get(`/get-coupon-store`)
         .then(function (response) {
           that.couponStores = response.data.couponStores; //show data ra
-          console.log(that.couponStores[0].coupon.name);
         })
         .catch((err) => {
           switch (err.response.status) {
@@ -288,40 +287,6 @@ export default {
                   title: "Error loading data !",
                   icon: "warning",
                   confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
-
-    saveCoupon(id) {
-      let that = this;
-      axios
-        .post(`/sale/save-coupon-store/${id}`)
-        .then((response) => {})
-        .catch((err) => {
-          switch (err.response.status) {
-            case 422:
-              this.errorBackEnd = err.response.data.errors;
-              break;
-            case 404:
-              that
-                .$swal({
-                  title: "Add Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
-                })
-                .then(function (confirm) {});
-              break;
-            case 500:
-              that
-                .$swal({
-                  title: "Add Error !",
-                  icon: "warning",
-                  confirmButtonText: "Cancle !",
                 })
                 .then(function (confirm) {});
               break;
@@ -346,6 +311,42 @@ export default {
                   title: "Error loading data !",
                   icon: "warning",
                   confirmButtonText: "Ok",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    saveCoupon(id) {
+      let that = this;
+      axios
+        .post(`/sale/save-coupon-store/${id}`)
+        .then((response) => {
+          that.fetchCoupon();
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              this.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
                 })
                 .then(function (confirm) {});
               break;

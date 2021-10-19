@@ -263,6 +263,12 @@
                         <li><a href="{{ URL::to('/view-cart') }}">Cart</a></li>
                         <li><a href="#">Account</a>
                             <ul class="dropdown">
+                                <li>
+                                    @if (Auth::guard('sales')->id())
+                                        <a href="{{ URL::to('sale/coupon') }}"><i class="fa fa-info-circle"></i>
+                                            My Coupon</a>
+                                    @endif
+                                </li>
                                 <li><a href="{{ URL::to('/contact') }}"><i class="fa fa-phone"></i> Contact</a>
                                 </li>
                                 <li>

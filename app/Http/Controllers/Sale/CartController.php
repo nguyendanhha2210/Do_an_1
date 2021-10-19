@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sale;
 
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
+use App\Enums\StatusCoupon;
 use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
@@ -93,7 +94,7 @@ class CartController extends Controller
                     );
                     Session::put('cart', $cart);
                 } else {
-                    
+
                     $cart[] = array(
                         'session_id' => $session_id,
                         'product_id' => $request->id,
@@ -202,7 +203,7 @@ class CartController extends Controller
         $data = $request->all();
         $ma_coupon = $data['coupon'];
 
-        $couponRequest = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())
+        $couponRequest = UserCoupon::where('user_id', '=', Auth::guard('sales')->id())->where('statusUse', StatusCoupon::SAVE)
             ->with(['coupon'])
             ->whereHas('coupon', function ($query) use ($ma_coupon) {
                 $query->where('code', $ma_coupon);

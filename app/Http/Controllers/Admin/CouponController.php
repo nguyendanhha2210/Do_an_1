@@ -203,6 +203,7 @@ class CouponController extends Controller
             $userCoupons->coupon_id = $coupon->id;
             $userCoupons->coupon_name = $coupon->name;
             $userCoupons->coupon_time = 1;
+            $userCoupons->statusUse = StatusCoupon::SAVE;
             $userCoupons->save();
         }
 
