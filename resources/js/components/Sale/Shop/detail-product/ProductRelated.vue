@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container ml-2">
       <div class="row">
         <div class="col-lg-12">
           <div class="section-title mb-0">
@@ -15,7 +15,7 @@
             v-for="product in products"
             :key="product.id"
           >
-            <div class="product-item" style="background-color: white">
+            <div class="product-item div-hover" style="background-color: white">
               <div class="pi-pic">
                 <img
                   style="height: 250px"

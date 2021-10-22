@@ -306,7 +306,7 @@ class ShopController extends Controller
                 })
                 ->whereHas('description', function ($query) {
                     $query->where('deleted_at', NULL);
-                })->take(6)->get();
+                })->take(12)->get();
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
@@ -327,7 +327,7 @@ class ShopController extends Controller
                 })
                 ->whereHas('description', function ($query) {
                     $query->where('deleted_at', NULL);
-                })->orderBy('price', 'asc')->take(4)->get();
+                })->orderBy('price', 'asc')->take(8)->get();
 
             return response()->json($products, StatusCode::OK);
         } catch (\Exception $e) {
@@ -972,17 +972,9 @@ class ShopController extends Controller
                 ->where('description_id', $product->description_id)
                 ->whereNotIn('id', [$id])
                 ->with(['type', 'description'])
-                ->whereHas(function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
-                ->whereHas('type', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })
-                ->whereHas('description', function ($query) {
-                    $query->where('deleted_at', NULL);
-                })->take(4)->orderBy('price', 'asc')->get();
+                ->take(6)->orderBy('price', 'asc')->get();
 
-            return response()->json(["productAccessory" => $productAccessory], StatusCode::OK);
+            return response()->json($productAccessory, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
@@ -1012,7 +1004,7 @@ class ShopController extends Controller
         } else {
             try {
                 $idUser = Auth::guard('sales')->id();
-                $userCoupon = UserCoupon::where('id', $id)->where('user_id',$idUser)->firstOrFail();
+                $userCoupon = UserCoupon::where('id', $id)->where('user_id', $idUser)->firstOrFail();
                 $userCoupon->statusUse = StatusCoupon::SAVE;
                 $userCoupon->update();
                 return response()->json(StatusCode::OK);
