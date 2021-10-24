@@ -232,6 +232,9 @@ Route::get('/unset-coupon',  [App\Http\Controllers\Sale\CartController::class, '
 Route::post('/update-cart',  [App\Http\Controllers\Sale\CartController::class, 'updateCart'])->name('admin.cart.updateCart'); //update giỏ
 Route::post('/check-coupon',  [App\Http\Controllers\Sale\CartController::class, 'checkCoupon'])->name('admin.cart.checkCoupon'); //update giỏ
 
+Route::post('/add-product-accessories',  [App\Http\Controllers\Sale\CartController::class, 'addProductAccessories'])->name('admin.cart.addProductAccessories'); //thêm
+
+
 Route::post('/add-to-favorite',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'addFavorite'])->name('admin.cart.addCart'); //thêm sp yêu thích
 Route::get('/del-favorite-product/{session_id}',  [App\Http\Controllers\Sale\FavoriteProductController::class, 'delProductFavorite'])->name('admin.cart.delProductFavorite'); //thêm sp yêu thích
 Route::get('/del-viewed-product/{session_id}',  [App\Http\Controllers\Sale\ShopController::class, 'delViewedProduct'])->name('admin.viewd.delViewedProduct'); //thêm sp yêu thích

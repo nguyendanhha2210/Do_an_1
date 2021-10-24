@@ -14,7 +14,6 @@ export default {
   },
   props: ["data"],
   created: function () {
-      console.log();
     this.labels = this.options.map((item) => item.label);
     this.values = this.options.map((item) => item.value);
   },

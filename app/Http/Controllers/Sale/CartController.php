@@ -11,6 +11,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Type;
 use App\Models\UserCoupon;
+use App\Models\WeightProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -244,6 +245,80 @@ class CartController extends Controller
             }
         } else {
             return redirect()->back()->with('message', 'Mã giảm giá không đúng hoặc bạn chưa đăng nhập !');
+        }
+    }
+
+    public function addProductAccessories(Request $request)
+    {
+        try {
+            $session_id = substr(md5(microtime()), rand(0, 26), 5);
+            $cart = Session::get('cart');
+            if ($cart == true) {
+                $is_avaiable = 0;
+                foreach ($cart as $key => $val) {
+                    if ($val['product_id'] == $request->id && $val['product_price'] == $request->price) {
+                        $is_avaiable++;
+                        // dd($val['product_qty'] + $request->qualityOrder);
+                    }
+                }
+                if ($is_avaiable == 0) {
+                    foreach ($request->all() as $ac => $item) {
+                        $product = Product::where('id', '=', $item)->first();
+                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
+                        $minPrice = $arrayPrice[0];
+                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
+                            $q->where('product_id', $item);
+                            $q->Where('price', $minPrice);
+                        })->first();
+                        $cart[] = array(
+                            'session_id' => $session_id,
+                            'product_id' => $item,
+                            'product_name' => $product->name,
+                            'product_image' => $product->images,
+                            'product_qty' => 1,
+                            'product_price' => $minPrice,
+                            'product_weight' => $productWeight->weight,
+                        );
+                        Session::put('cart', $cart);
+                    }
+            } else {
+                if ($request->qualityOrder) {
+                    $cart[] = array(
+                        'session_id' => $session_id,
+                        'product_id' => $request->id,
+                        'product_name' => $request->name,
+                        'product_image' => $request->images,
+                        'product_qty' => $request->qualityOrder,
+                        'product_price' => $request->price,
+                        'product_weight' => $request->weight,
+                    );
+                    Session::put('cart', $cart);
+                } else {
+                    foreach ($request->all() as $ac => $item) {
+                        $product = Product::where('id', '=', $item)->first();
+                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
+                        $minPrice = $arrayPrice[0];
+                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
+                            $q->where('product_id', $item);
+                            $q->Where('price', $minPrice);
+                        })->first();
+                        $cart[] = array(
+                            'session_id' => $session_id,
+                            'product_id' => $item,
+                            'product_name' => $product->name,
+                            'product_image' => $product->images,
+                            'product_qty' => 1,
+                            'product_price' => $minPrice,
+                            'product_weight' => $productWeight->weight,
+                        );
+                        Session::put('cart', $cart);
+                    }
+                }
+            }
+            Session::save();
+            return response()->json(route('admin.cart.viewCart'), StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
 }

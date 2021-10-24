@@ -19,11 +19,18 @@
         <tbody>
           <tr
             class="overflow"
-            v-for="productAccessory in productAccessories"
+            v-for="(productAccessory, index) in productAccessories"
             :key="productAccessory.id"
           >
             <td style="transform: translateY(-20%); padding-left: 17px">
-              <input class="form-check-input" type="checkbox" name="" />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="selectedIds"
+                :id="`productAccessory${index}`"
+                @change="updateCheckAll"
+                :value="productAccessory.id"
+              />
             </td>
             <td>
               <img
@@ -66,13 +73,26 @@
           </tr>
           <tr>
             <td style="transform: translateY(-6%); padding-left: 17px">
-              <input class="form-check-input" type="checkbox" name="" />
+              <input
+                v-model="isInputAll"
+                class="form-check-input"
+                type="checkbox"
+                id="checkAll"
+                name="checkAll"
+                @click="checkAll"
+              />
             </td>
             <td colspan="2">
               <button
-                class="primary-btn pd-cart btn btn-success"
+                class="btn border-radius-7"
                 style="height: 34px; padding-top: 6px; margin-top: 19px"
-                href="#"
+                v-bind:class="{
+                  'btn-outline-secondary': !isBtnDeleteAll,
+                  'background-white': !isBtnDeleteAll,
+                  'btn-success': isBtnDeleteAll,
+                  disabled: !isBtnDeleteAll,
+                }"
+                @click="addProductAll"
               >
                 Add To List
               </button>
@@ -230,6 +250,10 @@ export default {
         start_date: "",
         end_date: "",
       },
+
+      isBtnDeleteAll: false,
+      isInputAll: false,
+      selectedIds: [],
     };
   },
   created() {},
@@ -354,6 +378,84 @@ export default {
               break;
           }
         });
+    },
+
+    updateCheckAll() {
+      //Check từng ô trong ds sp
+      if (this.selectedIds.length > 0) {
+        this.isBtnDeleteAll = true;
+        if (this.selectedIds.length == this.productAccessories.length) {
+          //nếu chọn tất cả thì ô check tất cả trên sáng
+          this.isInputAll = true;
+        } else {
+          this.isInputAll = false;
+        }
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+
+    checkAll() {
+      this.isInputAll = !this.isInputAll;
+      this.selectedIds = [];
+      if (this.isInputAll) {
+        //Nếu check vào ô chon hết
+        this.selectedIds = this.productAccessories.map((item) => item.id);
+        this.isBtnDeleteAll = true;
+      } else {
+        this.isBtnDeleteAll = false;
+      }
+    },
+
+    addProductAll() {
+      let that = this;
+      this.$swal({
+        title: "Do you want to add to cart ",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes !",
+        cancelButtonText: "No, cancel!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post("/add-product-accessories", this.selectedIds)
+            .then((response) => {
+              this.$swal({
+                title: "Add Successfully!",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then((confirm) => {
+                if (confirm.value) {
+                  this.$swal({
+                    title: "Do you want to continue ？",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Xem tiếp !",
+                    cancelButtonText: "Đi đến giỏ hàng !",
+                  }).then((result) => {
+                    if (result.value) {
+                      that.isBtnDeleteAll = false;
+                      that.isInputAll = false;
+                    } else {
+                      window.location = this.baseUrl + "/view-cart";
+                    }
+                  });
+                }
+              });
+            })
+            .catch((error) => {
+              that.flashMessage.error({
+                message: "Add Failure!",
+                icon: "/backend/icon/error.svg",
+                blockClass: "text-centet",
+              });
+            });
+        }
+      });
     },
   },
 };
