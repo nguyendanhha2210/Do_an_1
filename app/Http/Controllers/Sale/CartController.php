@@ -256,9 +256,15 @@ class CartController extends Controller
             if ($cart == true) {
                 $is_avaiable = 0;
                 foreach ($cart as $key => $val) {
-                    if ($val['product_id'] == $request->id && $val['product_price'] == $request->price) {
-                        $is_avaiable++;
-                        // dd($val['product_qty'] + $request->qualityOrder);
+                    foreach ($request->all() as $ac => $item) {
+                        $product = Product::where('id', '=', $item)->first();
+                        $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
+                        foreach ($arrayPrice as $val => $value) {
+                            if ($val['product_id'] == $item && $val['product_price'] == settype($value, `integer`)) {
+                                dd($item, $val);
+                                $is_avaiable++;
+                            }
+                        }
                     }
                 }
                 if ($is_avaiable == 0) {
@@ -281,7 +287,8 @@ class CartController extends Controller
                         );
                         Session::put('cart', $cart);
                     }
-            } else {
+                } else {
+                }
                 if ($request->qualityOrder) {
                     $cart[] = array(
                         'session_id' => $session_id,
