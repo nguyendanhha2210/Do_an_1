@@ -45,13 +45,14 @@
                       word-wrap: break-word;
                       text-overflow: ellipsis;
                       padding-left: 16px;
-                      overflow: hidden;
+                      overflow: auto;
                       -webkit-line-clamp: 11;
                       -webkit-box-orient: vertical;
                       display: -webkit-box;
                     "
+                    v-html="decrip.content"
                   >
-                    {{ decrip.content }}
+                    <!-- {{ decrip.content }} -->
                   </div>
                 </div>
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
@@ -220,9 +221,9 @@
                         </div>
                       </div>
                       <div class="mt-2 ml-5">
-                        <p class="comment-text" style="font-size: 17px">
+                        <div class="comment-text" style="font-size: 17px">
                           {{ evaluate.content }}
-                        </p>
+                        </div>
                       </div>
 
                       <div class="ml-5" id="gallery">

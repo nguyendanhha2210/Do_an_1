@@ -391,8 +391,7 @@
               <td>
                 {{ product.description_id }}
               </td>
-              <td>
-                {{ product.content }}
+              <td v-html="product.content">
               </td>
               <td>
                 <a
