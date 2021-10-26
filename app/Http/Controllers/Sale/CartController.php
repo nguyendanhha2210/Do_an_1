@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -259,14 +260,17 @@ class CartController extends Controller
                     foreach ($request->all() as $ac => $item) {
                         $product = Product::where('id', '=', $item)->first();
                         $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
-                        foreach ($arrayPrice as $val => $value) {
-                            if ($val['product_id'] == $item && $val['product_price'] == settype($value, `integer`)) {
-                                dd($item, $val);
+                        Log::info($arrayPrice);
+                        Log::info($val['product_price']);
+                        foreach ($arrayPrice as $value) {
+                            if ($val['product_id'] == $item && $val['product_price'] == (int)$value) {
+                                Log::info(22222222222222);
                                 $is_avaiable++;
                             }
                         }
                     }
                 }
+                Log::info(33333333333333);
                 if ($is_avaiable == 0) {
                     foreach ($request->all() as $ac => $item) {
                         $product = Product::where('id', '=', $item)->first();

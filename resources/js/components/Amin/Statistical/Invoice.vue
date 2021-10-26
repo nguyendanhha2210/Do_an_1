@@ -3,7 +3,7 @@
     <div class="row pb-3">
       <div class="col-md-12 col-xs-12">
         <h3 class="text-center">Profit</h3>
-        <BarChart v-if="chartProfits.length > 0" :data="chartProfits" />
+        <BarChart v-if="show" :data="chartProfits" />
       </div>
       <div class="col-md-12 col-xs-12">
         <button
@@ -167,6 +167,7 @@ export default {
   data() {
     return {
       chartProfits: [],
+      show: false,
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
       flagShowLoader: false,
 
@@ -204,7 +205,6 @@ export default {
     };
   },
   created() {
-    this.fetchChart();
     this.fetchProfits();
   },
   mounted() {},
@@ -218,35 +218,40 @@ export default {
       this.fetchProfits();
     },
     keyword: function (value) {
+      this.show = false;
       this.fetchProfits();
     },
   },
   methods: {
-    fetchChart() {
-      let that = this;
-      this.flagShowLoader = true;
-      axios
-        .get(`get-invoice-statistical`)
-        .then(function (response) {
-          that.chartProfits = response.data.data;
-          that.flagShowLoader = false;
-        })
-        .catch((err) => {
-          switch (err.response.status) {
-            case 404:
-              that
-                .$swal({
-                  title: "Error loading data !",
-                  icon: "warning",
-                  confirmButtonText: "Ok",
-                })
-                .then(function (confirm) {});
-              break;
-            default:
-              break;
-          }
-        });
-    },
+    // fetchChart() {
+    //   let that = this;
+    //   this.flagShowLoader = true;
+    //   let formData = new FormData();
+    //   formData.append("keyword", this.keyword);
+    //   formData.append("time1", this.time1);
+    //   formData.append("time2", this.time2);
+    //   axios
+    //     .get(`get-invoice-statistical`, formData)
+    //     .then(function (response) {
+    //       that.chartProfits = response.data.data;
+    //       that.flagShowLoader = false;
+    //     })
+    //     .catch((err) => {
+    //       switch (err.response.status) {
+    //         case 404:
+    //           that
+    //             .$swal({
+    //               title: "Error loading data !",
+    //               icon: "warning",
+    //               confirmButtonText: "Ok",
+    //             })
+    //             .then(function (confirm) {});
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     });
+    // },
     fetchProfits() {
       let that = this;
       this.flagShowLoader = true;
@@ -259,7 +264,8 @@ export default {
       axios.post("get-profit-table", formData).then(function (response) {
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
-        // that.chartProfits = response.data.chart;
+        that.chartProfits = response.data.chart;
+        that.show = true;
         that.flagShowLoader = false;
       });
       that.flagShowLoader = false;
@@ -271,10 +277,13 @@ export default {
       //lọc giữa 2 ngày cũng tương tự chỉ gán lại keyword về rỗng thôi
       this.time1 = "";
       this.time2 = "";
+      this.show = false;
       this.fetchProfits();
+      // this.fetchChart();
     },
     searchDate() {
       this.keyword = "";
+      this.show = false;
       this.fetchProfits();
     },
     prev() {

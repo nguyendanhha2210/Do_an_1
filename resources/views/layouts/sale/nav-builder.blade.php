@@ -16,8 +16,8 @@
     <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Categories Product</h4>
     <ul class="filter-catagories c-sidebar-nav">
         @foreach ($type as $key => $dataType)
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
-                    href="{{ URL::to('/choose-type/' . $dataType->id) }}">{{ $dataType->type }}</a>
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->is('choose-type/' . $dataType->id) ? 'c-active' : ''}}" href="{{ URL::to('/choose-type/' . $dataType->id)}}">{{ $dataType->type }}</a>
             </li>
         @endforeach
     </ul>
@@ -27,7 +27,7 @@
     <h4 class="fw-title" style="margin-bottom: 6px;font-size:26px;">Descriptions Product</h4>
     <ul class="filter-catagories c-sidebar-nav">
         @foreach ($description as $key => $dataDescription)
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link  {{ request()->is('choose-description/' . $dataDescription->id) ? 'c-active' : ''}}"
                     href="{{ URL::to('/choose-description/' . $dataDescription->id) }}">{{ $dataDescription->description }}</a>
             </li>
         @endforeach

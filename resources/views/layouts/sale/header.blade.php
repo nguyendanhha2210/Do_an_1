@@ -248,11 +248,11 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li><a href="{{ URL::to('/') }}">Home</a></li>
-                        <li><a href="{{ URL::to('/shop') }}">Shop</a></li>
-                        <li><a href="{{ URL::to('/blog') }}">Blog</a></li>
+                        <li class="{{ request()->is('/') ? 'active' : ''}}"><a href="{{ URL::to('/') }}">Home</a></li>
+                        <li class="{{ request()->is('shop') ? 'active' : ''}}"><a href="{{ URL::to('/shop') }}">Shop</a></li>
+                        <li class="{{ request()->is('blog') ? 'active' : ''}}"><a href="{{ URL::to('/blog') }}">Blog</a></li>
 
-                        <li>
+                        <li class="{{ request()->is('sale/manage-order') || request()->is('contact') ? 'active' : ''}}">
                             @if (Auth::guard('sales')->id())
                                 <a href="{{ URL::to('sale/manage-order') }}">Order</a>
                             @else
@@ -260,7 +260,7 @@
                             @endif
                         </li>
 
-                        <li><a href="{{ URL::to('/view-cart') }}">Cart</a></li>
+                        <li class="{{ request()->is('view-cart') ? 'active' : ''}}"><a href="{{ URL::to('/view-cart') }}">Cart</a></li>
                         <li><a href="#">Account</a>
                             <ul class="dropdown">
                                 <li>

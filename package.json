@@ -45,6 +45,7 @@
         "vue-router": "^3.5.2",
         "vue-slick-carousel": "^1.0.6",
         "vue-star-rating": "^1.7.0",
+        "vue-stepper": "^1.4.2",
         "vue-sweetalert2": "^5.0.2",
         "vue-zoomer": "^0.3.9",
         "vue2-datepicker": "^3.10.1",
