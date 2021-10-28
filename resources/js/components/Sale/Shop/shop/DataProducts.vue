@@ -327,7 +327,10 @@
                 :key="productTogether.id"
               >
                 <a :href="`product-detail/${productTogether.id}`">
-                  <div class="product-item div-hover" style="background-color: white">
+                  <div
+                    class="product-item div-hover"
+                    style="background-color: white"
+                  >
                     <div class="pi-pic">
                       <img
                         style="height: 167px"
