@@ -14,6 +14,7 @@ export default {
   props: ["data"],
   created: function () {},
   mounted() {
+    console.log('data', this.data)
     this.options = this.data
     console.log('options', this.options)
     this.labels = this.options.map((item) => item.label);
