@@ -56,7 +56,7 @@ class StatisticalController extends Controller
         }
 
         if (empty($request->keyword) && empty($request->time1) && empty($request->time2)) {
-            $charts = Profit::select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $charts = Profit::select( DB::raw('Sum(profit) AS totalProfit, DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
@@ -76,7 +76,7 @@ class StatisticalController extends Controller
                 $time2 = Carbon::parse($request->time2)->format('Y-m-d');
                 $profits = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->get();
 
-                $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+                $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select(DB::raw('Sum(profit) AS totalProfit,  DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
                 $data = [];
                 foreach ($charts as $item) {
                     $data[] = [
