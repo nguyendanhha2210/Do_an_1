@@ -8,12 +8,14 @@ export default {
       lables: [],
       values: [],
       colors: "",
-      options: this.data,
+      options: [],
     };
   },
   props: ["data"],
   created: function () {},
   mounted() {
+    this.options = this.data
+    console.log('options', this.options)
     this.labels = this.options.map((item) => item.label);
     // var arr = []; (Cách 2)
     // this.options.forEach(element => {
