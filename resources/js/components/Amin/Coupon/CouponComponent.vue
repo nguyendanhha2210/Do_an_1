@@ -154,7 +154,8 @@
                     v-if="
                       data.status == 0 &&
                       data.time > 0 &&
-                      data.statusSendShow == 2
+                      data.statusSendShow == 2 &&
+                      data.end_date > todayDate
                     "
                   >
                     <i
@@ -168,7 +169,8 @@
                     v-if="
                       data.status == 0 &&
                       data.time > 0 &&
-                      data.statusSendShow == 1
+                      data.statusSendShow == 1 &&
+                      data.end_date > todayDate
                     "
                   >
                     <i
