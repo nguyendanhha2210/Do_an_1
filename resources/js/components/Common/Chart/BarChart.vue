@@ -14,9 +14,9 @@ export default {
   props: ["data"],
   created: function () {},
   mounted() {
-    console.log('data', this.data)
-    this.options = this.data
-    console.log('options', this.options)
+    this.options = this.data;
+
+    console.log("options", this.options);
     this.labels = this.options.map((item) => item.label);
     // var arr = []; (Cách 2)
     // this.options.forEach(element => {
@@ -29,9 +29,9 @@ export default {
     var arrValue = [];
     var arrLabel = [];
     console.log("values", this.options);
-    this.options.forEach(element => {
-      arrValue.push(element.value)
-      arrLabel.push(element.label)
+    this.options.forEach((element) => {
+      arrValue.push(element.value);
+      arrLabel.push(element.label);
     });
     console.log("arrValue", arrValue);
     console.log("arrLabel", arrLabel);
@@ -52,7 +52,6 @@ export default {
     //   "December",
     // ];
     // this.values = [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11];
-
 
     // var values = [];
     // this.options.forEach(element => {

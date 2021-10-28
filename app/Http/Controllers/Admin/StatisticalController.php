@@ -77,11 +77,11 @@ class StatisticalController extends Controller
             if (empty($request->keyword)) {
                 // $time1 = Carbon::parse($request->time1)->format('Y-m-d');
                 // $time2 = Carbon::parse($request->time2)->format('Y-m-d');
+                // $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select(DB::raw('Sum(profit) AS totalProfit,  DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+
                 $startTime = $request->time1;
                 $endTime = $request->time2;
                 $profits = Profit::whereBetween(DB::raw('DATE(date)'), array($startTime, $endTime))->get();
-
-                // $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select(DB::raw('Sum(profit) AS totalProfit,  DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
 
                 $charts = Profit::where(function ($q) use ($startTime, $endTime) {
                     if ($startTime) {
@@ -94,7 +94,6 @@ class StatisticalController extends Controller
                     ->select(DB::raw('Sum(profit) as totalProfit,DATE(date) as created_date'))
                     ->groupBy('created_date')
                     ->get();
-
 
                 $data = [];
                 foreach ($charts as $item) {
