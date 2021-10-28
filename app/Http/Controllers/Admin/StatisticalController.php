@@ -60,7 +60,6 @@ class StatisticalController extends Controller
                 ->groupBy('created_date')
                 ->get();
 
-            $charts = Profit::select(DB::raw('Sum(profit) AS totalProfit, DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
