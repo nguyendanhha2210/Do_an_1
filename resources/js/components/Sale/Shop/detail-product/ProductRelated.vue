@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-12">
     <div class="container ml-2">
       <div class="row">
         <div class="col-lg-12">

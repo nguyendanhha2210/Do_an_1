@@ -210,13 +210,13 @@
                 <v-zoomer>
                   <img
                     class="product-big-img"
-                    style="height: 280px"
+                    style="height: 377px"
                     ref="image"
                     :src="baseUrl + '/uploads/products/' + quickViews.images"
                     alt=""
                   />
                 </v-zoomer>
-                <div class="product-thumbs">
+                <!-- <div class="product-thumbs">
                   <div class="product-thumbs-track ps-slider owl-carousel">
                     <div
                       v-for="data in quickViews.product_images"
@@ -234,8 +234,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
+
               <div class="col-md-6 col-12 product_content">
                 <b style="font-size: 13px">
                   Mã ID : <span>{{ quickViews.id }}</span>
@@ -274,9 +275,8 @@
                     -webkit-box-orient: vertical;
                     display: -webkit-box;
                   "
-                >
-                  {{ quickViews.content }}
-                </p>
+                  v-html="quickViews.content"
+                ></p>
                 <div
                   class="cost"
                   style="color: red; transform: translate(0%, -10%)"
@@ -298,20 +298,8 @@
                   <div class="col-md-6 col-sm-12" style="position: relative">
                     <div class="quantity">
                       <a
-                        @click="addCartProduct(quickViews)"
-                        class="primary-btn pd-cart btn btn-success"
-                        href="#"
-                        >Add To Cart</a
-                      >
-                      <a
-                        style="
-                          float: right;
-                          position: absolute;
-                          margin-left: 66px;
-                          width: max-content;
-                        "
-                        class="primary-btn pd-cart btn btn-success"
                         :href="`product-detail/${quickViews.id}`"
+                        class="primary-btn pd-cart btn btn-success"
                         >View Detail</a
                       >
                     </div>
@@ -320,6 +308,7 @@
                 <div class="space-ten"></div>
               </div>
             </div>
+            <br />
             <div class="row">
               <div class="col-lg-12">
                 <div class="section-title">
@@ -337,72 +326,61 @@
                 v-for="productTogether in productTogethers"
                 :key="productTogether.id"
               >
-                <div class="product-item" style="background-color: white">
-                  <div class="pi-pic">
-                    <img
-                      style="height: 167px"
-                      :src="
-                        baseUrl + '/uploads/products/' + productTogether.images
-                      "
-                      alt=""
-                    />
-                    <div class="sale">Sale</div>
-                    <div class="icon">
-                      <i class="icon_heart_alt"></i>
-                    </div>
-                    <ul>
-                      <li class="w-icon active">
-                        <a href="#" @click="addCartProduct(productTogether)"
-                          ><i class="fa fa-shopping-basket"></i
-                        ></a>
-                      </li>
-                      <li class="w-icon">
-                        <a :href="`${productTogether.id}`"
-                          ><i class="fa fa-eye"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    class="pi-text"
-                    style="
-                      padding-top: 19px !important;
-                      border: 0.5px solid #e9edf0;
-                    "
-                  >
-                    <a
-                      href="#"
-                      style="transform: translate(0%, -34%); font-size: 21px"
-                    >
-                      <h5 style="">
-                        {{ productTogether.name }}
-                      </h5>
-                    </a>
-                    <div style="color: red; transform: translate(-27%, 53%)">
-                      <u
-                        style="
-                          font-size: 13px;
-                          display: -webkit-inline-box;
-                          transform: translate(0%, -13%);
+                <a :href="`product-detail/${productTogether.id}`">
+                  <div class="product-item div-hover" style="background-color: white">
+                    <div class="pi-pic">
+                      <img
+                        style="height: 167px"
+                        :src="
+                          baseUrl +
+                          '/uploads/products/' +
+                          productTogether.images
                         "
-                        >đ</u
-                      >
-                      <span style="font-size: 19px">{{
-                        formatPrice(productTogether.price)
-                      }}</span>
+                        alt=""
+                      />
+                      <div class="sale">Sale</div>
                     </div>
                     <div
-                      class="da-ban"
+                      class="pi-text"
                       style="
-                        transform: translate(32%, -47%);
-                        font-size: 14px;
-                        color: dimgray;
+                        padding-top: 19px !important;
+                        border: 0.5px solid #e9edf0;
                       "
                     >
-                      <span>Đã bán {{ productTogether.product_sold }}</span>
+                      <a
+                        href="#"
+                        style="transform: translate(0%, -34%); font-size: 21px"
+                      >
+                        <h5 style="">
+                          {{ productTogether.name }}
+                        </h5>
+                      </a>
+                      <div style="color: red; transform: translate(-27%, 53%)">
+                        <u
+                          style="
+                            font-size: 13px;
+                            display: -webkit-inline-box;
+                            transform: translate(0%, -13%);
+                          "
+                          >đ</u
+                        >
+                        <span style="font-size: 19px">{{
+                          formatPrice(productTogether.price)
+                        }}</span>
+                      </div>
+                      <div
+                        class="da-ban"
+                        style="
+                          transform: translate(32%, -47%);
+                          font-size: 14px;
+                          color: dimgray;
+                        "
+                      >
+                        <span>Đã bán {{ productTogether.product_sold }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -615,124 +593,6 @@ export default {
               break;
           }
         });
-    },
-
-    addCartProduct(product) {
-      let that = this;
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          axios
-            .post(`/add-to-cart`, product)
-            .then((response) => {
-              this.$swal({
-                title: "Add Successfully!",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then((confirm) => {
-                if (confirm.value) {
-                  this.$swal({
-                    title: "Do you want to continue ？",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Xem tiếp !",
-                    cancelButtonText: "Đi đến giỏ hàng !",
-                  }).then((result) => {
-                    if (result.value) {
-                    } else {
-                      window.location = this.baseUrl + "/view-cart";
-                    }
-                  });
-                }
-              });
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  that.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                case 500:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
-            });
-        }
-      });
-    },
-
-    addFavorite(product) {
-      let that = this;
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          axios
-            .post(`/add-to-favorite`, product)
-            .then((response) => {
-              this.$swal({
-                title: "Add Successfully!",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then((confirm) => {});
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  that.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                case 500:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
-            });
-        }
-      });
-    },
-
-    attachFile() {
-      this.product.images = this.$refs.fileImage.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly.src = reader.result;
-        }.bind(this),
-        false
-      );
-      reader.readAsDataURL(this.product.images);
     },
   },
 };

@@ -260,17 +260,13 @@ class CartController extends Controller
                     foreach ($request->all() as $ac => $item) {
                         $product = Product::where('id', '=', $item)->first();
                         $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
-                        Log::info($arrayPrice);
-                        Log::info($val['product_price']);
                         foreach ($arrayPrice as $value) {
                             if ($val['product_id'] == $item && $val['product_price'] == (int)$value) {
-                                Log::info(22222222222222);
                                 $is_avaiable++;
                             }
                         }
                     }
                 }
-                Log::info(33333333333333);
                 if ($is_avaiable == 0) {
                     foreach ($request->all() as $ac => $item) {
                         $product = Product::where('id', '=', $item)->first();
@@ -292,6 +288,53 @@ class CartController extends Controller
                         Session::put('cart', $cart);
                     }
                 } else {
+                        foreach ($request->all() as $ac => $item) {
+                    foreach ($cart as $key => $val) {
+
+                            $product = Product::where('id', '=', $item)->first();
+                            $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
+                            $minPrice = $arrayPrice[0];
+                            $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
+                                $q->where('product_id', $item);
+                                $q->Where('price', $minPrice);
+                            })->first();
+                            foreach ($arrayPrice as $value) {
+                                if ($val['product_id'] == $item && $val['product_price'] == (int)$value) {
+                                } else {
+                                    $cart[] = array(
+                                        'session_id' => $session_id,
+                                        'product_id' => $item,
+                                        'product_name' => $product->name,
+                                        'product_image' => $product->images,
+                                        'product_qty' => 1,
+                                        'product_price' => $minPrice,
+                                        'product_weight' => $productWeight->weight,
+                                    );
+                                    Session::put('cart', $cart);
+                                }
+                            }
+                        }
+                    }
+
+                    foreach ($request->all() as $ac => $item) {
+                        $product = Product::where('id', '=', $item)->first();
+                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
+                        $minPrice = $arrayPrice[0];
+                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
+                            $q->where('product_id', $item);
+                            $q->Where('price', $minPrice);
+                        })->first();
+                        $cart[] = array(
+                            'session_id' => $session_id,
+                            'product_id' => $item,
+                            'product_name' => $product->name,
+                            'product_image' => $product->images,
+                            'product_qty' => 1,
+                            'product_price' => $minPrice,
+                            'product_weight' => $productWeight->weight,
+                        );
+                        Session::put('cart', $cart);
+                    }
                 }
                 if ($request->qualityOrder) {
                     $cart[] = array(
