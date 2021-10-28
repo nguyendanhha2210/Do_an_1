@@ -279,7 +279,7 @@
               <th scope="col">Status</th>
               <th scope="col">TypeID</th>
               <th scope="col">DescriptionID</th>
-              <th scope="col">Content</th>
+              <!-- <th scope="col">Content</th> -->
 
               <th scope="col" class="text-center">
                 <a href="#" @click.prevent="change_sort('quantity')"
@@ -391,8 +391,23 @@
               <td>
                 {{ product.description_id }}
               </td>
-              <td v-html="product.content">
-              </td>
+              <!-- <td>
+                <p style="
+                      height: 107px;
+                      position: relative;
+                      width: 1%;
+                      -ms-hyphens: auto;
+                      -webkit-hyphens: auto;
+                      hyphens: auto;
+                      word-wrap: break-word;
+                      text-overflow: ellipsis;
+                      padding-left: 16px;
+                      overflow: auto;
+                      -webkit-line-clamp: 11;
+                      -webkit-box-orient: vertical;
+                      display: -webkit-box;
+                    " v-html="product.content"></p>
+              </td> -->
               <td>
                 <a
                   style="font-size: 16px"
