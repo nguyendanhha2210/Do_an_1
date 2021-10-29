@@ -56,23 +56,25 @@ class StatisticalController extends Controller
         }
 
         if (empty($request->keyword) && empty($request->time1) && empty($request->time2)) {
-            $charts = Profit::select(DB::raw('SUM(profit) AS total,DATE(date) AS created_date'))
+            $charts = Profit::select(DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))
                 ->groupBy('created_date')
                 ->get();
 
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
-                    "label" => Carbon::parse($item->date)->format('Y/m/d'),
+                    "label" => $item->created_date,
                     "value" => $item->total,
                     "color" => "#000066"
                 ];
             }
-            return $collection = collect([
+
+            return response()->json([
                 'amount' => Profit::sum('profit'),
                 'profits' => Profit::orderBy('date', 'DESC')->paginate($request->paginate),
                 'chart' => $data
-            ]);
+            ],StatusCode::OK);
+
         } else {
             if (empty($request->keyword)) {
                 // $time1 = Carbon::parse($request->time1)->format('Y-m-d');
@@ -91,14 +93,14 @@ class StatisticalController extends Controller
                         $q->whereDate('date', '<=', $endTime);
                     }
                 })
-                    ->select(DB::raw('SUM(profit) AS total,DATE(date) AS created_date'))
+                    ->select(DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))
                     ->groupBy('created_date')
                     ->get();
 
                 $data = [];
                 foreach ($charts as $item) {
                     $data[] = [
-                        "label" => Carbon::parse($item->created_date)->format('Y/m/d'),
+                        "label" => $item->created_date,
                         "value" => $item->total,
                         "color" => "#000066"
                     ];
@@ -107,18 +109,19 @@ class StatisticalController extends Controller
                 foreach ($profits as $item) {
                     $amount += $item->profit;
                 }
-                return $collection = collect([
+
+                return response()->json([
                     'amount' => $amount,
                     'profits' => Profit::whereBetween(DB::raw('DATE(date)'), array($startTime, $endTime))->paginate($request->paginate),
                     'chart' => $data
-                ]);
+                ],StatusCode::OK);
             }
 
-            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select('date', DB::raw('Sum(profit) AS total'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $charts = Profit::select( DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))->groupBy('created_date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
-                    "label" => Carbon::parse($item->date)->format('Y/m/d'),
+                    "label" => $item->created_date,
                     "value" => $item->total,
                     "color" => "#000066"
                 ];
@@ -128,11 +131,11 @@ class StatisticalController extends Controller
             foreach ($profits as $item) {
                 $amount += $item->profit;
             }
-            return $collection = collect([
+            return response()->json([
                 'amount' => $amount,
                 'profits' => Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->orderBy('date', 'DESC')->paginate($request->paginate),
                 'chart' => $data,
-            ]);
+            ],StatusCode::OK);
         }
     }
     //Invoice
