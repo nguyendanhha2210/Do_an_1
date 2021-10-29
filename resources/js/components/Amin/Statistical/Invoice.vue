@@ -262,6 +262,7 @@ export default {
       formData.append("page", this.page);
       formData.append("paginate", this.paginate);
       axios.post("get-profit-table", formData).then(function (response) {
+        console.log(response.data.chart);
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
         that.chartProfits = response.data.chart;

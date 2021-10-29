@@ -33,12 +33,12 @@ class StatisticalController extends Controller
             return view('admin.users.login');
         }
         try {
-            $profits = Profit::select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $profits = Profit::select('date', DB::raw('Sum(profit) AS total'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($profits as $item) {
                 $data[] = [
                     "label" => Carbon::parse($item->date)->format('Y/m/d'),
-                    "value" => $item->totalProfit,
+                    "value" => $item->total,
                     "color" => "#000066"
                 ];
             }
@@ -56,7 +56,7 @@ class StatisticalController extends Controller
         }
 
         if (empty($request->keyword) && empty($request->time1) && empty($request->time2)) {
-            $charts = Profit::select(DB::raw('SUM(profit) AS totalProfit,DATE(date) AS created_date'))
+            $charts = Profit::select(DB::raw('SUM(profit) AS total,DATE(date) AS created_date'))
                 ->groupBy('created_date')
                 ->get();
 
@@ -64,7 +64,7 @@ class StatisticalController extends Controller
             foreach ($charts as $item) {
                 $data[] = [
                     "label" => Carbon::parse($item->date)->format('Y/m/d'),
-                    "value" => $item->totalProfit,
+                    "value" => $item->total,
                     "color" => "#000066"
                 ];
             }
@@ -77,7 +77,7 @@ class StatisticalController extends Controller
             if (empty($request->keyword)) {
                 // $time1 = Carbon::parse($request->time1)->format('Y-m-d');
                 // $time2 = Carbon::parse($request->time2)->format('Y-m-d');
-                // $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select(DB::raw('Sum(profit) AS totalProfit,  DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+                // $charts = Profit::whereBetween(DB::raw('DATE(date)'), array($time1, $time2))->select(DB::raw('Sum(profit) AS total,  DATE(date) AS dateFormat'))->groupBy('dateFormat')->get(); //Lấy tổng lợi nhuận trong 1 ngày
 
                 $startTime = $request->time1;
                 $endTime = $request->time2;
@@ -91,7 +91,7 @@ class StatisticalController extends Controller
                         $q->whereDate('date', '<=', $endTime);
                     }
                 })
-                    ->select(DB::raw('SUM(profit) AS totalProfit,DATE(date) AS created_date'))
+                    ->select(DB::raw('SUM(profit) AS total,DATE(date) AS created_date'))
                     ->groupBy('created_date')
                     ->get();
 
@@ -99,7 +99,7 @@ class StatisticalController extends Controller
                 foreach ($charts as $item) {
                     $data[] = [
                         "label" => Carbon::parse($item->created_date)->format('Y/m/d'),
-                        "value" => $item->totalProfit,
+                        "value" => $item->total,
                         "color" => "#000066"
                     ];
                 }
@@ -114,12 +114,12 @@ class StatisticalController extends Controller
                 ]);
             }
 
-            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select('date', DB::raw('Sum(profit) AS totalProfit'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select('date', DB::raw('Sum(profit) AS total'))->groupBy('profits.date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
                     "label" => Carbon::parse($item->date)->format('Y/m/d'),
-                    "value" => $item->totalProfit,
+                    "value" => $item->total,
                     "color" => "#000066"
                 ];
             }
