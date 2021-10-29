@@ -56,7 +56,7 @@ class StatisticalController extends Controller
         }
 
         if (empty($request->keyword) && empty($request->time1) && empty($request->time2)) {
-            $charts = Profit::select(DB::raw('Sum(profit) as totalProfit,DATE(date) as created_date'))
+            $charts = Profit::select(DB::raw('SUM(profit) AS totalProfit,DATE(date) AS created_date'))
                 ->groupBy('created_date')
                 ->get();
 
@@ -91,7 +91,7 @@ class StatisticalController extends Controller
                         $q->whereDate('date', '<=', $endTime);
                     }
                 })
-                    ->select(DB::raw('Sum(profit) as totalProfit,DATE(date) as created_date'))
+                    ->select(DB::raw('SUM(profit) AS totalProfit,DATE(date) AS created_date'))
                     ->groupBy('created_date')
                     ->get();
 
