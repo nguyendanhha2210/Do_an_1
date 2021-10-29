@@ -1,5 +1,5 @@
 <template>
-  <div class="forgot-pasword-form">
+  <!-- <div class="forgot-pasword-form">
     <div class="col-12 text-center is-danger" v-if="messageText">
       {{ messageText }}
     </div>
@@ -43,6 +43,53 @@
         <button class="btn btn-success" type="submit">Get New Password</button>
         <a v-bind:href="formLogin" class="btn btn-danger">Back to Login</a>
       </div>
+    </form>
+  </div> -->
+  <div>
+    <h2 style="color: white">Change Password</h2>
+    <div class="col-12 text-center is-danger" v-if="messageText">
+      {{ messageText }}
+    </div>
+    <div class="col-12 text-center is-danger" v-if="messageText2">
+      {{ messageText2 }}
+    </div>
+    <form
+      method="POST"
+      ref="loginForm"
+      :action="formUrl"
+      @submit.prevent="sendMail"
+      autocomplete="off"
+    >
+      <div class="row">
+        <div class="col-12 text-center is-danger" v-if="messageText">
+          {{ messageText }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center is-danger" v-if="messageText2">
+          {{ messageText2 }}
+        </div>
+      </div>
+
+      <input type="hidden" :value="csrfToken" name="_token" />
+      <input type="hidden" :value="token" name="reset_password_token" />
+
+      <div class="eye-input">
+        <input
+          type="text"
+          class="ggg"
+          placeholder="Email"
+          name="email_address"
+          v-validate="'required|email_format|max:255'"
+          v-model="email_address"
+          @input="changeInput()"
+        />
+        <div class="input-group is-email" role="alert">
+          {{ errors.first("email_address") }}
+        </div>
+      </div>
+      <span><a class="back-login" :href="formLogin">Back to Login</a></span>
+      <input type="submit" value="Send Require" name="login" />
     </form>
   </div>
 </template>
