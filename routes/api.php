@@ -53,3 +53,6 @@ use App\Http\Middleware\Sale;
 // });
 
 Route::get('/export-type-csv/{array}', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportTypeCsv'])->name('admin.import.exportTypeCsv');
+Route::get('/export-description-csv/{array}', [App\Http\Controllers\Admin\ImportCSVController::class, 'exportDescriptionCsv'])->name('admin.import.exportDescriptionCsv');
+
+
