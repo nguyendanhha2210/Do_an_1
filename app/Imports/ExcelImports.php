@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Type;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Facades\Log;
 
 class ExcelImports implements ToModel
 {

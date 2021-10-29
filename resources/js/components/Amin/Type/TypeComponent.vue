@@ -2,7 +2,7 @@
   <div class="table-agile-info">
     <div class="panel panel-default">
       <div class="row w3-res-tb">
-        <div class="col-md-2 col-sm-4 col-2" style="float: left">
+        <div class="col-md-3 col-7" style="float: left">
           <div class="form-check form-check-inline">
             <label
               class="
@@ -50,14 +50,14 @@
             Export
           </a>
         </div>
-        <div for="paginate" class="col-md-3 col-sm-2 col-4">
+        <div for="paginate" class="col-md-2 col-5">
           <select v-model="paginate" class="form-control w-sm inline v-middle">
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-2 col-sm-3 col-1" style="float: left">
+        <div class="col-md-1 col-3" style="float: left">
           <a
             class="btn btn-success"
             style="transform: translate(40%, -27%)"
@@ -65,25 +65,26 @@
             >Add New</a
           >
         </div>
-        <div class="col-md-5 col-sm-3 col-5" style="float: right">
-          <input type="text" class="form-control" v-model="search" />
+        <div class="col-md-2 col-9" style="float: right">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            class="form-control"
+            v-model="search"
+          />
         </div>
-      </div>
 
-      <div class="row w3-res-tb">
-        <div class="col-md-6 col-sm-5 col-5" style="float: left"></div>
-
-        <div class="col-md-6 col-sm-5 col-5" style="float: left">
+        <div class="col-md-4 col-12" style="float: left">
           <form role="form" @submit.prevent="importCSV()" multiple="multiple">
-            <div class="form-group">
-              <input type="file" name="file" />
-              <!-- <input type="file" ref="file" name="file" accept=".xlsx" /> -->
+            <div class="form-group" style="float: left; width: 204px">
+              <input type="file" name="file" accept=".xlsx" />
+              <!-- <input type="file" ref="file" name="file"  /> -->
             </div>
             <button type="submit" class="btn btn-info">Import</button>
           </form>
         </div>
       </div>
-
       <div class="table-responsive">
         <table class="table table-striped b-t b-light">
           <thead>
