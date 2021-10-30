@@ -1,7 +1,10 @@
 <template>
   <div class="pt-4 pb-4" style="background-color: #e9edf0">
     <div class="container">
-      <div class="row" style="background-color: white">
+      <div v-for="order in orders.data" :key="order.id">
+        <StepperComponet v-if="orderId == order.id" :data="order.order_status"></StepperComponet>
+      </div>
+      <div class="row" style="background-color: white; margin-top: 20px;">
         <div
           class="col-lg-2"
           style="border: dotted 1px #c0c0c0"
@@ -386,7 +389,9 @@
                 <tbody>
                   <tr v-for="(order, index) in orders.data" :key="order.id">
                     <td>{{ index + 1 }}</td>
-                    <td>{{ order.user.name }}</td>
+                    <td v-if="order.order_status < 5" @click="showProcess(order.id)">
+                      {{ order.user.name }}
+                    </td>
                     <td>{{ order.shipping.name }}</td>
                     <td>{{ formatPrice(order.total_bill) }} đ</td>
                     <td>{{ order.order_date }}</td>
@@ -720,6 +725,7 @@
 </style>
 
 <script>
+import StepperComponet from "../../../Common/Stepper/StepperComponet.vue";
 import StarRating from "vue-star-rating";
 import Loader from "../../../Common/loader.vue";
 import Vue from "vue";
@@ -802,6 +808,8 @@ export default {
       countFailure: "",
       countEvaluate: "",
       countReturn: "",
+
+      orderId: "",
     };
   },
   created() {
@@ -818,6 +826,7 @@ export default {
   components: {
     Loader,
     StarRating,
+    StepperComponet,
   },
   methods: {
     formatPrice(value) {
@@ -1537,6 +1546,10 @@ export default {
               break;
           }
         });
+    },
+
+    showProcess(id) {
+      this.orderId = id;
     },
   },
 };
