@@ -2,9 +2,12 @@
   <div class="pt-4 pb-4" style="background-color: #e9edf0">
     <div class="container">
       <div v-for="order in orders.data" :key="order.id">
-        <StepperComponet v-if="orderId == order.id" :data="order.order_status"></StepperComponet>
+        <StepperComponet
+          v-if="orderId == order.id"
+          :data="order.order_status"
+        ></StepperComponet>
       </div>
-      <div class="row" style="background-color: white; margin-top: 20px;">
+      <div class="row" style="background-color: white; margin-top: 20px">
         <div
           class="col-lg-2"
           style="border: dotted 1px #c0c0c0"
@@ -389,7 +392,10 @@
                 <tbody>
                   <tr v-for="(order, index) in orders.data" :key="order.id">
                     <td>{{ index + 1 }}</td>
-                    <td v-if="order.order_status < 5" @click="showProcess(order.id)">
+                    <td
+                      v-if="order.order_status < 5"
+                      @click="showProcess(order.id)"
+                    >
                       {{ order.user.name }}
                     </td>
                     <td>{{ order.shipping.name }}</td>

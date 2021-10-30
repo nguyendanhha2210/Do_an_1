@@ -761,37 +761,6 @@ form.vue-autosuggest div.autosuggest__results li {
   display: flex;
 }
 
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 16px;
-  border: 1px solid;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  line-height: 1.5;
-  transition: all 150ms;
-  border-radius: 4px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  font-size: 0.75rem;
-  color: #333;
-  background-color: #f0f0f0;
-  border-color: #f0f0f0;
-}
-.btn:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.btn--green-1 {
-  background-color: #75CC65;
-  border-color: #75CC65;
-  color: #fff;
-  margin-left: auto;
-}
-
 .loader-img {
   margin: 100px auto;
   font-size: 25px;

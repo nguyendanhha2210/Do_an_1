@@ -59,12 +59,6 @@
           Mã đơn : <span class="tx-green-1">{{ item }}</span>
         </div>
       </div>
-
-      <div class="controls">
-        <button class="btn btn--green-1">
-          Mua Lại
-        </button>
-      </div>
     </div>
   </div>
 </template>
