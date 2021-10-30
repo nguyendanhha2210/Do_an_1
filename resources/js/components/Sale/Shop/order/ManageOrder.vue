@@ -1,11 +1,6 @@
 <template>
   <div class="pt-4 pb-4" style="background-color: #e9edf0">
     <div class="container">
-      <div class="abc">
-        <h1>Stepper</h1>
-      <StepperComponet :data="3"></StepperComponet>
-      </div>
-
       <div v-for="order in orders.data" :key="order.id">
         <StepperComponet v-if="orderId == order.id" :data="order.order_status"></StepperComponet>
       </div>
