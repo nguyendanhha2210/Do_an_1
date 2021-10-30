@@ -39,7 +39,7 @@
 <div class="filter-widget" style="background-color: white; margin-bottom: 12px;text-align: center;">
     <img src="{{ '/frontend/images/phone.png' }}" style="height: 91px;width: 42%;" alt=""> <br><br>
     <b style="font-weight: 900;">HOTLINE</b> <br>
-    <b style="font-weight: 900;color:red;font-size: 21px;">091 2345 678</b>
+    <b style="font-weight: 900;color:red;font-size: 21px;">+33 6868.6868</b>
 </div>
 <hr>
 

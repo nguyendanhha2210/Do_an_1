@@ -9,7 +9,7 @@
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
-                        +65 11.188.888
+                        +33 6868.6868
                     </div>
                     <div class="share-service">
                         <div id="fb-root"></div>
@@ -18,7 +18,6 @@
                                 href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/"
                                 class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                     </div>
-
                 </div>
                 <div class="ht-right">
                     @if (Auth::guard('sales')->id())
@@ -37,7 +36,6 @@
                                 data-imagecss="flag yu" data-title="Bangladesh">German </option>
                         </select>
                     </div>
-
 
                     <div class="top-social">
                         <a href="https://www.facebook.com/Mekhoebexinh02"><img
@@ -90,9 +88,16 @@
                                                     @foreach (Session::get('viewed') as $key => $viewed)
                                                         <tr class="overflow"
                                                             style="background-color: white;border: 1px solid #e9edf0;">
-                                                            <td class="si-pic pt-4"><img width="80px;" height="80px;"
-                                                                    src="{{ URL::to('uploads/products/' . $viewed['product_image']) }}"
-                                                                    alt=""></td>
+
+                                                            <td class="si-pic pt-4">
+                                                                <a
+                                                                    href="{{ URL::to('/product-detail/' . $viewed['product_id']) }}">
+                                                                    <img width="80px;" height="80px;"
+                                                                        src="{{ URL::to('uploads/products/' . $viewed['product_image']) }}"
+                                                                        alt="">
+                                                                </a>
+                                                            </td>
+
                                                             <td class="si-text">
                                                                 <div class="product-selected">
                                                                     <p>{{ number_format($viewed['product_price'], 0, ',', '.') }}đ
@@ -134,9 +139,14 @@
                                                     @foreach (Session::get('favorite') as $key => $favorite)
                                                         <tr class="overflow"
                                                             style="background-color: white;border: 1px solid #e9edf0;">
-                                                            <td class="si-pic"><img width="80px;" height="80px;"
-                                                                    src="{{ URL::to('uploads/products/' . $favorite['product_image']) }}"
-                                                                    alt=""></td>
+                                                            <td class="si-pic">
+                                                                <a
+                                                                    href="{{ URL::to('/product-detail/' . $favorite['product_id']) }}">
+                                                                    <img width="80px;" height="80px;"
+                                                                        src="{{ URL::to('uploads/products/' . $favorite['product_image']) }}"
+                                                                        alt="">
+                                                                </a>
+                                                            </td>
                                                             <td class="si-text">
                                                                 <div class="product-selected">
                                                                     <p>{{ number_format($favorite['product_price'], 0, ',', '.') }}đ
@@ -248,11 +258,15 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="{{ request()->is('/') ? 'active' : ''}}"><a href="{{ URL::to('/') }}">Home</a></li>
-                        <li class="{{ request()->is('shop') ? 'active' : ''}}"><a href="{{ URL::to('/shop') }}">Shop</a></li>
-                        <li class="{{ request()->is('blog') ? 'active' : ''}}"><a href="{{ URL::to('/blog') }}">Blog</a></li>
+                        <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ URL::to('/') }}">Home</a>
+                        </li>
+                        <li class="{{ request()->is('shop') ? 'active' : '' }}"><a
+                                href="{{ URL::to('/shop') }}">Shop</a></li>
+                        <li class="{{ request()->is('blog') ? 'active' : '' }}"><a
+                                href="{{ URL::to('/blog') }}">Blog</a></li>
 
-                        <li class="{{ request()->is('sale/manage-order') || request()->is('contact') ? 'active' : ''}}">
+                        <li
+                            class="{{ request()->is('sale/manage-order') || request()->is('contact') ? 'active' : '' }}">
                             @if (Auth::guard('sales')->id())
                                 <a href="{{ URL::to('sale/manage-order') }}">Order</a>
                             @else
@@ -260,7 +274,8 @@
                             @endif
                         </li>
 
-                        <li class="{{ request()->is('view-cart') ? 'active' : ''}}"><a href="{{ URL::to('/view-cart') }}">Cart</a></li>
+                        <li class="{{ request()->is('view-cart') ? 'active' : '' }}"><a
+                                href="{{ URL::to('/view-cart') }}">Cart</a></li>
                         <li><a href="#">Account</a>
                             <ul class="dropdown">
                                 <li>

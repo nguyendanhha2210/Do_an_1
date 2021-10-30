@@ -40,7 +40,7 @@ class CouponController extends Controller
         try {
             $id = Auth::guard('sales')->id();
             $coupon = UserCoupon::where('user_id', '=', $id)->where('statusUse', StatusCoupon::SAVE)
-                ->with('coupon')->get();
+                ->with('coupon')->orderBy('created_at','DESC')->get();
             return response()->json($coupon, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);

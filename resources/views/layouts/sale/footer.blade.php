@@ -50,9 +50,9 @@
                          font-size: 16px;">Dried Fruit</a>
                      </div>
                      <ul>
-                         <li>Address : Hoài Đức , Hà Nội</li>
-                         <li>Phone : +85 1234.567</li>
-                         <li>Email : danhha@gmail.com</li>
+                         <li>Address : Dương Liễu, Hoài Đức, Hà Nội</li>
+                         <li>Phone : +33 6868.6868</li>
+                         <li>Email : danhha221020@gmail.com</li>
                      </ul>
                      <div class="footer-social">
                          <a href="#"><i class="fa fa-facebook"></i></a>
