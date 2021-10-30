@@ -1,7 +1,7 @@
 <template>
   <div class="pt-4 pb-4" style="background-color: #e9edf0">
     <div class="container">
-      <StepperComponet :data="1"></StepperComponet>
+      <StepperComponet :data="3"></StepperComponet>
 
 
       <div v-for="order in orders.data" :key="order.id">

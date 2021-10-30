@@ -9,7 +9,7 @@
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
-                        +33 6868.6868
+                        +33 6868.6868 wfsfsfsfsfđsf
                     </div>
                     <div class="share-service">
                         <div id="fb-root"></div>
