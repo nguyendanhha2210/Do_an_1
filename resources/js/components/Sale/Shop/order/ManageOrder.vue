@@ -1,455 +1,300 @@
 <template>
-  <div class="pt-4 pb-4" style="background-color: #e9edf0">
-    <div class="container">
-      <div v-for="order in orders.data" :key="order.id">
+  <div>
+    <div class="pt-4 pb-4" style="background-color: #e9edf0">
+      <div class="container" >
+        <div v-for="order in orders.data" :key="order.id"  style="margin-bottom:23px">
         <StepperComponet
-          v-if="orderId == order.id"
+          v-if="orderId == order.id && order.order_status < 5"
           :data="order.order_status"
         ></StepperComponet>
       </div>
-      <div class="row" style="background-color: white; margin-top: 20px">
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showCorfirm()"
-        >
+        <div class="row" style="background-color: white;">
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundConfirming,
-              'text-white': isBackGroundConfirming,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showCorfirm()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/confirm.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
-            </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Confirming
-                <span
-                  v-if="this.countOrder != 0"
-                  style="
-                    background-color: crimson;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countOrder }}</span
-                >
-              </h6>
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundConfirming,
+                'text-white': isBackGroundConfirming,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/confirm.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Confirming
+                  <span
+                    v-if="this.countOrder != 0"
+                    style="
+                      background-color: crimson;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countOrder }}</span
+                  >
+                </h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showDeliver()"
-        >
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundDelivering,
-              'text-white': isBackGroundDelivering,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showDeliver()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/deliver.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
-            </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Delivering
-                <span
-                  v-if="this.countshipping != 0"
-                  style="
-                    background-color: gold;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countshipping }}</span
-                >
-              </h6>
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundDelivering,
+                'text-white': isBackGroundDelivering,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/deliver.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Delivering
+                  <span
+                    v-if="this.countshipping != 0"
+                    style="
+                      background-color: gold;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countshipping }}</span
+                  >
+                </h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showRecive()"
-        >
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundReceived,
-              'text-white': isBackGroundReceived,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showRecive()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/status-payment-3.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
-            </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Received
-                <span
-                  v-if="this.countSuccess != 0"
-                  style="
-                    background-color: blue;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countSuccess }}</span
-                >
-              </h6>
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundReceived,
+                'text-white': isBackGroundReceived,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/status-payment-3.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Received
+                  <span
+                    v-if="this.countSuccess != 0"
+                    style="
+                      background-color: blue;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countSuccess }}</span
+                  >
+                </h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showEvaluat()"
-        >
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundEvaluated,
-              'text-white': isBackGroundEvaluated,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showEvaluat()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/status-payment-1.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
-            </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Evaluated
-                <span
-                  v-if="this.countEvaluate != 0"
-                  style="
-                    background-color: yellowgreen;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countEvaluate }}</span
-                >
-              </h6>
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundEvaluated,
+                'text-white': isBackGroundEvaluated,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/status-payment-1.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Evaluated
+                  <span
+                    v-if="this.countEvaluate != 0"
+                    style="
+                      background-color: yellowgreen;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countEvaluate }}</span
+                  >
+                </h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showCancel()"
-        >
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundCancelled,
-              'text-white': isBackGroundCancelled,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showCancel()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/status-payment-2.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
-            </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Cancelled
-                <span
-                  v-if="this.countFailure != 0"
-                  style="
-                    background-color: red;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countFailure }}</span
-                >
-              </h6>
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundCancelled,
+                'text-white': isBackGroundCancelled,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/status-payment-2.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Cancelled
+                  <span
+                    v-if="this.countFailure != 0"
+                    style="
+                      background-color: red;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countFailure }}</span
+                  >
+                </h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="col-lg-2"
-          style="border: dotted 1px #c0c0c0"
-          @click="showReturn()"
-        >
           <div
-            class="single-benefit hover-status"
-            v-bind:class="{
-              'bt btn-success': isBackGroundReturns,
-              'text-white': isBackGroundReturns,
-            }"
+            class="col-lg-2"
+            style="border: dotted 1px #c0c0c0"
+            @click="showReturn()"
           >
-            <div class="sb-icon text-center">
-              <img
-                class="pt-2"
-                src="/frontend/images/status-payment-4.jpg"
-                style="height: 66px; width: 81px"
-                alt=""
-              />
+            <div
+              class="single-benefit hover-status"
+              v-bind:class="{
+                'bt btn-success': isBackGroundReturns,
+                'text-white': isBackGroundReturns,
+              }"
+            >
+              <div class="sb-icon text-center">
+                <img
+                  class="pt-2"
+                  src="/frontend/images/status-payment-4.jpg"
+                  style="height: 66px; width: 81px"
+                  alt=""
+                />
+              </div>
+              <br />
+              <div class="sb-text text-center pb-2">
+                <h6>
+                  Returns
+                  <span
+                    v-if="this.countReturn != 0"
+                    style="
+                      background-color: crimson;
+                      color: white;
+                      padding: 3px;
+                      font-size: 13px;
+                      border-radius: 25px;
+                    "
+                    >{{ this.countReturn }}</span
+                  >
+                </h6>
+              </div>
             </div>
-            <br />
-            <div class="sb-text text-center pb-2">
-              <h6>
-                Returns
-                <span
-                  v-if="this.countReturn != 0"
-                  style="
-                    background-color: crimson;
-                    color: white;
-                    padding: 3px;
-                    font-size: 13px;
-                    border-radius: 25px;
-                  "
-                  >{{ this.countReturn }}</span
-                >
-              </h6>
-            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Show màn hình từng sp chưa được vote -->
-      <div
-        v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
-        class="row mt-3 pt-1"
-        style="background-color: white"
-      >
-        <div class="col-lg-12">
-          <div class="cart-table text-center">
-            <b style="color: green; font-size: 26px">Evaluated</b>
-            <table class="table table-condensed">
-              <thead>
-                <tr class="cart_menu">
-                  <td><b>STT</b></td>
-                  <td><b>Sản Phẩm</b></td>
-                  <td><b>Ảnh</b></td>
-                  <td><b>Đơn Giá</b></td>
-                  <td><b>Số lượng</b></td>
-                  <td><b>Status</b></td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(voteDetail, index) in voteDetails"
-                  :key="voteDetail.id"
-                >
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ voteDetail.product_name }}</td>
-                  <td>
-                    <img
-                      style="height: 50px; width: 50px"
-                      :src="
-                        baseUrl +
-                        '/uploads/products/' +
-                        voteDetail.product.images
-                      "
-                      alt=""
-                    />
-                  </td>
-                  <td>{{ formatPrice(voteDetail.product_price) }} đ</td>
-                  <td>{{ voteDetail.product_sales_quantity }}</td>
-                  <td v-if="voteDetail.status_vote == 1">
-                    <a
-                      data-toggle="modal"
-                      data-target="#myModalVote"
-                      @click="voteProduct(voteDetail)"
-                      ><button class="btn btn-warning">Evaluate</button></a
-                    >
-                  </td>
-                  <td v-else>
-                    <button class="btn btn-success">Have evaluated</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Show màn hình từng sp đã được vote -->
-      <div
-        v-if="
-          this.detail_voted &&
-          this.show_evaluat &&
-          this.votedProductDetail != ''
-        "
-        class="row mt-2 pt-1 pb-1"
-        style="background-color: white"
-      >
-        <div class="col-lg-12">
-          <div class="cart-table text-center">
-            <b style="color: green; font-size: 26px">Your Review !</b>
-            <table class="table table-condensed">
-              <thead>
-                <tr class="cart_menu">
-                  <td><b>STT</b></td>
-                  <td><b>Sản Phẩm</b></td>
-                  <td><b>Ảnh</b></td>
-                  <td><b>Đơn Giá</b></td>
-                  <td><b>Số lượng</b></td>
-                  <td><b>Status</b></td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(votedProductDetail, index) in votedProductDetails"
-                  :key="votedProductDetail.id"
-                >
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ votedProductDetail.product_name }}</td>
-                  <td>
-                    <img
-                      style="height: 50px; width: 50px"
-                      :src="
-                        baseUrl +
-                        '/uploads/comments/' +
-                        votedProductDetail.product.images
-                      "
-                      alt=""
-                    />
-                  </td>
-                  <td>{{ formatPrice(votedProductDetail.product_price) }} đ</td>
-                  <td>{{ votedProductDetail.product_sales_quantity }}</td>
-                  <td>
-                    <a
-                      data-toggle="modal"
-                      data-target="#myModalViewVote"
-                      @click="yourReview(votedProductDetail)"
-                      ><button class="btn btn-warning">Your review !</button></a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <br />
-
-      <div
-        v-if="
-          this.show_corfirm ||
-          this.show_deliver ||
-          this.show_receive ||
-          this.show_evaluat ||
-          this.show_cancel ||
-          this.show_return
-        "
-      >
-        <div class="row pt-5 pb-1" style="background-color: white">
+        <!-- Show màn hình từng sp chưa được vote -->
+        <div
+          v-if="this.view_vote && this.show_receive && this.voteDetails != ''"
+          class="row mt-3 pt-1"
+          style="background-color: white"
+        >
           <div class="col-lg-12">
-            <div class="cart-table">
+            <div class="cart-table text-center">
+              <b style="color: green; font-size: 26px">Evaluated</b>
               <table class="table table-condensed">
                 <thead>
                   <tr class="cart_menu">
-                    <td><b>ID</b></td>
-                    <td><b>Orderer</b></td>
-                    <td><b>Receiver</b></td>
-                    <td><b>Total Money</b></td>
-                    <td><b>Order Date</b></td>
+                    <td><b>STT</b></td>
+                    <td><b>Sản Phẩm</b></td>
+                    <td><b>Ảnh</b></td>
+                    <td><b>Đơn Giá</b></td>
+                    <td><b>Số lượng</b></td>
                     <td><b>Status</b></td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(order, index) in orders.data" :key="order.id">
+                  <tr
+                    v-for="(voteDetail, index) in voteDetails"
+                    :key="voteDetail.id"
+                  >
                     <td>{{ index + 1 }}</td>
-                    <td
-                      v-if="order.order_status < 5"
-                      @click="showProcess(order.id)"
-                    >
-                      {{ order.user.name }}
-                    </td>
-                    <td>{{ order.shipping.name }}</td>
-                    <td>{{ formatPrice(order.total_bill) }} đ</td>
-                    <td>{{ order.order_date }}</td>
-                    <td v-if="order.order_status == 1">
-                      <button
-                        data-toggle="modal"
-                        data-target="#myModal"
-                        data-whatever="@getbootstrap"
-                        class="btn btn-danger"
-                        @click="updateProduct(order.id)"
-                      >
-                        Hủy Đơn
-                      </button>
-                    </td>
-                    <td v-else-if="order.order_status == 2">
-                      <b style="color: blue">Đang Giao !</b>
-                    </td>
-                    <td v-else-if="order.order_status == 3">
-                      <a @click="detailProduct(order.order_code)"
-                        ><button class="btn btn-warning">
-                          View Evaluate
-                        </button></a
-                      >
-                    </td>
-
-                    <td v-else-if="order.order_status == 4">
-                      <button
-                        class="btn btn-success button-mualai"
-                        @click="muaLai(order.id)"
-                      >
-                        Mua Lại
-                      </button>
-                    </td>
-                    <td v-else-if="order.order_status == 5">
-                      <a @click="detaulVotedProduct(order.order_code)"
-                        ><button class="btn btn-warning">
-                          Xem Đánh Giá
-                        </button></a
-                      >
-                    </td>
-                    <td v-else-if="order.order_status == 6">
-                      <b style="color: red">Trả Lại !</b> <br />
-                    </td>
-
+                    <td>{{ voteDetail.product_name }}</td>
                     <td>
-                      <a :href="`order-detail/${order.order_code}/view`">
-                        <i
-                          class="fa fa-pencil-square-o text-success text-active"
-                          style="font-size: 25px"
-                        >
-                        </i>
-                      </a>
+                      <img
+                        style="height: 50px; width: 50px"
+                        :src="
+                          baseUrl +
+                          '/uploads/products/' +
+                          voteDetail.product.images
+                        "
+                        alt=""
+                      />
+                    </td>
+                    <td>{{ formatPrice(voteDetail.product_price) }} đ</td>
+                    <td>{{ voteDetail.product_sales_quantity }}</td>
+                    <td v-if="voteDetail.status_vote == 1">
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalVote"
+                        @click="voteProduct(voteDetail)"
+                        ><button class="btn btn-warning">Evaluate</button></a
+                      >
+                    </td>
+                    <td v-else>
+                      <button class="btn btn-success">Have evaluated</button>
                     </td>
                   </tr>
                 </tbody>
@@ -457,256 +302,413 @@
             </div>
           </div>
         </div>
-        <div v-if="orders != ''" class="pt-4">
-          <nav aria-label="Page navigation example">
-            <paginate
-              v-model="page"
-              :page-count="parseInt(orders.last_page)"
-              :page-range="5"
-              :margin-pages="2"
-              :click-handler="changePage"
-              :prev-text="'<<'"
-              :next-text="'>>'"
-              :container-class="'pagination justify-content-center'"
-              :page-class="'page-item'"
-              :prev-class="'page-item'"
-              :next-class="'page-item'"
-              :page-link-class="'page-link bg-info text-light'"
-              :next-link-class="'page-link bg-info text-light'"
-              :prev-link-class="'page-link bg-info text-light'"
-            >
-            </paginate>
-          </nav>
-        </div>
-        <div v-else class="text-center" style="color: red">
-          There is no data !
-        </div>
-      </div>
-
-      <div
-        class="modal fade"
-        id="myModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Why do you want to cancel the order?
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form
-                role="form"
-                @submit.prevent="cancelOrder()"
-                enctype="multipart/form-data"
-              >
-                <div class="form-group">
-                  <input
-                    type="text"
-                    hidden
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="id"
-                    v-model="order.id"
-                  />
-                  <label for="exampleInputEmail1">Content</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    name="order_destroy"
-                    id="message-text"
-                    v-model="order.order_destroy"
-                  ></textarea>
-                  <div
-                    style="color: red"
-                    v-if="errorBackEnd_HuyDon.order_destroy"
+        <!-- Show màn hình từng sp đã được vote -->
+        <div
+          v-if="
+            this.detail_voted &&
+            this.show_evaluat &&
+            this.votedProductDetail != ''
+          "
+          class="row mt-2 pt-1 pb-1"
+          style="background-color: white"
+        >
+          <div class="col-lg-12">
+            <div class="cart-table text-center">
+              <b style="color: green; font-size: 26px">Your Review !</b>
+              <table class="table table-condensed">
+                <thead>
+                  <tr class="cart_menu">
+                    <td><b>STT</b></td>
+                    <td><b>Sản Phẩm</b></td>
+                    <td><b>Ảnh</b></td>
+                    <td><b>Đơn Giá</b></td>
+                    <td><b>Số lượng</b></td>
+                    <td><b>Status</b></td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(votedProductDetail, index) in votedProductDetails"
+                    :key="votedProductDetail.id"
                   >
-                    {{ errorBackEnd_HuyDon.order_destroy[0] }}
-                  </div>
-                </div>
-
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-              </form>
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ votedProductDetail.product_name }}</td>
+                    <td>
+                      <img
+                        style="height: 50px; width: 50px"
+                        :src="
+                          baseUrl +
+                          '/uploads/comments/' +
+                          votedProductDetail.product.images
+                        "
+                        alt=""
+                      />
+                    </td>
+                    <td>
+                      {{ formatPrice(votedProductDetail.product_price) }} đ
+                    </td>
+                    <td>{{ votedProductDetail.product_sales_quantity }}</td>
+                    <td>
+                      <a
+                        data-toggle="modal"
+                        data-target="#myModalViewVote"
+                        @click="yourReview(votedProductDetail)"
+                        ><button class="btn btn-warning">
+                          Your review !
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </div>
+        <br />
+        <div
+          v-if="
+            this.show_corfirm ||
+            this.show_deliver ||
+            this.show_receive ||
+            this.show_evaluat ||
+            this.show_cancel ||
+            this.show_return
+          "
+        >
+          <div class="row pt-5 pb-1" style="background-color: white">
+            <div class="col-lg-12">
+              <div class="cart-table">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr class="cart_menu">
+                      <td><b>ID</b></td>
+                      <td><b>Orderer</b></td>
+                      <td><b>Receiver</b></td>
+                      <td><b>Total Money</b></td>
+                      <td><b>Order Date</b></td>
+                      <td><b>Status</b></td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(order, index) in orders.data" :key="order.id"  @click="showProcess(order.id)">
+                      <td>{{ index + 1 }}</td>
+                      <td>
+                        {{ order.user.name }}
+                      </td>
+                      <td>{{ order.shipping.name }}</td>
+                      <td>{{ formatPrice(order.total_bill) }} đ</td>
+                      <td>{{ order.order_date }}</td>
+                      <td v-if="order.order_status == 1">
+                        <button
+                          data-toggle="modal"
+                          data-target="#myModal"
+                          data-whatever="@getbootstrap"
+                          class="btn btn-danger"
+                          @click="updateProduct(order.id)"
+                        >
+                          Hủy Đơn
+                        </button>
+                      </td>
+                      <td v-else-if="order.order_status == 2">
+                        <b style="color: blue">Đang Giao !</b>
+                      </td>
+                      <td v-else-if="order.order_status == 3">
+                        <a @click="detailProduct(order.order_code)"
+                          ><button class="btn btn-warning">
+                            View Evaluate
+                          </button></a
+                        >
+                      </td>
 
-      <div
-        class="modal fade"
-        id="myModalVote"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                What are your thoughts on the product?
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+                      <td v-else-if="order.order_status == 5">
+                        <button
+                          class="btn btn-success button-mualai"
+                          @click="muaLai(order.id)"
+                        >
+                          Mua Lại
+                        </button>
+                      </td>
+                      <td v-else-if="order.order_status == 4">
+                        <a @click="detaulVotedProduct(order.order_code)"
+                          ><button class="btn btn-warning">
+                            Xem Đánh Giá
+                          </button></a
+                        >
+                      </td>
+                      <td v-else-if="order.order_status == 6">
+                        <b style="color: red">Trả Lại !</b> <br />
+                      </td>
+
+                      <td>
+                        <a :href="`order-detail/${order.order_code}/view`">
+                          <i
+                            class="
+                              fa fa-pencil-square-o
+                              text-success text-active
+                            "
+                            style="font-size: 25px"
+                          >
+                          </i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="modal-body">
-              <form
-                role="form"
-                @submit.prevent="customerReviews()"
-                enctype="multipart/form-data"
+          </div>
+          <div v-if="orders != ''" class="pt-4">
+            <nav aria-label="Page navigation example">
+              <paginate
+                v-model="page"
+                :page-count="parseInt(orders.last_page)"
+                :page-range="5"
+                :margin-pages="2"
+                :click-handler="changePage"
+                :prev-text="'<<'"
+                :next-text="'>>'"
+                :container-class="'pagination justify-content-center'"
+                :page-class="'page-item'"
+                :prev-class="'page-item'"
+                :next-class="'page-item'"
+                :page-link-class="'page-link bg-info text-light'"
+                :next-link-class="'page-link bg-info text-light'"
+                :prev-link-class="'page-link bg-info text-light'"
               >
+              </paginate>
+            </nav>
+          </div>
+          <div v-else class="text-center" style="color: red">
+            There is no data !
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Why do you want to cancel the order?
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form
+                  role="form"
+                  @submit.prevent="cancelOrder()"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      hidden
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      name="id"
+                      v-model="order.id"
+                    />
+                    <label for="exampleInputEmail1">Content</label>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      name="order_destroy"
+                      id="message-text"
+                      v-model="order.order_destroy"
+                    ></textarea>
+                    <div
+                      style="color: red"
+                      v-if="errorBackEnd_HuyDon.order_destroy"
+                    >
+                      {{ errorBackEnd_HuyDon.order_destroy[0] }}
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="myModalVote"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  What are your thoughts on the product?
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form
+                  role="form"
+                  @submit.prevent="customerReviews()"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-group">
+                    <input
+                      hidden
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      name="order_code "
+                      v-model="evaluate.order_code"
+                    />
+
+                    <input
+                      hidden
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      name="product_id"
+                      v-model="evaluate.product_id"
+                    />
+
+                    <div style="margin: auto; display: table">
+                      <star-rating
+                        :star-size="45"
+                        :increment="1"
+                        v-model="evaluate.star_vote"
+                      ></star-rating>
+                      <input
+                        hidden
+                        type="number"
+                        name="star_vote"
+                        v-model="evaluate.star_vote"
+                      />
+                    </div>
+                    <br />
+                    <textarea
+                      type="text"
+                      placeholder="Điều bạn muốn nói về sản phẩm ..."
+                      style="height: 130px"
+                      class="form-control"
+                      name="content"
+                      v-model="evaluate.content"
+                    ></textarea>
+                    <div style="color: red" v-if="errorBackEnd.content">
+                      {{ errorBackEnd.content[0] }}
+                    </div>
+                  </div>
+
+                  <input
+                    type="file"
+                    ref="file"
+                    class="form-control"
+                    accept="image/*"
+                    multiple="multiple"
+                  />
+
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="myModalViewVote"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Your review !
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
                 <div class="form-group">
-                  <input
-                    hidden
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="order_code "
-                    v-model="evaluate.order_code"
-                  />
-
-                  <input
-                    hidden
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="product_id"
-                    v-model="evaluate.product_id"
-                  />
-
                   <div style="margin: auto; display: table">
                     <star-rating
                       :star-size="45"
-                      :increment="1"
-                      v-model="evaluate.star_vote"
+                      :increment="0.5"
+                      v-model="viewVote.star_vote"
                     ></star-rating>
-                    <input
-                      hidden
-                      type="number"
-                      name="star_vote"
-                      v-model="evaluate.star_vote"
-                    />
                   </div>
                   <br />
                   <textarea
+                    readonly
                     type="text"
                     placeholder="Điều bạn muốn nói về sản phẩm ..."
                     style="height: 130px"
                     class="form-control"
                     name="content"
-                    v-model="evaluate.content"
+                    v-model="viewVote.content"
                   ></textarea>
-                  <div style="color: red" v-if="errorBackEnd.content">
-                    {{ errorBackEnd.content[0] }}
-                  </div>
                 </div>
-
-                <input
-                  type="file"
-                  ref="file"
-                  class="form-control"
-                  accept="image/*"
-                  multiple="multiple"
-                />
-
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="modal fade"
-        id="myModalViewVote"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Your review !</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <div style="margin: auto; display: table">
-                  <star-rating
-                    :star-size="45"
-                    :increment="0.5"
-                    v-model="viewVote.star_vote"
-                  ></star-rating>
-                </div>
-                <br />
-                <textarea
-                  readonly
-                  type="text"
-                  placeholder="Điều bạn muốn nói về sản phẩm ..."
-                  style="height: 130px"
-                  class="form-control"
-                  name="content"
-                  v-model="viewVote.content"
-                ></textarea>
-              </div>
-              <div class="row" style="display: grid">
-                <div class="border-bottom w-100">
-                  <div
-                    class="form-group row row-container mb-0 pd-tb-20"
-                    style="margin-left: 1px"
-                  >
-                    <div class="col-md-12">
-                      <div
-                        class="image-thumbnail mt-8-sp text-center"
-                        v-if="viewVote.evaluate_images == 0"
-                      >
-                        <img
-                          src="/backend/images/no-image-found-360x250.png"
-                          class="w-10 h-10"
-                          alt=""
-                        />
-                      </div>
-                      <div
-                        class="image-thumbnail mt-8-sp mr-2 float-left"
-                        v-else
-                        v-for="data in viewVote.evaluate_images"
-                        :key="data.id"
-                      >
-                        <img
-                          style="width: 150px; height: 170px; margin-top: 9px"
-                          :src="baseUrl + '/uploads/comments/' + data.url"
-                          alt=""
-                        />
+                <div class="row" style="display: grid">
+                  <div class="border-bottom w-100">
+                    <div
+                      class="form-group row row-container mb-0 pd-tb-20"
+                      style="margin-left: 1px"
+                    >
+                      <div class="col-md-12">
+                        <div
+                          class="image-thumbnail mt-8-sp text-center"
+                          v-if="viewVote.evaluate_images == 0"
+                        >
+                          <img
+                            src="/backend/images/no-image-found-360x250.png"
+                            class="w-10 h-10"
+                            alt=""
+                          />
+                        </div>
+                        <div
+                          class="image-thumbnail mt-8-sp mr-2 float-left"
+                          v-else
+                          v-for="data in viewVote.evaluate_images"
+                          :key="data.id"
+                        >
+                          <img
+                            style="width: 150px; height: 170px; margin-top: 9px"
+                            :src="baseUrl + '/uploads/comments/' + data.url"
+                            alt=""
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -716,9 +718,9 @@
           </div>
         </div>
       </div>
+      <Loader :flag-show="flagShowLoader"></Loader>
+      <FlashMessage :position="'left bottom'"></FlashMessage>
     </div>
-    <Loader :flag-show="flagShowLoader"></Loader>
-    <FlashMessage :position="'left bottom'"></FlashMessage>
   </div>
 </template>
 
@@ -816,6 +818,7 @@ export default {
       countReturn: "",
 
       orderId: "",
+      processOrder: false,
     };
   },
   created() {

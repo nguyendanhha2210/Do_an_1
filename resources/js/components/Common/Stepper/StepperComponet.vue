@@ -54,11 +54,6 @@
           >
         </div>
       </div>
-      <div class="stepper-content" v-for="item in 4" :key="item">
-        <div class="stepper-pane" v-if="step == item">
-          Mã đơn : <span class="tx-green-1">{{ item }}</span>
-        </div>
-      </div>
     </div>
   </div>
 </template>

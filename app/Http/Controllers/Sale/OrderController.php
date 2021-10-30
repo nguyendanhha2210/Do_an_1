@@ -23,13 +23,13 @@ class OrderController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         } else {
-            $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+            $type = Type::WHERE('deleted_at', null)->orderBy('created_at', 'desc')->get();
             $breadcrumbs = [
                 [
                     'name' => 'Home',
-                    'url' => route('sale.index')
+                    'url' => route('sale.index'),
 
-                ], 'Manage Order'
+                ], 'Manage Order',
             ];
             return view('sale.shop.orders.manageorder', ['breadcrumbs' => $breadcrumbs], compact('type'));
         }
@@ -44,7 +44,7 @@ class OrderController extends Controller
                 $id = Auth::guard('sales')->id();
                 $orders = Order::where('customer_id', '=', $id)->with(['user', 'shipping'])->orderBy('created_at', 'desc')->paginate(5);
                 return response()->json($orders, StatusCode::OK);
-            } catch (\Exception $e) {
+            } catch (\Exception$e) {
                 return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
             }
         }
@@ -73,7 +73,7 @@ class OrderController extends Controller
                 $orders->order_destroy = $request->order_destroy;
                 $orders->save();
                 return response()->json($orders, StatusCode::OK);
-            } catch (\Exception $e) {
+            } catch (\Exception$e) {
                 return response()->json(['message_failure' => $e->getMessage(), 'status' => StatusCode::INTERNAL_ERR], StatusCode::INTERNAL_ERR);
             }
         }
@@ -132,17 +132,17 @@ class OrderController extends Controller
         if (!Auth::guard('sales')->check()) {
             return view('admin.users.login');
         }
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', null)->orderBy('created_at', 'desc')->get();
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
             ], [
                 'name' => 'Order',
-                'url' => route('sale.shop.index')
+                'url' => route('sale.shop.index'),
 
-            ], $order_code
+            ], $order_code,
         ];
 
         $order_details = OrderDetail::with('product')->where('order_code', $order_code)->get();
@@ -155,7 +155,7 @@ class OrderController extends Controller
             $order_id = $ord->id;
         }
 
-        $shipping = Shipping::where('id', $shipping_id)->first(); //Chỉ lấy 1 trường id thôi 
+        $shipping = Shipping::where('id', $shipping_id)->first(); //Chỉ lấy 1 trường id thôi
         $Order_detail_product = OrderDetail::with('product')->where('order_code', $order_code)->get();
 
         foreach ($Order_detail_product as $key => $order_d) {
