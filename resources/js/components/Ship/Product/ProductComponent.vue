@@ -135,7 +135,6 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Type_id</label>
                   <select v-model="product.type_id" class="form-control">
-                    <option value="">Select product type</option>
                     <option
                       v-for="data in type_product"
                       :key="data.id"
@@ -157,7 +156,6 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Weight_id</label>
                   <select v-model="product.weight_id" class="form-control">
-                    <option value="">Select product weight</option>
                     <option
                       v-for="data in weight_product"
                       :key="data.id"

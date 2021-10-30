@@ -192,7 +192,6 @@
                     v-validate="'required'"
                     class="form-control"
                   >
-                    <option value="">Select product type</option>
                     <option
                       v-for="data in type_product"
                       :key="data.id"
