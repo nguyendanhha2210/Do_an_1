@@ -23,6 +23,7 @@
           >
             <option value="1">Permitted goods</option>
             <option value="2">Entered</option>
+            <option value="3">Excel Import</option>
             <option value="">Full</option>
           </select>
         </div>
@@ -39,6 +40,14 @@
             placeholder="Search"
           />
         </div>
+      </div>
+      <div class="col-md-4 col-12 mt-1" style="float: left">
+        <form role="form" @submit.prevent="importCSV()" multiple="multiple">
+          <div class="form-group" style="float: left; width: 204px">
+            <input type="file" name="file" accept=".xlsx" />
+          </div>
+          <button type="submit" class="btn btn-info">Import</button>
+        </form>
       </div>
 
       <div class="table-responsive">
@@ -137,12 +146,142 @@
                   ></a>
                 </div>
               </td>
+              <td v-else-if="warehouse.status == 3">
+                <div class="td-action">
+                  <a
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    @click="updateWarehouse(warehouse)"
+                    style="font-size: 21px; transform: translate(-26%, -14%)"
+                    ><i
+                      class="fa fa-pencil-square-o text-success text-active"
+                    ></i
+                  ></a>
+                </div>
+              </td>
               <td v-else></td>
             </tr>
           </transition-group>
         </table>
       </div>
     </div>
+
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Import product information
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              @submit.prevent="addImage"
+              enctype="multipart/form-data"
+              method="POST"
+              ref="addForm"
+            >
+              <input type="hidden" name="productId" :value="warehouse.id" />
+
+              <input type="hidden" :value="csrfToken" name="_token" />
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name Product</label>
+                <input
+                  readonly
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  v-model="warehouse.name"
+                />
+              </div>
+              <div class="form-group">
+                <div class="position-relative d-inline-block">
+                  <label for="file_img_banner1">
+                    <div class="img-drop-box mt-2 mr-2">
+                      <img src ref="imageDispaly" class="img-thumbnail" />
+                      <svg
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45"
+                        style="
+                          margin-top: 52px;
+                          margin-left: 38%;
+                          margin-right: 38%;
+                        "
+                        ref="iconFile"
+                      >
+                        <use
+                          xlink:href="/images/Group_1287.svg#Group_1287"
+                        ></use>
+                      </svg>
+                    </div>
+                    <input
+                      type="file"
+                      id="file_img_banner1"
+                      v-validate="'image_format'"
+                      name="images"
+                      ref="image"
+                      v-on:change="attachImage"
+                      accept="image/*"
+                    />
+                  </label>
+                  <a
+                    class="btn btn-light icon-close-white display-none"
+                    style="background-color: black; border-radius: 91%"
+                    ref="iconClose"
+                    @click="deleteImage"
+                  ></a>
+                </div>
+                <div style="color: red" v-if="errorBackEnd.images">
+                  {{ errorBackEnd.images[0] }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Import Price</label>
+                <input
+                  readonly
+                  type="text"
+                  name="import_price"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  v-model="warehouse.import_price"
+                />
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-if="warehouses != ''">
       <nav aria-label="Page navigation example">
         <paginate
@@ -165,7 +304,6 @@
       </nav>
     </div>
     <div class="text-center" v-else style="color: red">There is no data !</div>
-
     <Modal
       v-if="modalShow"
       :type="type"
@@ -177,7 +315,6 @@
       :urlCancle="urlCancle"
       :modalShow="modalShow"
     ></Modal>
-
     <Loader :flag-show="flagShowLoader"></Loader>
     <FlashMessage :position="'left bottom'"></FlashMessage>
   </div>
@@ -203,6 +340,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
+      csrfToken: Laravel.csrfToken,
       warehouses: [],
       warehouse: {
         id: "",
@@ -249,7 +387,7 @@ export default {
       this.fetchData();
     },
   },
-  props: ["formAdd"],
+  props: ["formAdd", "formUrl"],
   mounted() {},
   components: {
     Modal,
@@ -319,6 +457,112 @@ export default {
     changePage(page) {
       this.page = page;
       this.fetchData();
+    },
+
+    importCSV() {
+      let that = this;
+      let formData = new FormData();
+      var file = document.querySelector("input[type=file]").files[0];
+      formData.append("file", file);
+      axios
+        .post("import-product-csv", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          this.$swal({
+            title: "Import successfully!",
+            icon: "success",
+            confirmButtonText: "OK!",
+          });
+          that.fetchData();
+        })
+        .catch((err) => {
+          switch (err.response.status) {
+            case 422:
+              this.errorBackEnd = err.response.data.errors;
+              break;
+            case 404:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            case 500:
+              that
+                .$swal({
+                  title: "Add Error !",
+                  icon: "warning",
+                  confirmButtonText: "Cancle !",
+                })
+                .then(function (confirm) {});
+              break;
+            default:
+              break;
+          }
+        });
+    },
+
+    attachImage() {
+      this.warehouse.images = this.$refs.image.files[0];
+      let reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        function () {
+          this.$refs.imageDispaly.style.display = "block";
+          this.$refs.iconClose.style.display = "block";
+          this.$refs.imageDispaly.src = reader.result;
+          this.$refs.iconFile.style.display = "none";
+        }.bind(this),
+        false
+      );
+      reader.readAsDataURL(this.warehouse.images);
+    },
+
+    deleteImage() {
+      this.warehouse.images = "";
+      this.$refs.imageDispaly.style.display = "none";
+      this.$refs.iconClose.style.display = "none";
+      this.$refs.image.value = "";
+      this.$refs.iconFile.style.display = "block";
+    },
+
+    updateWarehouse(warehouse) {
+      this.warehouse.id = warehouse.id;
+      this.warehouse.name = warehouse.name;
+      if (warehouse.images != "") {
+        this.$refs.imageDispaly.src =
+          this.baseUrl + "/uploads/products/" + warehouse.images;
+        this.$refs.imageDispaly.style.display = "block";
+        this.$refs.iconClose.style.display = "block";
+        this.$refs.iconFile.style.display = "none";
+      }
+      this.warehouse.import_price = warehouse.import_price;
+    },
+
+    addImage: function (e) {
+      e.preventDefault();
+      let that = this;
+      let formData = new FormData(this.$refs.addForm);
+      axios
+        .post(`/admin/warehouse/excel-import-image`, formData, {
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          this.$swal({
+            title: "Update Successfully!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(function (confirm) {
+            window.location.href = "/admin/warehouse";
+          });
+        });
     },
   },
 };

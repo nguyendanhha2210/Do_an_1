@@ -13,4 +13,5 @@ final class StatusWarehouse extends Enum
 {
     const UP = 1;
     const DOWN = 2;
+    const IMPORT_EXCEL = 3;
 }

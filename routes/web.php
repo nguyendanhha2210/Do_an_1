@@ -32,6 +32,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
 
     Route::post('/import-type-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importTypeCsv'])->name('admin.import.importTypeCsv');
     Route::post('/import-description-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importDescriptionCsv'])->name('admin.import.importDescriptionCsv');
+    Route::post('/import-product-csv', [App\Http\Controllers\Admin\ImportCSVController::class, 'importProductCsv'])->name('admin.import.importProductCsv');
 
     Route::get('/invoice-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'invoiceStatistical'])->name('admin.statistical.invoice');
     Route::get('/get-invoice-statistical', [App\Http\Controllers\Admin\StatisticalController::class, 'getInvoiceStatistical'])->name('admin.statistical.getInvoiceStatistical');
@@ -140,6 +141,7 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::post('/warehouse/warehouse-add', [App\Http\Controllers\Admin\WareHouseController::class, 'store'])->name('admin.warehouse.store'); //thêm
     Route::get('/warehouse/{id}/edit', [App\Http\Controllers\Admin\WareHouseController::class, 'edit'])->name('admin.warehouse.edit'); //gọi trang edit
     Route::post('/warehouse/{id}/warehouse-update', [App\Http\Controllers\Admin\WareHouseController::class, 'update'])->name('admin.warehouse.update');
+    Route::post('/warehouse/excel-import-image', [App\Http\Controllers\Admin\WareHouseController::class, 'excelImportImage'])->name('admin.warehouse.excelImportImage'); //thêm ảnh khi import excel
 
     //User
     Route::get('/user', [App\Http\Controllers\Admin\User\AccountController::class, 'index'])->name('admin.user.list'); //gọi form list

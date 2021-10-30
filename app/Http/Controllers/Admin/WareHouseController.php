@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\OrderStatus;
 use App\Enums\StatusCode;
 use App\Enums\StatusSale;
 use App\Enums\StatusWarehouse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\TypeRequest;
-use App\Http\Requests\Admin\WareHouseRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\Type;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WareHouseController extends Controller
 {
@@ -59,7 +55,7 @@ class WareHouseController extends Controller
             })->orderBy($sort_field, $sort_direction)->paginate($paginate);
 
             return response()->json($types, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -109,9 +105,9 @@ class WareHouseController extends Controller
 
             if ($flagWarehouse && $flagProduct && $flagProductImage) {
                 DB::commit();
-                return response()->json(route('admin.warehouse.list'), StatusCode::OK);  //Lưu thành công gọi ra đg dẫn về list
+                return response()->json(route('admin.warehouse.list'), StatusCode::OK); //Lưu thành công gọi ra đg dẫn về list
             }
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             DB::rollBack();
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
@@ -152,9 +148,49 @@ class WareHouseController extends Controller
             $product->save();
             DB::commit();
             return response()->json(route('admin.warehouse.list'), StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], StatusCode::INTERNAL_ERR);
+        }
+    }
+
+    public function excelImportImage(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $warehouse = WareHouse::find($request->productId);
+            $file = $request->images;
+            $fileName = $file->getClientOriginalName();
+            $file->move('uploads/products', $fileName);
+            $warehouse->images = $fileName;
+            $warehouse->status = StatusWarehouse::UP;
+            $flagWarehouse = $warehouse->save();
+
+            $product = new Product();
+            $product->name = $request->name;
+            $product->images = $fileName;
+            $product->content = '';
+            $product->price = 0;
+            $product->status = StatusSale::DOWN;
+            $product->quantity = $warehouse->inventory;
+            $product->import_price = $request->import_price;
+            $product->product_sold = 0;
+            $product->ware_houses_id = $warehouse->id;
+            $product->views = 0;
+            $flagProduct = $product->save();
+
+            $productImage = new ProductImage();
+            $productImage->product_id = $product->id;
+            $productImage->url = $fileName;
+            $flagProductImage = $productImage->save();
+
+            if ($flagWarehouse && $flagProduct && $flagProductImage) {
+                DB::commit();
+                return response()->json(route('admin.warehouse.list'), StatusCode::OK); //Lưu thành công gọi ra đg dẫn về list
+            }
+        } catch (\Exception$e) {
+            DB::rollBack();
+            return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
 }

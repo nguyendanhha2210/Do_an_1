@@ -854,19 +854,19 @@ export default {
         });
     },
 
-    attachFile() {
-      this.product.images = this.$refs.fileImage.files[0];
-      let reader = new FileReader();
-      reader.buttonAddEventListener(
-        "load",
-        function () {
-          this.$refs.fileImageDispaly.src = reader.result;
-        }.bind(this),
-        false
-      );
+    // attachFile() {
+    //   this.product.images = this.$refs.fileImage.files[0];
+    //   let reader = new FileReader();
+    //   reader.buttonAddEventListener(
+    //     "load",
+    //     function () {
+    //       this.$refs.fileImageDispaly.src = reader.result;
+    //     }.bind(this),
+    //     false
+    //   );
 
-      reader.readAsDataURL(this.product.images);
-    },
+    //   reader.readAsDataURL(this.product.images);
+    // },
 
     // AddProduct(e) {
     // let that = this;
