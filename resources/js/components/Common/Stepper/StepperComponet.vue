@@ -60,14 +60,11 @@
         </div>
       </div>
 
-      <!-- <div class="controls">
-        <button class="btn" @click="step--" :disabled="step == 1">
-          Anterior
+      <div class="controls">
+        <button class="btn btn--green-1">
+          Mua Lại
         </button>
-        <button class="btn btn--green-1" @click="step++" :disabled="step == 5">
-          Siguiente
-        </button>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
