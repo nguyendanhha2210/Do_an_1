@@ -117,7 +117,7 @@ class StatisticalController extends Controller
                 ],StatusCode::OK);
             }
 
-            $charts = Profit::select( DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))->groupBy('created_date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select( DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))->groupBy('created_date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
