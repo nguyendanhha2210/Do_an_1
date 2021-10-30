@@ -120,7 +120,7 @@
                         </div>
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout" style="padding-top: 17px;
-                                        padding-bottom: 17px;">
+                                                padding-bottom: 17px;">
                                 <ul style="background-color: #e9edf0">
                                     <li class="subtotal">Total Amount
                                         :<span>
@@ -208,14 +208,14 @@
                                                 <label><input name="payment_option" value="3" type="radio"> Thanh toán qua
                                                     VnPay</label><br>
                                             </span>
-                                            <span>
+                                            {{-- <span>
                                                 <label><input name="payment_option" value="4" type="radio"> Thanh toán qua
                                                     OnePay</label><br>
-                                            </span>
-                                            <span>
+                                            </span> --}}
+                                            {{-- <span>
                                                 <label><input name="payment_option" value="5" type="radio"> Thanh toán qua
                                                     Momo</label><br>
-                                            </span>
+                                            </span> --}}
                                             @if (Session::get('cart') == true)
                                                 <button type="submit" class="proceed-btn check_out"
                                                     style="width: 100%;">Order</button>

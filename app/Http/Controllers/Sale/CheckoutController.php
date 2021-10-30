@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Sale;
 use App\Enums\OrderDetailVote;
 use App\Enums\OrderStatus;
 use App\Enums\Payments;
-use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
-use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Payment;
@@ -20,11 +17,9 @@ use App\Models\UserCoupon;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use phpseclib3\Math\BigInteger\Engines\OpenSSL;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -33,71 +28,71 @@ class CheckoutController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         } else {
-            $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+            $type = Type::WHERE('deleted_at', null)->orderBy('created_at', 'desc')->get();
             $abc = $request->payment_option;
             if ($abc == Payments::PAYMENTDELIVERY) {
                 $breadcrumbs = [
                     [
                         'name' => 'Home',
-                        'url' => route('sale.index')
+                        'url' => route('sale.index'),
 
                     ], [
                         'name' => 'View Cart',
-                        'url' => route('admin.cart.viewCart')
+                        'url' => route('admin.cart.viewCart'),
 
-                    ], 'Payment on Delivery'
+                    ], 'Payment on Delivery',
                 ];
                 return view('sale.shop.payments.ondelivery', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTPAYPAL) {
                 $breadcrumbs = [
                     [
                         'name' => 'Home',
-                        'url' => route('sale.index')
+                        'url' => route('sale.index'),
 
                     ], [
                         'name' => 'View Cart',
-                        'url' => route('admin.cart.viewCart')
+                        'url' => route('admin.cart.viewCart'),
 
-                    ], 'Payment on Paypal'
+                    ], 'Payment on Paypal',
                 ];
                 return view('sale.shop.payments.onpaypal', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTVNPAY) {
                 $breadcrumbs = [
                     [
                         'name' => 'Home',
-                        'url' => route('sale.index')
+                        'url' => route('sale.index'),
 
                     ], [
                         'name' => 'View Cart',
-                        'url' => route('admin.cart.viewCart')
+                        'url' => route('admin.cart.viewCart'),
 
-                    ], 'Payment on Vnpay'
+                    ], 'Payment on Vnpay',
                 ];
                 return view('sale.shop.payments.onvnpay', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTONEPAY) {
                 $breadcrumbs = [
                     [
                         'name' => 'Home',
-                        'url' => route('sale.index')
+                        'url' => route('sale.index'),
 
                     ], [
                         'name' => 'View Cart',
-                        'url' => route('admin.cart.viewCart')
+                        'url' => route('admin.cart.viewCart'),
 
-                    ], 'Payment on Onepay'
+                    ], 'Payment on Onepay',
                 ];
                 return view('sale.shop.payments.ononepay', ['breadcrumbs' => $breadcrumbs], compact('type'));
             } elseif ($abc == Payments::PAYMENTMOMO) {
                 $breadcrumbs = [
                     [
                         'name' => 'Home',
-                        'url' => route('sale.index')
+                        'url' => route('sale.index'),
 
                     ], [
                         'name' => 'View Cart',
-                        'url' => route('admin.cart.viewCart')
+                        'url' => route('admin.cart.viewCart'),
 
-                    ], 'Payment on Momo'
+                    ], 'Payment on Momo',
                 ];
                 return view('sale.shop.payments.onmomo', ['breadcrumbs' => $breadcrumbs], compact('type'));
             }
@@ -123,7 +118,7 @@ class CheckoutController extends Controller
 
         if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
             foreach (Session::get('totalPriceBill') as $key => $cart) {
-                $totalBill =  $cart['money'];
+                $totalBill = $cart['money'];
             }
         }
 
@@ -169,8 +164,8 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
-                $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
+                $order_details->product_coupon = $order_coupon;
+                $order_details->status_vote = OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -188,7 +183,7 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_mail['product_name'],
                     'product_price' => $cart_mail['product_price'],
-                    'product_qty' => $cart_mail['product_qty']
+                    'product_qty' => $cart_mail['product_qty'],
                 );
             }
         }
@@ -215,7 +210,7 @@ class CheckoutController extends Controller
             'totalBill' => $totalBill,
         );
 
-        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        Mail::send('sale.users.mail.sendOrder', ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail); //send this mail with subject
             $message->from($data['email'], $title_mail); //send from this mail
         });
@@ -242,7 +237,7 @@ class CheckoutController extends Controller
 
         if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
             foreach (Session::get('totalPriceBill') as $key => $cart) {
-                $totalBill =  $cart['money'];
+                $totalBill = $cart['money'];
             }
         }
 
@@ -288,8 +283,8 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
-                $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
+                $order_details->product_coupon = $order_coupon;
+                $order_details->status_vote = OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -307,7 +302,7 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_mail['product_name'],
                     'product_price' => $cart_mail['product_price'],
-                    'product_qty' => $cart_mail['product_qty']
+                    'product_qty' => $cart_mail['product_qty'],
                 );
             }
         }
@@ -328,8 +323,7 @@ class CheckoutController extends Controller
             'totalBill' => $totalBill,
         );
 
-
-        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        Mail::send('sale.users.mail.sendOrder', ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail); //send this mail with subject
             $message->from($data['email'], $title_mail); //send from this mail
         });
@@ -355,7 +349,7 @@ class CheckoutController extends Controller
 
         if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
             foreach (Session::get('totalPriceBill') as $key => $cart) {
-                $totalBill =  $cart['money'];
+                $totalBill = $cart['money'];
             }
         }
 
@@ -401,8 +395,8 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
-                $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
+                $order_details->product_coupon = $order_coupon;
+                $order_details->status_vote = OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -420,7 +414,7 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_mail['product_name'],
                     'product_price' => $cart_mail['product_price'],
-                    'product_qty' => $cart_mail['product_qty']
+                    'product_qty' => $cart_mail['product_qty'],
                 );
             }
         }
@@ -441,7 +435,7 @@ class CheckoutController extends Controller
             'totalBill' => $totalBill,
         );
 
-        Mail::send('sale.users.mail.sendOrder',  ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+        Mail::send('sale.users.mail.sendOrder', ['cart_array' => $cart_array, 'shipping_array' => $shipping_array, 'code' => $ordercode_mail], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail); //send this mail with subject
             $message->from($data['email'], $title_mail); //send from this mail
         });
@@ -451,12 +445,10 @@ class CheckoutController extends Controller
         Session::forget('totalPriceBill');
         Session::forget('shipping');
 
-
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = url("/sale/success-vnpay");
 
-
-        $vnp_TmnCode = "BHCR7T7U"; //Mã website tại VNPAY 
+        $vnp_TmnCode = "BHCR7T7U"; //Mã website tại VNPAY
         $vnp_HashSecret = "LOZIHNNZNVGVOGSBDIZQXYKLBGIAJSYR"; //Chuỗi bí mật
 
         $vnp_TxnRef = $order->id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
@@ -544,13 +536,13 @@ class CheckoutController extends Controller
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         $returnData = array(
             'code' => '00',
             'message' => 'success',
-            'data' => $vnp_Url
+            'data' => $vnp_Url,
         );
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
@@ -566,14 +558,14 @@ class CheckoutController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', null)->orderBy('created_at', 'desc')->get();
         $abc = $request->all();
 
-        $payments = Payment::where('order_id', '=',  $request->order_id)->get();
+        $payments = Payment::where('order_id', '=', $request->order_id)->get();
         $countPayment = $payments->count();
 
         if ($countPayment > 0) {
-            $payment = Payment::where('order_id', '=',  $request->order_id)->first();
+            $payment = Payment::where('order_id', '=', $request->order_id)->first();
             $payment->order_id = $request->vnp_TxnRef;
             $payment->customer_id = Auth::guard('sales')->id();
             $payment->total_money = $request->vnp_Amount;
@@ -599,9 +591,9 @@ class CheckoutController extends Controller
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
-            ], 'Success Order'
+            ], 'Success Order',
         ];
         return view('sale.shop.payments.vnpay_php.successvnpay', ['breadcrumbs' => $breadcrumbs], compact('type', 'abc'));
     }
@@ -621,7 +613,7 @@ class CheckoutController extends Controller
 
         if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
             foreach (Session::get('totalPriceBill') as $key => $cart) {
-                $totalBill =  $cart['money'];
+                $totalBill = $cart['money'];
             }
         }
 
@@ -667,8 +659,8 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
-                $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  OrderDetailVote::NOTVOTED;
+                $order_details->product_coupon = $order_coupon;
+                $order_details->status_vote = OrderDetailVote::NOTVOTED;
                 $order_details->save();
             }
         }
@@ -686,7 +678,7 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_mail['product_name'],
                     'product_price' => $cart_mail['product_price'],
-                    'product_qty' => $cart_mail['product_qty']
+                    'product_qty' => $cart_mail['product_qty'],
                 );
             }
         }
@@ -967,7 +959,7 @@ class CheckoutController extends Controller
             CURLOPT_HTTPHEADER,
             array(
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($data)
+                'Content-Length: ' . strlen($data),
             )
         );
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -995,7 +987,7 @@ class CheckoutController extends Controller
 
         if (Session::get('totalPriceBill')) { //Lấy ra session của tổng tiền đơn hàng sau khi trừ coupon,..
             foreach (Session::get('totalPriceBill') as $key => $cart) {
-                $totalBill =  $cart['money'];
+                $totalBill = $cart['money'];
             }
         }
 
@@ -1041,8 +1033,8 @@ class CheckoutController extends Controller
                 $order_details->product_price = $cart['product_price'];
                 $order_details->order_weight = $cart['product_weight'];
                 $order_details->product_sales_quantity = $cart['product_qty'];
-                $order_details->product_coupon =  $order_coupon;
-                $order_details->status_vote =  0;
+                $order_details->product_coupon = $order_coupon;
+                $order_details->status_vote = 0;
                 $order_details->save();
             }
         }
@@ -1060,7 +1052,7 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_mail['product_name'],
                     'product_price' => $cart_mail['product_price'],
-                    'product_qty' => $cart_mail['product_qty']
+                    'product_qty' => $cart_mail['product_qty'],
                 );
             }
         }
@@ -1091,7 +1083,6 @@ class CheckoutController extends Controller
         // Session::forget('totalPriceBill');
         // Session::forget('shipping');
 
-
         $endpoint = "https://test-payment.momo.vn/v2/gateway/pay";
         $notifyUrl = "https://momo.vn";
         $returnUrl = "https://momo.vn";
@@ -1103,7 +1094,7 @@ class CheckoutController extends Controller
         $orderId = $order->id; // Mã đơn hàng
         $orderInfo = "Thành Công !";
         $orderType = "momo_wallet";
-        $amount =  $totalBill;
+        $amount = $totalBill;
 
         $transId = "700569652782";
         // $requestId = time() . "";
@@ -1115,7 +1106,7 @@ class CheckoutController extends Controller
         $extraData = "";
         // before sign HMAC SHA256 signature
 
-        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo  . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData;
+        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData;
         $signature = hash_hmac("sha256", $rawHash, $serectkey);
 
         // $partnerCode="MOMOBKUN20180529";
@@ -1125,7 +1116,6 @@ class CheckoutController extends Controller
         // $amount="10000";
         // $signature = "719b25b8371f8adf5fbc7d70650fc632849dbf83df543162b2cab6208df30ef9";
         // $requestType="captureMoMoWallet";
-
 
         $data = array(
             'partnerCode' => $partnerCode,
@@ -1140,7 +1130,7 @@ class CheckoutController extends Controller
             'notifyUrl' => $notifyUrl,
             'extraData' => $extraData,
             'requestType' => $requestType,
-            'signature' => $signature
+            'signature' => $signature,
         );
 
         $abc = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyUrl . "&extraData=" . $extraData . "&signature=" . $signature . "&requestType=" . $requestType;
@@ -1149,7 +1139,7 @@ class CheckoutController extends Controller
         $returnData = array(
             'code' => '00',
             'message' => 'success',
-            'data' => $endpoint
+            'data' => $endpoint,
         );
         if (isset($_POST['redirect'])) {
             header('Location: ' . $endpoint);
