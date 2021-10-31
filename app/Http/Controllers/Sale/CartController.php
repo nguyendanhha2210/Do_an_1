@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Sale;
 
-use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Enums\StatusCoupon;
 use App\Enums\StatusSale;
@@ -11,81 +10,22 @@ use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Type;
 use App\Models\UserCoupon;
-use App\Models\WeightProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function addCart(Request $request)
     {
         try {
-            // $products = Product::where('id',$request->id)->with('weightProducts')->get();
-            // dd($products);
             $session_id = substr(md5(microtime()), rand(0, 26), 5);
             $cart = Session::get('cart');
-            if ($cart == true) {
-                $is_avaiable = 0;
-                foreach ($cart as $key => $val) {
-                    if ($val['product_id'] == $request->id && $val['product_price'] == $request->price) {
-                        $is_avaiable++;
-                        // dd($val['product_qty'] + $request->qualityOrder);
-                    }
-                }
-                if ($is_avaiable == 0) {
-                    if ($request->qualityOrder) {
-                        $cart[] = array(
-                            'session_id' => $session_id,
-                            'product_id' => $request->id,
-                            'product_name' => $request->name,
-                            'product_image' => $request->images,
-                            'product_qty' => $request->qualityOrder,
-                            'product_price' => $request->price,
-                            'product_weight' => $request->weight,
-                        );
-                        Session::put('cart', $cart);
-                    } else {
-                        $cart[] = array(
-                            'session_id' => $session_id,
-                            'product_id' => $request->id,
-                            'product_name' => $request->name,
-                            'product_image' => $request->images,
-                            'product_qty' => 1,
-                            'product_price' => $request->price,
-                            'product_weight' => $request->weight,
-                        );
-                        Session::put('cart', $cart);
-                    }
-                } else {
-                    // if ($request->qualityOrder) {
-                    //     $request->session()->forget('session_id', $session_id);
-                    //     $cart[] = array(
-                    //         'session_id' => $session_id,
-                    //         'product_id' => $request->id,
-                    //         'product_name' => $request->name,
-                    //         'product_image' => $request->images,
-                    //         'product_qty' => $val['product_qty'] + $request->qualityOrder,
-                    //         'product_price' => $request->price,
-                    //     );
-                    //     Session::put('cart', $cart);
-                    // } else {
-                    //     $cart[] = array(
-                    //         'session_id' => $session_id,
-                    //         'product_id' => $request->id,
-                    //         'product_name' => $request->name,
-                    //         'product_image' => $request->images,
-                    //         'product_qty' => $request->qualityOrder + 1,
-                    //         'product_price' => $request->price,
-                    //     );
-                    //     Session::put('cart', $cart);
-                    // }
-                }
-            } else {
+            $key = $request->id . $request->price;
+            if (empty($cart[$key])) {
                 if ($request->qualityOrder) {
-                    $cart[] = array(
+                    $cart[$key] = array(
                         'session_id' => $session_id,
                         'product_id' => $request->id,
                         'product_name' => $request->name,
@@ -94,10 +34,8 @@ class CartController extends Controller
                         'product_price' => $request->price,
                         'product_weight' => $request->weight,
                     );
-                    Session::put('cart', $cart);
                 } else {
-
-                    $cart[] = array(
+                    $cart[$key] = array(
                         'session_id' => $session_id,
                         'product_id' => $request->id,
                         'product_name' => $request->name,
@@ -106,12 +44,18 @@ class CartController extends Controller
                         'product_price' => $request->price,
                         'product_weight' => $request->weight,
                     );
-                    Session::put('cart', $cart);
+                }
+            } else {
+                if ($request->qualityOrder) {
+                    $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + $request->qualityOrder;
+                } else {
+                    $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + 1;
                 }
             }
+            Session::put('cart', $cart);
             Session::save();
             return response()->json(route('admin.cart.viewCart'), StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -134,13 +78,13 @@ class CartController extends Controller
 
     public function viewCart()
     {
-        $type = Type::WHERE('deleted_at', NULL)->orderBy('created_at', 'desc')->get();
+        $type = Type::WHERE('deleted_at', null)->orderBy('created_at', 'desc')->get();
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
-            ], 'View Cart'
+            ], 'View Cart',
         ];
         return view('sale.shop.viewcart', ['breadcrumbs' => $breadcrumbs], compact('type'));
     }
@@ -169,23 +113,22 @@ class CartController extends Controller
         $storeNumber = Session::get('Trongkho');
         $cart = Session::get('cart');
         if ($cart == true) {
-            foreach ($data['cart_qty'] as $key => $qty) //key là sesion id và qty là số lượng khi nhập
-            {
+            foreach ($data['cart_qty'] as $key => $qty) { //key là sesion id và qty là số lượng khi nhập {
                 foreach ($cart as $session => $val) {
-                    if ($val['session_id'] == $key) //nếu session hàng cũ = sesion hàng mới vừa nhập
-                    {
+                    if ($val['session_id'] == $key) { //nếu session hàng cũ = sesion hàng mới vừa nhập { {
                         $product = Product::find($val['product_id']);
-                        if ($product['quantity'] >= $qty) {
-                            $cart[$session]['product_qty'] = $qty;
-                        } else {
-                            $cart[$session]['product_qty'] = 1;
-                            $storeNumber[] = array(
-                                'nameProduct' =>  $product['name'],
-                                'quantityStock' =>  $product['quantity']
-                            );
-                            Session::put('storeNumber', $storeNumber);
-                        }
                     }
+                }
+
+                if ($product['quantity'] >= $qty) {
+                    $cart[$session]['product_qty'] = $qty;
+                } else {
+                    $cart[$session]['product_qty'] = 1;
+                    $storeNumber[] = array(
+                        'nameProduct' => $product['name'],
+                        'quantityStock' => $product['quantity'],
+                    );
+                    Session::put('storeNumber', $storeNumber);
                 }
             }
         }
@@ -214,7 +157,7 @@ class CartController extends Controller
         if ($couponRequest) {
             if ($couponRequest->coupon->end_date > Carbon::now() && $couponRequest->coupon->start_date < Carbon::now()) {
                 if ($couponRequest->coupon_time > 0) {
-                    if ($couponRequest->coupon->status ==  StatusSale::SENT) {
+                    if ($couponRequest->coupon->status == StatusSale::SENT) {
                         $coupon_session = Session::get('coupon');
                         if ($coupon_session) {
                             $cou[] = array(
@@ -252,126 +195,29 @@ class CartController extends Controller
     public function addProductAccessories(Request $request)
     {
         try {
-            $session_id = substr(md5(microtime()), rand(0, 26), 5);
             $cart = Session::get('cart');
-            if ($cart == true) {
-                $is_avaiable = 0;
-                foreach ($cart as $key => $val) {
-                    foreach ($request->all() as $ac => $item) {
-                        $product = Product::where('id', '=', $item)->first();
-                        $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
-                        foreach ($arrayPrice as $value) {
-                            if ($val['product_id'] == $item && $val['product_price'] == (int)$value) {
-                                $is_avaiable++;
-                            }
-                        }
-                    }
-                }
-                if ($is_avaiable == 0) {
-                    foreach ($request->all() as $ac => $item) {
-                        $product = Product::where('id', '=', $item)->first();
-                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
-                        $minPrice = $arrayPrice[0];
-                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
-                            $q->where('product_id', $item);
-                            $q->Where('price', $minPrice);
-                        })->first();
-                        $cart[] = array(
-                            'session_id' => $session_id,
-                            'product_id' => $item,
-                            'product_name' => $product->name,
-                            'product_image' => $product->images,
-                            'product_qty' => 1,
-                            'product_price' => $minPrice,
-                            'product_weight' => $productWeight->weight,
-                        );
-                        Session::put('cart', $cart);
-                    }
-                } else {
-                        foreach ($request->all() as $ac => $item) {
-                    foreach ($cart as $key => $val) {
-
-                            $product = Product::where('id', '=', $item)->first();
-                            $arrayPrice = WeightProduct::where('product_id', $item)->pluck('price')->toArray();
-                            $minPrice = $arrayPrice[0];
-                            $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
-                                $q->where('product_id', $item);
-                                $q->Where('price', $minPrice);
-                            })->first();
-                            foreach ($arrayPrice as $value) {
-                                if ($val['product_id'] == $item && $val['product_price'] == (int)$value) {
-                                } else {
-                                    $cart[] = array(
-                                        'session_id' => $session_id,
-                                        'product_id' => $item,
-                                        'product_name' => $product->name,
-                                        'product_image' => $product->images,
-                                        'product_qty' => 1,
-                                        'product_price' => $minPrice,
-                                        'product_weight' => $productWeight->weight,
-                                    );
-                                    Session::put('cart', $cart);
-                                }
-                            }
-                        }
-                    }
-
-                    foreach ($request->all() as $ac => $item) {
-                        $product = Product::where('id', '=', $item)->first();
-                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
-                        $minPrice = $arrayPrice[0];
-                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
-                            $q->where('product_id', $item);
-                            $q->Where('price', $minPrice);
-                        })->first();
-                        $cart[] = array(
-                            'session_id' => $session_id,
-                            'product_id' => $item,
-                            'product_name' => $product->name,
-                            'product_image' => $product->images,
-                            'product_qty' => 1,
-                            'product_price' => $minPrice,
-                            'product_weight' => $productWeight->weight,
-                        );
-                        Session::put('cart', $cart);
-                    }
-                }
-                if ($request->qualityOrder) {
-                    $cart[] = array(
+            $products = Product::whereIn('id', $request->all())->with('minWeightProduct')->get();
+            foreach ($products as $product) {
+                $session_id = substr(md5(microtime()), rand(0, 26), 5);
+                $key = (string)$product->id . (string)$product->minWeightProduct->price;
+                if (empty($cart[$key])) {
+                    $cart[$key] = array(
                         'session_id' => $session_id,
-                        'product_id' => $request->id,
-                        'product_name' => $request->name,
-                        'product_image' => $request->images,
-                        'product_qty' => $request->qualityOrder,
-                        'product_price' => $request->price,
-                        'product_weight' => $request->weight,
+                        'product_id' => (string)$product->id,
+                        'product_name' => $product->name,
+                        'product_image' => $product->images,
+                        'product_qty' => 1,
+                        'product_price' => (string)$product->minWeightProduct->price,
+                        'product_weight' => $product->minWeightProduct->weight,
                     );
-                    Session::put('cart', $cart);
                 } else {
-                    foreach ($request->all() as $ac => $item) {
-                        $product = Product::where('id', '=', $item)->first();
-                        $arrayPrice = WeightProduct::where('product_id', $item)->orderBy('price', 'ASC')->pluck('price')->toArray();
-                        $minPrice = $arrayPrice[0];
-                        $productWeight = WeightProduct::where(function ($q) use ($item, $minPrice) {
-                            $q->where('product_id', $item);
-                            $q->Where('price', $minPrice);
-                        })->first();
-                        $cart[] = array(
-                            'session_id' => $session_id,
-                            'product_id' => $item,
-                            'product_name' => $product->name,
-                            'product_image' => $product->images,
-                            'product_qty' => 1,
-                            'product_price' => $minPrice,
-                            'product_weight' => $productWeight->weight,
-                        );
-                        Session::put('cart', $cart);
-                    }
+                    $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + 1;
                 }
             }
+            Session::put('cart', $cart);
             Session::save();
             return response()->json(route('admin.cart.viewCart'), StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }

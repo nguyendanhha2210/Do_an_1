@@ -19,7 +19,7 @@
                 <label :for="`file_img_banner${index}`">
                   <div class="img-drop-box mt-2 mr-2">
                     <img
-                      :src="baseUrl + '/uploads/products/' + item.src"
+                      :src="item.is_database ? (baseUrl + '/uploads/products/' + item.src) : item.src"
                       :ref="`imageDisplay${index}`"
                       class="mh-100 mw-100 mx-auto display-block"
                     />
@@ -154,6 +154,7 @@ export default {
         file_id: item.id,
         file: item.url,
         src: item.url,
+        is_database: true,
       });
     });
   },
@@ -233,6 +234,7 @@ export default {
             file_id: null,
             file: this.$refs[type + value].files[0],
             src: "",
+            is_database: false
           });
           file = this.$refs[type + value].files[0];
           this.$refs[type + value].value = "";

@@ -57,4 +57,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\WeightProduct', 'product_id', 'id');
     }
+
+    public function minWeightProduct()
+    {
+        return $this->hasOne('App\Models\WeightProduct', 'product_id', 'id')->orderBy('price', 'ASC');
+    }
 }
