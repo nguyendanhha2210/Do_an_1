@@ -16,6 +16,7 @@ class CreateOrderDatesTable extends Migration
         Schema::create('order_dates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id');
+            $table->datetime('order_date')->nullable();
             $table->datetime('delivery_date')->nullable();
             $table->datetime('receive_date')->nullable();
             $table->datetime('evaluate_date')->nullable();

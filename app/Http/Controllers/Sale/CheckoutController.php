@@ -8,6 +8,7 @@ use App\Enums\Payments;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDate;
 use App\Models\OrderDetail;
 use App\Models\Payment;
 use App\Models\Shipping;
@@ -155,6 +156,11 @@ class CheckoutController extends Controller
         $order->payments = "Thanh toán khi nhận hàng !";
         $flag_order = $order->save();
 
+        $orderDate = new OrderDate();
+        $orderDate->order_id = $order->id;
+        $orderDate->order_date = $order->order_date;
+        $orderDate->save();
+
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {
                 $order_details = new OrderDetail();
@@ -274,6 +280,11 @@ class CheckoutController extends Controller
         $order->payments = "Thanh toán Paypal !";
         $flag_order = $order->save();
 
+        $orderDate = new OrderDate();
+        $orderDate->order_id = $order->id;
+        $orderDate->order_date = $order->order_date;
+        $orderDate->save();
+
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {
                 $order_details = new OrderDetail();
@@ -385,6 +396,11 @@ class CheckoutController extends Controller
         $order->total_bill = $totalBill;
         $order->payments = "Thanh toán VnPay !";
         $flag_order = $order->save();
+
+        $orderDate = new OrderDate();
+        $orderDate->order_id = $order->id;
+        $orderDate->order_date = $order->order_date;
+        $orderDate->save();
 
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {
@@ -649,6 +665,11 @@ class CheckoutController extends Controller
         $order->total_bill = $totalBill;
         $order->payments = "Thanh toán Onpay !";
         $flag_order = $order->save();
+
+        $orderDate = new OrderDate();
+        $orderDate->order_id = $order->id;
+        $orderDate->order_date = $order->order_date;
+        $orderDate->save();
 
         if (Session::get('cart') == true) {
             foreach (Session::get('cart') as $key => $cart) {
