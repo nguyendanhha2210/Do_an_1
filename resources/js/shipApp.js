@@ -40,7 +40,7 @@ new Vue({
         });
         this.$validator.extend("image_format", {
             validate: function(value) {
-                return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
+                return /\.(jpe?g|png|gif)$/i.test(value[0].name);
             }
         });
     }

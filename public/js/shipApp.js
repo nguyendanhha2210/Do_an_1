@@ -80731,7 +80731,7 @@ new vue__WEBPACK_IMPORTED_MODULE_8__.default({
     });
     this.$validator.extend("image_format", {
       validate: function validate(value) {
-        return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
+        return /\.(jpe?g|png|gif)$/i.test(value[0].name);
       }
     });
   }

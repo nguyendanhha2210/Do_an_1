@@ -125,7 +125,6 @@ new Vue({
         });
         this.$validator.extend("image_format", {
             validate: function(value) {
-                // console.log(value[0]);
                 return /\.(jpe?g|png|gif)$/i.test(value[0].name);
             }
         });
