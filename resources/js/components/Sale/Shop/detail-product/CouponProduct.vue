@@ -438,8 +438,8 @@ export default {
                     cancelButtonText: "Đi đến giỏ hàng !",
                   }).then((result) => {
                     if (result.value) {
-                      that.isBtnDeleteAll = false;
-                      that.isInputAll = false;
+                      window.location =
+                        this.baseUrl + `/product-detail/` + this.coupon.id;
                     } else {
                       window.location = this.baseUrl + "/view-cart";
                     }

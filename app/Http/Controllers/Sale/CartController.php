@@ -198,25 +198,29 @@ class CartController extends Controller
         try {
             $cart = Session::get('cart');
             $products = Product::whereIn('id', $request->all())->with('minWeightProduct')->get();
+
             foreach ($products as $product) {
                 $session_id = substr(md5(microtime()), rand(0, 26), 5);
                 $key = (string) $product->id . (string) $product->minWeightProduct->price;
                 if (empty($cart[$key])) {
-                    $cart[$key] = array(
-                        'session_id' => $session_id,
-                        'product_id' => (string) $product->id,
-                        'product_name' => $product->name,
-                        'product_image' => $product->images,
-                        'product_qty' => 1,
-                        'product_price' => (string) $product->minWeightProduct->price,
-                        'product_weight' => $product->minWeightProduct->weight,
-                    );
+                    if ($product->minWeightProduct->weight <= $product->quantity) {
+                        $cart[$key] = array(
+                            'session_id' => $session_id,
+                            'product_id' => (string) $product->id,
+                            'product_name' => $product->name,
+                            'product_image' => $product->images,
+                            'product_qty' => 1,
+                            'product_price' => (string) $product->minWeightProduct->price,
+                            'product_weight' => $product->minWeightProduct->weight,
+                        );
+                    }
                 } else {
-                    $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + 1;
+                    if (($product->minWeightProduct->weight * ($cart[$key]['product_qty'] + 1)) <= $product->quantity) {
+                        $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + 1;
+                    }
                 }
             }
             Session::put('cart', $cart);
-            Session::save();
             return response()->json(route('admin.cart.viewCart'), StatusCode::OK);
         } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
