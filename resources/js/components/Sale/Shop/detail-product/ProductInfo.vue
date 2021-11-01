@@ -5,7 +5,7 @@
         <v-zoomer>
           <img
             class="product-big-img"
-            style="height: 400px"
+            style="height: 428px"
             ref="image"
             :src="baseUrl + '/uploads/products/' + info.images"
             alt=""
@@ -68,10 +68,6 @@
               <b style="padding-left: 2%">|</b>
               <u style="padding-left: 2%">{{ this.countEvaluated }}</u> Đánh giá
             </p>
-            <!-- <h4 style="transform: translate(0%, -62%)">
-              {{ formatPrice( info.price) }} đ
-            </h4> -->
-
             <h4
               style="transform: translate(0%, -62%)"
               v-if="statusChooseWeight"
@@ -122,6 +118,7 @@
             >
           </div>
           <ul class="pd-tags">
+            <li style="color:red;margin-bottom: 20px;">{{ info.quantity }} sản phẩm có sẵn</li>
             <li><span>CATEGORIES</span>: {{ info.type.type }}</li>
             <li>
               <span>DECRIPTIONS</span>: {{ info.description.description }}
