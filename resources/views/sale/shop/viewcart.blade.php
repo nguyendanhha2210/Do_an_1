@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout" style="padding-top: 17px;
-                                                    padding-bottom: 17px;">
+                                                        padding-bottom: 17px;">
                                 <ul style="background-color: #e9edf0">
                                     <li class="subtotal">Total Amount
                                         :<span>

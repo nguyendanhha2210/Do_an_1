@@ -215,7 +215,7 @@ class CartController extends Controller
                         );
                     }
                 } else {
-                    if (($product->minWeightProduct->weight * ($cart[$key]['product_qty'] + 1)) <= $product->quantity) {
+                    if (($product->minWeightProduct->weight * ($cart[$key]['product_qty'] + 1)) <= $product->quantity) { //Xét xem số lg mới nhân với khối lượng có lớn hơn khối lg còn trong giỏ hàng k ?
                         $cart[$key]['product_qty'] = $cart[$key]['product_qty'] + 1;
                     }
                 }

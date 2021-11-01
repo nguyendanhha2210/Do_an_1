@@ -7,21 +7,17 @@ use App\Enums\StatusCode;
 use App\Enums\StatusCoupon;
 use App\Enums\StatusSale;
 use App\Http\Controllers\Controller;
-use App\Models\Coupon;
 use App\Models\Description;
+use App\Models\Evaluate;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Type;
-use App\Models\Weight;
-use Illuminate\Http\Request;
-use Symfony\Component\Console\Descriptor\Descriptor;
-use Illuminate\Support\Facades\Session;
-use App\Models\Evaluate;
 use App\Models\UserCoupon;
+use App\Models\Weight;
 use App\Models\WeightProduct;
-use PhpParser\Node\Stmt\Catch_;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ShopController extends Controller
 {
@@ -30,17 +26,17 @@ class ShopController extends Controller
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
-            ], 'Shop'
+            ], 'Shop',
         ];
 
-        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', NULL);
+                $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
         return view("sale.shop.shop", ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'post'));
@@ -53,8 +49,8 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::NEW) {
-                $products =  Product::where(function ($q) use ($search) {
+            if ($statusView == SortByOption::new ) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -70,14 +66,14 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('created_at', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::PRICEINCREASE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -93,14 +89,14 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::REDUCEDPRICE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -116,14 +112,14 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -139,14 +135,14 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::ZToA) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -162,10 +158,10 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
@@ -173,35 +169,35 @@ class ShopController extends Controller
             $maxSold = Product::where('status', '=', 0)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
 
             return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
 
     public function productDetail(Request $request, $id)
     {
-        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', NULL);
+                $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $product =  Product::where('id', '=', $id)->where('quantity', '>', 0)
+        $product = Product::where('id', '=', $id)->where('quantity', '>', 0)
             ->with(['type', 'description', 'productImages', 'weightProducts'])
             ->first();
 
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
             ], [
                 'name' => 'Shop',
-                'url' => route('sale.shop.index')
+                'url' => route('sale.shop.index'),
 
-            ], $product->name
+            ], $product->name,
         ];
 
         $productView = Product::find($id);
@@ -267,7 +263,6 @@ class ShopController extends Controller
         }
         Session::save();
 
-
         return view('sale.shop.detailproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'product', 'post'));
     }
 
@@ -297,19 +292,19 @@ class ShopController extends Controller
     {
         try {
             $product = Product::find($id);
-            $products =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+            $products = Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $product->type_id)
                 ->whereNotIn('id', [$id])
                 ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
-                    $query->where('deleted_at', NULL);
+                    $query->where('deleted_at', null);
                 })
                 ->whereHas('description', function ($query) {
-                    $query->where('deleted_at', NULL);
+                    $query->where('deleted_at', null);
                 })->take(12)->get();
 
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -318,19 +313,19 @@ class ShopController extends Controller
     {
         try {
             $product = Product::find($id);
-            $products =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+            $products = Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $product->type_id)
                 ->whereNotIn('id', [$id])
                 ->with(['type', 'description'])
                 ->whereHas('type', function ($query) {
-                    $query->where('deleted_at', NULL);
+                    $query->where('deleted_at', null);
                 })
                 ->whereHas('description', function ($query) {
-                    $query->where('deleted_at', NULL);
+                    $query->where('deleted_at', null);
                 })->orderBy('price', 'asc')->take(8)->get();
 
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -340,24 +335,24 @@ class ShopController extends Controller
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
             ], [
                 'name' => 'Shop',
-                'url' => route('sale.shop.index')
+                'url' => route('sale.shop.index'),
 
-            ], 'Type Product'
+            ], 'Type Product',
         ];
 
-        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', NULL);
+                $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $productType =  Product::where('type_id', '=', $id)->get();
+        $productType = Product::where('type_id', '=', $id)->get();
 
         return view('sale.shop.typeproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productType', 'post'));
     }
@@ -369,8 +364,8 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::NEW) {
-                $products =  Product::where(function ($q) use ($search) {
+            if ($statusView == SortByOption::new ) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -391,17 +386,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('created_at', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::PRICEINCREASE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -422,17 +417,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::REDUCEDPRICE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -453,17 +448,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -484,17 +479,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::ZToA) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -515,19 +510,19 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
 
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -538,25 +533,25 @@ class ShopController extends Controller
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
             ], [
                 'name' => 'Shop',
-                'url' => route('sale.shop.index')
+                'url' => route('sale.shop.index'),
 
-            ], 'Description Product'
+            ], 'Description Product',
         ];
-        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
+        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $weight = Weight::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', NULL);
+                $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
-        $productDescription =  Product::where('description_id', '=', $id)->get();
+        $productDescription = Product::where('description_id', '=', $id)->get();
 
-        return view('sale.shop.descriptionproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description',  'productDescription', 'post'));
+        return view('sale.shop.descriptionproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productDescription', 'post'));
     }
 
     //Show data Description product
@@ -567,8 +562,8 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::NEW) {
-                $products =  Product::where(function ($q) use ($search) {
+            if ($statusView == SortByOption::new ) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -589,17 +584,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('created_at', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::PRICEINCREASE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -620,17 +615,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::REDUCEDPRICE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -651,17 +646,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -682,17 +677,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::ZToA) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -713,20 +708,19 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
 
-
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -737,26 +731,26 @@ class ShopController extends Controller
         $breadcrumbs = [
             [
                 'name' => 'Home',
-                'url' => route('sale.index')
+                'url' => route('sale.index'),
 
             ], [
                 'name' => 'Shop',
-                'url' => route('sale.shop.index')
+                'url' => route('sale.shop.index'),
 
-            ], 'Weight Product'
+            ], 'Weight Product',
         ];
 
-        $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
+        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+        $weight = Weight::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
         $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
             ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', NULL);
+                $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
-        $productWeight =  Product::where('weight_id', '=', $id)->get();
+        $productWeight = Product::where('weight_id', '=', $id)->get();
 
-        return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description',  'productWeight', 'post'));
+        return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productWeight', 'post'));
     }
 
     //Show data Weight product
@@ -767,8 +761,8 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::NEW) {
-                $products =  Product::where(function ($q) use ($search) {
+            if ($statusView == SortByOption::new ) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -789,17 +783,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('created_at', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::PRICEINCREASE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -820,17 +814,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::REDUCEDPRICE) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -851,17 +845,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('price', 'desc')->paginate($paginate);
             } elseif ($statusView == SortByOption::AToZ) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -882,17 +876,17 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'asc')->paginate($paginate);
             } elseif ($statusView == SortByOption::ZToA) {
-                $products =  Product::where(function ($q) use ($search) {
+                $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                         $q->orWhere(function ($query) use ($search) {
@@ -913,20 +907,19 @@ class ShopController extends Controller
                     }
                 })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas(function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', NULL);
+                        $query->where('deleted_at', null);
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
 
-
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -947,7 +940,7 @@ class ShopController extends Controller
 
                 return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -957,7 +950,7 @@ class ShopController extends Controller
         try {
             $weightProduct = WeightProduct::find($request->id);
             return response()->json($weightProduct, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -967,7 +960,7 @@ class ShopController extends Controller
     {
         try {
             $product = Product::find($id);
-            $productAccessory =  Product::Where('status', '=', 0)->where('quantity', '>', 0)
+            $productAccessory = Product::Where('status', '=', 0)->where('quantity', '>', 0)
                 ->where('type_id', $product->type_id)
                 ->where('description_id', $product->description_id)
                 ->whereNotIn('id', [$id])
@@ -975,7 +968,7 @@ class ShopController extends Controller
                 ->take(6)->orderBy('price', 'asc')->get();
 
             return response()->json($productAccessory, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -986,13 +979,13 @@ class ShopController extends Controller
         try {
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $idUser = Auth::guard('sales')->id();
-            $couponStores =  UserCoupon::Where('user_id', '=', $idUser)->where('coupon_time', '>', 0)
+            $couponStores = UserCoupon::Where('user_id', '=', $idUser)->where('coupon_time', '>', 0)
                 ->with('coupon', function ($query) {
                     $query->whereDate('start_date', '<=', now());
                     $query->whereDate('end_date', '>=', now());
                 })->orderBy('created_at', 'desc')->get();
             return response()->json(["couponStores" => $couponStores], StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -1008,7 +1001,7 @@ class ShopController extends Controller
                 $userCoupon->statusUse = StatusCoupon::SAVE;
                 $userCoupon->update();
                 return response()->json(StatusCode::OK);
-            } catch (\Exception $e) {
+            } catch (\Exception$e) {
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }
@@ -1026,7 +1019,7 @@ class ShopController extends Controller
                     $query->where('coupon_time', '>', 0);
                 })->get();
                 return response()->json(["userCoupons" => $userCoupons], StatusCode::OK);
-            } catch (\Exception $e) {
+            } catch (\Exception$e) {
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }
