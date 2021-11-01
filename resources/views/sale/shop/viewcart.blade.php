@@ -12,7 +12,7 @@
                                     @foreach (Session::get('storeNumber') as $key => $cart)
                                         <span style="color:red;display: block;" class="text-center">The number of
                                             {{ $cart['nameProduct'] }} left in stock is : {{ $cart['quantityStock'] }}
-                                            product</span>
+                                            kg</span>
                                     @endforeach
                                 @endif
 
@@ -25,7 +25,7 @@
                                     <tr style="background-color: #e9edf0">
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Weight Type</th>
+                                        <th>Weight(kg)</th>
                                         <th>Price</th>
                                         <th>Amount</th>
                                         <th>Into Money</th>
@@ -51,8 +51,14 @@
                                                 <td style="text-align: center" class="cart-title first-row">
                                                     <h5>{{ $cart['product_name'] }}</h5>
                                                 </td>
-                                                <td style="text-align: center" class="p-price first-row">
-                                                    {{ $cart['product_weight'] }}kg</td>
+                                                <td>
+                                                    <input
+                                                        style="text-align: center;padding-top: 28px;border: none;color: red;"
+                                                        class="p-price first-row" readonly
+                                                        name="cart_wei[{{ $cart['session_id'] }}]"
+                                                        value="{{ $cart['product_weight'] }}">
+                                                </td>
+
                                                 <td style="text-align: center" class="p-price first-row">
                                                     {{ number_format($cart['product_price'], 0, ',', '.') }}đ</td>
                                                 <td style="text-align: center" class="qua-col first-row">
@@ -64,11 +70,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- <td><input readonly type="text" name="gia" value=" {{ number_format($cart['product_price'], 0, ',', '.') }}"></td>
-                        <td><input type="number" min="1" onchange="chonmua(this.form)" name="soluong"></td>
-                        <td><input readonly type="text" value="0" name="thanhtien" size="9"></td> --}}
-
-
                                                 <td style="text-align: center" class="total-price first-row">
                                                     {{ number_format($subtotal, 0, ',', '.') }}đ</td>
                                                 <td style="text-align: center" class="close-td first-row"><a
@@ -120,7 +121,7 @@
                         </div>
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout" style="padding-top: 17px;
-                                                padding-bottom: 17px;">
+                                                    padding-bottom: 17px;">
                                 <ul style="background-color: #e9edf0">
                                     <li class="subtotal">Total Amount
                                         :<span>

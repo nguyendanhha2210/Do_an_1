@@ -110,25 +110,26 @@ class CartController extends Controller
     public function updateCart(Request $request)
     {
         $data = $request->all();
-        $storeNumber = Session::get('Trongkho');
+        $storeNumber = Session::get('Trongkho'); //Tạo 1 session sản phẩm đó trong kho hàng
         $cart = Session::get('cart');
         if ($cart == true) {
             foreach ($data['cart_qty'] as $key => $qty) { //key là sesion id và qty là số lượng khi nhập {
-                foreach ($cart as $session => $val) {
-                    if ($val['session_id'] == $key) { //nếu session hàng cũ = sesion hàng mới vừa nhập { {
-                        $product = Product::find($val['product_id']);
+                foreach ($data['cart_wei'] as $keyWeight => $wei) {
+                    foreach ($cart as $session => $val) {
+                        if ($val['session_id'] == $key && $key == $keyWeight) { //nếu session hàng cũ = sesion hàng mới vừa nhập { {
+                            $product = Product::find($val['product_id']);
+                            if ($product['quantity'] >= ($qty * $wei)) {
+                                $cart[$session]['product_qty'] = $qty;
+                            } else {
+                                $cart[$session]['product_qty'] = 1;
+                                $storeNumber[] = array(
+                                    'nameProduct' => $product['name'],
+                                    'quantityStock' => $product['quantity'],
+                                );
+                                Session::put('storeNumber', $storeNumber);
+                            }
+                        }
                     }
-                }
-
-                if ($product['quantity'] >= $qty) {
-                    $cart[$session]['product_qty'] = $qty;
-                } else {
-                    $cart[$session]['product_qty'] = 1;
-                    $storeNumber[] = array(
-                        'nameProduct' => $product['name'],
-                        'quantityStock' => $product['quantity'],
-                    );
-                    Session::put('storeNumber', $storeNumber);
                 }
             }
         }
@@ -199,15 +200,15 @@ class CartController extends Controller
             $products = Product::whereIn('id', $request->all())->with('minWeightProduct')->get();
             foreach ($products as $product) {
                 $session_id = substr(md5(microtime()), rand(0, 26), 5);
-                $key = (string)$product->id . (string)$product->minWeightProduct->price;
+                $key = (string) $product->id . (string) $product->minWeightProduct->price;
                 if (empty($cart[$key])) {
                     $cart[$key] = array(
                         'session_id' => $session_id,
-                        'product_id' => (string)$product->id,
+                        'product_id' => (string) $product->id,
                         'product_name' => $product->name,
                         'product_image' => $product->images,
                         'product_qty' => 1,
-                        'product_price' => (string)$product->minWeightProduct->price,
+                        'product_price' => (string) $product->minWeightProduct->price,
                         'product_weight' => $product->minWeightProduct->weight,
                     );
                 } else {
