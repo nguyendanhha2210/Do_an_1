@@ -238,11 +238,11 @@ export default {
       this.$refs.image.src = this.$refs["images" + value][0].src;
     },
     addCartProduct() {
-      if (this.info.quantity < this.qualityOrder) {
+      if (this.info.quantity < this.qualityOrder * this.weightProduct.weight) {
         this.$swal({
           title: "Not Enough Products",
           icon: "warning",
-          text: "Sản phẩm còn lại trong kho : " + this.info.quantity,
+          text: "Sản phẩm còn lại trong kho : " + this.info.quantity + " kg",
           confirmButtonText: "Cancle !",
         }).then(function (confirm) {});
       } else {
@@ -306,7 +306,7 @@ export default {
       }
     },
     increase() {
-      if (this.qualityOrder < this.info.quantity) {
+      if (this.qualityOrder * this.weightProduct.weight < this.info.quantity) {
         this.qualityOrder += 1;
       }
     },
