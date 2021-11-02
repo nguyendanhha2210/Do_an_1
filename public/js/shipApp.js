@@ -2330,6 +2330,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -68366,11 +68368,7 @@ var render = function() {
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
-        _c("h6", { staticStyle: { width: "max-content" } }, [
-          _c("a", { attrs: { href: _vm.forgotPasswordUrl } }, [
-            _vm._v("Forgot Password?")
-          ])
-        ]),
+        _c("h6", { staticStyle: { width: "max-content" } }),
         _vm._v(" "),
         _c("div", { staticClass: "clearfix" }),
         _vm._v(" "),
