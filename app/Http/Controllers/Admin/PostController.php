@@ -82,7 +82,7 @@ class PostController extends Controller
         return $data;
     }
 
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
         try {
             $product = new Post();

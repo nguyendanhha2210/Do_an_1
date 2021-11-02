@@ -79,9 +79,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Category_id</label>
-                  <select v-model="post.id_category_post" class="form-control">
-                    <option value="">Select post category</option>
+                  <label for="exampleInputEmail1">Category</label>
+                  <select
+                    name="id_category_post"
+                    v-model="post.id_category_post"
+                    v-validate="'required'"
+                    class="form-control"
+                  >
                     <option
                       v-for="data in category_post"
                       :key="data.id"
@@ -93,9 +97,6 @@
                   <div style="color: red" role="alert">
                     {{ errors.first("id_category_post") }}
                   </div>
-                  <!-- <div style="color: red" v-if="errorBackEnd.id_category_post">
-                    {{ errorBackEnd.id_category_post[0] }}
-                  </div> -->
                 </div>
 
                 <div class="form-group">
@@ -464,63 +465,67 @@ export default {
         formData.append("images", this.post.images);
         formData.append("status", this.post.status);
         formData.append("content", this.post.content);
-        axios
-          .post(`post-add`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            that.fetchData();
-            that.flashMessage.setStrategy("multiple");
-            that.flashMessage.success({
-              message: "Thêm Thành Công !",
-              icon: "/backend/icon/check.svg",
-              blockClass: "text-centet",
-            });
-            that
-              .$swal({
-                title: "Add Success!",
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonText: "Yes !",
-                confirmButtonColor: "#3085d6",
-                cancelButtonText: "Cancle !",
-                cancelButtonColor: "#d33",
+        this.$validator.validateAll().then((valid) => {
+          if (valid) {
+            axios
+              .post(`post-add`, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
               })
-              .then(function (confirm) {
-                if (confirm.isConfirmed) {
-                  that.product = {
-                    title: "",
-                    id_category_post: "",
-                    desc: "",
-                    images: "",
-                    content: "",
-                    views: "",
-                  };
-                } else {
-                  window.location = response.data;
-                }
-              });
-          })
-          .catch((err) => {
-            switch (err.response.status) {
-              case 422:
-                that.errorBackEnd = err.response.data.errors;
-                break;
-              case 500:
+              .then((response) => {
+                that.fetchData();
+                that.flashMessage.setStrategy("multiple");
+                that.flashMessage.success({
+                  message: "Thêm Thành Công !",
+                  icon: "/backend/icon/check.svg",
+                  blockClass: "text-centet",
+                });
                 that
                   .$swal({
-                    title: "buttonAdd Failure Data!",
-                    icon: "error",
-                    confirmButtonText: "Ok",
+                    title: "Add Success!",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes !",
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonText: "Cancle !",
+                    cancelButtonColor: "#d33",
                   })
-                  .then(function (confirm) {});
-                break;
-              default:
-                break;
-            }
-          });
+                  .then(function (confirm) {
+                    if (confirm.isConfirmed) {
+                      that.product = {
+                        title: "",
+                        id_category_post: "",
+                        desc: "",
+                        images: "",
+                        content: "",
+                        views: "",
+                      };
+                    } else {
+                      window.location = response.data;
+                    }
+                  });
+              })
+              .catch((err) => {
+                switch (err.response.status) {
+                  case 422:
+                    that.errorBackEnd = err.response.data.errors;
+                    break;
+                  case 500:
+                    that
+                      .$swal({
+                        title: "Add Failure Data!",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                      })
+                      .then(function (confirm) {});
+                    break;
+                  default:
+                    break;
+                }
+              });
+          }
+        });
       } else {
         let formData = new FormData();
         formData.append("title", this.post.title);

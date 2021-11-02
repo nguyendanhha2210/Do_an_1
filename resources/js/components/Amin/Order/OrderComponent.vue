@@ -172,7 +172,7 @@ export default {
         shipping_id: "",
         order_code: "",
         order_status: "",
-        order_datepe: "",
+        order_date: "",
       },
       errorBackEnd: {}, //Lỗi bên backend laravel
       page: 1,

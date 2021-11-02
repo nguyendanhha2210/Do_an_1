@@ -9,17 +9,12 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Shipping;
-use App\Models\Statistic;
 use App\Models\User;
 use App\Models\WareHouse;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\OrderDate;
 
 Barryvdh\DomPDF\ServiceProvider::class;
-
-use PDF;
 
 class OrderController extends Controller
 {
@@ -53,7 +48,7 @@ class OrderController extends Controller
             })->orderBy('created_at', 'desc')->paginate($paginate);
 
             return response()->json($types, StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -77,8 +72,8 @@ class OrderController extends Controller
             $order_id = $ord->id;
         }
 
-        $customer = User::where('id', $customer_id)->first(); //Chỉ lấy 1 trường id thôi 
-        $shipping = Shipping::where('id', $shipping_id)->first(); //Chỉ lấy 1 trường id thôi 
+        $customer = User::where('id', $customer_id)->first(); //Chỉ lấy 1 trường id thôi
+        $shipping = Shipping::where('id', $shipping_id)->first(); //Chỉ lấy 1 trường id thôi
         $Order_detail_product = OrderDetail::with('product')->where('order_code', $order_code)->get();
 
         foreach ($Order_detail_product as $key => $order_d) {
@@ -104,7 +99,6 @@ class OrderController extends Controller
         $pdf->loadHTML($this->printOrderConvert($checkout_code));
         return $pdf->stream();
     }
-
 
     public function printOrderConvert($checkout_code)
     {
@@ -164,7 +158,7 @@ class OrderController extends Controller
                           <tbody>
                             <tr>
                               <td width="5" height="95">&nbsp;</td>
-                           
+
                               <td width="343"><table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tbody>
                               <tr>
@@ -200,27 +194,27 @@ class OrderController extends Controller
                             <br>
                         <b style="color:#FF0000;font-size:25px;">Chi Tiết Đơn Hàng</b> <br>';
 
-        $output .= '		
+        $output .= '
                     <b style="font-size:16px;color:#0000CD">ID : ' . $checkout_code . '</b></td>
-                      
+
                     </tr>
                       <tr>
-                        <td height="54"  >                    
+                        <td height="54"  >
                             <div align="left">
                         <b>Thông tin Khách hàng:</b></div><br>
                     <table width="100%" >';
 
         $output .= '<tr><td width="3%" >&nbsp;</td>
-                        <td width="34%" >Name : </td><td width="63%"> ' . $shipping->name . ' 
+                        <td width="34%" >Name : </td><td width="63%"> ' . $shipping->name . '
                     </td></tr>';
         $output .= '<tr><td width="3%" >&nbsp;</td>
-                    <td width="34%" >Address : </td><td width="63%"> ' . $shipping->address . ' 
+                    <td width="34%" >Address : </td><td width="63%"> ' . $shipping->address . '
                           </td></tr>';
         $output .= '<tr><td width="3%" >&nbsp;</td>
-                    <td width="34%" >Phone number : </td><td width="63%"> ' . $shipping->phone . ' 
+                    <td width="34%" >Phone number : </td><td width="63%"> ' . $shipping->phone . '
                     </td></tr>';
         $output .= '<tr><td width="3%" >&nbsp;</td>
-                    <td width="34%" >Email : </td><td width="63%"> ' . $shipping->email . ' 
+                    <td width="34%" >Email : </td><td width="63%"> ' . $shipping->email . '
                     </td></tr>';
         $output .= '<tr><td width="3%" >&nbsp;</td>
                     <td width="34%" >Date : </td><td width="63%"> ' . $ord->order_date . '</td></tr>
@@ -247,14 +241,14 @@ class OrderController extends Controller
                 $product_coupon = 'không mã';
             }
 
-            $output .= '		
+            $output .= '
                         <tr>
                             <td align="center" style="border:1px solid black;">' . $product->product_name . '</td>
                             <td align="center"  style="border:1px solid black;">' . $product_coupon . '</td>
                             <td align="center"  style="border:1px solid black;">' . $product->product_sales_quantity . '</td>
                             <td align="center"  style="border:1px solid black;">' . number_format($product->product_price, 0, ',', '.') . 'đ' . '</td>
                             <td align="center" style="border:1px solid black;">' . number_format($subtotal, 0, ',', '.') . 'đ' . '</td>
-                            
+
                         </tr>';
         }
 
@@ -270,10 +264,10 @@ class OrderController extends Controller
                           <td colspan="3" align="left"><div align="right" style="padding-right:20px;">
                     <b>Tổng tiền : ' . number_format($total, 0, ',', '.') . 'đ' . '</b> <br>
                     <b>Khuyến mãi : ' . $coupon_echo . '</b> <br>
-                          <b style="color:green;">Phí ship: ' . number_format($product->product_feeship, 0, ',', '.') . 'đ' . ' <br>   
+                          <b style="color:green;">Phí ship: ' . number_format($product->product_feeship, 0, ',', '.') . 'đ' . ' <br>
                             <b style="color:red;">Thanh toán : ' . number_format($total_coupon + $product->product_feeship, 0, ',', '.') . 'đ' . '</b></div></td>
                     </tr></table><br>
-    
+
                     <table width="550" border="0" align="left">
                                 <tr>
                                   <td><i style="padding-left:100px;">Ngày Giao :' . date("d/m/Y") . '</i><br> <i style="padding-left:100px;">Địa Chỉ :' . $shipping->address . '</i></td>
@@ -317,9 +311,9 @@ class OrderController extends Controller
                     }
                 }
             }
-            $orderDate = OrderDate::where('order_id',$data['id'])->first();
-            $orderDate->delivery_date = Carbon::now();
-            $orderDate->save();
+            // $orderDate = OrderDate::where('order_id',$data['id'])->first();
+            // $orderDate->delivery_date = Carbon::now();
+            // $orderDate->save();
 
         } elseif ($order->order_status == 1) {
             foreach ($data['order_product_id'] as $key => $id) {
@@ -342,9 +336,9 @@ class OrderController extends Controller
                     }
                 }
             }
-            $orderDate = OrderDate::where('order_id',$data['id'])->first();
-            $orderDate->delivery_date = '';
-            $orderDate->save();
+            // $orderDate = OrderDate::where('order_id', $data['id'])->first();
+            // $orderDate->delivery_date = '';
+            // $orderDate->save();
         }
     }
 }
