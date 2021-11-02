@@ -6,12 +6,12 @@ use App\Enums\LimitTimeForgot;
 use App\Enums\RoleStateType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sale\Password\ChangeRequest;
+use App\Mail\ForgotPasswordUser;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
-use App\Mail\ForgotPasswordUser;
+use Illuminate\Support\Facades\Mail;
 
 class PasswordController extends Controller
 {
@@ -30,7 +30,7 @@ class PasswordController extends Controller
 
             if ($user) {
                 $user->reset_password_token = $token;
-                $user->reset_password_token_expire =  $time;
+                $user->reset_password_token_expire = $time;
                 $flag = $user->save();
 
                 if ($flag) {
@@ -43,7 +43,7 @@ class PasswordController extends Controller
 
             return view('sale.users.password.forgot', [
                 'message' => $message,
-                'old_email' => $request->email_address
+                'old_email' => $request->email_address,
             ]);
         }
     }

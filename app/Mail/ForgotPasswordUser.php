@@ -12,22 +12,12 @@ class ForgotPasswordUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($token, $email)
     {
         $this->token = $token;
         $this->email = $email;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         $targetMail = $this->email;
@@ -36,5 +26,4 @@ class ForgotPasswordUser extends Mailable
 
         return $this->view('sale.users.mail.resetPassword', ['token' => $this->token, 'email' => $targetMail])->to($targetMail)->subject($title_mail);
     }
-
 }

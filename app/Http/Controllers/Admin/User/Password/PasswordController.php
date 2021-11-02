@@ -6,11 +6,12 @@ use App\Enums\LimitTimeForgot;
 use App\Enums\RoleStateType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Password\ChangeRequest;
+use App\Mail\ForgotPasswordAdmin;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class PasswordController extends Controller
 {
@@ -37,22 +38,21 @@ class PasswordController extends Controller
 
             if ($user) {
                 $user->reset_password_token = $token;
-                $user->reset_password_token_expire =  $time;
+                $user->reset_password_token_expire = $time;
                 $flag = $user->save();
 
                 if ($flag) {
-                    Mail::send('admin.users.mail.resetPassword', ['token' => $token, 'email' => $request->email_address], function ($message) use ($title_mail, $request) {
-                        $message->to($request->email_address)->subject($title_mail);
-                    });
+                    Mail::send(new ForgotPasswordAdmin($token, $request->email_address));
                     return redirect('admin/forgot-password-complete');
                 }
+
             } else {
                 $message = 'Email does not exist.';
             }
 
             return view('admin.users.password.forgot', [
                 'message' => $message,
-                'old_email' => $request->email_address
+                'old_email' => $request->email_address,
             ]);
         }
     }

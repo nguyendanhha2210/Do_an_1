@@ -1,5 +1,6 @@
 <template>
-  <div class="forgot-pasword-form">
+  <div>
+    <h2 style="color: white">Change Password</h2>
     <div class="col-12 text-center is-danger" v-if="messageText">
       {{ messageText }}
     </div>
@@ -7,42 +8,42 @@
       {{ messageText2 }}
     </div>
     <form
-      class="card mt-4"
       method="POST"
       ref="loginForm"
       :action="formUrl"
       @submit.prevent="sendMail"
       autocomplete="off"
     >
-      <input type="hidden" :value="csrfToken" name="_token" />
-      <div class="card-body">
-        <div class="form-group">
-          <label for="email-for-pass">Enter your email address</label>
-
-          <input
-            type="text"
-            class="form-control rounded-right"
-            name="email_address"
-            v-validate="'required|email_format|max:255'"
-            v-model="email_address"
-            @input="changeInput()"
-          />
-
-          <div class="input-group is-email" role="alert">
-            {{ errors.first("email_address") }}
-          </div>
-
-          <small class="form-text text-center text-muted"
-            >Enter the email address you used during the registration. Then
-            we'll email a link to this address.</small
-          >
+      <div class="row">
+        <div class="col-12 text-center is-danger" v-if="messageText">
+          {{ messageText }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center is-danger" v-if="messageText2">
+          {{ messageText2 }}
         </div>
       </div>
 
-      <div class="card-footer text-center">
-        <button class="btn btn-success" type="submit">Get New Password</button>
-        <a v-bind:href="formLogin" class="btn btn-danger">Back to Login</a>
+      <input type="hidden" :value="csrfToken" name="_token" />
+      <input type="hidden" :value="token" name="reset_password_token" />
+
+      <div class="eye-input">
+        <input
+          type="text"
+          class="ggg"
+          placeholder="Email"
+          name="email_address"
+          v-validate="'required|email_format|max:255'"
+          v-model="email_address"
+          @input="changeInput()"
+        />
+        <div class="input-group is-email" role="alert">
+          {{ errors.first("email_address") }}
+        </div>
       </div>
+      <span><a class="back-login" :href="formLogin">Back to Login</a></span>
+      <input type="submit" value="Send Require" name="login" />
     </form>
   </div>
 </template>
