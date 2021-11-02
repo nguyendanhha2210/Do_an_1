@@ -133,7 +133,7 @@
                 {{ evaluate.product_id }}
               </td>
               <td>
-                {{ evaluate.content }}
+                {{ substring(evaluate.content, 50) }}
               </td>
 
               <td style="display: inline-flex">
@@ -499,6 +499,14 @@ export default {
           });
         }
       });
+    },
+
+    substring(str, value) {
+      if (str.length <= value) {
+        return str;
+      } else {
+        return str.slice(0, value) + "…";
+      }
     },
   },
 };

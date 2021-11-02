@@ -113,7 +113,7 @@
             >
               <th scope="row">{{ index + 1 }}</th>
               <td>
-                {{ warehouse.name }}
+                {{ substring(warehouse.name, 12) }}
               </td>
               <td>
                 <img
@@ -563,6 +563,14 @@ export default {
             window.location.href = "/admin/warehouse";
           });
         });
+    },
+
+    substring(str, value) {
+      if (str.length <= value) {
+        return str;
+      } else {
+        return str.slice(0, value) + "…";
+      }
     },
   },
 };

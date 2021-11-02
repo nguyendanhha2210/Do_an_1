@@ -242,7 +242,7 @@
                 {{ data.title }}
               </td>
               <td>
-                {{ data.categorypost.name }}
+                {{ substring(data.categorypost.name, 20) }}
               </td>
               <td>
                 {{ data.desc }}
@@ -269,7 +269,7 @@
                 </span>
               </td>
               <td>
-                {{ data.content }}
+                {{ substring(data.content, 50) }}
               </td>
               <td>
                 {{ data.views }}
@@ -712,6 +712,13 @@ export default {
       this.$refs.iconClose.style.display = "none";
       this.$refs.image.value = "";
       this.$refs.iconFile.style.display = "block";
+    },
+    substring(str, value) {
+      if (str.length <= value) {
+        return str;
+      } else {
+        return str.slice(0, value) + "…";
+      }
     },
   },
 };

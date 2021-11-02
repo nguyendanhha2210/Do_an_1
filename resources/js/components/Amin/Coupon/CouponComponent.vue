@@ -85,7 +85,7 @@
             <tr v-for="(data, index) in coupons.data" :key="data.id">
               <th scope="row">{{ index + 1 }}</th>
               <td>
-                {{ data.name }}
+                {{ substring(data.name, 12) }}
               </td>
               <td v-if="data.time > 0">
                 {{ data.time }}
@@ -485,6 +485,13 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    substring(str, value) {
+      if (str.length <= value) {
+        return str;
+      } else {
+        return str.slice(0, value) + "…";
+      }
     },
   },
 };

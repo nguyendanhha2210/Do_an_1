@@ -10,18 +10,7 @@
             <option value="20">20</option>
           </select>
         </div>
-        <div class="col-md-4 col-sm-7 col-3" style="float: left">
-          <!-- <a href="product-image">
-            <button
-              style="background-color: green; color: white; height: 36px"
-              type="button"
-              class="btn btn-sm"
-            >
-              <span class="fa fa-plus"></span>
-              Image
-            </button></a
-          > -->
-        </div>
+        <div class="col-md-4 col-sm-7 col-3" style="float: left"></div>
         <div class="col-md-5 col-sm-3 col-5" style="float: right">
           <input
             type="text"
@@ -78,14 +67,13 @@
                     v-validate="'required'"
                     v-model="product.name"
                   />
-                  <!-- validate -->
+
                   <div style="color: red" role="alert">
                     {{ errors.first("name") }}
                   </div>
                   <div style="color: red" v-if="errorBackEnd.name">
                     {{ errorBackEnd.name[0] }}
                   </div>
-                  <!-- validate -->
                 </div>
                 <div class="form-group">
                   <div class="position-relative d-inline-block">
@@ -278,7 +266,7 @@
               <th scope="col">Status</th>
               <th scope="col">TypeID</th>
               <th scope="col">DescriptionID</th>
-              <!-- <th scope="col">Content</th> -->
+              <th scope="col">Content</th>
 
               <th scope="col" class="text-center">
                 <a href="#" @click.prevent="change_sort('quantity')"
@@ -341,7 +329,7 @@
             <tr v-for="(product, index) in products.data" :key="product.id">
               <th scope="row">{{ index + 1 }}</th>
               <td>
-                {{ product.name }}
+                {{ substring(product.name, 12) }}
               </td>
               <td>
                 <img
@@ -390,23 +378,20 @@
               <td>
                 {{ product.description_id }}
               </td>
-              <!-- <td>
-                <p style="
-                      height: 107px;
-                      position: relative;
-                      width: 1%;
-                      -ms-hyphens: auto;
-                      -webkit-hyphens: auto;
-                      hyphens: auto;
-                      word-wrap: break-word;
-                      text-overflow: ellipsis;
-                      padding-left: 16px;
-                      overflow: auto;
-                      -webkit-line-clamp: 11;
-                      -webkit-box-orient: vertical;
-                      display: -webkit-box;
-                    " v-html="product.content"></p>
-              </td> -->
+              <td>
+                <p
+                  style="
+                    height: 70px;
+                    position: relative;
+                    -webkit-hyphens: auto;
+                    hyphens: auto;
+                    word-wrap: break-word;
+                    overflow: auto;
+                    width: 165px;
+                  "
+                  v-html="product.content"
+                ></p>
+              </td>
               <td>
                 <a
                   style="font-size: 16px"
@@ -1126,6 +1111,13 @@ export default {
       this.$refs.iconClose.style.display = "none";
       this.$refs.image.value = "";
       this.$refs.iconFile.style.display = "block";
+    },
+    substring(str, value) {
+      if (str.length <= value) {
+        return str;
+      } else {
+        return str.slice(0, value) + "…";
+      }
     },
   },
 };
