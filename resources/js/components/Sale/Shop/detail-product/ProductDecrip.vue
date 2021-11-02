@@ -58,7 +58,7 @@
                 <div class="col-lg-5" style="transform: translate(-5%, 0%)">
                   <img
                     style="height: 268px; transform: translate(0%, -6%)"
-                    :src="baseUrl + '/uploads/products/' + decrip.images"
+                    v-lazy="baseUrl + '/uploads/products/' + decrip.images"
                   />
                 </div>
               </div>

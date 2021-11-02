@@ -7,11 +7,19 @@ import FlashMessage from '@smartweb/vue-flash-message';
 import DataTable from 'laravel-vue-datatable'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import VueLazyload from 'vue-lazyload';
 
 import LoginComponent from './components/Ship/User/LoginComponent'
 import OrderComponent from './components/Ship/Order/OrderComponent.vue'
 
 
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    // error: 'assets/images/error.png',
+    loading: '/images/loading/loading.jpg',
+    attempt: 1
+
+});
 Vue.use(VueSweetalert2);
 Vue.use(DataTable);
 Vue.component('paginate', Paginate)

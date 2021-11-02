@@ -59,7 +59,7 @@
             <div class="pi-pic">
               <img
                 style="height: 250px"
-                :src="baseUrl + '/uploads/products/' + product.images"
+                v-lazy="baseUrl + '/uploads/products/' + product.images"
                 alt=""
               />
               <div class="sale pp-sale">Sale</div>
@@ -135,7 +135,7 @@
       v-if="products != ''"
       style="position: absolute; bottom: 9px; left: 50%; right: 50%"
     >
-      <nav aria-label="Page navigation example" style="height: 44px;">
+      <nav aria-label="Page navigation example" style="height: 44px">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"

@@ -7,7 +7,7 @@
             class="product-big-img"
             style="height: 428px"
             ref="image"
-            :src="baseUrl + '/uploads/products/' + info.images"
+            v-lazy="baseUrl + '/uploads/products/' + info.images"
             alt=""
           />
         </v-zoomer>

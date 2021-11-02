@@ -10,6 +10,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
 import VueStarRating from 'vue-star-rating';
 import CKEditor from 'ckeditor4-vue';
+import VueLazyload from 'vue-lazyload';
 
 import LoginComponent from './components/Amin/User/LoginComponent'
 import TypeComponent from './components/Amin/Type/TypeComponent.vue'
@@ -52,7 +53,13 @@ import InvoiceStatistical from './components/Amin/Statistical/Invoice.vue'
 import ProductStatistical from './components/Amin/Statistical/Product.vue'
 import RatingStatistical from './components/Amin/Statistical/Rating.vue'
 
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    // error: 'assets/images/error.png',
+    loading: '/images/loading/loading.jpg',
+    attempt: 1
 
+});
 Vue.use(CKEditor);
 Vue.use(VueStarRating)
 Vue.use(VueSweetalert2);

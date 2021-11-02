@@ -117,7 +117,7 @@
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/products/' + warehouse.images"
+                  v-lazy="baseUrl + '/uploads/products/' + warehouse.images"
                   width="50px"
                   height="50px"
                   alt=""

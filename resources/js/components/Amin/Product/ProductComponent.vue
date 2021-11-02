@@ -333,7 +333,7 @@
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/products/' + product.images"
+                  v-lazy="baseUrl + '/uploads/products/' + product.images"
                   width="50px"
                   height="50px"
                   alt=""

@@ -35,7 +35,9 @@
             <td>
               <img
                 style="width: 108px; height: 94px; padding-right: 3px"
-                :src="baseUrl + '/uploads/products/' + productAccessory.images"
+                v-lazy="
+                  baseUrl + '/uploads/products/' + productAccessory.images
+                "
                 alt=""
               />
             </td>

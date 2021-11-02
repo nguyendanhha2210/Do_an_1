@@ -249,7 +249,7 @@
               </td>
               <td>
                 <img
-                  :src="baseUrl + '/uploads/posts/' + data.images"
+                  v-lazy="baseUrl + '/uploads/products/' + data.images"
                   width="50px"
                   height="50px"
                   alt=""

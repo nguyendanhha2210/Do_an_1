@@ -49,7 +49,6 @@
       </div>
     </div>
 
-
     <div class="product-list" style="background-color: #e9edf0">
       <div class="row" style="padding-top: 25px">
         <div
@@ -61,7 +60,7 @@
             <div class="pi-pic">
               <img
                 style="height: 250px"
-                :src="baseUrl + '/uploads/products/' + product.images"
+                v-lazy="baseUrl + '/uploads/products/' + product.images"
                 alt=""
               />
               <div class="sale pp-sale">Sale</div>
@@ -92,7 +91,10 @@
                 </li>
               </ul>
             </div>
-            <div class="pi-text" style="padding-top: 19px !important; border: 0.5px solid #e9edf0">
+            <div
+              class="pi-text"
+              style="padding-top: 19px !important; border: 0.5px solid #e9edf0"
+            >
               <a
                 href="#"
                 style="transform: translate(0%, -34%); font-size: 21px"
@@ -129,8 +131,12 @@
         </div>
       </div>
     </div>
-    <div class="loading-more" v-if="products != ''" style="position: absolute; bottom: 1px; left: 50%; right: 50%">
-      <nav aria-label="Page navigation example" style="height: 44px;">
+    <div
+      class="loading-more"
+      v-if="products != ''"
+      style="position: absolute; bottom: 1px; left: 50%; right: 50%"
+    >
+      <nav aria-label="Page navigation example" style="height: 44px">
         <paginate
           v-model="page"
           :page-count="parseInt(products.last_page)"
@@ -150,7 +156,7 @@
         </paginate>
       </nav>
     </div>
-    <div class="text-center" v-else  style="color: red">There is no data !</div>
+    <div class="text-center" v-else style="color: red">There is no data !</div>
 
     <div
       class="modal fade"
@@ -303,9 +309,9 @@ export default {
         "&paginate=" +
         this.paginate +
         "&search=" +
-        this.search+
-            "&statusView=" +
-            that.statusView
+        this.search +
+        "&statusView=" +
+        that.statusView;
       axios
         .get(url)
         .then(function (response) {

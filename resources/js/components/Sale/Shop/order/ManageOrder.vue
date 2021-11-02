@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="pt-4 pb-4" style="background-color: #e9edf0">
-      <div class="container" >
-        <div v-for="order in orders.data" :key="order.id"  style="margin-bottom:23px">
-        <StepperComponet
-          v-if="orderId == order.id && order.order_status < 5"
-          :data="order.order_status"
-        ></StepperComponet>
-      </div>
-        <div class="row" style="background-color: white;">
+      <div class="container">
+        <div
+          v-for="order in orders.data"
+          :key="order.id"
+          style="margin-bottom: 23px"
+        >
+          <StepperComponet
+            v-if="orderId == order.id && order.order_status < 5"
+            :data="order.order_status"
+          ></StepperComponet>
+        </div>
+        <div class="row" style="background-color: white">
           <div
             class="col-lg-2"
             style="border: dotted 1px #c0c0c0"
@@ -275,7 +279,7 @@
                     <td>
                       <img
                         style="height: 50px; width: 50px"
-                        :src="
+                        v-lazy="
                           baseUrl +
                           '/uploads/products/' +
                           voteDetail.product.images
@@ -392,7 +396,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(order, index) in orders.data" :key="order.id"  @click="showProcess(order.id)">
+                    <tr
+                      v-for="(order, index) in orders.data"
+                      :key="order.id"
+                      @click="showProcess(order.id)"
+                    >
                       <td>{{ index + 1 }}</td>
                       <td>
                         {{ order.user.name }}

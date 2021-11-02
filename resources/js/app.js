@@ -12,6 +12,7 @@ import VueStarRating from 'vue-star-rating';
 import VueAutosuggest from "vue-autosuggest";
 import VueZoomer from 'vue-zoomer'
 import VueEasyLightbox from 'vue-easy-lightbox'
+import VueLazyload from 'vue-lazyload';
 
 import VueCardCarousel from "vue-card-carousel"
 import LoginComponent from './components/Sale/User/LoginComponent.vue'
@@ -37,14 +38,16 @@ import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.v
 import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
 import CouponComponent from './components/Sale/Coupon/CouponComponent.vue'
 
-
-
-
-
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
 import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    // error: 'assets/images/error.png',
+    loading: '/images/loading/loading.jpg',
+    attempt: 1
 
+});
 Vue.use(VueEasyLightbox);
 Vue.use(VueZoomer);
 Vue.use(VueAutosuggest);

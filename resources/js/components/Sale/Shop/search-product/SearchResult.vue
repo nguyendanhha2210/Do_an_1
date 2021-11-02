@@ -55,7 +55,7 @@
             <div class="pi-pic">
               <img
                 style="height: 250px"
-                :src="baseUrl + '/uploads/products/' + abc.images"
+                v-lazy="baseUrl + '/uploads/products/' + abc.images"
                 alt=""
               />
               <div class="sale pp-sale">Sale</div>
