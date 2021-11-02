@@ -93,9 +93,9 @@
                   <div style="color: red" role="alert">
                     {{ errors.first("id_category_post") }}
                   </div>
-                  <div style="color: red" v-if="errorBackEnd.id_category_post">
+                  <!-- <div style="color: red" v-if="errorBackEnd.id_category_post">
                     {{ errorBackEnd.id_category_post[0] }}
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="form-group">
@@ -480,7 +480,7 @@ export default {
             });
             that
               .$swal({
-                title: "buttonAdd success!",
+                title: "Add Success!",
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Yes !",

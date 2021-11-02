@@ -49,7 +49,7 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::new ) {
+            if ($statusView == SortByOption::NEWS ) {
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');

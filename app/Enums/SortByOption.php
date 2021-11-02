@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class SortByOption extends Enum
 {
-    const NEW = 0;
+    const NEWS = 0;
     const PRICEINCREASE = 1;
     const REDUCEDPRICE = 2;
     const AToZ = 3;
