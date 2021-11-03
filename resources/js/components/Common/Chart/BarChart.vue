@@ -28,14 +28,13 @@ export default {
     this.colors = this.options[0].color;
     var arrValue = [];
     var arrLabel = [];
-    console.log("values", this.options);
     this.options.forEach((element) => {
       arrValue.push(element.value);
       arrLabel.push(element.label);
     });
-    console.log("arrValue", arrValue);
-    console.log("arrLabel", arrLabel);
-    console.log("color", this.colors);
+    // console.log("arrValue", arrValue);
+    // console.log("arrLabel", arrLabel);
+    // console.log("color", this.colors);
 
     // this.labels = [
     //   "January",

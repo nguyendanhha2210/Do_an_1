@@ -75,11 +75,9 @@
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("number") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.number">
                   {{ errorBackEnd.number[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
 
                 <label for="exampleInputEmail1">Coupon Code </label>
@@ -93,11 +91,9 @@
                 />
                 <div style="color: red" role="alert">
                   {{ errors.first("code") }}
-                  <!-- Lỗi validate bên vuejs-->
                 </div>
                 <div style="color: red" v-if="errorBackEnd.code">
                   {{ errorBackEnd.code[0] }}
-                  <!-- Lỗi validate bên backend laravel-->
                 </div>
 
                 <label for="exampleInputEmail1">Start Time </label>
@@ -293,6 +289,13 @@ export default {
             });
         }
       });
+    },
+
+    disabledAfterToday(date) {
+      return date > new Date(new Date()) || date < moment(this.time1);
+    },
+    disabledAfterEndTime(date) {
+      return date > moment(this.time2);
     },
   },
 };

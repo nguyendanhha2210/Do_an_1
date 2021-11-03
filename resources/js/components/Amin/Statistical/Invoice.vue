@@ -42,7 +42,15 @@
           <table style="width: 320px">
             <tr>
               <td>From date:</td>
-              <td><input type="date" name="time1" v-model="time1" /></td>
+              <td>
+                <date-picker
+                  v-model="time1"
+                  type="date"
+                  :lang="lang"
+                  :disabled-date="disabledAfterEndTime"
+                  class="mt-2"
+                ></date-picker>
+              </td>
               <td rowspan="2">
                 <button type="submit" class="btn btn-danger">Lọc</button>
               </td>
@@ -50,7 +58,13 @@
             <tr>
               <td>To date:</td>
               <td>
-                <input class="mt-2" type="date" name="time2" v-model="time2" />
+                <date-picker
+                  v-model="time2"
+                  type="date"
+                  :lang="lang"
+                  :disabled-date="disabledAfterToday"
+                  class="mt-2"
+                ></date-picker>
               </td>
               <td></td>
             </tr>
@@ -158,6 +172,10 @@
 </style>
 
 <script>
+import moment from "moment-timezone";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import "vue2-datepicker/locale/en";
 import Loader from "../../Common/loader.vue";
 import Modal from "../../Modal/Modal.vue";
 import BarChart from "../../Common/Chart/BarChart.vue";
@@ -202,6 +220,7 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      lang: "en",
     };
   },
   created() {
@@ -212,6 +231,7 @@ export default {
     Loader,
     Modal,
     BarChart,
+    DatePicker,
   },
   watch: {
     paginate: function (value) {
@@ -223,46 +243,27 @@ export default {
     },
   },
   methods: {
-    // fetchChart() {
-    //   let that = this;
-    //   this.flagShowLoader = true;
-    //   let formData = new FormData();
-    //   formData.append("keyword", this.keyword);
-    //   formData.append("time1", this.time1);
-    //   formData.append("time2", this.time2);
-    //   axios
-    //     .get(`get-invoice-statistical`, formData)
-    //     .then(function (response) {
-    //       that.chartProfits = response.data.data;
-    //       that.flagShowLoader = false;
-    //     })
-    //     .catch((err) => {
-    //       switch (err.response.status) {
-    //         case 404:
-    //           that
-    //             .$swal({
-    //               title: "Error loading data !",
-    //               icon: "warning",
-    //               confirmButtonText: "Ok",
-    //             })
-    //             .then(function (confirm) {});
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     });
-    // },
     fetchProfits() {
       let that = this;
       this.flagShowLoader = true;
       let formData = new FormData();
       formData.append("keyword", this.keyword);
-      formData.append("time1", this.time1);
-      formData.append("time2", this.time2);
+      formData.append(
+        "time1",
+        this.time1
+          ? moment(this.time1).tz("Asia/Ho_Chi_Minh").format("YYYY-MM-DD")
+          : ""
+      );
+      formData.append(
+        "time2",
+        this.time2
+          ? moment(this.time2).tz("Asia/Ho_Chi_Minh").format("YYYY-MM-DD")
+          : ""
+      );
       formData.append("page", this.page);
       formData.append("paginate", this.paginate);
       axios.post("get-profit-table", formData).then(function (response) {
-        console.log(response.data.chart);
+        console.log("123", response.data.amount);
         that.profits = response.data.profits; //show data ra
         that.amount = response.data.amount;
         that.chartProfits = response.data.chart;
@@ -307,6 +308,12 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
+    },
+    disabledAfterToday(date) {
+      return date > new Date(new Date()) || date < moment(this.time1);
+    },
+    disabledAfterEndTime(date) {
+      return date > moment(this.time2);
     },
   },
 };
