@@ -88,14 +88,25 @@
                 </div>
 
                 <label for="exampleInputEmail1">Start Time </label>
-                <date-picker
+                <!-- <date-picker
                   v-model="nameStartDate"
                   type="datetime"
                   class="w100"
                   style="width:180px"
                   name="nameStartDate"
                   :lang="lang"
+                ></date-picker> -->
+
+                 <date-picker
+                  v-model="nameStartDate"
+                  name="nameStartDate"
+                  type="date"
+                  :lang="lang"
+                  :disabled-date="disabledStartTime"
+                  class="mt-2"
                 ></date-picker>
+
+
 
                 <div style="color: red" role="alert">
                   {{ errors.first("nameStartDate") }}
@@ -105,13 +116,22 @@
                 </div>
 
                 <label for="exampleInputEmail1">End Time </label>
-                <date-picker
+                <!-- <date-picker
                   v-model="nameEndDate"
                   type="datetime"
                   class="w100 pl-2"
                   style="width:189px"
                   name="nameEndDate"
                   :lang="lang"
+                ></date-picker> -->
+
+                 <date-picker
+                  v-model="nameEndDate"
+                  name="nameEndDate"
+                  type="date"
+                  :lang="lang"
+                  :disabled-date="disabledStartTime"
+                  class="mt-2"
                 ></date-picker>
 
                 <div style="color: red" role="alert">
@@ -245,6 +265,18 @@ export default {
             });
         }
       });
+    },
+    disabledStartTime(date) {
+      //start
+      return (
+        date < new Date(new Date()) ||
+        date < moment(this.nameStartDate) ||
+        date > moment(this.nameEndDate)
+      );
+    },
+    disabledEndTime(date) {
+      //end
+      return date < moment(this.nameStartDate);
     },
   },
 };
