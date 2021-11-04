@@ -99,10 +99,10 @@
                 <label for="exampleInputEmail1">Start Time </label>
                 <date-picker
                   v-model="data.start_date"
-                  type="datetime"
-                  class="w100"
-                  style="width: 180px"
+                  type="date"
                   :lang="lang"
+                  :disabled-date="disabledStartTime"
+                  class="mt-2"
                 ></date-picker>
 
                 <div style="color: red" role="alert">
@@ -115,10 +115,10 @@
                 <label for="exampleInputEmail1">End Time </label>
                 <date-picker
                   v-model="data.end_date"
-                  type="datetime"
-                  class="w100 pl-2"
-                  style="width: 189px"
+                  type="date"
                   :lang="lang"
+                  :disabled-date="disabledEndTime"
+                  class="mt-2"
                 ></date-picker>
 
                 <div style="color: red" role="alert">
@@ -291,11 +291,17 @@ export default {
       });
     },
 
-    disabledAfterToday(date) {
-      return date > new Date(new Date()) || date < moment(this.time1);
+    disabledStartTime(date) {
+      //start
+      return (
+        date < new Date(new Date()) ||
+        date < moment(this.data.start_date) ||
+        date > moment(this.data.end_date)
+      );
     },
-    disabledAfterEndTime(date) {
-      return date > moment(this.time2);
+    disabledEndTime(date) {
+      //end
+      return date < moment(this.data.start_date);
     },
   },
 };

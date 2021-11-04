@@ -39,12 +39,12 @@ class StatisticalController extends Controller
                 $data[] = [
                     "label" => Carbon::parse($item->date)->format('Y/m/d'),
                     "value" => $item->total,
-                    "color" => "#000066"
+                    "color" => "#000066",
                 ];
             }
 
-            return response()->json(["data" => $data,], StatusCode::OK);
-        } catch (\Exception $e) {
+            return response()->json(["data" => $data], StatusCode::OK);
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -65,15 +65,16 @@ class StatisticalController extends Controller
                 $data[] = [
                     "label" => $item->created_date,
                     "value" => $item->total,
-                    "color" => "#000066"
+                    "color" => "#000066",
                 ];
             }
 
             return response()->json([
                 'amount' => Profit::sum('profit'),
                 'profits' => Profit::orderBy('date', 'DESC')->paginate($request->paginate),
-                'chart' => $data
-            ],StatusCode::OK);
+                'chart' => $data,
+                "color" => "#000066",
+            ], StatusCode::OK);
 
         } else {
             if (empty($request->keyword)) {
@@ -102,7 +103,7 @@ class StatisticalController extends Controller
                     $data[] = [
                         "label" => $item->created_date,
                         "value" => $item->total,
-                        "color" => "#000066"
+                        "color" => "#000066",
                     ];
                 }
                 $amount = 0;
@@ -113,17 +114,18 @@ class StatisticalController extends Controller
                 return response()->json([
                     'amount' => $amount,
                     'profits' => Profit::whereBetween(DB::raw('DATE(date)'), array($startTime, $endTime))->paginate($request->paginate),
-                    'chart' => $data
-                ],StatusCode::OK);
+                    'chart' => $data,
+                    'color' => "#000066",
+                ], StatusCode::OK);
             }
 
-            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select( DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))->groupBy('created_date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
+            $charts = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->select(DB::raw('SUM(profit) AS total, DATE(date) AS created_date'))->groupBy('created_date')->get(); //Lấy tổng lợi nhuận trong 1 ngày
             $data = [];
             foreach ($charts as $item) {
                 $data[] = [
                     "label" => $item->created_date,
                     "value" => $item->total,
-                    "color" => "#000066"
+                    "color" => "#000066",
                 ];
             }
             $profits = Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->orderBy('date', 'DESC')->get();
@@ -135,7 +137,8 @@ class StatisticalController extends Controller
                 'amount' => $amount,
                 'profits' => Profit::where('date', 'LIKE', '%' . $request->keyword . '%')->orderBy('date', 'DESC')->paginate($request->paginate),
                 'chart' => $data,
-            ],StatusCode::OK);
+                'color' => "#000066",
+            ], StatusCode::OK);
         }
     }
     //Invoice
@@ -176,7 +179,7 @@ class StatisticalController extends Controller
                 $dataProductView[] = [
                     "label" => $item->name,
                     "value" => $item->views,
-                    "color" => "#BB0000"
+                    "color" => "#BB0000",
                 ];
             }
 
@@ -184,11 +187,11 @@ class StatisticalController extends Controller
                 $dataProductSold[] = [
                     "label" => $item->name,
                     "value" => $item->product_sold,
-                    "color" => "#000066"
+                    "color" => "#000066",
                 ];
             }
             return response()->json(["dataProductStock" => $dataProductStock, "dataProductView" => $dataProductView, "dataProductSold" => $dataProductSold], StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -228,11 +231,11 @@ class StatisticalController extends Controller
                 $dataProduct[] = [
                     "label" => $item,
                     "value" => $value,
-                    "color" => "#000066"
+                    "color" => "#000066",
                 ];
             }
             return response()->json(["rating" => $dataProduct], StatusCode::OK);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
