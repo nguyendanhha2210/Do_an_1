@@ -236,7 +236,8 @@ Route::get('/del-viewed-product/{session_id}', [App\Http\Controllers\Sale\ShopCo
 Route::get('/register-confirm/{email}', [App\Http\Controllers\Sale\User\AccountController::class, 'registerConfirm'])->name('sale.users.registerConfirm');
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\Sale\User\AccountController::class, 'loginForm'])->name('sale.users.login');
-Route::match(['get', 'post'], '/register', [App\Http\Controllers\Sale\User\AccountController::class, 'registerForm'])->name('sale.users.register');
+Route::get('/register-form', [App\Http\Controllers\Sale\User\AccountController::class, 'registerForm'])->name('sale.users.registerForm');
+Route::post('/register', [App\Http\Controllers\Sale\User\AccountController::class, 'register'])->name('sale.users.register');
 Route::match(['get', 'post'], '/sale/forgot-password', [App\Http\Controllers\Sale\User\Password\PasswordController::class, 'passwordForm'])->name('sale.users.forgot');
 Route::get('sale/forgot-password-complete', [App\Http\Controllers\Sale\User\Password\PasswordController::class, 'forgotPasswordComplete'])->name('sale.users.forgotPasswordComplete');
 Route::get('sale/reset-password/{email}/{token}', [App\Http\Controllers\Sale\User\Password\PasswordController::class, 'getToken'])->name('sale.users.getToken');

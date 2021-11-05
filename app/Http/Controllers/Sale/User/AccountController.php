@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Sale\User;
 
-use App\Enums\LimitTimeForgot;
 use App\Enums\RoleStateType;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\Sale\RegisterForm;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 class AccountController extends Controller
 {
@@ -46,50 +45,80 @@ class AccountController extends Controller
         }
     }
 
-    public function registerForm(Request $request)
+    public function register(RegisterForm $request)
     {
-        if ($request->isMethod('get')) {
-            return view('sale.users.register');
-        }
-        if ($request->isMethod('post')) {
-            $userEmail = User::where('role_id', '=', RoleStateType::SALER)->get();
-            $count = 0;
-            foreach ($userEmail as $key => $email) {
-                if ($request->email == $email->email) {
-                    $count = 1;
-                }
-            }
+        // if ($request->isMethod('get')) {
+        //     return view('sale.users.register');
+        // }
+        // if ($request->isMethod('post')) {
+        //     $userEmail = User::where('role_id', '=', RoleStateType::SALER)->get();
+        //     $count = 0;
+        //     foreach ($userEmail as $key => $email) {
+        //         if ($request->email == $email->email) {
+        //             $count = 1;
+        //         }
+        //     }
 
-            if ($count == 1) {
-                $message = 'Email Đã Tồn Tại, Vui Lòng Nhập Lại !';
+        //     if ($count == 1) {
+        //         $message = 'Email Đã Tồn Tại, Vui Lòng Nhập Lại !';
+        //     } else {
+        //         $user = new User();
+        //         $user->name = $request->name;
+        //         $user->phone = $request->phone;
+        //         $user->email = $request->email;
+        //         $user->images = 'avata-3.jpg';
+        //         $user->password = bcrypt($request->password_confirm);
+        //         $user->role_id = RoleStateType::CLIENT;
+        //         $flag = $user->save();
+        //         if ($flag) {
+        //             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        //             $title_mail = "Fressh Mama xác minh đăng kí" . ' ' . $now;
+
+        //             Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
+        //                 $message->to($request->email)->subject($title_mail);
+        //             });
+        //             $message = 'Đăng kí thành công, Vui Lòng Vào Email Để Xác Nhận Trước Khi Đăng Nhập !';
+        //         } else {
+        //             $message = 'Đăng kí thất bại !';
+        //         }
+        //         return view('sale.users.login', [
+        //             'message' => $message,
+        //         ]);
+        //     }
+        //     return view('sale.users.register', [
+        //         'message' => $message,
+        //     ]);
+        // }
+        
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->images = 'avata-3.jpg';
+            $user->password = bcrypt($request->password_confirm);
+            $user->role_id = RoleStateType::CLIENT;
+            $flag = $user->save();
+            if ($flag) {
+                $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+                $title_mail = "Fressh Mama xác minh đăng kí" . ' ' . $now;
+
+                Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
+                    $message->to($request->email)->subject($title_mail);
+                });
+                $message = 'Đăng kí thành công, Vui Lòng Vào Email Để Xác Nhận Trước Khi Đăng Nhập !';
             } else {
-                $user = new User();
-                $user->name = $request->name;
-                $user->phone = $request->phone;
-                $user->email = $request->email;
-                $user->images = 'avata-3.jpg';
-                $user->password = bcrypt($request->password_confirm);
-                $user->role_id = RoleStateType::CLIENT;
-                $flag = $user->save();
-                if ($flag) {
-                    $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-                    $title_mail = "Fressh Mama xác minh đăng kí" . ' ' . $now;
-
-                    Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
-                        $message->to($request->email)->subject($title_mail);
-                    });
-                    $message = 'Đăng kí thành công, Vui Lòng Vào Email Để Xác Nhận Trước Khi Đăng Nhập !';
-                } else {
-                    $message = 'Đăng kí thất bại !';
-                }
-                return view('sale.users.login', [
-                    'message' => $message,
-                ]);
+                $message = 'Đăng kí thất bại !';
             }
-            return view('sale.users.register', [
-                'message' => $message,
-            ]);
+            return response()->json(["urlLogin" => Route('sale.users.login'), "message" => $message], StatusCode::OK);
+        } catch (\Exception $e) {
+            return response()->json(["error" => $e->getMessage()], StatusCode::NOT_FOUND);
         }
+    }
+
+    public function registerForm()
+    {
+        return view('sale.users.register');
     }
 
     public function logout()

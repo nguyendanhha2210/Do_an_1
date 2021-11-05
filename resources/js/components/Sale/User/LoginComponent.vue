@@ -86,7 +86,7 @@
       <div class="clearfix"></div>
       <input type="submit" value="Sign In" name="login" />
     </form>
-    <p>Don't Have an Account ?<a :href="formRegister">Create an account</a></p>
+    <p>Don't Have an Account ?<a href="register-form">Create an account</a></p>
   </div>
 </template>
 

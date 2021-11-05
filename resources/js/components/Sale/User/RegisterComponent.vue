@@ -1,13 +1,10 @@
 <template>
   <div>
     <h2>Register Now</h2>
-    <form
-      method="POST"
-      ref="registerForm"
-      :action="formUrl"
-      @submit.prevent="register"
-      autocomplete="off"
-    >
+    <div style="color: red; text-align: center" v-if="errorBackEnd">
+      {{ errorBackEnd }}
+    </div>
+    <form method="POST" @submit.prevent="register">
       <input type="hidden" :value="csrfToken" name="_token" />
       <div class="row">
         <div class="col-12 text-center is-danger" v-if="messageText">
@@ -171,14 +168,24 @@
       <input v-if="checker" type="submit" value="submit" name="register" />
     </form>
     <p>Already Registered.<a :href="formLogin">Login</a></p>
+    <Modal
+      v-if="modalShow"
+      :type="type"
+      :title="title"
+      :text="text"
+      :confirm="confirm"
+      :cancle="cancle"
+      :urlConfirm="urlConfirm"
+      :urlCancle="urlCancle"
+      :modalShow="modalShow"
+    ></Modal>
   </div>
 </template>
 
-<style lang="" scope>
-</style>
-
 <script>
-const axios = require("axios").default;
+import Modal from "../../Modal/Modal.vue";
+import Vue from "vue";
+import axios from "axios";
 export default {
   created() {
     let messError = {
@@ -217,6 +224,8 @@ export default {
         password_confirm: "",
       },
 
+      errorBackEnd: "",
+
       password: "",
       token: this.tokenUrl,
       messageText: this.message,
@@ -231,9 +240,22 @@ export default {
         default: false,
         type: Boolean,
       },
+      //Modal
+      modalShow: false,
+      type: "",
+      title: "",
+      text: "",
+      confirm: "",
+      cancle: "",
+      urlConfirm: "",
+      urlCancle: "",
+      //Modal
     };
   },
-  props: ["formLogin", "formUrl", "message"],
+  props: ["formLogin", "message"],
+  components: {
+    Modal,
+  },
   methods: {
     hidePassword() {
       this.passwordHidden = true;
@@ -256,12 +278,53 @@ export default {
       this.messageText = "";
     },
 
-    register: function (e) {
-      e.preventDefault();
+    register() {
       let that = this;
+      let formData = new FormData();
+      formData.append("name", this.user.name);
+      formData.append("phone", this.user.phone);
+      formData.append("email", this.user.email);
+      formData.append("password_confirm", this.user.password_confirm);
       this.$validator.validateAll().then((valid) => {
         if (valid) {
-          that.$refs.registerForm.submit();
+          axios
+            .post(`/register`, formData)
+            .then((response) => {
+              (this.type = "success"),
+                (this.title = response.data.message),
+                (this.confirm = "Go to gmail !"),
+                (this.cancle = "Back to Login !"),
+                (this.urlConfirm = "https://mail.google.com/mail/u/0/#inbox"),
+                (this.urlCancle = response.data.urlLogin),
+                (this.modalShow = true);
+            })
+            .catch((err) => {
+              switch (err.response.status) {
+                case 422:
+                  that.errorBackEnd = err.response.data.errors.email;
+                  break;
+                case 404:
+                  that
+                    .$swal({
+                      title: "Register Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                case 500:
+                  that
+                    .$swal({
+                      title: "Register Error !",
+                      icon: "warning",
+                      confirmButtonText: "Cancle !",
+                    })
+                    .then(function (confirm) {});
+                  break;
+                default:
+                  break;
+              }
+            });
         }
       });
     },

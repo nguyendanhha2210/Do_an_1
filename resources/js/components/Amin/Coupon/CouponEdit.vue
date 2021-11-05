@@ -22,7 +22,9 @@
                   {{ errorBackEnd.name[0] }}
                 </div>
 
-                <label for="exampleInputEmail1" v-if="statusSendShow == 1">New Time</label>
+                <label for="exampleInputEmail1" v-if="statusSendShow == 1"
+                  >New Time</label
+                >
                 <input
                   type="text"
                   name="nameTime"
@@ -97,7 +99,7 @@
                   :lang="lang"
                 ></date-picker> -->
 
-                 <date-picker
+                <date-picker
                   v-model="nameStartDate"
                   name="nameStartDate"
                   type="date"
@@ -105,8 +107,6 @@
                   :disabled-date="disabledStartTime"
                   class="mt-2"
                 ></date-picker>
-
-
 
                 <div style="color: red" role="alert">
                   {{ errors.first("nameStartDate") }}
@@ -125,7 +125,7 @@
                   :lang="lang"
                 ></date-picker> -->
 
-                 <date-picker
+                <date-picker
                   v-model="nameEndDate"
                   name="nameEndDate"
                   type="date"
@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone'
+import moment from "moment-timezone";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import "vue2-datepicker/locale/en";
@@ -190,7 +190,7 @@ export default {
   },
   data() {
     return {
-      lang: 'en',
+      lang: "en",
       csrfToken: Laravel.csrfToken,
       nameName: this.coupon.name,
       nameTime: this.coupon.time,
@@ -217,8 +217,18 @@ export default {
       formData.append("condition", this.nameCondition);
       formData.append("number", this.nameNumber);
       formData.append("code", this.nameCode);
-      formData.append("start_date", moment(this.nameStartDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss'));
-      formData.append("end_date", moment(this.nameEndDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss'));
+      formData.append(
+        "start_date",
+        moment(this.nameStartDate)
+          .tz("Asia/Ho_Chi_Minh")
+          .format("YYYY-MM-DD HH:mm:ss")
+      );
+      formData.append(
+        "end_date",
+        moment(this.nameEndDate)
+          .tz("Asia/Ho_Chi_Minh")
+          .format("YYYY-MM-DD HH:mm:ss")
+      );
       this.$validator.validateAll().then((valid) => {
         if (valid) {
           axios
