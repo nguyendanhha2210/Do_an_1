@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 'google'),
+    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
 
     'disks' => [
 
@@ -59,7 +59,7 @@ return [
             'driver' => 'google',
             'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
             'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
-            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN','1//04kY2T2s5udb0CgYIARAAGAQSNwF-L9IrzrCT0uqWpDE_E24KacOKp9fCa3H8v-P4-DY8eqZmHcV-mvRkmHNe4QEXutaNebQpjo4'),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
             'folderId' => env('GOOGLE_DRIVE_FOLDER_ID'),
         ],
 
