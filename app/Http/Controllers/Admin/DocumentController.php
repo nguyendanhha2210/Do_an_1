@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Auth;
 use File;
+use Storage;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use Storage;
 
 class DocumentController extends Controller
 {
