@@ -280,7 +280,7 @@ export default {
     },
     disabledEndTime(date) {
       //end
-      return date < moment(this.data.start_date);
+      return date < moment(this.data.start_date) || date < new Date(new Date());
     },
   },
 };
