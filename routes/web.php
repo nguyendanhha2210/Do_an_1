@@ -167,6 +167,21 @@ Route::middleware([Admin::class])->prefix('/admin')->group(function () {
     Route::get('/get-replyComment', [App\Http\Controllers\Admin\ReplyCommentController::class, 'getData'])->name('admin.replyComment.getData'); //trả dữ liệu ra form list
     Route::post('/single-send', [App\Http\Controllers\Admin\ReplyCommentController::class, 'singleSend'])->name('admin.replyComment.singleSend');
     Route::post('/all-send', [App\Http\Controllers\Admin\ReplyCommentController::class, 'allSend'])->name('admin.replyComment.allSend');
+
+    //Document
+    Route::get('/upload_file', [App\Http\Controllers\Admin\DocumentController::class, 'upload_file']);
+    Route::get('/upload_image', [App\Http\Controllers\Admin\DocumentController::class, 'upload_image']);
+    Route::get('/upload_video', [App\Http\Controllers\Admin\DocumentController::class, 'upload_video']);
+    Route::get('/download_document/{path}/{name}', [App\Http\Controllers\Admin\DocumentController::class, 'download_document']);
+    Route::get('/create_document', [App\Http\Controllers\Admin\DocumentController::class, 'create_document']);
+    Route::get('/delete_document/{path}', [App\Http\Controllers\Admin\DocumentController::class, 'delete_document']);
+
+    //Folder
+    Route::get('/create_folder', [App\Http\Controllers\Admin\DocumentController::class, 'create_folder']);
+    Route::get('/rename_folder', [App\Http\Controllers\Admin\DocumentController::class, 'rename_folder']);
+    Route::get('/delete_folder', [App\Http\Controllers\Admin\DocumentController::class, 'delete_folder']);
+    Route::get('/list_document', [App\Http\Controllers\Admin\DocumentController::class, 'list_document']);
+    Route::get('/read_data', [App\Http\Controllers\Admin\DocumentController::class, 'readData'])->name('admin.googleDrive.readData');
 });
 
 Route::get('/', [App\Http\Controllers\Sale\HomeController::class, 'index'])->name('sale.index');

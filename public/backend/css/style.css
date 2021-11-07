@@ -1531,6 +1531,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         display: block;
     }
     
+    .google-drive {
+        margin-left: 4%;
+    }
+    
     h3.agileits-icons-title {
         text-align: center;
         font-size: 33px;
