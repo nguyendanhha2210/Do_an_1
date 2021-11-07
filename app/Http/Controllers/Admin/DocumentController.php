@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Auth;
 use File;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use Storage;
 
 class DocumentController extends Controller
@@ -21,7 +22,7 @@ class DocumentController extends Controller
 
     public function create_document()
     {
-        Storage::disk('second_google')->put('test.txt', 'Storage 1');
+        Storage::disk('s3')->put('test.txt', 'Storage 1');
         dd('created');
     }
 
