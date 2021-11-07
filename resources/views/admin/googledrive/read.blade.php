@@ -1,18 +1,5 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <style type="text/css">
-        ul.drive {
-            padding: 10px;
-        }
-
-        ul.drive li {
-            list-style-type: none;
-            color: #000;
-            margin: 2px 0;
-            font-weight: 300;
-        }
-
-    </style>
     <div class="row">
         <ul class="google-drive">
             @foreach ($contents as $value)
