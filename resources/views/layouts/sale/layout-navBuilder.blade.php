@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
-    <link rel="icon" href="/uploads/title_web.ico">   {{-- logo tap web --}}
+    <link rel="icon" href="/uploads/title_web.ico"> {{-- logo tap web --}}
 
 
     {{-- Buộc phải thêm khi dùng Vue JS --}}
@@ -47,7 +47,8 @@
         <section class="product-shop spad" style="background-color: #e9edf0">
             <div class="container" style="margin-top: 17px;">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-8 order-1 order-lg-1 produts-sidebar-filter" style="background-color: white;border-right:solid 1px #e9edf0">
+                    <div class="col-lg-3 col-md-6 col-sm-8 order-1 order-lg-1 produts-sidebar-filter"
+                        style="background-color: white;border-right:solid 1px #e9edf0">
                         @include('layouts.sale.nav-builder')
                     </div>
                     <div class="col-lg-9 order-2 order-lg-2" style="background-color: white">
@@ -75,18 +76,20 @@
 
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
+
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
+
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "109767304754230");
+        chatbox.setAttribute("page_id", "110414690492761");
         chatbox.setAttribute("attribution", "biz_inbox");
 
         window.fbAsyncInit = function() {
             FB.init({
                 xfbml: true,
-                version: 'v11.0'
+                version: 'v12.0'
             });
         };
 
@@ -95,7 +98,7 @@
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>

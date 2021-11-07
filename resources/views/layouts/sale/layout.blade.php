@@ -27,10 +27,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
-    <link rel="icon" href="/uploads/title_web.ico">   {{-- logo tap web --}}
+    <link rel="icon" href="/uploads/title_web.ico"> {{-- logo tap web --}}
 
     {{-- <link href="/vnpay_php/assets/bootstrap.min.css" rel="stylesheet"/> --}}
-        <!-- Custom styles for this template -->
+    <!-- Custom styles for this template -->
 
     {{-- Buộc phải thêm khi dùng Vue JS --}}
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
@@ -71,7 +71,6 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     {{-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0"
         nonce="giodsXR5"></script> --}}
-       
 
     {{-- Paypal --}}
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
@@ -120,19 +119,20 @@
 
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
+
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
 
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "109767304754230");
+        chatbox.setAttribute("page_id", "110414690492761");
         chatbox.setAttribute("attribution", "biz_inbox");
 
         window.fbAsyncInit = function() {
             FB.init({
                 xfbml: true,
-                version: 'v11.0'
+                version: 'v12.0'
             });
         };
 
@@ -141,11 +141,10 @@
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <!-- Messenger Plugin chat Code -->
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -185,37 +184,6 @@
             });
         });
     </script>
-    {{-- <script type="text/javascript">
-        $('#keywords').keyup(function() {
-            var query = $(this).val();
-
-            if (query != '') {
-                var _token = $('input[name="_token"]').val();
-
-                $.ajax({
-                    url: "{{ url('/autocomplete-ajax') }}",
-                    method: "POST",
-                    data: {
-                        query: query,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data);
-                    }
-                });
-
-            } else {
-
-                $('#search_ajax').fadeOut();
-            }
-        });
-
-        $(document).on('click', '.li_search_ajax', function() {
-            $('#keywords').val($(this).text());
-            $('#search_ajax').fadeOut();
-        });
-    </script> --}}
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
