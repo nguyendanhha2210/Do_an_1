@@ -981,8 +981,8 @@ class ShopController extends Controller
             $idUser = Auth::guard('sales')->id();
             $couponStores = UserCoupon::Where('user_id', '=', $idUser)->where('coupon_time', '>', 0)
                 ->with('coupon', function ($query) {
-                    $query->whereDate('start_date', '>=', now());
-                    $query->orWhereDate('end_date', '<=', now());
+                    $query->whereDate('start_date', '<=', now());
+                    $query->orWhereDate('end_date', '>=', now());
                 })->orderBy('created_at', 'desc')->get();
             return response()->json(["couponStores" => $couponStores], StatusCode::OK);
         } catch (\Exception$e) {
