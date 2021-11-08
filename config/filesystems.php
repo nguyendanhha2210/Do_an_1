@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 'google'),
+    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
 
     'disks' => [
 
