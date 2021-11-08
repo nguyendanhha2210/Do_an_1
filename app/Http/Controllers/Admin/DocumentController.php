@@ -14,7 +14,7 @@ class DocumentController extends Controller
     public function upload_file()
     {
         $filename = 'Anthony Robbins.pdf';
-        $filePath = public_path('uploads\document\File PDF Test.pdf');
+        $filePath = public_path('uploads/document/File PDF Test.pdf');
         $fileData = File::get($filePath);
         Storage::cloud()->put($filename, $fileData);
         return 'File PDF Uploaded';
@@ -29,7 +29,7 @@ class DocumentController extends Controller
     public function upload_image()
     {
         $filename = '4.jpg';
-        $filePath = public_path('uploads\products\4.jpg');
+        $filePath = public_path('uploads/products/4.jpg');
         $fileData = File::get($filePath);
         Storage::cloud()->put($filename, $fileData);
         return 'Image Uploaded';
