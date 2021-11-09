@@ -1,5 +1,8 @@
 <template>
-  <section class="product-shop spad" style="background-color: #e9edf0">
+  <section class="product-shop" style="background-color: #e9edf0">
+    <div style="margin-left: 49px">
+      <StepperPurchase :data="1"></StepperPurchase>
+    </div>
     <div class="container" style="margin-top: 17px">
       <div class="row">
         <div
@@ -19,7 +22,7 @@
       <div class="row">
         <ProductRelated :relatedProduct="productrelated"></ProductRelated>
       </div>
-       <div class="row">
+      <div class="row">
         <ProductCompare :compareProduct="productcompare"></ProductCompare>
       </div>
     </div>
@@ -32,6 +35,8 @@ import ProductInfo from "./ProductInfo.vue";
 import ProductDecrip from "./ProductDecrip.vue";
 import ProductRelated from "./ProductRelated.vue";
 import ProductCompare from "./ProductCompare.vue";
+
+import StepperPurchase from "../../../Common/Stepper/StepperPurchase.vue";
 
 import Vue from "vue";
 import axios from "axios";
@@ -52,6 +57,7 @@ export default {
     ProductRelated,
     CouponProduct,
     ProductCompare,
+    StepperPurchase,
   },
   props: ["product"],
   mounted() {},

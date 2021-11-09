@@ -41,6 +41,9 @@ import CouponComponent from './components/Sale/Coupon/CouponComponent.vue'
 import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
 import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
 
+
+import StepperPurchase from "./components/Common/Stepper/StepperPurchase.vue"
+
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     // error: 'assets/images/error.png',
@@ -99,6 +102,7 @@ new Vue({
         ProductSearch,
         SearchResult,
         CouponComponent,
+        StepperPurchase,
     },
     created() {
         this.$validator.extend("number_phone", {

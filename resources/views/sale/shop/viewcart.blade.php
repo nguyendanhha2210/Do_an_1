@@ -3,6 +3,7 @@
     <section style="background-color: #e9edf0">
         <div class="container ">
             <div class="row">
+                <stepper-purchase :data="2"></stepper-purchase>
                 <div class="col-lg-12 mt-3 mb-5">
                     <div class="cart-table" style="background-color: white;padding: 17px">
                         <form action="{{ URL::to('/update-cart') }}" method="POST">

@@ -4,6 +4,7 @@
         <div class="container">
             <form action="#" class="checkout-form">
                 <div class="row">
+                    <stepper-purchase :data="3"></stepper-purchase>
                     <div class="col-lg-7">
                         <div class="place-order">
                             <h4>Thông tin đơn hàng</h4>
