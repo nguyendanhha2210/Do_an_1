@@ -1,5 +1,6 @@
 <template>
   <section class="product-shop" style="background-color: #e9edf0">
+    <h1>Chào Các Bạn !</h1>
     <div class="ABC" style="margin-left: 49px">
       <StepperPurchase :data=1></StepperPurchase>
     </div>
