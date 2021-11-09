@@ -1,7 +1,8 @@
 <template>
   <section class="product-shop" style="background-color: #e9edf0">
-    <div style="margin-left: 49px">
-      <StepperPurchase :data="1"></StepperPurchase>
+    <div class="ABC" style="margin-left: 49px">
+      <h1>adjadlad</h1>
+      <StepperPurchase :data=1></StepperPurchase>
     </div>
     <div class="container" style="margin-top: 17px">
       <div class="row">
