@@ -248,8 +248,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
-      typ: this.productType,
-
+      typ :  this.productType,
       products: [],
       product: {
         id: "",
@@ -270,6 +269,7 @@ export default {
     };
   },
   created() {
+   
     this.fetchData();
   },
   components: {
@@ -277,7 +277,6 @@ export default {
   },
   props: ["productType"],
   mounted() {
-    console.log(this.search);
   },
 
   watch: {

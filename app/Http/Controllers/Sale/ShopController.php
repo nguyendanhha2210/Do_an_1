@@ -49,7 +49,7 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::NEWS ) {
+            if ($statusView == SortByOption::NEWS) {
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
@@ -353,7 +353,7 @@ class ShopController extends Controller
             })->orderBy('created_at', 'desc')->take(3)->get();
 
         $productType = Product::where('type_id', '=', $id)->get();
-
+        // dd($productType);
         return view('sale.shop.typeproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productType', 'post'));
     }
 
@@ -364,7 +364,7 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::new ) {
+            if ($statusView == SortByOption::NEWS) {
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
@@ -385,9 +385,6 @@ class ShopController extends Controller
                         });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -447,9 +444,6 @@ class ShopController extends Controller
                         });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -478,9 +472,6 @@ class ShopController extends Controller
                         });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -509,9 +500,6 @@ class ShopController extends Controller
                         });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -562,7 +550,7 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::new ) {
+            if ($statusView == SortByOption::NEWS) {
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
@@ -576,16 +564,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -607,16 +587,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -638,16 +610,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -669,16 +633,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -700,16 +656,8 @@ class ShopController extends Controller
                                 $q->where('description', 'like', '%' . $search . '%');
                             });
                         });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })

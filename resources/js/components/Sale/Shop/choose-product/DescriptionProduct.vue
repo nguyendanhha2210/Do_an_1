@@ -249,7 +249,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
-      descr: this.productDescription,
+      descr:this.productDescription,
 
       products: [],
       product: {
@@ -258,7 +258,6 @@ export default {
         images: "",
         price: "",
         type_id: "",
-        weight_id: "",
         description_id: "",
         content: "",
         status: "",
@@ -279,7 +278,6 @@ export default {
   },
   props: ["productDescription"],
   mounted() {
-    console.log(this.descr[0].description_id);
   },
 
   watch: {
