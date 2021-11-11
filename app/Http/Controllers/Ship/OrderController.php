@@ -15,6 +15,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Profit;
 use Carbon\Carbon;
+use App\Models\OrderDate;
 
 class OrderController extends Controller
 {
@@ -83,6 +84,13 @@ class OrderController extends Controller
                         }
                     }
                 }
+
+                $orderDate = OrderDate::where('order_id',$id)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $orderDate->receive_date = now();
+                $orderDate->update();
+
+
                 $profit = new Profit();
                 $profit->order_code = $orderCode;
                 $profit->revenue = $orders->total_bill;

@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OrderDate;
+use Carbon\Carbon;
 
 Barryvdh\DomPDF\ServiceProvider::class;
 
@@ -311,9 +313,10 @@ class OrderController extends Controller
                     }
                 }
             }
-            // $orderDate = OrderDate::where('order_id',$data['id'])->first();
-            // $orderDate->delivery_date = Carbon::now();
-            // $orderDate->save();
+            $orderDate = OrderDate::where('order_id',$data['id'])->first();
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $orderDate->delivery_date = now();
+            $orderDate->update();
 
         } elseif ($order->order_status == 1) {
             foreach ($data['order_product_id'] as $key => $id) {
@@ -336,9 +339,9 @@ class OrderController extends Controller
                     }
                 }
             }
-            // $orderDate = OrderDate::where('order_id', $data['id'])->first();
-            // $orderDate->delivery_date = '';
-            // $orderDate->save();
+            $orderDate = OrderDate::where('order_id', $data['id'])->first();
+            $orderDate->delivery_date = '';
+            $orderDate->update();
         }
     }
 }

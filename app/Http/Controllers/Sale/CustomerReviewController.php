@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OrderDate;
 
 class CustomerReviewController extends Controller
 {
@@ -55,6 +56,12 @@ class CustomerReviewController extends Controller
                 $evaluate->content = $request->content;
                 $evaluate->rank = CommentRank::FIRSTRANK;
                 $evaluate->save();
+
+                $order = Order::where('order_code', $request->order_code)->first();
+                $orderDate = OrderDate::where('order_id',$order->id)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $orderDate->evaluate_date = now();
+                $orderDate->update();
 
                 if (!empty($request->files)) {
                     $insertDataImages = [];
