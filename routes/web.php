@@ -301,6 +301,8 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('order/{id}/receivedOrder', [App\Http\Controllers\Sale\OrderController::class, 'receivedOrder'])->name('sale.order.receivedOrder'); //đã nhận hàng
     Route::get('order/{id}/repurchase', [App\Http\Controllers\Sale\OrderController::class, 'repurchase'])->name('sale.order.repurchase'); //mua lại
     Route::get('order-detail/{order_code}/view', [App\Http\Controllers\Sale\OrderController::class, 'orderDetail'])->name('sale.order.orderDetail'); //gọi trang chi tiết order
+    Route::get('/get-date-order', [App\Http\Controllers\Sale\OrderController::class, 'getDateOrder'])->name('sale.order.getDateOrder'); //gọi trang order
+    
 });
 
 Route::match(['get', 'post'], 'ship/login', [App\Http\Controllers\Ship\User\AccountController::class, 'loginForm'])->name('ship.users.login');

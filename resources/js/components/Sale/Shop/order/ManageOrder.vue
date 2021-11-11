@@ -10,6 +10,7 @@
           <StepperComponet
             v-if="orderId == order.id && order.order_status < 5"
             :data="order.order_status"
+            :id="order.id"
           ></StepperComponet>
         </div>
         <div class="row" style="background-color: white">

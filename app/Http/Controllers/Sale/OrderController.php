@@ -7,6 +7,7 @@ use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\OrderDate;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Profit;
@@ -172,5 +173,15 @@ class OrderController extends Controller
             $coupon_number = 0;
         }
         return view('sale.shop.orders.orderdetail')->with(compact('order_id', 'order_details', 'type', 'shipping', 'Order_detail_product', 'coupon_condition', 'coupon_number', 'order', 'order_status', 'breadcrumbs'));
+    }
+
+    public function getDateOrder(Request $request)
+    {
+        try {
+            $order = OrderDate::where('order_id', $request->id)->first();
+            return response()->json($order, StatusCode::OK);
+        } catch (\Exception$e) {
+            return response()->json(['message_failure' => $e->getMessage(), 'status' => StatusCode::INTERNAL_ERR], StatusCode::INTERNAL_ERR);
+        }
     }
 }
