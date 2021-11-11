@@ -79,10 +79,10 @@
               <td v-else-if="data.order_status == 3">
                 <b style="color: #00cc00">SUCCESS</b>
               </td>
-              <td v-else-if="data.order_status == 4">
+              <td v-else-if="data.order_status == 5">
                 <b style="color: #ff0000">Failure</b>
               </td>
-              <td v-else-if="data.order_status == 5">
+              <td v-else-if="data.order_status == 4">
                 <b style="color: blue">Have evaluated</b>
               </td>
 
