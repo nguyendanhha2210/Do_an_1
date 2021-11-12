@@ -8,14 +8,14 @@
           </div>
         </div>
       </div>
-      <a :href="`${product.id}`">
-        <div class="row" style="background-color: #e9edf0; margin-bottom: 15px">
-          <div
-            class="col-lg-2 col-sm-6 pl-0"
-            v-for="product in products"
-            :key="product.id"
-          >
-            <div class="product-item div-hover" style="background-color: white">
+      <div class="row" style="background-color: #e9edf0; margin-bottom: 15px">
+        <div
+          class="col-lg-2 col-sm-6 pl-0"
+          v-for="product in products"
+          :key="product.id"
+        >
+          <div class="product-item div-hover" style="background-color: white">
+            <a :href="`${product.id}`">
               <div class="pi-pic">
                 <img
                   style="height: 250px"
@@ -84,10 +84,10 @@
                   <span>Đã bán {{ product.product_sold }}</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
-      </a>
+      </div>
     </div>
 
     <div
