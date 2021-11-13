@@ -4,10 +4,10 @@
       <div class="panel-heading"></div>
       <div class="row w3-res-tb">
         <div for="paginate" class="col-lg-2 col-md-2 col-sm-3 col-3">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
+            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-5 col-5">
@@ -371,10 +371,12 @@ export default {
 
       sort_direction: "desc",
       sort_field: "created_at",
+      limitNumber:[],
     };
   },
   created() {
     this.fetchData();
+    this.getLimitNumber();
   },
   watch: {
     paginate: function (value) {
@@ -440,7 +442,6 @@ export default {
           }
         });
     },
-
     prev() {
       if (this.warehouses.prev_page_url) {
         this.page--;
@@ -453,12 +454,10 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     importCSV() {
       let that = this;
       let formData = new FormData();
@@ -506,7 +505,6 @@ export default {
           }
         });
     },
-
     attachImage() {
       this.warehouse.images = this.$refs.image.files[0];
       let reader = new FileReader();
@@ -522,7 +520,6 @@ export default {
       );
       reader.readAsDataURL(this.warehouse.images);
     },
-
     deleteImage() {
       this.warehouse.images = "";
       this.$refs.imageDispaly.style.display = "none";
@@ -530,7 +527,6 @@ export default {
       this.$refs.image.value = "";
       this.$refs.iconFile.style.display = "block";
     },
-
     updateWarehouse(warehouse) {
       this.warehouse.id = warehouse.id;
       this.warehouse.name = warehouse.name;
@@ -543,7 +539,6 @@ export default {
       }
       this.warehouse.import_price = warehouse.import_price;
     },
-
     addImage: function (e) {
       e.preventDefault();
       let that = this;
@@ -564,7 +559,6 @@ export default {
           });
         });
     },
-
     substring(str, value) {
       if (str.length <= value) {
         return str;
@@ -572,6 +566,11 @@ export default {
         return str.slice(0, value) + "…";
       }
     },
+    getLimitNumber(){
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
+      });
+    }
   },
 };
 </script>

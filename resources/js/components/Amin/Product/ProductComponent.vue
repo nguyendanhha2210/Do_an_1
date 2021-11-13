@@ -4,10 +4,17 @@
       <div class="panel-heading"></div>
       <div class="row w3-res-tb">
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select
+            v-model="paginate"
+            class="form-control w-sm inline v-middle text-center"
+          >
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div class="col-md-4 col-sm-7 col-3" style="float: left"></div>
@@ -515,6 +522,8 @@ export default {
       description_product: {},
       weight_product: {},
       flagShowLoader: false,
+      limitNumber: [],
+      
 
       sort_direction: "desc",
       sort_field: "created_at",
@@ -577,6 +586,7 @@ export default {
     this.$validator.localize("en", messError);
     this.fetchData();
     this.fill_Product();
+    this.getLimitNumber();
   },
   props: ["formUrl"],
   mounted() {},
@@ -786,7 +796,6 @@ export default {
     //       }
     //     });
     // },
-
     change_sort(field) {
       if (this.sort_field == field) {
         this.sort_direction = this.sort_direction == "asc" ? "desc" : "asc";
@@ -823,7 +832,6 @@ export default {
           });
         });
     },
-
     fill_Product() {
       axios
         .get(`fill-product`, {
@@ -837,7 +845,6 @@ export default {
           this.weight_product = res.data.weight_product;
         });
     },
-
     // attachFile() {
     //   this.product.images = this.$refs.fileImage.files[0];
     //   let reader = new FileReader();
@@ -983,7 +990,6 @@ export default {
     //     });
     // }
     // },
-
     fetchData() {
       let that = this;
       this.flagShowLoader = true;
@@ -1020,7 +1026,6 @@ export default {
           }
         });
     },
-
     prev() {
       if (this.products.prev_page_url) {
         this.page--;
@@ -1033,12 +1038,10 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     updateProduct(product) {
       this.product.id = product.id;
       this.product.name = product.name;
@@ -1056,7 +1059,6 @@ export default {
       this.product.content = product.content;
       this.product.import_price = product.import_price;
     },
-
     deleteProduct(id) {
       let that = this;
       this.$swal({
@@ -1089,7 +1091,6 @@ export default {
         }
       });
     },
-
     attachImage() {
       this.product.images = this.$refs.image.files[0];
       let reader = new FileReader();
@@ -1118,6 +1119,11 @@ export default {
       } else {
         return str.slice(0, value) + "…";
       }
+    },
+    getLimitNumber() {
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
+      });
     },
   },
 };

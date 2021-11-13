@@ -51,10 +51,10 @@
           </a>
         </div>
         <div for="paginate" class="col-md-2 col-5">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
+            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div class="col-md-1 col-3" style="float: left">
@@ -244,10 +244,12 @@ export default {
       sort_direction: "desc",
       sort_field: "created_at",
       url: "",
+      limitNumber:[],
     };
   },
   created() {
     this.fetchData(1);
+    this.getLimitNumber();
   },
   watch: {
     paginate: function (value) {
@@ -286,7 +288,6 @@ export default {
       }
       this.url = "/api/export-type-csv/" + this.selectedIds;
     },
-
     updateCheckAll: function () {
       //Check từng ô trong ds sp
       if (this.selectedIds.length > 0) {
@@ -302,7 +303,6 @@ export default {
       }
       this.url = "/api/export-type-csv/" + this.selectedIds;
     },
-
     deleteAll() {
       let that = this;
       this.$swal({
@@ -337,11 +337,9 @@ export default {
         }
       });
     },
-
     prev() {},
     next() {},
     chanePage: function (page) {},
-
     fetchData(page) {
       let that = this;
       this.flagShowLoader = true;
@@ -380,7 +378,6 @@ export default {
           }
         });
     },
-
     singleDelete(id) {
       let that = this;
       this.$swal({
@@ -413,7 +410,6 @@ export default {
         }
       });
     },
-
     importCSV() {
       let that = this;
       let formData = new FormData();
@@ -461,6 +457,11 @@ export default {
           }
         });
     },
+    getLimitNumber(){
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
+      });
+    }
   },
 };
 </script>

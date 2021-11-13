@@ -3,10 +3,17 @@
     <div class="panel panel-default">
       <div class="row w3-res-tb">
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select
+            v-model="paginate"
+            class="form-control w-sm inline v-middle text-center"
+          >
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div
@@ -263,6 +270,7 @@ export default {
       isBtnDeleteAll: false,
       isInputAll: false,
       selectedIds: [],
+      limitNumber: [],
     };
   },
   created() {
@@ -282,6 +290,7 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData(1);
+    this.getLimitNumber();
   },
   watch: {
     paginate: function (value) {
@@ -458,7 +467,6 @@ export default {
           }
         });
     },
-
     singleDelete(id) {
       let that = this;
       this.$swal({
@@ -489,6 +497,11 @@ export default {
               });
             });
         }
+      });
+    },
+    getLimitNumber() {
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
       });
     },
   },

@@ -38,10 +38,10 @@
           </button>
         </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
+            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div class="col-md-2 col-sm-3 col-1" style="float: left"></div>
@@ -259,6 +259,7 @@ export default {
         created_at: "",
       },
       update_comment: [],
+      limitNumber:[],
 
       contentReply:
         "FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️",
@@ -300,6 +301,7 @@ export default {
     };
     this.$validator.localize("en", messError);
     this.fetchData(1);
+    this.getLimitNumber();
   },
   watch: {
     paginate: function (value) {
@@ -345,7 +347,6 @@ export default {
         this.isBtnDeleteAll = false;
       }
     },
-
     updateCheckAll: function (id) {
       if (!this.selectedIds.includes(id)) {
         this.update_comment = this.update_comment.filter(
@@ -369,7 +370,6 @@ export default {
         this.isBtnDeleteAll = false;
       }
     },
-
     sendAll() {
       let that = this;
       this.$validator.validateAll().then((valid) => {
@@ -411,11 +411,9 @@ export default {
         }
       });
     },
-
     prev() {},
     next() {},
     chanePage: function (page) {},
-
     fetchData(page) {
       let that = this;
       this.flagShowLoader = true;
@@ -454,11 +452,9 @@ export default {
           }
         });
     },
-
     singleDelete(id) {
       let that = this;
     },
-
     singleReply(id) {
       let that = this;
       this.$validator.validateAll().then((valid) => {
@@ -500,7 +496,6 @@ export default {
         }
       });
     },
-
     substring(str, value) {
       if (str.length <= value) {
         return str;
@@ -508,6 +503,11 @@ export default {
         return str.slice(0, value) + "…";
       }
     },
+    getLimitNumber(){
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
+      });
+    }
   },
 };
 </script>

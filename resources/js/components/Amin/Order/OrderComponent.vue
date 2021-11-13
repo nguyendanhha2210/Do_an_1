@@ -4,10 +4,10 @@
       <div class="panel-heading"></div>
       <div class="row w3-res-tb">
         <div for="paginate" class="col-md-3 col-sm-2 col-3">
-          <select v-model="paginate" class="form-control w-sm inline v-middle">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
+          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
+            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
         <div class="col-md-4 col-sm-5 col-4">
@@ -190,10 +190,12 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      limitNumber:[],
     };
   },
   created() {
     this.fetchData();
+    this.getLimitNumber();
   },
   watch: {
     paginate: function (value) {
@@ -267,6 +269,11 @@ export default {
       this.page = page;
       this.fetchData();
     },
+    getLimitNumber(){
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
+      });
+    }
   },
 };
 </script>
