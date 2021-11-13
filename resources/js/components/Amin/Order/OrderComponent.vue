@@ -4,8 +4,15 @@
       <div class="panel-heading"></div>
       <div class="row w3-res-tb">
         <div for="paginate" class="col-md-3 col-sm-2 col-3">
-          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
-            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+          <select
+            v-model="paginate"
+            class="form-control w-sm inline v-middle text-center"
+          >
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
               {{ item.value }}
             </option>
           </select>
@@ -13,13 +20,16 @@
         <div class="col-md-4 col-sm-5 col-4">
           <select
             v-model="statusOrder"
-            class="form-control w-sm inline v-middle"
+            class="form-control w-sm inline v-middle text-center"
           >
             <option value="0">Status Order</option>
-            <option value="1">Ordered</option>
-            <option value="2">Shipping</option>
-            <option value="3">Success</option>
-            <option value="4">Failure</option>
+            <option
+              v-for="item in orderStatus"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{ item.value }}
+            </option>
           </select>
         </div>
 
@@ -190,12 +200,14 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
-      limitNumber:[],
+      limitNumber: [],
+      orderStatus: [],
     };
   },
   created() {
     this.fetchData();
     this.getLimitNumber();
+    this.getOrderStatus();
   },
   watch: {
     paginate: function (value) {
@@ -269,11 +281,16 @@ export default {
       this.page = page;
       this.fetchData();
     },
-    getLimitNumber(){
+    getLimitNumber() {
       axios.get(`/get-limit-number`).then((response) => {
         this.limitNumber = response.data;
       });
-    }
+    },
+    getOrderStatus() {
+      axios.get(`/get-order-status`).then((response) => {
+        this.orderStatus = response.data;
+      });
+    },
   },
 };
 </script>

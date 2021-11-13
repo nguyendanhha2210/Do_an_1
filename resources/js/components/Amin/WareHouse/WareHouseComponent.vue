@@ -19,12 +19,11 @@
         <div class="col-lg-3 col-md-5 col-sm-5 col-4">
           <select
             v-model="statusImport"
-            class="form-control w-sm inline v-middle"
+            class="form-control w-sm inline v-middle text-center"
           >
-            <option value="1">Permitted goods</option>
-            <option value="2">Entered</option>
-            <option value="3">Excel Import</option>
-            <option value="">Full</option>
+            <option v-for="item in warehouseOption" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
 
@@ -372,11 +371,13 @@ export default {
       sort_direction: "desc",
       sort_field: "created_at",
       limitNumber:[],
+      warehouseOption:[],
     };
   },
   created() {
     this.fetchData();
     this.getLimitNumber();
+    this.getWareHouserOption();
   },
   watch: {
     paginate: function (value) {
@@ -569,6 +570,11 @@ export default {
     getLimitNumber(){
       axios.get(`/get-limit-number`).then((response) => {
         this.limitNumber = response.data;
+      });
+    },
+    getWareHouserOption(){
+      axios.get(`/get-warehouse-option`).then((response) => {
+        this.warehouseOption = response.data;
       });
     }
   },

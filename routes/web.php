@@ -207,6 +207,8 @@ Route::get('/get-coupon-store', [App\Http\Controllers\Sale\ShopController::class
 
 Route::get('/get-sort-option', [App\Http\Controllers\Common\CommonController::class, 'getSortOption'])->name('common.getSortOption');
 Route::get('/get-limit-number', [App\Http\Controllers\Common\CommonController::class, 'getLimitNumber'])->name('common.getLimitNumber');
+Route::get('/get-warehouse-option', [App\Http\Controllers\Common\CommonController::class, 'getWareHouserOption'])->name('common.getWareHouserOption');
+Route::get('/get-order-status', [App\Http\Controllers\Common\CommonController::class, 'getOrderStatus'])->name('common.getOrderStatus');
 
 
 
