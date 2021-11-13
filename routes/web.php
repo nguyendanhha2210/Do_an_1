@@ -193,9 +193,7 @@ Route::get('/get-post-list', [App\Http\Controllers\Sale\PostController::class, '
 Route::get('blog/{id}/detail', [App\Http\Controllers\Sale\PostController::class, 'viewDetail'])->name('sale.post.viewDetail');
 Route::get('blog/{id}/get-detail', [App\Http\Controllers\Sale\PostController::class, 'getDetail'])->name('sale.post.getDetail');
 Route::get('/contact', [App\Http\Controllers\Sale\ContactController::class, 'index'])->name('sale.contact.index');
-
 Route::post('/quick-view-shop', [App\Http\Controllers\Sale\HomeController::class, 'quickViewShop'])->name('sale.quickViewShop');
-
 Route::get('/get-product-shop', [App\Http\Controllers\Sale\ShopController::class, 'getData'])->name('admin.shop.getData'); //trả dữ liệu ra form list
 Route::get('/product-detail/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productDetail'])->name('admin.shop.productDetail'); //gọi trang detail product
 Route::get('/get-related-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'productRelated'])->name('admin.shop.productRelated');
@@ -204,9 +202,10 @@ Route::post('/fill-evaluated/{id}', [App\Http\Controllers\Sale\ShopController::c
 
 Route::post('/choose-weight-product', [App\Http\Controllers\Sale\ShopController::class, 'chooseWeightProduct'])->name('admin.shop.chooseWeightProduct');
 Route::post('/fill-weight-product/{id}', [App\Http\Controllers\Sale\ShopController::class, 'fillWeightProduct'])->name('admin.shop.fillWeightProduct');
-
 Route::get('/get-accessory/{id}', [App\Http\Controllers\Sale\ShopController::class, 'getAccessory'])->name('admin.shop.getAccessory');
 Route::get('/get-coupon-store', [App\Http\Controllers\Sale\ShopController::class, 'getCouponStore'])->name('admin.shop.getCouponStore');
+
+Route::get('/get-sort-option', [App\Http\Controllers\Common\CommonController::class, 'getSortOption'])->name('common.getSortOption');
 
 //show đánh giá ra chi tiết sp
 Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');
@@ -216,7 +215,6 @@ Route::post('/get-select-3star', [App\Http\Controllers\Sale\CustomerReviewContro
 Route::post('/get-select-2star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect2Star'])->name('sale.evaluate.getSelect2Star');
 Route::post('/get-select-1star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelect1Star'])->name('sale.evaluate.getSelect1Star');
 Route::post('/get-select-haveimage', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getSelectHaveImage'])->name('sale.evaluate.getSelectHaveImage');
-
 Route::post('/get-count-star', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getCountStar'])->name('sale.evaluate.getCountStar');
 
 Route::get('/get-full-product', [App\Http\Controllers\Sale\SearchAllController::class, 'getFullProduct'])->name('admin.searchAll.getFullProduct');
@@ -302,7 +300,7 @@ Route::middleware([Sale::class])->prefix('/sale')->group(function () {
     Route::get('order/{id}/repurchase', [App\Http\Controllers\Sale\OrderController::class, 'repurchase'])->name('sale.order.repurchase'); //mua lại
     Route::get('order-detail/{order_code}/view', [App\Http\Controllers\Sale\OrderController::class, 'orderDetail'])->name('sale.order.orderDetail'); //gọi trang chi tiết order
     Route::get('/get-date-order', [App\Http\Controllers\Sale\OrderController::class, 'getDateOrder'])->name('sale.order.getDateOrder'); //gọi trang order
-    
+
 });
 
 Route::match(['get', 'post'], 'ship/login', [App\Http\Controllers\Ship\User\AccountController::class, 'loginForm'])->name('ship.users.login');

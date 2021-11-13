@@ -14,7 +14,6 @@ use App\Models\Product;
 use App\Models\Type;
 use App\Models\UserCoupon;
 use App\Models\Weight;
-use App\Models\WeightProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -368,21 +367,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -396,26 +380,8 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -427,21 +393,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -455,21 +406,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -483,21 +419,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -508,7 +429,6 @@ class ShopController extends Controller
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
-
             return response()->json($products, StatusCode::OK);
         } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
@@ -554,16 +474,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -577,16 +487,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -600,16 +500,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -623,16 +513,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -646,16 +526,6 @@ class ShopController extends Controller
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
                     }
                 })->Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
@@ -666,7 +536,6 @@ class ShopController extends Controller
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
-
             return response()->json($products, StatusCode::OK);
         } catch (\Exception$e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
@@ -674,236 +543,238 @@ class ShopController extends Controller
     }
 
     //Show view Weight product
-    public function chooseWeight($id)
-    {
-        $breadcrumbs = [
-            [
-                'name' => 'Home',
-                'url' => route('sale.index'),
 
-            ], [
-                'name' => 'Shop',
-                'url' => route('sale.shop.index'),
+    // public function chooseWeight($id)
+    // {
+    //     $breadcrumbs = [
+    //         [
+    //             'name' => 'Home',
+    //             'url' => route('sale.index'),
 
-            ], 'Weight Product',
-        ];
+    //         ], [
+    //             'name' => 'Shop',
+    //             'url' => route('sale.shop.index'),
 
-        $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
-        $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
-        $weight = Weight::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
+    //         ], 'Weight Product',
+    //     ];
 
-        $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
-            ->whereHas('categorypost', function ($query) {
-                $query->where('deleted_at', null);
-            })->orderBy('created_at', 'desc')->take(3)->get();
-        $productWeight = Product::where('weight_id', '=', $id)->get();
+    //     $type = Type::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(6)->get();
+    //     $description = Description::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(4)->get();
+    //     $weight = Weight::WHERE('deleted_at', null)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->take(8)->get();
 
-        return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productWeight', 'post'));
-    }
+    //     $post = Post::where('status', '=', StatusSale::UP)->with(['categorypost'])
+    //         ->whereHas('categorypost', function ($query) {
+    //             $query->where('deleted_at', null);
+    //         })->orderBy('created_at', 'desc')->take(3)->get();
+    //     $productWeight = Product::where('weight_id', '=', $id)->get();
 
-    //Show data Weight product
-    public function getWeightProduct(Request $request, $id)
-    {
-        try {
-            $paginate = $request->paginate;
-            $search = $request->search;
-            $statusView = $request->statusView;
+    //     return view('sale.shop.weightproduct', ['breadcrumbs' => $breadcrumbs], compact('type', 'description', 'productWeight', 'post'));
+    // }
 
-            if ($statusView == SortByOption::new ) {
-                $products = Product::where(function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
-                    }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->orderBy('created_at', 'desc')->paginate($paginate);
-            } elseif ($statusView == SortByOption::PRICEINCREASE) {
-                $products = Product::where(function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
-                    }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->orderBy('price', 'asc')->paginate($paginate);
-            } elseif ($statusView == SortByOption::REDUCEDPRICE) {
-                $products = Product::where(function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
-                    }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->orderBy('price', 'desc')->paginate($paginate);
-            } elseif ($statusView == SortByOption::AToZ) {
-                $products = Product::where(function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
-                    }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->orderBy('name', 'asc')->paginate($paginate);
-            } elseif ($statusView == SortByOption::ZToA) {
-                $products = Product::where(function ($q) use ($search) {
-                    if ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('type', function ($q) use ($search) {
-                                $q->where('type', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas('description', function ($q) use ($search) {
-                                $q->where('description', 'like', '%' . $search . '%');
-                            });
-                        });
-                        $q->orWhere(function ($query) use ($search) {
-                            $query->whereHas(function ($q) use ($search) {
-                                $q->where('like', '%' . $search . '%');
-                            });
-                        });
-                    }
-                })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
-                    ->whereHas(function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('type', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->whereHas('description', function ($query) {
-                        $query->where('deleted_at', null);
-                    })
-                    ->orderBy('name', 'desc')->paginate($paginate);
-            }
+    // //Show data Weight product
+    // public function getWeightProduct(Request $request, $id)
+    // {
+    //     try {
+    //         $paginate = $request->paginate;
+    //         $search = $request->search;
+    //         $statusView = $request->statusView;
 
-            return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
-            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-        }
-    }
+    //         if ($statusView == SortByOption::new ) {
+    //             $products = Product::where(function ($q) use ($search) {
+    //                 if ($search) {
+    //                     $q->where('name', 'like', '%' . $search . '%');
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('type', function ($q) use ($search) {
+    //                             $q->where('type', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('description', function ($q) use ($search) {
+    //                             $q->where('description', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas(function ($q) use ($search) {
+    //                             $q->where('like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                 }
+    //             })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+    //                 ->whereHas(function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('type', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('description', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->orderBy('created_at', 'desc')->paginate($paginate);
+    //         } elseif ($statusView == SortByOption::PRICEINCREASE) {
+    //             $products = Product::where(function ($q) use ($search) {
+    //                 if ($search) {
+    //                     $q->where('name', 'like', '%' . $search . '%');
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('type', function ($q) use ($search) {
+    //                             $q->where('type', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('description', function ($q) use ($search) {
+    //                             $q->where('description', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas(function ($q) use ($search) {
+    //                             $q->where('like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                 }
+    //             })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+    //                 ->whereHas(function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('type', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('description', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->orderBy('price', 'asc')->paginate($paginate);
+    //         } elseif ($statusView == SortByOption::REDUCEDPRICE) {
+    //             $products = Product::where(function ($q) use ($search) {
+    //                 if ($search) {
+    //                     $q->where('name', 'like', '%' . $search . '%');
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('type', function ($q) use ($search) {
+    //                             $q->where('type', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('description', function ($q) use ($search) {
+    //                             $q->where('description', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas(function ($q) use ($search) {
+    //                             $q->where('like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                 }
+    //             })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+    //                 ->whereHas(function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('type', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('description', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->orderBy('price', 'desc')->paginate($paginate);
+    //         } elseif ($statusView == SortByOption::AToZ) {
+    //             $products = Product::where(function ($q) use ($search) {
+    //                 if ($search) {
+    //                     $q->where('name', 'like', '%' . $search . '%');
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('type', function ($q) use ($search) {
+    //                             $q->where('type', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('description', function ($q) use ($search) {
+    //                             $q->where('description', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas(function ($q) use ($search) {
+    //                             $q->where('like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                 }
+    //             })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+    //                 ->whereHas(function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('type', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('description', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->orderBy('name', 'asc')->paginate($paginate);
+    //         } elseif ($statusView == SortByOption::ZToA) {
+    //             $products = Product::where(function ($q) use ($search) {
+    //                 if ($search) {
+    //                     $q->where('name', 'like', '%' . $search . '%');
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('type', function ($q) use ($search) {
+    //                             $q->where('type', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas('description', function ($q) use ($search) {
+    //                             $q->where('description', 'like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                     $q->orWhere(function ($query) use ($search) {
+    //                         $query->whereHas(function ($q) use ($search) {
+    //                             $q->where('like', '%' . $search . '%');
+    //                         });
+    //                     });
+    //                 }
+    //             })->Where('status', '=', StatusSale::UP)->where('weight_id', '=', $id)->where('quantity', '>', 0)->with(['type', 'description'])
+    //                 ->whereHas(function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('type', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->whereHas('description', function ($query) {
+    //                     $query->where('deleted_at', null);
+    //                 })
+    //                 ->orderBy('name', 'desc')->paginate($paginate);
+    //         }
 
-    public function fillWeightProduct(Request $request, $id)
-    {
-        try {
-            $weightProducts = WeightProduct::where('product_id', $id)->get()->count();
-            if ($weightProducts == 1) {
-                $weightProducts = WeightProduct::where('product_id', $id)->first();
-                $priceWeightProduct = $weightProducts->price;
-                $weightProduct = $weightProducts->weight;
-                return response()->json(["priceWeightProduct" => $priceWeightProduct, "weightProduct" => $weightProduct], StatusCode::OK);
-            } else {
-                $weightProductMax = WeightProduct::where('product_id', $id)->max('price');
-                $weightProductMin = WeightProduct::where('product_id', $id)->min('price');
-                $priceWeightProduct = '';
+    //         return response()->json($products, StatusCode::OK);
+    //     } catch (\Exception$e) {
+    //         return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+    //     }
+    // }
 
-                return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
-            }
-        } catch (\Exception$e) {
-            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-        }
-    }
+    // public function fillWeightProduct(Request $request, $id)
+    // {
+    //     try {
+    //         $weightProducts = WeightProduct::where('product_id', $id)->get()->count();
+    //         if ($weightProducts == 1) {
+    //             $weightProducts = WeightProduct::where('product_id', $id)->first();
+    //             $priceWeightProduct = $weightProducts->price;
+    //             $weightProduct = $weightProducts->weight;
+    //             return response()->json(["priceWeightProduct" => $priceWeightProduct, "weightProduct" => $weightProduct], StatusCode::OK);
+    //         } else {
+    //             $weightProductMax = WeightProduct::where('product_id', $id)->max('price');
+    //             $weightProductMin = WeightProduct::where('product_id', $id)->min('price');
+    //             $priceWeightProduct = '';
 
-    public function chooseWeightProduct(Request $request)
-    {
-        try {
-            $weightProduct = WeightProduct::find($request->id);
-            return response()->json($weightProduct, StatusCode::OK);
-        } catch (\Exception$e) {
-            return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
-        }
-    }
+    //             return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
+    //         }
+    //     } catch (\Exception$e) {
+    //         return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+    //     }
+    // }
+
+    // public function chooseWeightProduct(Request $request)
+    // {
+    //     try {
+    //         $weightProduct = WeightProduct::find($request->id);
+    //         return response()->json($weightProduct, StatusCode::OK);
+    //     } catch (\Exception$e) {
+    //         return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
+    //     }
+    // }
 
     //Show Accessory shop
+
     public function getAccessory(Request $request, $id)
     {
         try {

@@ -25,7 +25,6 @@ import ShopComponent from './components/Sale/Shop/shop/DataProducts.vue'
 import DetailProduct from './components/Sale/Shop/detail-product/DetailProduct.vue'
 import TypeProduct from './components/Sale/Shop/choose-product/TypeProduct.vue'
 import DescriptionProduct from './components/Sale/Shop/choose-product/DescriptionProduct.vue'
-import WeightProduct from './components/Sale/Shop/choose-product/WeightProduct.vue'
 import CheckoutCart from './components/Sale/Shop/checkout-cart/CheckoutCart.vue'
 import ManagerOrder from './components/Sale/Shop/order/ManageOrder.vue'
 import PostComponent from './components/Sale/Post/PostComponent.vue'
@@ -86,7 +85,6 @@ new Vue({
         DetailProduct,
         TypeProduct,
         DescriptionProduct,
-        WeightProduct,
         CheckoutCart,
         RegisterComponent,
         ManagerOrder,

@@ -25,11 +25,13 @@
             v-model="statusView"
             class="form-control w-sm inline v-middle text-center"
           >
-            <option value="0">-- Mới nhất --</option>
-            <option value="1">-- Giá tăng dần --</option>
-            <option value="2">-- Giá giảm dần --</option>
-            <option value="3">-- Tên từ A -> Z --</option>
-            <option value="4">-- Tên từ Z -> A --</option>
+            <option
+              v-for="item in sortOption"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{ item.value }}
+            </option>
           </select>
         </div>
 
@@ -248,7 +250,7 @@ export default {
   data() {
     return {
       baseUrl: Laravel.baseUrl, //Gọi thay cho đg dẫn http://127.0.0.1:8000
-      typ :  this.productType,
+      typ: this.productType,
       products: [],
       product: {
         id: "",
@@ -266,18 +268,18 @@ export default {
       search: "",
       statusView: 0,
       flagShowLoader: false,
+      sortOption: [],
     };
   },
   created() {
-   
     this.fetchData();
+    this.getSortOption();
   },
   components: {
     Loader,
   },
   props: ["productType"],
-  mounted() {
-  },
+  mounted() {},
 
   watch: {
     paginate: function (value) {
@@ -331,7 +333,6 @@ export default {
           }
         });
     },
-
     prev() {
       if (this.products.prev_page_url) {
         this.page--;
@@ -344,12 +345,10 @@ export default {
         this.fetchData();
       }
     },
-
     changePage(page) {
       this.page = page;
       this.fetchData();
     },
-
     showQuickView(product) {
       this.product.id = product.id;
       this.product.name = product.name;
@@ -365,7 +364,6 @@ export default {
       this.product.content = product.content;
       this.product.status = product.status;
     },
-
     attachFile() {
       this.product.images = this.$refs.fileImage.files[0];
       let reader = new FileReader();
@@ -379,65 +377,9 @@ export default {
 
       reader.readAsDataURL(this.product.images);
     },
-
-    addCartProduct(product) {
-      let that = this;
-      this.$validator.validateAll().then((valid) => {
-        if (valid) {
-          axios
-            .post(`/add-to-cart`, product)
-            .then((response) => {
-              this.$swal({
-                title: "Add Successfully!",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then((confirm) => {
-                if (confirm.value) {
-                  this.$swal({
-                    title: "Do you want to continue ？",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Xem tiếp !",
-                    cancelButtonText: "Đi đến giỏ hàng !",
-                  }).then((result) => {
-                    if (result.value) {
-                    } else {
-                      window.location = this.baseUrl + "/view-cart";
-                    }
-                  });
-                }
-              });
-            })
-            .catch((err) => {
-              switch (err.response.status) {
-                case 422:
-                  that.errorBackEnd = err.response.data.errors;
-                  break;
-                case 404:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                case 500:
-                  that
-                    .$swal({
-                      title: "Add Error !",
-                      icon: "warning",
-                      confirmButtonText: "Cancle !",
-                    })
-                    .then(function (confirm) {});
-                  break;
-                default:
-                  break;
-              }
-            });
-        }
+    getSortOption() {
+      axios.get(`/get-sort-option`).then((response) => {
+        this.sortOption = response.data;
       });
     },
   },

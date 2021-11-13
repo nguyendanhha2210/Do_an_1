@@ -24,11 +24,9 @@
             v-model="statusView"
             class="form-control w-sm inline v-middle text-center"
           >
-            <option value="0">-- Mới nhất --</option>
-            <option value="1">-- Giá tăng dần --</option>
-            <option value="2">-- Giá giảm dần --</option>
-            <option value="3">-- Tên từ A -> Z --</option>
-            <option value="4">-- Tên từ Z -> A --</option>
+            <option v-for="item in sortOption" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </div>
 
@@ -483,10 +481,12 @@ export default {
       urlConfirm: "",
       urlCancle: "",
       //Modal
+      sortOption: [],
     };
   },
   created() {
     this.fetchData();
+    this.getSortOption();
   },
   components: {
     Modal,
@@ -596,6 +596,12 @@ export default {
               break;
           }
         });
+    },
+
+    getSortOption() {
+      axios.get(`get-sort-option`).then((response) => {
+        this.sortOption = response.data;
+      });
     },
   },
 };
