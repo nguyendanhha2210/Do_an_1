@@ -206,6 +206,9 @@ Route::get('/get-accessory/{id}', [App\Http\Controllers\Sale\ShopController::cla
 Route::get('/get-coupon-store', [App\Http\Controllers\Sale\ShopController::class, 'getCouponStore'])->name('admin.shop.getCouponStore');
 
 Route::get('/get-sort-option', [App\Http\Controllers\Common\CommonController::class, 'getSortOption'])->name('common.getSortOption');
+Route::get('/get-limit-number', [App\Http\Controllers\Common\CommonController::class, 'getLimitNumber'])->name('common.getLimitNumber');
+
+
 
 //show đánh giá ra chi tiết sp
 Route::post('/get-evaluated', [App\Http\Controllers\Sale\CustomerReviewController::class, 'getEvaluated'])->name('sale.evaluate.getEvaluated');

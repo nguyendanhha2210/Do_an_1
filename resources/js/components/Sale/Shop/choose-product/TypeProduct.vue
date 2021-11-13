@@ -10,10 +10,14 @@
           class="col-lg-2 col-md-2 col-3"
           style="transform: translate(10%, 23%)"
         >
-          <select v-model="paginate" class="form-control">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
+          <select v-model="paginate" class="form-control text-center">
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{ item.value }}
+            </option>
           </select>
         </div>
 
@@ -269,11 +273,13 @@ export default {
       statusView: 0,
       flagShowLoader: false,
       sortOption: [],
+      limitNumber: [],
     };
   },
   created() {
     this.fetchData();
     this.getSortOption();
+    this.getLimitNumber();
   },
   components: {
     Loader,
@@ -380,6 +386,11 @@ export default {
     getSortOption() {
       axios.get(`/get-sort-option`).then((response) => {
         this.sortOption = response.data;
+      });
+    },
+    getLimitNumber() {
+      axios.get(`/get-limit-number`).then((response) => {
+        this.limitNumber = response.data;
       });
     },
   },

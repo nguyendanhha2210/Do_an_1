@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Type;
 use App\Models\UserCoupon;
 use App\Models\Weight;
+use App\Models\WeightProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -774,7 +775,7 @@ class ShopController extends Controller
     // }
 
     //Show Accessory shop
-
+    
     public function getAccessory(Request $request, $id)
     {
         try {
