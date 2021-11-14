@@ -148,7 +148,7 @@
                       <input
                         type="file"
                         id="file_img_banner1"
-                        v-validate="'required|image_format'"
+                        v-validate="'image_format'"
                         name="images"
                         ref="image"
                         v-on:change="attachImage"
@@ -172,14 +172,15 @@
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="content"
-                    v-validate="'required'"
+                  <quill-editor
                     v-model="post.content"
-                  />
+                    ref="myQuillEditor"
+                    :options="editorOption"
+                    @blur="onEditorBlur($event)"
+                    @focus="onEditorFocus($event)"
+                    @ready="onEditorReady($event)"
+                  >
+                  </quill-editor>
                   <div style="color: red" role="alert">
                     {{ errors.first("content") }}
                   </div>
@@ -275,8 +276,7 @@
                   ></a>
                 </span>
               </td>
-              <td>
-                {{ substring(data.content, 50) }}
+              <td v-html="substring(data.content, 50) ">
               </td>
               <td>
                 {{ data.views }}
@@ -374,6 +374,7 @@ export default {
       sort_direction: "desc",
       sort_field: "created_at",
       limitNumber: [],
+      editorOption: {},
     };
   },
   created() {
@@ -402,10 +403,18 @@ export default {
     this.fill_Post();
     this.getLimitNumber();
   },
-  mounted() {},
   components: {
     Loader,
   },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
+    },
+  },
+  mounted() {
+    console.log("this is current quill instance object", this.editor);
+  },
+
   watch: {
     paginate: function (value) {
       this.fetchData();
@@ -733,6 +742,19 @@ export default {
       axios.get(`/get-limit-number`).then((response) => {
         this.limitNumber = response.data;
       });
+    },
+    onEditorBlur(quill) {
+      console.log("editor blur!", quill);
+    },
+    onEditorFocus(quill) {
+      console.log("editor focus!", quill);
+    },
+    onEditorReady(quill) {
+      console.log("editor ready!", quill);
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log("editor change!", quill, html, text);
+      this.content = html;
     },
   },
 };

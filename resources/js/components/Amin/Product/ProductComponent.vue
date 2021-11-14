@@ -224,12 +224,22 @@
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Content</label>
-                  <ckeditor
+                  <quill-editor
+                    v-model="product.content"
+                    ref="myQuillEditor"
+                    :options="editorOption"
+                    @blur="onEditorBlur($event)"
+                    @focus="onEditorFocus($event)"
+                    @ready="onEditorReady($event)"
+                  >
+                  </quill-editor>
+
+                  <!-- <ckeditor
                     name="content"
                     v-model="product.content"
                     :config="editorConfig"
                     :editor-url="editorUrl"
-                  ></ckeditor>
+                  ></ckeditor> -->
                   <div style="color: red" role="alert">
                     {{ errors.first("content") }}
                   </div>
@@ -523,8 +533,7 @@ export default {
       weight_product: {},
       flagShowLoader: false,
       limitNumber: [],
-      
-
+      editorOption: {},
       sort_direction: "desc",
       sort_field: "created_at",
 
@@ -599,6 +608,11 @@ export default {
     },
     search: function (value) {
       this.fetchData();
+    },
+  },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
     },
   },
   methods: {
@@ -1124,6 +1138,19 @@ export default {
       axios.get(`/get-limit-number`).then((response) => {
         this.limitNumber = response.data;
       });
+    },
+    onEditorBlur(quill) {
+      console.log("editor blur!", quill);
+    },
+    onEditorFocus(quill) {
+      console.log("editor focus!", quill);
+    },
+    onEditorReady(quill) {
+      console.log("editor ready!", quill);
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log("editor change!", quill, html, text);
+      this.content = html;
     },
   },
 };

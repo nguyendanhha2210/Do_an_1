@@ -9,8 +9,11 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'moment';
 import VueStarRating from 'vue-star-rating';
-import CKEditor from 'ckeditor4-vue';
 import VueLazyload from 'vue-lazyload';
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 import LoginComponent from './components/Amin/User/LoginComponent'
 import TypeComponent from './components/Amin/Type/TypeComponent.vue'
@@ -53,6 +56,7 @@ import InvoiceStatistical from './components/Amin/Statistical/Invoice.vue'
 import ProductStatistical from './components/Amin/Statistical/Product.vue'
 import RatingStatistical from './components/Amin/Statistical/Rating.vue'
 
+Vue.use(VueQuillEditor, /* { default global options } */ )
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     // error: 'assets/images/error.png',
@@ -60,7 +64,6 @@ Vue.use(VueLazyload, {
     attempt: 1
 
 });
-Vue.use(CKEditor);
 Vue.use(VueStarRating)
 Vue.use(VueSweetalert2);
 Vue.use(DataTable);

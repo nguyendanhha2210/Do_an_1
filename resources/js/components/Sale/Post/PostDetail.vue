@@ -24,8 +24,7 @@
                 />
               </div>
               <div class="blog-detail-desc">
-                <p>
-                  {{ post.content }}
+                <p v-html="post.content">
                 </p>
               </div>
               <div class="blog-quote">
