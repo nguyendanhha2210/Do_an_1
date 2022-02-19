@@ -12,15 +12,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a class="active" href="{{ route('admin.googleDrive.readData') }}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>
-                            Google Drive
-                        </span>
-                    </a>
-                </li>
-
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>

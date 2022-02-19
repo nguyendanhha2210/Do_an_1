@@ -77,6 +77,7 @@ export default {
   created() {
     this.fetchData();
   },
+  props: ["today"],
   methods: {
     fetchData() {
       let that = this;

@@ -11,13 +11,6 @@
                         <i class=" fa fa-phone"></i>
                         0123456789
                     </div>
-                    <div class="share-service">
-                        <div id="fb-root"></div>
-                        <div class="fb-share-button" data-href="https://fresh-mama.herokuapp.com/" data-layout="button"
-                            data-size="small"><a target="_blank"
-                                href="https://www.facebook.com/sharer/sharer.php?u=https://fresh-mama.herokuapp.com/"
-                                class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
-                    </div>
                 </div>
                 <div class="ht-right">
                     @if (Auth::guard('sales')->id())
@@ -41,14 +34,6 @@
                         <a href="https://www.facebook.com/Mekhoebexinh02"><img
                                 style="width: 27px; height: 21px;transform: translate(11%, -8%);"
                                 src="{{ '/frontend/images/fb.png' }}" alt=""></a>
-                        <a
-                            href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"><img
-                                style="width: 27px; height: 21px;transform: translate(11%, -8%);"
-                                src="{{ '/frontend/images/sendo.png' }}" alt=""></a>
-                        <a
-                            href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"><img
-                                style="width: 27px; height: 21px;transform: translate(11%, -8%);"
-                                src="{{ '/frontend/images/shoppee.jpg' }}" alt=""></a>
                     </div>
                 </div>
             </div>

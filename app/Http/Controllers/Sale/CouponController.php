@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\UserCoupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class CouponController extends Controller
         if (!Auth::guard('sales')->check()) {
             return redirect()->route('sale.users.login');
         }
+        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
         $breadcrumbs = [
             [
                 'name' => 'Home',
@@ -28,7 +30,7 @@ class CouponController extends Controller
             ], 'My Coupon'
         ];
         $type = Type::WHERE('deleted_at', NULL)->where('id', '!=', StatusSale::JUSTENTERD)->orderBy('created_at', 'desc')->get();
-        return view("sale.coupon.index", ['breadcrumbs' => $breadcrumbs], compact('type'));
+        return view("sale.coupon.index", ['breadcrumbs' => $breadcrumbs, 'today' => $today], compact('type'));
     }
 
     public function getCoupon()
@@ -40,7 +42,7 @@ class CouponController extends Controller
         try {
             $id = Auth::guard('sales')->id();
             $coupon = UserCoupon::where('user_id', '=', $id)->where('statusUse', StatusCoupon::SAVE)
-                ->with('coupon')->orderBy('created_at','DESC')->get();
+                ->with('coupon')->orderBy('created_at', 'DESC')->get();
             return response()->json($coupon, StatusCode::OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
