@@ -38,8 +38,15 @@
           </button>
         </div>
         <div for="paginate" class="col-md-3 col-sm-2 col-4">
-          <select v-model="paginate" class="form-control w-sm inline v-middle text-center">
-            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+          <select
+            v-model="paginate"
+            class="form-control w-sm inline v-middle text-center"
+          >
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
               {{ item.value }}
             </option>
           </select>
@@ -157,7 +164,7 @@
                     v-validate="'required'"
                     :ref="`comment${evaluate.id}`"
                   >
-FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️</textarea
+AEShop cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để AEShop ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. AEShop cám ơn rất nhiều ❣️</textarea
                   >
                   <div style="color: red" role="alert">
                     {{ errors.first("contentReply") }}
@@ -259,10 +266,10 @@ export default {
         created_at: "",
       },
       update_comment: [],
-      limitNumber:[],
+      limitNumber: [],
 
       contentReply:
-        "FreshMama cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để FreshMama ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. FreshMama cám ơn rất nhiều ❣️",
+        "AEShop cảm ơn anh/chị đã dành lời khen cho shop. Đây sẽ là nguồn động lực lớn để AEShop ngày càng hoàn thiện hơn và cho ra mắt thêm nhiều sản phẩm mới. Hy vọng anh/chị luôn tin tưởng và đồng hành cùng shop trong thời gian sắp tới ạ. AEShop cám ơn rất nhiều ❣️",
 
       page: 1,
       paginate: 5,
@@ -503,11 +510,11 @@ export default {
         return str.slice(0, value) + "…";
       }
     },
-    getLimitNumber(){
+    getLimitNumber() {
       axios.get(`/get-limit-number`).then((response) => {
         this.limitNumber = response.data;
       });
-    }
+    },
   },
 };
 </script>

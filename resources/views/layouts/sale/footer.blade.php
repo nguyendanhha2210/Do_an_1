@@ -41,18 +41,18 @@
                      <div class="footer-logo">
                          <a href="#" style="font-size: 36px;
                          font-weight: 900;
-                         color: green;position: relative; width: max-content;">Fresh Mama</a>
+                         color: green;position: relative; width: max-content;">AE SHOP</a>
                          <a style="position: absolute;
                          width: max-content;
                          color: red;
                          font-weight: bold;
-                         transform: translate(-191%, 74%);
-                         font-size: 16px;">Dried Fruit</a>
+                         transform: translate(-177%, 121%);
+                         font-size: 11px;">Vua Thời Trang</a>
                      </div>
                      <ul>
-                         <li>Address : Dương Liễu, Hoài Đức, Hà Nội</li>
-                         <li>Phone : +33 6868.6868</li>
-                         <li>Email : danhha221020@gmail.com</li>
+                         <li>Address : Cổ Nhuế, Bắc Từ Niêm, Hà Nội</li>
+                         <li>Phone : 0364401091</li>
+                         <li>Email : nvnamphuong99@gmail.com</li>
                      </ul>
                      <div class="footer-social">
                          <a href="#"><i class="fa fa-facebook"></i></a>
@@ -102,8 +102,7 @@
                  <div class="col-lg-12">
                      <div class="copyright-text">
                          Bản quyền thuộc sở hữu <i class="fa fa-heart-o" aria-hidden="true"></i> của
-                         <a href="https://colorlib.com" target="_blank">Nguyễn Danh
-                             Hà</a>
+                         <a href="https://colorlib.com" target="_blank">Nguyễn Văn Phương Nam</a>
                      </div>
                      <div class="payment-pic">
                          <img src="{{ '/frontend/images/payment-method.png' }}" alt="">

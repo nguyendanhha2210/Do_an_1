@@ -34,7 +34,7 @@ class PasswordController extends Controller
             $user = User::where('email', $request->email_address)->where('role_id', RoleStateType::MANAGERMENT)->first();
 
             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-            $title_mail = "Fressh Mama xác minh đăng nhập" . ' ' . $now;
+            $title_mail = "AE Shop xác minh đăng nhập" . ' ' . $now;
 
             if ($user) {
                 $user->reset_password_token = $token;

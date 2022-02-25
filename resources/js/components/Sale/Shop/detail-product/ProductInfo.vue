@@ -127,24 +127,10 @@
           <div class="pd-share" style="transform: translate(0%, -81%)">
             <div class="p-code"><b>ID</b>: 000{{ info.id }}</div>
             <div class="pd-social">
-              <a href="https://www.facebook.com/Mekhoebexinh02"
+              <a href="https://www.facebook.com/nvnp251999"
                 ><img
                   style="width: 34px; height: 31px"
                   src="/frontend/images/fb.png"
-                  alt=""
-              /></a>
-              <a
-                href="https://www.sendo.vn/shop/fresh-mama?fbclid=IwAR3tWlCBasdebaIOqqRRh8PmPmBfPUQnIH5rXNFAcbldGHvgGPeRHn5TGn4"
-                ><img
-                  style="width: 34px; height: 31px"
-                  src="/frontend/images/sendo.png"
-                  alt=""
-              /></a>
-              <a
-                href="https://shopee.vn/shop/227054554/?fbclid=IwAR2ZW6JvJH3sC4r_YsvntvaW8NxT00HnmJ4CnEd0uAmJEbtl8Ot45VcEr1I"
-                ><img
-                  style="width: 34px; height: 31px"
-                  src="/frontend/images/shoppee.jpg"
                   alt=""
               /></a>
             </div>

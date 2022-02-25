@@ -45,7 +45,7 @@
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ route('admin.description.list') }}">Descriptions</a></li>
-                                <li><a href="{{ route('admin.weight.list') }}">Weights</a></li>
+                                <li><a href="{{ route('admin.weight.list') }}">Size</a></li>
                                 <li><a href="{{ route('admin.type.list') }}">Types</a></li>
                             </ul>
                         </li>

@@ -5,11 +5,11 @@
                 <div class="ht-left">
                     <div class="mail-service">
                         <i class=" fa fa-envelope"></i>
-                        danhha221020@gmail.com
+                        nvnamphuong99@gmail.com
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
-                        0123456789
+                        0364401091
                     </div>
                 </div>
                 <div class="ht-right">
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="top-social">
-                        <a href="https://www.facebook.com/Mekhoebexinh02"><img
+                        <a href="https://www.facebook.com/nvnp251999"><img
                                 style="width: 27px; height: 21px;transform: translate(11%, -8%);"
                                 src="{{ '/frontend/images/fb.png' }}" alt=""></a>
                     </div>
@@ -276,7 +276,7 @@
                                         <a href="{{ URL::to('sale/profile') }}"><i class="fa fa-info-circle"></i>
                                             Profile</a>
                                     @else
-                                        <a href="{{ URL::to('/register') }}"><i class="fa fa-plus"></i>
+                                        <a href="{{ URL::to('/register-form') }}"><i class="fa fa-plus"></i>
                                             Register</a>
                                     @endif
                                 </li>

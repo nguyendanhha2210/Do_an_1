@@ -36,7 +36,7 @@
                                     <th>STT</th>
                                     <th>Sản phẩm</th>
                                     <th>Mã Giảm</th>
-                                    <th>Phí Ship </th>
+                                    {{-- <th>Phí Ship </th> --}}
                                     <th>Đơn Giá</th>
                                     <th>Số lượng</th>
                                     <th>Thành tiền</th>
@@ -64,7 +64,7 @@
                                                 Không mã
                                             @endif
                                         </td>
-                                        <td>{{ number_format($details->product_feeship, 0, ',', '.') }} đ</td>
+                                        {{-- <td>{{ number_format($details->product_feeship, 0, ',', '.') }} đ</td> --}}
                                         <td>{{ number_format($details->product_price, 0, ',', '.') }} đ</td>
                                         <td>{{ $details->product_sales_quantity }} </td>
                                         <td>{{ number_format($subtotal, 0, ',', '.')}} đ</td>
@@ -88,7 +88,7 @@
                                                 
                                             @endphp
                                         @endif
-                                        Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }} đ</br>
+                                        {{-- Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }} đ</br> --}}
                                         Thanh toán: {{ number_format($total_coupon, 0, ',', '.') }} đ
                                     </td>
                                 </tr>

@@ -259,8 +259,11 @@
                             <td>{{ $shipping->email }}</td>
                             <td>{{ $shipping->shipping_notes }}</td>
                             <td>
-                            @if ($shipping->shipping_method == 0) Chuyển khoản @else
-                                    Tiền mặt @endif
+                                @if ($shipping->shipping_method == 0)
+                                    Chuyển khoản
+                                @else
+                                    Tiền mặt
+                                @endif
                             </td>
 
                         </tr>
@@ -284,7 +287,7 @@
                             <th>Tên sản phẩm</th>
                             {{-- <th>Số lượng kho còn</th> --}}
                             <th>Mã giảm giá</th>
-                            <th>Phí ship hàng</th>
+                            {{-- <th>Phí ship hàng</th> --}}
                             <th>Khối lượng đặt </th>
                             <th>Số lượng</th>
                             <th>Giá sản phẩm</th>
@@ -297,7 +300,6 @@
                             $total = 0;
                         @endphp
                         @foreach ($order_details as $key => $details)
-
                             @php
                                 $i++;
                                 $subtotal = $details->product_price * $details->product_sales_quantity;
@@ -315,8 +317,8 @@
                                         Không mã
                                     @endif
                                 </td>
-                                <td>{{ number_format($details->product_feeship, 0, ',', '.') }}đ</td>
-                                <td>{{$details->order_weight}}kg</td>
+                                {{-- <td>{{ number_format($details->product_feeship, 0, ',', '.') }}đ</td> --}}
+                                <td>{{ $details->order_weight }}kg</td>
                                 <td>
 
                                     <input type="number" min="1" style="text-align: center;border:none" readonly
@@ -330,7 +332,7 @@
 
                                     <input type="hidden" name="order_code" class="order_code"
                                         value="{{ $details->order_code }}">
-                                     
+
                                     <input type="hidden" name="order_weight" class="order_weight"
                                         value="{{ $details->order_weight }}">
 
@@ -360,7 +362,7 @@
                                     @endphp
                                 @endif
 
-                                Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }}đ</br>
+                                {{-- Phí ship : {{ number_format($details->product_feeship, 0, ',', '.') }}đ</br> --}}
                                 Thanh toán: {{ number_format($total_coupon, 0, ',', '.') }}đ
                             </td>
                         </tr>
@@ -376,7 +378,7 @@
                         @if ($order_status == 1)
                             <option value="1">Chưa xử lý</option>
                             <option value="2">Đang giao giao hàng</option>
-                        @elseif($order_status==2)
+                        @elseif($order_status == 2)
                             <option value="2">Đang giao giao hàng</option>
                             <option value="1">Chưa xử lý</option>
                         @endif

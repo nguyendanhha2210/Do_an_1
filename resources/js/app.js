@@ -31,15 +31,10 @@ import PostComponent from './components/Sale/Post/PostComponent.vue'
 import PostDetail from './components/Sale/Post/PostDetail.vue'
 import ContactComponent from './components/Sale/Contact/ContactComponent.vue'
 import ProfileComponent from './components/Sale/Profile/ProfileComponent.vue'
-import CheckoutPaypal from './components/Sale/Shop/checkout-cart/CheckoutPaypal.vue'
 import CheckoutVnpay from './components/Sale/Shop/checkout-cart/CheckoutVnpay.vue'
 import ProductSearch from './components/Sale/Shop/search-product/SearchProduct.vue'
 import SearchResult from './components/Sale/Shop/search-product/SearchResult.vue'
 import CouponComponent from './components/Sale/Coupon/CouponComponent.vue'
-
-import CheckoutOnepay from './components/Sale/Shop/checkout-cart/CheckoutOnepay.vue'
-import CheckoutMomo from './components/Sale/Shop/checkout-cart/CheckoutMomo.vue'
-
 import StepperPurchase from './components/Common/Stepper/StepperPurchase.vue'
 
 Vue.use(VueLazyload, {
@@ -92,10 +87,7 @@ new Vue({
         PostDetail,
         ContactComponent,
         ProfileComponent,
-        CheckoutPaypal,
         CheckoutVnpay,
-        CheckoutOnepay,
-        CheckoutMomo,
         ProductSearch,
         SearchResult,
         CouponComponent,

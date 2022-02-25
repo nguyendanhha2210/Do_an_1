@@ -17,7 +17,7 @@ class WeightController extends Controller
         if (!Auth::guard('admin')->check()) {
             return view('admin.users.login');
         } else {
-            $breadcrumbs = ['Weight List'];
+            $breadcrumbs = ['Size List'];
             return view('admin.weights.index', ['breadcrumbs' => $breadcrumbs]);
         }
     }

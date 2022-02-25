@@ -167,19 +167,19 @@ class OrderController extends Controller
                                 <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tbody>
                                 <tr>
-                                  <td colspan="2"><h2 style="color:#009900;padding-left:190px;">Nhà Sách MâyBook.com</h2></td>
+                                  <td colspan="2"><h2 style="color:#009900;padding-left:190px;">Cửa Hàng AE SHOP</h2></td>
                                 </tr>
                                 <tr>
                                   <td style="padding-left:300px;"><i style="font-size:17px;">Address</i></td>
-                                  <td> : Hoài Đức - Hà Nội</td>
+                                  <td> : Bắc Từ Niêm - Hà Nội</td>
                                 </tr>
                                 <tr>
                                 <td style="padding-left:300px;"><i style="font-size:17px;">Phone </td>
-                                  <td>: 0123456789</td>
+                                  <td>: 0364401091</td>
                                 </tr>
                                 <tr>
                                 <td style="padding-left:300px;"><i style="font-size:17px;">Email</td>
-                                  <td>: danhha@gmail.com</td>
+                                  <td>: nvnamphuong99@gmail.com</td>
                                 </tr>
                                     </tbody>
                                 </table></td>
@@ -266,7 +266,6 @@ class OrderController extends Controller
                           <td colspan="3" align="left"><div align="right" style="padding-right:20px;">
                     <b>Tổng tiền : ' . number_format($total, 0, ',', '.') . 'đ' . '</b> <br>
                     <b>Khuyến mãi : ' . $coupon_echo . '</b> <br>
-                          <b style="color:green;">Phí ship: ' . number_format($product->product_feeship, 0, ',', '.') . 'đ' . ' <br>
                             <b style="color:red;">Thanh toán : ' . number_format($total_coupon + $product->product_feeship, 0, ',', '.') . 'đ' . '</b></div></td>
                     </tr></table><br>
 
