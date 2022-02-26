@@ -64,7 +64,7 @@ class ShopController extends Controller
                             });
                         });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
+                })->Where('status', '=', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -87,7 +87,7 @@ class ShopController extends Controller
                             });
                         });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
+                })->Where('status', '=', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -110,7 +110,7 @@ class ShopController extends Controller
                             });
                         });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
+                })->Where('status', '=', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -133,7 +133,7 @@ class ShopController extends Controller
                             });
                         });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
+                })->Where('status', '=', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -156,7 +156,7 @@ class ShopController extends Controller
                             });
                         });
                     }
-                })->Where('status', '=', 0)->where('quantity', '>', 0)->with(['type', 'description'])
+                })->Where('status', '=', 0)->with(['type', 'description'])
                     ->whereHas('type', function ($query) {
                         $query->where('deleted_at', null);
                     })
@@ -184,7 +184,7 @@ class ShopController extends Controller
                 $query->where('deleted_at', null);
             })->orderBy('created_at', 'desc')->take(3)->get();
 
-        $product = Product::where('id', '=', $id)->where('quantity', '>', 0)
+        $product = Product::where('id', '=', $id)
             ->with(['type', 'description', 'productImages', 'weightProducts'])
             ->first();
 

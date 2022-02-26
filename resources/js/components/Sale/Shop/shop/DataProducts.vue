@@ -10,7 +10,11 @@
           style="transform: translate(10%, 23%)"
         >
           <select v-model="paginate" class="form-control text-center">
-            <option v-for="item in limitNumber" :key="item.key" :value="item.key">
+            <option
+              v-for="item in limitNumber"
+              :key="item.key"
+              :value="item.key"
+            >
               {{ item.value }}
             </option>
           </select>
@@ -24,7 +28,11 @@
             v-model="statusView"
             class="form-control w-sm inline v-middle text-center"
           >
-            <option v-for="item in sortOption" :key="item.key" :value="item.key">
+            <option
+              v-for="item in sortOption"
+              :key="item.key"
+              :value="item.key"
+            >
               {{ item.value }}
             </option>
           </select>
@@ -57,7 +65,10 @@
           :key="product.id"
         >
           <a :href="`product-detail/${product.id}`">
-            <div class="product-item" style="background-color: white">
+            <div
+              class="product-item"
+              style="background-color: white"
+            >
               <div class="pi-pic">
                 <img
                   style="height: 250px"
@@ -70,6 +81,13 @@
                   v-if="maxSold.id == product.id"
                 >
                   Best Sellers
+                </div>
+                <div
+                  class="sale pp-sale"
+                  style="background: #c0c0c0"
+                  v-else-if="product.quantity < 1"
+                >
+                  Sold Out
                 </div>
                 <div class="sale pp-sale" v-else>Sale</div>
                 <div class="icon">
@@ -214,25 +232,6 @@
                     alt=""
                   />
                 </v-zoomer>
-                <!-- <div class="product-thumbs">
-                  <div class="product-thumbs-track ps-slider owl-carousel">
-                    <div
-                      v-for="data in quickViews.product_images"
-                      :key="data.id"
-                    >
-                      <div class="pt active">
-                        <img
-                          class="product-big-img"
-                          :ref="`images${data.id}`"
-                          height="100px"
-                          :src="baseUrl + '/uploads/products/' + data.url"
-                          alt=""
-                          @click="changeImage(data.id)"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
 
               <div class="col-md-6 col-12 product_content">
@@ -482,7 +481,7 @@ export default {
       urlCancle: "",
       //Modal
       sortOption: [],
-      limitNumber:[],
+      limitNumber: [],
     };
   },
   created() {
@@ -606,11 +605,11 @@ export default {
       });
     },
 
-    getLimitNumber(){
+    getLimitNumber() {
       axios.get(`get-limit-number`).then((response) => {
         this.limitNumber = response.data;
       });
-    }
+    },
   },
 };
 </script>
