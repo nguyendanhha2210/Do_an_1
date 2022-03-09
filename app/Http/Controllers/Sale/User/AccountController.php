@@ -72,7 +72,7 @@ class AccountController extends Controller
         //         $flag = $user->save();
         //         if ($flag) {
         //             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-        //             $title_mail = "AE Shop xác minh đăng kí" . ' ' . $now;
+        //             $title_mail = "Meat Shop xác minh đăng kí" . ' ' . $now;
 
         //             Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
         //                 $message->to($request->email)->subject($title_mail);
@@ -101,7 +101,7 @@ class AccountController extends Controller
             $flag = $user->save();
             if ($flag) {
                 $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-                $title_mail = "AE Shop xác minh đăng kí" . ' ' . $now;
+                $title_mail = "Meat Shop xác minh đăng kí" . ' ' . $now;
 
                 Mail::send('sale.users.mail.confirmRegister', ['email' => $request->email], function ($message) use ($title_mail, $request) {
                     $message->to($request->email)->subject($title_mail);

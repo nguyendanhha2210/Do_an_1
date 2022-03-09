@@ -44,7 +44,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="{{ URL::to('/') }}">
-                                <img style="width: 100%;height: 24px;" src="{{ '/frontend/images/logoweb.png' }}"
+                                <img style="width: 100%;height: 31px;" src="{{ '/frontend/images/logoweb.png' }}"
                                     alt="">
                             </a>
                         </div>

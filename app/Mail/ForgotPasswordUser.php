@@ -22,7 +22,7 @@ class ForgotPasswordUser extends Mailable
     {
         $targetMail = $this->email;
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-        $title_mail = "AE Shop xác minh đăng nhập" . ' ' . $now;
+        $title_mail = "Meat Shop xác minh đăng nhập" . ' ' . $now;
 
         return $this->view('sale.users.mail.resetPassword', ['token' => $this->token, 'email' => $targetMail])->to($targetMail)->subject($title_mail);
     }

@@ -18,7 +18,7 @@
             </p>
             <div class="row" style="background: cadetblue;padding: 15px">
                 <div class="col-md-6" style="text-align: center;color: #fff;font-weight: bold;font-size: 30px">
-                    <h4 style="margin:0">AE Shop</h4>
+                    <h4 style="margin:0">Meat Shop</h4>
                     <h6 style="margin:0">Kính Chào Quý Khách - Cảm Ơn Quý Khách Vì Đã Tin Tưởng Và Ủng Hộ</h5>
                 </div>
 

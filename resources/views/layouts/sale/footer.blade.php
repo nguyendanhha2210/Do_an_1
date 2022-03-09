@@ -41,13 +41,13 @@
                      <div class="footer-logo">
                          <a href="#" style="font-size: 36px;
                          font-weight: 900;
-                         color: green;position: relative; width: max-content;">AE SHOP</a>
+                         color: green;position: relative; width: max-content;">Meat Shop</a>
                          <a style="position: absolute;
                          width: max-content;
                          color: red;
                          font-weight: bold;
                          transform: translate(-177%, 121%);
-                         font-size: 11px;">Vua Thời Trang</a>
+                         font-size: 11px;">Thịt Siêu Sạch</a>
                      </div>
                      <ul>
                          <li>Address : Cổ Nhuế, Bắc Từ Niêm, Hà Nội</li>

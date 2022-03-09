@@ -4,7 +4,7 @@
     <section class="hero-section">
         <div class="hero-items owl-carousel">
             <div class="single-hero-items set-bg" data-setbg="{{ 'frontend/images/21.jpg' }}">
-                <div class="container">
+                {{-- <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
                             <span style="color: green">Hoa Quả Sấy là thương hiệu chất lượng cao dành cho các bạn !</span>
@@ -16,10 +16,10 @@
                     <div class="off-card">
                         <h2>Sale <span>50%</span></h2>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="single-hero-items set-bg" data-setbg="{{ 'frontend/images/23.jpg' }}">
-                <div class="container">
+                {{-- <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
                             <span style="color: green">Chứa nhiều chất dinh dưỡng đặc biệt tốt cho các bà bầu và e nhỏ
@@ -32,7 +32,7 @@
                     <div class="off-card">
                         <h2>Sale <span>50%</span></h2>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -46,7 +46,7 @@
                     <div class="single-banner">
                         <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/3.jpg' }}" alt="">
                         <div class="inner-text">
-                            <h4>Men’s</h4>
+                            <h4>Thịt Tươi</h4>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="single-banner">
                         <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/4.jpg' }}" alt="">
                         <div class="inner-text">
-                            <h4>Women’s</h4>
+                            <h4>Thịt Sạch</h4>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="single-banner">
                         <img style="height:330px;" class="lazy" data-src="{{ 'frontend/images/5.jpg' }}" alt="">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
+                            <h4>Dinh Dưỡng</h4>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="product-large set-bg" data-setbg="{{ 'frontend/images/6.jpg' }}">
-                        <h2>Women’s</h2>
+                        <h2>Thịt Sạch</h2>
                         <a href="{{ URL::to('/shop') }}">Discover More</a>
                     </div>
                 </div>
@@ -144,17 +144,17 @@
                                             </a>
                                             <div style="color: red; transform: translate(-27%, 53%)">
                                                 <u style="
-                                                                                          font-size: 13px;
-                                                                                          display: -webkit-inline-box;
-                                                                                          transform: translate(0%, -13%);
-                                                                                        ">đ</u>
+                                                                                              font-size: 13px;
+                                                                                              display: -webkit-inline-box;
+                                                                                              transform: translate(0%, -13%);
+                                                                                            ">đ</u>
                                                 <span style="font-size: 19px">{{ number_format($key->price) }}</span>
                                             </div>
                                             <div class="da-ban" style="
-                                                                                        transform: translate(32%, -47%);
-                                                                                        font-size: 14px;
-                                                                                        color: dimgray;
-                                                                                      ">
+                                                                                            transform: translate(32%, -47%);
+                                                                                            font-size: 14px;
+                                                                                            color: dimgray;
+                                                                                          ">
                                                 <span>Đã bán {{ $key->product_sold }}</span>
                                             </div>
                                         </div>
@@ -265,17 +265,17 @@
                                             </a>
                                             <div style="color: red; transform: translate(-27%, 53%)">
                                                 <u style="
-                                                                                          font-size: 13px;
-                                                                                          display: -webkit-inline-box;
-                                                                                          transform: translate(0%, -13%);
-                                                                                        ">đ</u>
+                                                                                              font-size: 13px;
+                                                                                              display: -webkit-inline-box;
+                                                                                              transform: translate(0%, -13%);
+                                                                                            ">đ</u>
                                                 <span style="font-size: 19px">{{ number_format($key->price) }}</span>
                                             </div>
                                             <div class="da-ban" style="
-                                                                                        transform: translate(32%, -47%);
-                                                                                        font-size: 14px;
-                                                                                        color: dimgray;
-                                                                                      ">
+                                                                                            transform: translate(32%, -47%);
+                                                                                            font-size: 14px;
+                                                                                            color: dimgray;
+                                                                                          ">
                                                 <span>Đã bán {{ $key->product_sold }}</span>
                                             </div>
                                         </div>
@@ -287,7 +287,7 @@
                 </div>
                 <div class="col-lg-3 offset-lg-1">
                     <div class="product-large set-bg m-large" data-setbg="{{ 'frontend/images/9.jpg' }}">
-                        <h2>Men’s</h2>
+                        <h2>Thịt Tươi</h2>
                         <a href="{{ URL::to('/shop') }}">Discover More</a>
                     </div>
                 </div>
@@ -352,7 +352,7 @@
                             </a>
 
                             <div class="latest-text" style="padding-left: 16px;
-                                                                        padding-bottom: 5px;">
+                                                                            padding-bottom: 5px;">
                                 <div class="tag-list">
                                     <div class="tag-item">
                                         <i class="fa fa-calendar-o"></i>
@@ -366,24 +366,24 @@
 
                                 <a href="{{ URL::to('blog/' . $key->id . '/detail') }}">
                                     <h4 style="
+                                                                            width:339px;
+                                                                            white-space: pre-wrap;
+                                                                            overflow: hidden;
+                                                                            text-overflow: ellipsis;
+                                                                            -webkit-line-clamp: 1;
+                                                                            -webkit-box-orient: vertical;
+                                                                             display: -webkit-box;
+                                                                             ">{{ $key->title }}</h4>
+                                </a>
+                                <p style="
                                                                         width:339px;
                                                                         white-space: pre-wrap;
                                                                         overflow: hidden;
                                                                         text-overflow: ellipsis;
-                                                                        -webkit-line-clamp: 1;
+                                                                        -webkit-line-clamp: 2;
                                                                         -webkit-box-orient: vertical;
                                                                          display: -webkit-box;
-                                                                         ">{{ $key->title }}</h4>
-                                </a>
-                                <p style="
-                                                                    width:339px;
-                                                                    white-space: pre-wrap;
-                                                                    overflow: hidden;
-                                                                    text-overflow: ellipsis;
-                                                                    -webkit-line-clamp: 2;
-                                                                    -webkit-box-orient: vertical;
-                                                                     display: -webkit-box;
-                                                                     ">{{ $key->content }}</p>
+                                                                         ">{{ $key->content }}</p>
                             </div>
                         </div>
                     </div>

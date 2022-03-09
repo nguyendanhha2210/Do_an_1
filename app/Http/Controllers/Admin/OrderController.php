@@ -167,7 +167,7 @@ class OrderController extends Controller
                                 <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tbody>
                                 <tr>
-                                  <td colspan="2"><h2 style="color:#009900;padding-left:190px;">Cửa Hàng AE SHOP</h2></td>
+                                  <td colspan="2"><h2 style="color:#009900;padding-left:190px;">Cửa Hàng Meat Shop</h2></td>
                                 </tr>
                                 <tr>
                                   <td style="padding-left:300px;"><i style="font-size:17px;">Address</i></td>

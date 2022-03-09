@@ -50,7 +50,7 @@ return [
             'host' => env('MAIL_HOST', 'smtp.googlemail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME','danhha221020@gmail.com'),
+            'username' => env('MAIL_USERNAME','nvnamphuong99@gmail.com'),
             'password' => env('MAIL_PASSWORD','bwdzlhuwezapcojv'),
             'timeout' => null,
             'auth_mode' => null,
@@ -95,8 +95,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'danhha221020@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'AE Shop'),
+        'address' => env('MAIL_FROM_ADDRESS', 'nvnamphuong99@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Meat Shop'),
     ],
 
     /*
