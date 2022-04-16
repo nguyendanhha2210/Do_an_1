@@ -169,7 +169,7 @@ class ShopController extends Controller
             $maxSold = Product::where('status', '=', 0)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
 
             return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -304,7 +304,7 @@ class ShopController extends Controller
                 })->take(12)->get();
 
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -325,7 +325,7 @@ class ShopController extends Controller
                 })->orderBy('price', 'asc')->take(8)->get();
 
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -430,8 +430,13 @@ class ShopController extends Controller
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
+
+            $maxSold = Product::Where('status', '=', StatusSale::UP)->where('type_id', '=', $id)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
+
+            return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
+
             return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -537,14 +542,15 @@ class ShopController extends Controller
                     })
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
-            return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
+
+            $maxSold = Product::Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
+            return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
 
     //Show view Weight product
-
     public function chooseWeight($id)
     {
         $breadcrumbs = [
@@ -580,7 +586,7 @@ class ShopController extends Controller
             $search = $request->search;
             $statusView = $request->statusView;
 
-            if ($statusView == SortByOption::new ) {
+            if ($statusView == SortByOption::NEWS) {
                 $products = Product::where(function ($q) use ($search) {
                     if ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
@@ -737,8 +743,9 @@ class ShopController extends Controller
                     ->orderBy('name', 'desc')->paginate($paginate);
             }
 
-            return response()->json($products, StatusCode::OK);
-        } catch (\Exception$e) {
+            $maxSold = Product::Where('status', '=', StatusSale::UP)->where('description_id', '=', $id)->where('quantity', '>', 0)->orderBy('product_sold', 'desc')->get(); //Lấy ra sp bán dc nhiều nhất
+            return response()->json(["products" => $products, "maxSold" => $maxSold[0]], StatusCode::OK);
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -759,7 +766,7 @@ class ShopController extends Controller
 
                 return response()->json(["weightProductMax" => $weightProductMax, "weightProductMin" => $weightProductMin, 'priceWeightProduct' => $priceWeightProduct], StatusCode::OK);
             }
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
@@ -769,13 +776,13 @@ class ShopController extends Controller
         try {
             $weightProduct = WeightProduct::find($request->id);
             return response()->json($weightProduct, StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], StatusCode::NOT_FOUND);
         }
     }
 
     //Show Accessory shop
-    
+
     public function getAccessory(Request $request, $id)
     {
         try {
@@ -788,7 +795,7 @@ class ShopController extends Controller
                 ->take(6)->orderBy('price', 'asc')->get();
 
             return response()->json($productAccessory, StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -805,7 +812,7 @@ class ShopController extends Controller
                     $query->orWhereDate('end_date', '>=', now());
                 })->orderBy('created_at', 'desc')->get();
             return response()->json(["couponStores" => $couponStores], StatusCode::OK);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
         }
     }
@@ -821,7 +828,7 @@ class ShopController extends Controller
                 $userCoupon->statusUse = StatusCoupon::SAVE;
                 $userCoupon->update();
                 return response()->json(StatusCode::OK);
-            } catch (\Exception$e) {
+            } catch (\Exception $e) {
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }
@@ -839,7 +846,7 @@ class ShopController extends Controller
                     $query->where('coupon_time', '>', 0);
                 })->get();
                 return response()->json(["userCoupons" => $userCoupons], StatusCode::OK);
-            } catch (\Exception$e) {
+            } catch (\Exception $e) {
                 return response()->json($e->getMessage(), StatusCode::INTERNAL_ERR);
             }
         }

@@ -65,10 +65,7 @@
           :key="product.id"
         >
           <a :href="`product-detail/${product.id}`">
-            <div
-              class="product-item"
-              style="background-color: white"
-            >
+            <div class="product-item" style="background-color: white">
               <div class="pi-pic">
                 <img
                   style="height: 250px"
@@ -90,20 +87,7 @@
                   Sold Out
                 </div>
                 <div class="sale pp-sale" v-else>Sale</div>
-                <div class="icon">
-                  <a class="btn btn-default" @click="addFavorite(product)"
-                    ><i
-                      class="icon_heart_alt"
-                      style="color: red; font-size: 22px"
-                    ></i
-                  ></a>
-                </div>
                 <ul>
-                  <!-- <li class="w-icon active">
-                  <a @click="addCartProduct(product)" href="#"
-                    ><i class="fa fa-shopping-basket"></i
-                  ></a>
-                </li> -->
                   <li class="quick-view">
                     <a
                       type="button"
@@ -115,11 +99,6 @@
                       >+ Quick View</a
                     >
                   </li>
-
-                  <!-- <li class="w-icon">
-                  <a :href="`product-detail/${product.id}`"><i class="fa fa-eye"></i
-                  ></a>
-                </li> -->
                 </ul>
               </div>
               <div
